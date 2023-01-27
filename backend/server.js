@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
     res.json({ mess: 'main' })
 })
 app.use('/api/user', userRoutes)
-app.use('/api/users', userRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
