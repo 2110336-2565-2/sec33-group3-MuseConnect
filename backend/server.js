@@ -8,18 +8,21 @@ const userRoutes = require('./routes/user')
 const app = express()
 
 // middleware
+app.use(express.json())
+
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
 })
 
 // routes
-app.use(express.json())
 app.get('/', (req, res) => {
     res.json({ mess: 'main' })
 })
 app.use('/api/user', userRoutes)
 
+// connect to database
+mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         // listen for requests
