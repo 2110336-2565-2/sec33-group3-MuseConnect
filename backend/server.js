@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
 // routes
 app.get('/', (req, res) => {
-    res.json({ mess: 'main' })
+    res.json({ mess: 'main!' })
 })
 app.use('/api/user', userRoutes)
 
