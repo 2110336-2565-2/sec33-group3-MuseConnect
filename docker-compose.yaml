@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  server:
+    build: ./backend
+    container_name: muse_connect_backend
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend:/app
+      - ./app/node_modules
