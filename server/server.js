@@ -3,6 +3,10 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user')
+const adminRoutes = require('./routes/admin')
+const portfolioRoutes = require('./routes/portfolio')
+const musicianRoutes = require('./routes/musician')
+const organizerRoutes = require('./routes/organizer')
 
 // express app
 const app = express()
@@ -20,6 +24,10 @@ app.get('/', (req, res) => {
     res.json({ mess: 'main!' })
 })
 app.use('/api/user', userRoutes)
+app.use('/api/admin', adminRoutes)
+app.use('/api/portfolio', portfolioRoutes)
+app.use('/api/musician', musicianRoutes)
+app.use('/api/organizer', organizerRoutes)
 
 // connect to database
 mongoose.set("strictQuery", false);
