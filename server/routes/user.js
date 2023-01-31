@@ -5,7 +5,7 @@ const {
     signupUser,
     loginUser,
     getUser,
-    putUser,
+    updateUser,
     deleteUser
 } = require('../controllers/userController')
 
@@ -24,7 +24,7 @@ router.post('/signup', signupUser)
 router.get('/:id', getUser)
 
 //put route
-router.put('/:id', putUser)
+router.put('/:id', updateUser)
 
 //delete route
 router.delete('/:id', deleteUser)
