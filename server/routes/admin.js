@@ -7,7 +7,9 @@ const {
     updateAdmin,
     deleteAdmin
 } = require('../controllers/adminController')
+const requireAuth = require('../middleware/requireAuth')
 
+router.use(requireAuth)
 
 // get route
 router.get('/:id', getAdmin)

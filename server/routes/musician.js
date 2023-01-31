@@ -8,10 +8,12 @@ const {
     updateMusician,
     deleteMusician
 } = require('../controllers/musicianController')
+const requireAuth = require('../middleware/requireAuth')
 
+router.use(requireAuth)
 
 // get route
-router.get('/:id', getMusicians)
+router.get('/', getMusicians)
 
 // get routes
 router.get('/:id', getMusician)

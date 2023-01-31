@@ -37,17 +37,17 @@ const signupUser = async (req, res) => {
     }
 }
 
-//get a user
+// get a user
 const getUser = async (req, res) => {
     res.status(200).json({success:true, msg:'Show a user'});
 }
 
-//edit a user
+// edit a user
 const putUser = async (req, res) => {
     res.status(200).json({success:true, msg:'edit a user'});
 }
 
-//delete a user
+// delete a user
 const deleteUser = async (req, res) => {
     res.status(200).json({success:true, msg:'delete a user'});
 }

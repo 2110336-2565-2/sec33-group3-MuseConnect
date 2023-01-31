@@ -8,9 +8,12 @@ const {
     updatePortfolio,
     deletePortfolio
 } = require('../controllers/portfolioController')
+const requireAuth = require('../middleware/requireAuth')
+
+router.use(requireAuth)
 
 // get M route
-router.get('/:id', getPortfolios)
+router.get('/', getPortfolios)
 
 // get route
 router.get('/musician/:id', getPortfolio)

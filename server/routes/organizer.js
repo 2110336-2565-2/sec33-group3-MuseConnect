@@ -8,10 +8,12 @@ const {
     updateOrganizer,
     deleteOrganizer
 } = require('../controllers/organizerController')
+const requireAuth = require('../middleware/requireAuth')
 
+router.use(requireAuth)
 
 // get route
-router.get('/:id', getOrganizers)
+router.get('/', getOrganizers)
 
 // get routes
 router.get('/:id', getOrganizer)
