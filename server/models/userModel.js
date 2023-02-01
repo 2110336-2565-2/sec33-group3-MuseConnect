@@ -18,55 +18,67 @@ const userSchema = mongoose.Schema({
   },
   last_name: {
     type: String,
-    require: true,
+    required: true,
   },
   phone_number: {
     type: String,
-    require: true,
+    required: true,
   },
-  portfolio: {
-    type: Schema.Types.ObjectId,
+  role: {
+    type: String,
+    enum: ["Admin", "Musician", "Organizer"],
+    required: true,
   },
+  //   portfolio: {
+  //     type: mongoose.ObjectId,
+  //   },
   specialization: {
     type: [String],
+    default: null,
   },
-  price_min:{
+  price_min: {
     type: Number,
-    min : 0
+    min: 0,
+    default: null,
   },
-  price_max:{
+  price_max: {
     type: Number,
-    min : 0
+    min: 0,
+    default: null,
   },
-  status:{
+  status: {
     type: String,
-    enum : ['BUSY','AVAILABLE']
+    enum: ["BUSY", "AVAILABLE", null],
+    default: null,
   },
-  location:{
-    type: String
+  location: {
+    type: String,
+    default: null,
   },
-  preference:{
-    type: String
+  preference: {
+    type: String,
+    default: null,
   },
-  wage:{
+  wage: {
     type: Number,
-    min : 0
-  }
+    min: 0,
+    default: null,
+  },
 });
 
 const portfolio_schema = mongoose.Schema({
-    user_id:{
-        type: Schema.Types.ObjectId,
-        ref: 'userSchema',
-        require : true
-    },
-    profile_picture:{
-        data: Buffer,
-        contentType: String
-    },
-    link:{
-        type:String
-    }
+  user_id: {
+    type: mongoose.ObjectId,
+    ref: "userSchema",
+    require: true,
+  },
+  profile_picture: {
+    data: Buffer,
+    contentType: String,
+  },
+  link: {
+    type: String,
+  },
 });
 
 // static signup method
@@ -82,16 +94,18 @@ userSchema.statics.signup = async function (email, password) {
     throw Error("Password not strong enough");
   }
 
-    // validation
-    if (!email || !password) {
-        throw Error('All fields must be filled')
-    }
-    if (!validator.isEmail(email)) {
-        throw Error('Email Invalid')
-    }
-    if (!validator.isStrongPassword(password)) {
-        throw Error('Password not strong enough')
-    }
+  // validation
+  if (!email || !password) {
+    throw Error("All fields must be filled");
+  }
+  if (!validator.isEmail(email)) {
+    throw Error("Email Invalid");
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw Error("Password not strong enough");
+  }
+
+  const exists = await this.findOne({ email });
 
   if (exists) {
     throw Error("Email already in use");
@@ -99,9 +113,15 @@ userSchema.statics.signup = async function (email, password) {
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
-
-  const user = await this.create({ email, password: hash });
-
+  // for api testing
+  const user = await this.create({
+    email,
+    password: hash,
+    first_name: "anonymous",
+    last_name: "surname",
+    phone_number: "000-000-0000",
+    role: "Admin",
+  });
   return user;
 };
 
@@ -112,13 +132,10 @@ userSchema.statics.login = async function (email, password) {
     throw Error("All fields must be filled");
   }
 
-    // validation
-    if (!email) {
-        throw Error('Email must be filled')
-    }
-    if (!password) {
-        throw Error('Password must be filled')
-    }
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Incorrect email");
+  }
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
