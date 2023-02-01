@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 
 /*
-Use requireAuth in the routers that require authentication
+[Use requireAuth in the routers that require authentication] for routes protection
 Example:
 '''
 const router = express.Router()
