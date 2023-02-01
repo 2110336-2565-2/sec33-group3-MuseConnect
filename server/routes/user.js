@@ -20,6 +20,7 @@ router.post('/login', loginUser)
 // signup route
 router.post('/signup', signupUser)
 
+
 //get route
 router.get('/:id', getUser)
 
