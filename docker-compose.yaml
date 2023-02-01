@@ -1,24 +1,26 @@
 version: "3.8"
 services:
-  mongo_db:
-    container_name: muse_connect_db
-    image: mongo:latest
-    restart: always
-    volumes:
-      - mongo_db:/data/db
+  # mongo_db:
+  #   container_name: muse_connect_db
+  #   image: mongo:latest
+  #   restart: always
+  #   ports:
+  #     - '27017:27017'
+  #   volumes:
+  #     - mongo_db:/data/db
 
   server:
     build: ./server
     container_name: muse_connect_backend
     ports:
       - '4000:4000'
-    environment:
-      MONGO_URI: mongodb://mongo_db:27017/museconnectdb
-    depends_on:
-      - mongo_db
+    # environment:
+    #   MONGO_URI: mongodb://mongo_db:27017
+    # depends_on:
+    #   - mongo_db
     volumes:
       - ./server:/app
       - /app/node_modules
 
-volumes:
-  mongo_db: {}
+# volumes:
+#   mongo_db: {}
