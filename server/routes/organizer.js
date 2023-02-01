@@ -12,19 +12,19 @@ const requireAuth = require('../middleware/requireAuth')
 
 router.use(requireAuth)
 
-// get route
+// get organizers
 router.get('/', getOrganizers)
 
-// get routes
+// get an organizer
 router.get('/:id', getOrganizer)
 
-// create route
+// create organizer
 router.post('/', createOrganizer)
 
-//update route
+// update organizer
 router.put('/:id', updateOrganizer)
 
-//delete route
+// delete organizer
 router.delete('/:id', deleteOrganizer)
 
 module.exports = router

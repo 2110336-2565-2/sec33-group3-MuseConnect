@@ -12,19 +12,19 @@ const requireAuth = require('../middleware/requireAuth')
 
 router.use(requireAuth)
 
-// get M route
+// get portfolios
 router.get('/', getPortfolios)
 
-// get route
+// get a portfolio
 router.get('/musician/:id', getPortfolio)
 
-// post route
+// post portfolio
 router.post('/:id', createPortfolio)
 
-//put route
+// put portfolio
 router.put('/:id', updatePortfolio)
 
-//delete route
+// delete portfolio
 router.delete('/:id', deletePortfolio)
 
 module.exports = router

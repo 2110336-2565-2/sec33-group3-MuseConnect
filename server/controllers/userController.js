@@ -46,7 +46,7 @@ const getUser = async (req, res) => {
   const id = req.params.id;
   try {
     if (!mongoose.isValidObjectId(id)) {
-      throw Error("Invalid User_Id");
+      throw Error("Invalid Id");
     }
     const user = await User.findById(id);
     res.status(200).json(user);
@@ -62,7 +62,7 @@ const updateUser = async (req, res) => {
 
   try {
     if (!mongoose.isValidObjectId(id)) {
-      throw Error("Invalid User_Id");
+      throw Error("Invalid Id");
     }
     // check email
     if (typeof email !== "undefined") {
@@ -100,7 +100,7 @@ const deleteUser = async (req, res) => {
   const id = req.params.id;
   try {
     if (!mongoose.isValidObjectId(id)) {
-      throw Error("Invalid User_Id");
+      throw Error("Invalid Id");
     }
     const user = await User.findByIdAndDelete(id)
     res.status(200).json(user);

@@ -1,32 +1,32 @@
-const router = require('express').Router()
+const router = require("express").Router();
 
 // controller functions
 const {
-    signupUser,
-    loginUser,
-    getUser,
-    updateUser,
-    deleteUser
-} = require('../controllers/userController')
+  signupUser,
+  loginUser,
+  getUser,
+  updateUser,
+  deleteUser,
+} = require("../controllers/userController");
 
 // GET all users
-router.get('/', (req, res) => {
-    res.json({mssg: 'GET all users'})
-})
+router.get("/", (req, res) => {
+  res.json({ mssg: "GET all users" });
+});
 
 // login route
-router.post('/login', loginUser)
+router.post("/login", loginUser);
 
 // signup route
-router.post('/signup', signupUser)
+router.post("/signup", signupUser);
 
-//get route
-router.get('/:id', getUser)
+// get user
+router.get("/:id", getUser);
 
-//put route
-router.put('/:id', updateUser)
+// put user
+router.put("/:id", updateUser);
 
-//delete route
-router.delete('/:id', deleteUser)
+// delete user
+router.delete("/:id", deleteUser);
 
-module.exports = router
+module.exports = router;

@@ -11,16 +11,16 @@ const requireAuth = require('../middleware/requireAuth')
 
 router.use(requireAuth)
 
-// get route
+// get an admin
 router.get('/:id', getAdmin)
 
-// create route
+// create admin
 router.post('/:id', createAdmin)
 
-//update route
+// update admin
 router.put('/:id', updateAdmin)
 
-//delete route
+// delete admin
 router.delete('/:id', deleteAdmin)
 
 module.exports = router

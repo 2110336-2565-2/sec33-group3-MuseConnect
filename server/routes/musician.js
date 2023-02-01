@@ -12,19 +12,19 @@ const requireAuth = require('../middleware/requireAuth')
 
 router.use(requireAuth)
 
-// get route
+// get musicians
 router.get('/', getMusicians)
 
-// get routes
+// get a musician
 router.get('/:id', getMusician)
 
-// create route
+// create musician
 router.post('/', createMusician)
 
-//update route
+// update musician
 router.put('/:id', updateMusician)
 
-//delete route
+// delete musician
 router.delete('/:id', deleteMusician)
 
 module.exports = router
