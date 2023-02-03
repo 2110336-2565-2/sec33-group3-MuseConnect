@@ -1,7 +1,7 @@
 
 //import type { NextPage } from 'next'
 import Head from 'next/head'
-import SignupForm from '../components/signup'
+import SignupForm from '../components/signup.tsx'
 
 export default function Signup() {
   return (

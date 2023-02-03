@@ -8,7 +8,7 @@ interface Values {
 
 export default function SignupForm() {
     return (
-      <div className={styles.signup_box + ' p-3'}>
+      <div>
         <h1 className="display-6 mb-3">Sign up</h1>
         <Formik
           initialValues={{
