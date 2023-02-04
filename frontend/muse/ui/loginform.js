@@ -1,20 +1,19 @@
 'use client'
 import { Formik, Field, Form } from 'formik';
+import { useState } from 'react';
 import Link from 'next/link'
+
 //-----------------
 import { createContext } from 'react'
 const Context = createContext()
-//-----------------
-// If you find an error from this file, it's probably that you haven't installed
-// formik. Please use 'npm install formik --save' command to install.
-export default function LoginForm() {
+
+export default function SignupForm() {
     return (
         <div>
         <h1>Muse Connect</h1>
         <h3>Find your new music experiences here.</h3>
         <Formik
-        initialValues={{email: '', password:'', firstname:'', 
-                        lastname:'', type:''}}
+        initialValues={{email: '', password:''}}
 
         onSubmit={(values, actions) => {
             setTimeout(() => {
@@ -25,6 +24,7 @@ export default function LoginForm() {
         >
         {props => (
             <form onSubmit={props.handleSubmit}>
+                {/* Email */}
                 <div>
                     <p>Email</p>
                     <input
@@ -35,46 +35,23 @@ export default function LoginForm() {
                         name="email"
                     />
                 </div>
-
+                {/* Password */}
                 <div>
                     <p>Create a password</p>
                     <input
-                        type="text"
+                        type="password"
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
                         value={props.values.password}
                         name="password"
                     />
                 </div>
-            
-                <div>
-                    <p>Name</p>
-                    <input
-                        type="text"
-                        onChange={props.handleChange}
-                        onBlur={props.handleBlur}
-                        value={props.values.firstname}
-                        name="firstname"
-                    />
-                </div>
-
-                <div>
-                    <p>Last name</p>
-                    <input
-                        type="text"
-                        onChange={props.handleChange}
-                        onBlur={props.handleBlur}
-                        value={props.values.lastname}
-                        name="lastname"
-                    />
-                </div>
-
-            {/* {props.errors.email && <div id="feedback">{props.errors.email}</div>} */}
+                
             <div>
-                <button type="submit">Sign up</button>
+                <button type="submit">Log in</button>
             </div>
             <div>
-                <p>Have an account? <Link href="/Signup">Sign in</Link></p>
+                <p>Don't have an account? <Link href="/Signup">Sign up</Link></p>
             </div>
             </form>
         )}
