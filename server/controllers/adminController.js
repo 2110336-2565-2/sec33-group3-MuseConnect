@@ -8,7 +8,7 @@ const getAdmin = async (req, res) => {
       throw Error("Invalid Id");
     }
     const admin = await User.findById(id);
-    if (admin.role !== "Admin") {
+    if (admin.role !== "ADMIN") {
       throw Error("Not admin account");
     }
     res.status(200).json(admin);
