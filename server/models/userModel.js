@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["Admin", "Musician", "Organizer"],
+    enum: ["ADMIN", "MUSICIAN", "ORGANIZER"],
     required: true,
   },
   //   portfolio: {
@@ -66,20 +66,6 @@ const userSchema = mongoose.Schema({
   },
 });
 
-const portfolio_schema = mongoose.Schema({
-  user_id: {
-    type: mongoose.ObjectId,
-    ref: "userSchema",
-    require: true,
-  },
-  profile_picture: {
-    data: Buffer,
-    contentType: String,
-  },
-  link: {
-    type: String,
-  },
-});
 
 // static signup method
 userSchema.statics.signup = async function (email, password) {
