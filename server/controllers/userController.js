@@ -27,10 +27,16 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, first_name, last_name, phone_number, role } =
+    req.body;
 
   try {
-    const user = await User.signup(email, password);
+    const user = await User.signup(email, password, {
+      first_name,
+      last_name,
+      phone_number,
+      role,
+    });
 
     // create a token
     const token = createToken(user._id);
@@ -49,6 +55,7 @@ const getUser = async (req, res) => {
       throw Error("Invalid Id");
     }
     const user = await User.findById(id);
+    console.log(user.wage);
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -59,7 +66,6 @@ const getUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const id = req.params.id;
   const { email, password } = req.body;
-
   try {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
@@ -85,11 +91,13 @@ const updateUser = async (req, res) => {
       const hash = await bcrypt.hash(password, salt);
       req.body.password = hash;
     }
-
-    const user = await User.findByIdAndUpdate(id, req.body, {
+    // validation update field
+    const user = User.findById(id);
+    // update user
+    const new_user = await User.findByIdAndUpdate(id, req.body, {
       returnDocument: "after",
     });
-    res.status(200).json(user);
+    res.status(200).json(new_user);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -102,7 +110,7 @@ const deleteUser = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
     }
-    const user = await User.findByIdAndDelete(id)
+    const user = await User.findByIdAndDelete(id);
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
