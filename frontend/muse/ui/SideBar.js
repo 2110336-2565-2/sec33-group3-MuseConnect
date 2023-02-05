@@ -17,7 +17,7 @@ export default function SideBar({ children }) {
             <body>
                 <div>
                 <Button variant="primary" onClick={handleShow}>
-                    Toggle static offcanvas
+                    Open
                 </Button>
                 <Offcanvas show={show} onHide={handleClose} backdrop="static">
                     <Offcanvas.Header closeButton>
@@ -27,12 +27,12 @@ export default function SideBar({ children }) {
                         <div className="d-grid gap-2">
                             <Link href= "/profile">
                                 <Button variant="primary" size="lg">
-                                    Profile
+                                    Home
                                 </Button>
                             </Link>
                             <Link href= "/">
                                 <Button variant="primary" size="lg">
-                                    Home
+                                    Profile
                                 </Button>
                             </Link>
                         </div>
