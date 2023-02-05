@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-const requireAuth = require('./middleware/requireAuth');
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
