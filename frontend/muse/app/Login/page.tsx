@@ -1,16 +1,17 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import SignupForm from '../../ui/signupform'
+import LoginForm from '../../ui/loginform'
+//import './global.css'
 
 const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Sign up Page</title>
+        <title>Login Page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <SignupForm/>
+        <LoginForm/>
       </main>
     </div>
   )

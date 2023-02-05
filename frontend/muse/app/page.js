@@ -9,7 +9,9 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
         <body>
-          <SideBar/>
+          {/* <SideBar/> */}
+          {/* There is a conflict with SideBar from './ui/SideBar', I will try to solve this later */}
+          <Link href="/Signup">Sign up page</Link>
         </body>
   )
 }
