@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
+
 // get admin
 const getAdmin = async (req, res) => {
   const id = req.params.id;

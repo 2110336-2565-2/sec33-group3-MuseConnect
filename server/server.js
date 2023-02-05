@@ -23,7 +23,8 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.json({ mess: "main!" });
 });
-app.use("/api/user", userRoutes);
+app.use("/api", userRoutes.urouter);
+app.use("/api/user", userRoutes.router);
 app.use("/api/admin", adminRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/musician", musicianRoutes);
