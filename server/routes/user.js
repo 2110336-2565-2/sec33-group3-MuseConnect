@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const urouter = require("express").Router();
 
 // controller functions
 const {
@@ -12,16 +11,6 @@ const {
 
 const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)
-
-// default for urouters
-urouter.get("/", (req, res) => {
-  res.json({ mssg: "Urouter default" });
-});
-// login route
-urouter.post("/login", loginUser);
-
-// signup route
-urouter.post("/signup", signupUser);
 
 // GET all users
 router.get("/", (req, res) => {
@@ -37,7 +26,4 @@ router.put("/:id", updateUser);
 // delete user
 router.delete("/:id", deleteUser);
 
-module.exports = {
-  router,
-  urouter
-}
+module.exports = router

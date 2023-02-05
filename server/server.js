@@ -2,6 +2,11 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+const requireAuth = require('./middleware/requireAuth');
+const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
 const portfolioRoutes = require("./routes/portfolio");
@@ -12,7 +17,9 @@ const organizerRoutes = require("./routes/organizer");
 const app = express();
 
 // middleware
+app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -23,8 +30,8 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.json({ mess: "main!" });
 });
-app.use("/api", userRoutes.urouter);
-app.use("/api/user", userRoutes.router);
+app.use("/api", authRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/musician", musicianRoutes);
