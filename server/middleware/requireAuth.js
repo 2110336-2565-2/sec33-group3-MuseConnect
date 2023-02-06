@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/userModel')
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
 /*
 [Use requireAuth in the routers that require authentication] for routes protection
@@ -27,10 +27,6 @@ const requireAuth = async (req, res, next) => {
         
         req.user = await User.findById(id);
         next()
-
-    } catch (error) {
-        console.log(error)
-        res.status(401).json({ error: 'Request is not authorized' })
     }
 }
 

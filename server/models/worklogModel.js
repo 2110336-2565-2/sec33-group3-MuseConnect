@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const worklogSchema = mongoose.Schema({
   user_id: {
@@ -15,8 +15,8 @@ const worklogSchema = mongoose.Schema({
   },
   detail: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 
-module.exports = mongoose.model('worklog', worklogSchema)
+module.exports = mongoose.model("worklog", worklogSchema);
