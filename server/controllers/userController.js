@@ -1,13 +1,9 @@
 require("dotenv").config();
 const User = require("../models/userModel");
-const jwt = require("jsonwebtoken");
+const {sendTokenResponse, authorize} = require("../middleware/auth");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const mongoose = require("mongoose");
-
-const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE});
-};
 
 // login a user
 const loginUser = async (req, res) => {
@@ -16,10 +12,7 @@ const loginUser = async (req, res) => {
   try {
     const user = await User.login(email, password);
 
-    // create a token
-    const token = createToken(user._id);
-
-    res.status(200).json({ email, token });
+    sendTokenResponse(user, 200, res);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -27,12 +20,12 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const { 
-    email, 
-    password, 
-    first_name, 
-    last_name, 
-    phone_number, 
+  const {
+    email,
+    password,
+    first_name,
+    last_name,
+    phone_number,
     role
   } = req.body;
 
@@ -44,10 +37,7 @@ const signupUser = async (req, res) => {
       role,
     });
 
-    // create a token
-    const token = createToken(user._id);
-
-    res.status(200).json({ email, token });
+    sendTokenResponse(user, 200, res);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -60,8 +50,10 @@ const getUser = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
     }
+
     const user = await User.findById(id);
     console.log(user.wage);
+
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -76,6 +68,7 @@ const updateUser = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
     }
+
     // check email
     if (typeof email !== "undefined") {
       const exists = await User.findOne({ email });
@@ -92,13 +85,16 @@ const updateUser = async (req, res) => {
       if (!validator.isStrongPassword(password)) {
         throw Error("Password not strong enough");
       }
+      
       console.log(`change password to ${password}`);
       const salt = await bcrypt.genSalt(10);
       const hash = await bcrypt.hash(password, salt);
       req.body.password = hash;
     }
+
     // validation update field
     const user = User.findById(id);
+
     // update user
     const new_user = await User.findByIdAndUpdate(id, req.body, {
       returnDocument: "after",
