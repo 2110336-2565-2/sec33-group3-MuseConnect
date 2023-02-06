@@ -8,6 +8,7 @@ const getPortfolios = async (req, res) => {
       .sort(req.body.sort)
       .skip(p * m)
       .limit(m);
+
     res.status(200).json({ result: portfolios });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -21,10 +22,12 @@ const getPortfolio = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
     }
+
     const portfolio = await Worklog.findById(id);
     if (portfolio.user_id !== req.body.user_id) {
       throw Error("Invalid User Id");
     }
+    
     res.status(200).json(portfolio);
   } catch (error) {
     res.status(400).json({ error: error.message });

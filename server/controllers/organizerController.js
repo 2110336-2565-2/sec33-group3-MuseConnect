@@ -9,6 +9,7 @@ const getOrganizers = async (req, res) => {
       .sort(req.body.sort)
       .skip(p * m)
       .limit(m);
+
     res.status(200).json({ result: organizers });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -22,10 +23,12 @@ const getOrganizer = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
     }
+
     const organizer = await User.findById(id);
     if (organizer.role !== "ORGANIZER") {
       throw Error("Not organizer account");
     }
+    
     res.status(200).json(organizer);
   } catch (error) {
     res.status(400).json({ error: error.message });
