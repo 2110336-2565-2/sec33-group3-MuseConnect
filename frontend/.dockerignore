@@ -1,4 +1,4 @@
-node_modules
+muse/node_modules
 Dockerfile
 .dockerignore
 .git
