@@ -8137,14 +8137,14 @@
     font-size: 14px;
     line-height: 1.8;
     font-weight: normal;
-    background: #fafafa;
-    color: gray; }
+    background-image: url(https://img3.goodfon.com/wallpaper/nbig/9/9a/fon-temno-plastinka-vinil.jpg);
+    color: white; }
   
   a {
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
-    color: #f8b739; }
+    color: white; }
     a:hover, a:focus {
       text-decoration: none !important;
       outline: none !important;
@@ -8166,7 +8166,7 @@
     line-height: 1.5;
     font-weight: 400;
     font-family: "Poppins", Arial, sans-serif;
-    color: #000; }
+    color: white; }
   
   .ftco-section {
     padding: 7em 0; }
@@ -8220,8 +8220,8 @@
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s; }
-    #sidebar.active {
-      margin-left: -300px; }
+    /* #sidebar.active {
+      margin-left: -300px; } */
     #sidebar .logo {
       display: block;
       width: 120px;
@@ -8278,12 +8278,19 @@
     transition: all 0.3s; }
   
   .btn.btn-primary {
-    background: #f8b739;
-    border-color: #f8b739; }
+    background: #65D36E;
+    border-color: #65D36E; }
     .btn.btn-primary:hover, .btn.btn-primary:focus {
-      background: #f8b739 !important;
-      border-color: #f8b739 !important; }
+      background: #65D36E !important;
+      border-color: #65D36E !important; }
   
   .footer p {
     color: rgba(255, 255, 255, 0.5); }
   
+  /* custom  */
+
+  @media (min-width: 991.98px) {
+    #menuButton {
+      visibility: hidden; }
+      #menuButton.active {
+        visibility: visible; } }

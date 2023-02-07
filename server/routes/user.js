@@ -9,16 +9,8 @@ const {
   deleteUser,
 } = require("../controllers/userController");
 
-// GET all users
-router.get("/", (req, res) => {
-  res.json({ mssg: "GET all users" });
-});
-
-// login route
-router.post("/login", loginUser);
-
-// signup route
-router.post("/signup", signupUser);
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth)
 
 // get user
 router.get("/:id", getUser);
@@ -29,4 +21,4 @@ router.put("/:id", updateUser);
 // delete user
 router.delete("/:id", deleteUser);
 
-module.exports = router;
+module.exports = router

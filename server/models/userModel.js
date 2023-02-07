@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
 
 const userSchema = mongoose.Schema({
   email: {
@@ -29,63 +30,41 @@ const userSchema = mongoose.Schema({
     enum: ["ADMIN", "MUSICIAN", "ORGANIZER"],
     required: true,
   },
-  //   portfolio: {
-  //     type: mongoose.ObjectId,
-  //   },
   specialization: {
     type: [String],
-    default: null,
   },
   price_min: {
     type: Number,
     min: 0,
-    default: null,
   },
   price_max: {
     type: Number,
     min: 0,
-    default: null,
   },
   status: {
     type: String,
-    enum: ["BUSY", "AVAILABLE", null],
-    default: null,
+    enum: ["BUSY", "AVAILABLE"],
   },
   location: {
     type: String,
-    default: null,
   },
   preference: {
     type: String,
-    default: null,
   },
   wage: {
     type: Number,
     min: 0,
-    default: null,
   },
 });
 
-
 // static signup method
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (email, password, profile) {
   // validation
   if (!email || !password) {
     throw Error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {
     throw Error("Email not valid");
-  }
-  if (!validator.isStrongPassword(password)) {
-    throw Error("Password not strong enough");
-  }
-
-  // validation
-  if (!email || !password) {
-    throw Error("All fields must be filled");
-  }
-  if (!validator.isEmail(email)) {
-    throw Error("Email Invalid");
   }
   if (!validator.isStrongPassword(password)) {
     throw Error("Password not strong enough");
@@ -103,10 +82,7 @@ userSchema.statics.signup = async function (email, password) {
   const user = await this.create({
     email,
     password: hash,
-    first_name: "anonymous",
-    last_name: "surname",
-    phone_number: "000-000-0000",
-    role: "Admin",
+    ...profile,
   });
   return user;
 };
@@ -130,5 +106,12 @@ userSchema.statics.login = async function (email, password) {
 
   return user;
 };
+
+// get JwtToken
+userSchema.methods.getSignedJwtToken=function() {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE
+  });
+}
 
 module.exports = mongoose.model("User", userSchema);

@@ -2,12 +2,14 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY muse/package.json .
+COPY package.json .
 
 RUN npm install
 
-COPY ./muse .
+# RUN npm install nodemon --save-dev
 
-EXPOSE 3000
+COPY . .
+
+EXPOSE 4000
 
 CMD ["npm", "run", "dev"]
