@@ -1,13 +1,14 @@
 body{
     background-color: #1E1E1E;
 }
+
 .field > p {
     margin-bottom: 5px;
     color: white;
 }
 
 .field {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 .topic{
     color:white;
