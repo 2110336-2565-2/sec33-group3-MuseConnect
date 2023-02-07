@@ -16,12 +16,14 @@ const eventSchema = mongoose.Schema({
       },
       //may adjust organizer and musician to Object
       organizer:{
-        type:String,
-        required:true
+        type: mongoose.ObjectId,
+        ref: "userSchema",
+        require: true,
       },
       musician:{
-        type:String,
-        required:true
+        type: mongoose.ObjectId,
+        ref: "userSchema",
+        require: true,
       },
       detail:{
         type:String
