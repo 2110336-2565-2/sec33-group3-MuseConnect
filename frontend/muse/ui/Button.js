@@ -5,7 +5,7 @@ function Button() {
     return (
       <>
         <Dropdown>
-          <Dropdown.Toggle id="dropdown-button-dark-example1" variant="success">
+          <Dropdown.Toggle id="dropdown-button-dark-example1" variant="light">
             Choose account
           </Dropdown.Toggle>
   
