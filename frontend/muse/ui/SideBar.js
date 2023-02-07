@@ -2,35 +2,30 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
-import {Nav} from "react-bootstrap";
+import Link from 'next/link';
 
 export default function SideBar({ children }) {
-
+    const isActive = children
     return (
+        <nav style={{backgroundColor:"#000000"}} id="sidebar" className= {isActive ? null : "active"} >
+				<div className="p-4 pt-5">
+          <h3 style={{color: "white"}}>
+            <Link href={""}>Muse Connect</Link> 
+        </h3>
+	        <ul className="list-unstyled components mb-5">
+            <li>
+	              <Link href="/Home/Profile">Profile</Link>
+	          </li>
+	          <li>
+	              <Link href="/Home/Search">Search</Link>
+	          </li>
+            <li>
+	              <Link href="/Home/Calendar">Calendar</Link>
+	          </li>
+	        </ul>
 
-            <>
-    <Nav className="col-md-12 d-none d-md-block bg-light sidebar"
-    activeKey="/home"
-    onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-    >
-        <div className="sidebar-sticky"></div>
-    <Nav.Item>
-        <Nav.Link href="/home">Active</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-        <Nav.Link eventKey="link-1">Link</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-        <Nav.Link eventKey="link-2">Link</Nav.Link>
-    </Nav.Item>
-    <Nav.Item>
-        <Nav.Link eventKey="disabled" disabled>
-        Disabled
-        </Nav.Link>
-    </Nav.Item>
-    </Nav>
-  
-        </>
+	      </div>
+    	</nav>
 
     )
   }
