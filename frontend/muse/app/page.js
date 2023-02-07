@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SideBar from '../ui/SideBar'
 import NavBar from '../ui/NavBar'
 import '../style/style2.css'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const [isActive, setActive] = useState("false");
@@ -12,6 +12,7 @@ export default function Home() {
     console.log('hello world');
     setActive(!isActive);
   };
+
   return(
     <>
       <body>
