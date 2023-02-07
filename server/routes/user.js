@@ -10,6 +10,12 @@ const {
 const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)
 
+// testing api
+router.get("/check_c",(req,res)=>{
+  // console.log(req)
+  res.json({ mess: "check cookies is work" });
+})
+
 // get user
 router.get("/:id", getUser);
 
@@ -18,5 +24,6 @@ router.put("/:id", updateUser);
 
 // delete user
 router.delete("/:id", deleteUser);
+
 
 module.exports = router

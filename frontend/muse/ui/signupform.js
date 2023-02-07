@@ -24,7 +24,7 @@ export default function SignupForm() {
         setPasswordShown(!passwordShown);
     };
     const onSubmit = async (values, actions) => {
-        console.log(values)
+        // console.log(values)
         const respone = await fetch(SignUp_Api_Path,{
             method: 'POST',
             headers: {
@@ -32,15 +32,18 @@ export default function SignupForm() {
             },
             body: JSON.stringify({...values,phone_number:"1111111111"})
         })
-        console.log(respone.status)
+        // console.log(respone)
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
             alert(result.error);
         }
         else{
-            console.log(result)
+            alert("signup complete");
+            // console.log(window)
+            // console.log(result)
         }
+        actions.setSubmitting(false);
         // alert(JSON.stringify(values, null, 2));
         
     }
