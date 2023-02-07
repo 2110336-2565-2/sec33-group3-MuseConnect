@@ -3,31 +3,27 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import { Button, Row, Stack } from 'react-bootstrap'
-import '../style/style.css'
-import React, { useState } from 'react'
+import { Button, Stack } from 'react-bootstrap'
+import React from 'react'
+import Link from 'next/link';
+import "../ui/NavBar.css"
 
 export default function NavBar({show}) {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
           <Container>
-          <Button onClick={show} id="sidebarCollapse" class="btn btn-primary">
-              {/* <i class="fa fa-bars"></i> */}
-              <span class="sr-only">Toggle Menu</span>
-          </Button>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
-          <Navbar.Toggle aria-controls="" />
-            <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-                <Stack direction="horizontal" gap={3}>
-                <Button variant="secondary">
-                  <Nav.Link href="/Signup">Sign up</Nav.Link>
-               </Button>
-                <Button variant="secondary">
-                 <Nav.Link href="/Login">log in</Nav.Link>
-                </Button>    
-              </Stack>
-            </Navbar.Collapse>
+            <Button id = "menuButton" onClick={show} >
+              click
+            </Button>
+            <Stack direction='horizontal' gap={3}>
+              <Button>
+              <Link href="/Signup">Sign up</Link>
+            </Button>
+            <Button>
+              <Link href="/Login">log in</Link>
+            </Button>    
+            </Stack>
+            
           </Container>
         </Navbar>
   )
