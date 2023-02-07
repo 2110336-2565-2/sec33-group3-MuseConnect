@@ -7,7 +7,7 @@ import './style.css'
 export default function page() {
   return (
     <div>
-
+      anotherpage
     </div>
   )
 }
