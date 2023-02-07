@@ -7,7 +7,6 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>Sign up Page</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <SignupForm/>
