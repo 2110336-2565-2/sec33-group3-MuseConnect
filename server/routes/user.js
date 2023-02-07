@@ -12,11 +12,6 @@ const {
 const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)
 
-// GET all users
-router.get("/", (req, res) => {
-  res.json({ mssg: "GET all users" });
-});
-
 // get user
 router.get("/:id", getUser);
 

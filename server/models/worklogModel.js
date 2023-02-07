@@ -19,7 +19,8 @@ const worklogSchema = mongoose.Schema({
   },
   status:{
     type: String,
-    enum: ["SHOW", "HIDE", null]
+    enum: ["SHOW", "HIDE"],
+    default: "HIDE"
   }
 });
 
