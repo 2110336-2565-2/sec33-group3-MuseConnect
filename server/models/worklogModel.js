@@ -17,6 +17,10 @@ const worklogSchema = mongoose.Schema({
     type: String,
     default: null,
   },
+  status:{
+    type: String,
+    enum: ["SHOW", "HIDE", null]
+  }
 });
 
 module.exports = mongoose.model("worklog", worklogSchema);
