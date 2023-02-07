@@ -6,6 +6,7 @@ import styles from './signup.css'
 //-----------------
 import { createContext } from 'react'
 import Button from './Button'
+import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
 //-----------------
 // If you find an error from this file, it's probably that you haven't installed
@@ -17,6 +18,11 @@ export default function SignupForm() {
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
+    const onSubmit = async (e) => {
+        console.log("hello world")
+
+        e.preventDefault();
+    }
 
     return (
         <div className='container'>
@@ -25,16 +31,16 @@ export default function SignupForm() {
         <Formik
         initialValues={{email: '', password:'', firstname:'', 
                         lastname:'', type:''}}
-
-        onSubmit={(values, actions) => {
-            setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-            }, 1000);
-        }}
+        // onSubmit={(values, actions) => {
+            // console.log("hello")
+            // setTimeout(() => {
+            // alert(JSON.stringify(values, null, 2));
+            // actions.setSubmitting(false);
+            // }, 1000);
+        // }}
         >
         {props => (
-            <form /*onSubmit={props.handleSubmit}*/>
+            <form /*onSubmit={props.handleSubmit}*/ onSubmit={onSubmit}>
                 {/* Email */}
                 <div>
                     <p style={{color: "White"}}>Email</p>

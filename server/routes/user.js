@@ -2,8 +2,6 @@ const router = require("express").Router();
 
 // controller functions
 const {
-  signupUser,
-  loginUser,
   getUser,
   updateUser,
   deleteUser,

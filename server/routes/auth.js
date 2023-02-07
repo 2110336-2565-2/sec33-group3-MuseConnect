@@ -4,9 +4,6 @@ const router = require("express").Router();
 const {
   signupUser,
   loginUser,
-  getUser,
-  updateUser,
-  deleteUser,
 } = require("../controllers/userController");
 
 // login route
