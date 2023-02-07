@@ -43,7 +43,7 @@ const userSchema = mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["BUSY", "AVAILABLE", null],
+    enum: ["BUSY", "AVAILABLE"],
   },
   location: {
     type: String,
