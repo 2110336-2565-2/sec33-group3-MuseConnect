@@ -21,6 +21,12 @@ export default function LoginForm() {
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
+    const onSubmit = (values, actions) => {
+        setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        actions.setSubmitting(false);
+        }, 1000);
+    }
 
     return (
         <div className={montserrat.className}>
@@ -32,12 +38,7 @@ export default function LoginForm() {
         <Formik
         initialValues={{email: '', password:''}}
 
-        onSubmit={(values, actions) => {
-            setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-            }, 1000);
-        }}
+        onSubmit={(values, actions) => onsubmit(values, actions)}
         >
         {props => (
             <form onSubmit={props.handleSubmit}>

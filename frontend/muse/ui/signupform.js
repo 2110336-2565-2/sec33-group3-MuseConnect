@@ -12,6 +12,7 @@ const Context = createContext()
 // If you find an error from this file, it's probably that you haven't installed
 // formik. Please use 'npm install formik --save' command to install.
 //-----------------
+const SignUp_Api_Path = "http://localhost:4000/api/signup";
 
 import { Montserrat } from '@next/font/google'
 
@@ -22,10 +23,26 @@ export default function SignupForm() {
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
-    const onSubmit = async (e) => {
-        console.log("hello world")
-
-        e.preventDefault();
+    const onSubmit = async (values, actions) => {
+        console.log(values)
+        const respone = await fetch(SignUp_Api_Path,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({...values,phone_number:"1111111111"})
+        })
+        console.log(respone.status)
+        const result = await respone.json()
+        if(!respone.ok){
+            actions.setSubmitting(false);
+            alert(result.error);
+        }
+        else{
+            console.log(result)
+        }
+        // alert(JSON.stringify(values, null, 2));
+        
     }
 
     return (
@@ -36,18 +53,12 @@ export default function SignupForm() {
         {/* className='topic'  */}
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
-        initialValues={{email: '', password:'', firstname:'', 
-                        lastname:'', type:''}}
-        // onSubmit={(values, actions) => {
-            // console.log("hello")
-            // setTimeout(() => {
-            // alert(JSON.stringify(values, null, 2));
-            // actions.setSubmitting(false);
-            // }, 1000);
-        // }}
+        initialValues={{email: '', password:'', first_name:'', 
+                        last_name:'', role:''}}
+        onSubmit={(values, actions) => onSubmit(values,actions)}
         >
         {props => (
-            <form /*onSubmit={props.handleSubmit}*/ onSubmit={onSubmit}>
+            <form onSubmit={props.handleSubmit}>
                 {/* Email */}
                 <div className="field">
                     {/* <p id='email' style={{color: "White",marginBottom: "5px"}}>Email</p> */}
@@ -86,8 +97,8 @@ export default function SignupForm() {
                     placeholder="First Name"
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
-                    value={props.values.firstname}
-                    name="firstname">    
+                    value={props.values.first_name}
+                    name="first_name">    
                     </input>
                 </div>
                 {/* Last Name */}
@@ -97,18 +108,18 @@ export default function SignupForm() {
                     placeholder="Last Name"
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
-                    value={props.values.lastname}
-                    name="lastname">    
+                    value={props.values.last_name}
+                    name="last_name">    
                     </input>
                 </div>
                 {/* User type */}
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
-                    <select className="form-select" aria-label="Default select example" style={{color: "#585C5E"}}>
+                    <select className="form-select" aria-label="Default select example" style={{color: "#585C5E"}} onChange={props.handleChange} name="role">
                         <option selected>Select your role</option>
-                        <option value="musician">Musician</option>
-                        <option value="organizer">Organizer</option>
+                        <option value="MUSICIAN" >Musician</option>
+                        <option value="ORGANIZER">Organizer</option>
                     </select>
                 </div>
 

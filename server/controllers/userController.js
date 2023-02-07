@@ -37,7 +37,7 @@ const signupUser = async (req, res) => {
       role,
     });
 
-    sendTokenResponse(user, 200, res);
+    sendTokenResponse(user, 201, res);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

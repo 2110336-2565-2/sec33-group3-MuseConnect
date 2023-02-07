@@ -20,7 +20,7 @@ export default function NavBar({show}) {
               <Link href="/Signup">Sign up</Link>
             </Button>
             <Button>
-              <Link href="/Login">log in</Link>
+              <Link href="/Login">Log in</Link>
             </Button>    
             </Stack>
             
