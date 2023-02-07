@@ -33,3 +33,12 @@ body{
     margin-bottom: 45px;
     font-weight:lighter;
 }
+
+.viewpass{
+    float: right;
+    margin-left: -25px;
+    margin-top: -26px;
+    position: relative;
+    font-size: large;
+    z-index: 2;
+  }
