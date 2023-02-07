@@ -1,46 +1,36 @@
-'use client';
+'use client'
 
-import React, { useEffect,useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import Link from 'next/link';
+import React from "react";
+import {Nav} from "react-bootstrap";
 
 export default function SideBar({ children }) {
-    const [show, setShow] = useState(false);
-  
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+
     return (
-        <html lang="en">
-            <head/>
-            <body>
-                <div>
-                <Button variant="primary" onClick={handleShow}>
-                    Toggle static offcanvas
-                </Button>
-                <Offcanvas show={show} onHide={handleClose} backdrop="static">
-                    <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-                    </Offcanvas.Header>
-                    <Offcanvas.Body>
-                        <div className="d-grid gap-2">
-                            <Link href= "/profile">
-                                <Button variant="primary" size="lg">
-                                    Profile
-                                </Button>
-                            </Link>
-                            <Link href= "/">
-                                <Button variant="primary" size="lg">
-                                    Home
-                                </Button>
-                            </Link>
-                        </div>
-                    </Offcanvas.Body>
-                </Offcanvas>
-                <div>{children}</div>
-                </div>
-            </body>
-        </html>
+
+            <>
+    <Nav className="col-md-12 d-none d-md-block bg-light sidebar"
+    activeKey="/home"
+    onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+    >
+        <div className="sidebar-sticky"></div>
+    <Nav.Item>
+        <Nav.Link href="/home">Active</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+        <Nav.Link eventKey="link-1">Link</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+        <Nav.Link eventKey="link-2">Link</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+        <Nav.Link eventKey="disabled" disabled>
+        Disabled
+        </Nav.Link>
+    </Nav.Item>
+    </Nav>
+  
+        </>
+
     )
   }
