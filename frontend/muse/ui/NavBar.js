@@ -16,10 +16,10 @@ export default function NavBar({show}) {
             </Button>
             <Stack direction='horizontal' gap={3}>
               <Button>
-              <Link href="/Signup">Sign up</Link>
+              <a href="/Signup">Sign up</a>
             </Button>
             <Button>
-              <Link href="/Login">log in</Link>
+              <a href="/Login">log in</a>
             </Button>    
             </Stack>
             

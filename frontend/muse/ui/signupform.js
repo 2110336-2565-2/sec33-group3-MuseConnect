@@ -18,9 +18,16 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
+    const [selected, setSelected] = useState('');
+
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
-    };
+
+    };const handleChange = event => {
+        console.log('Label 👉️', event.target.selectedOptions[0].label);
+        console.log(event.target.value);
+        setSelected(event.target.value);
+    }; 
 
     return (
         <div className={montserrat.className}>
@@ -99,8 +106,8 @@ export default function SignupForm() {
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
-                    <select className="form-select" aria-label="Default select example" style={{color: "#585C5E"}}>
-                        <option selected>Select your role</option>
+                    <select value={selected} onChange={handleChange} className="form-select" aria-label="Default select example" style={{color: "#585C5E"}}>
+                        <option value="">Select your role</option>
                         <option value="musician">Musician</option>
                         <option value="organizer">Organizer</option>
                     </select>
