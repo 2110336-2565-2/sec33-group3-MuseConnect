@@ -6,7 +6,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Button, Stack } from 'react-bootstrap'
 import React from 'react'
 import Link from 'next/link';
-import "../ui/NavBar.css"
 
 export default function NavBar({show}) {
   return (

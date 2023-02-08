@@ -8213,7 +8213,7 @@
     width: 100%; }
   
   #sidebar {
-    min-width: 300px;
+    min-width: 240px;
     max-width: 300px;
     background: #1d1919;
     color: #fff;
@@ -8249,7 +8249,7 @@
         color: #f8b739; }
     @media (max-width: 991.98px) {
       #sidebar {
-        margin-left: -300px; }
+        margin-left: -240px; }
         #sidebar.active {
           margin-left: 0; } }
   
