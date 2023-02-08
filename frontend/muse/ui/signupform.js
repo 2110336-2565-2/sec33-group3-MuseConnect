@@ -28,7 +28,17 @@ export default function SignupForm() {
         console.log(event.target.value);
         setSelected(event.target.value);
     }; 
+    };
+    function click() {
+        // toggle the type attribute
+        const togglePassword = document.querySelector("#togglePassword");
+        const passwordV = document.querySelector("#password_field");
+        const type = passwordV.getAttribute("type") === "password" ? "text" : "password";
+        togglePassword.className === 'fa fa-eye viewpass mr-4 text-muted' ? document.getElementById("togglePassword").className = 'fa fa-eye-slash viewpass mr-4 text-muted' : document.getElementById("togglePassword").className = 'fa fa-eye viewpass mr-4 text-muted';
+        passwordV.setAttribute("type", type);
 
+    }
+    
     return (
         <div className={montserrat.className}>
         <p className='top'>
@@ -38,7 +48,7 @@ export default function SignupForm() {
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
         initialValues={{email: '', password:'', firstname:'', 
-                        lastname:'', type:''}}
+                        lastname:'', phone:'', type:''}}
 
         onSubmit={(values, actions) => {
             setTimeout(() => {
@@ -51,7 +61,6 @@ export default function SignupForm() {
             <form onSubmit={props.handleSubmit}>
                 {/* Email */}
                 <div className="field">
-                    {/* <p id='email' style={{color: "White",marginBottom: "5px"}}>Email</p> */}
                     <p>Email</p>
                     <input type="email" className="form-control" 
                     id="exampleFormControlInput1" placeholder="name@example.com"
@@ -59,14 +68,9 @@ export default function SignupForm() {
                     onBlur={props.handleBlur}
                     value={props.values.email}
                     name="email"></input>
-                    {/* <input
-                        type="text"
-                        onChange={props.handleChange}
-                        onBlur={props.handleBlur}
-                        value={props.values.email}
-                        name="email"
-                    /> */}
                 </div>
+
+
                 {/* Password */}
                 <div className="field">
                     <p>Create a password</p>
@@ -77,8 +81,8 @@ export default function SignupForm() {
                     value={props.values.password}
                     name="password">
                     </input>
-                    {/* <button onClick={togglePassword}>Show Password</button> */}
                 </div>
+
 
                 {/* Name */}
                 <div className="field">
@@ -91,6 +95,8 @@ export default function SignupForm() {
                     name="firstname">    
                     </input>
                 </div>
+
+
                 {/* Last Name */}
                 <div className="field">
                     <p style={{color: "White"}}>Last name</p>
@@ -102,7 +108,26 @@ export default function SignupForm() {
                     name="lastname">    
                     </input>
                 </div>
+
+
+                {/* Phone Number */}
+                {/* Requirement in MS3 takes phone number as a string not a number */}
+                {/* I'll try to find the auto phone number input format later */}
+                <div className="field">
+                    <p style={{color: "White"}}>Phone Number</p>
+                    <input className="form-control" type="text" 
+                    placeholder="xxx-xxx-xxxx"
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.phone}
+                    name="phone">    
+                    </input>
+                </div>
+
+
                 {/* User type */}
+                {/* **The value of selected field hasn't assigned to the value and onchange,
+                please kindly wait for me to solve this (or feel free to do it!) */}
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
@@ -113,15 +138,15 @@ export default function SignupForm() {
                     </select>
                 </div>
 
-            <div style={{textAlign: "center",marginBottom: "10px"}}>
-            <button type="submit" className="btn btn-success">Sign up</button>
-            </div>
-            <div>
-                <p style={{color: "White",textAlign: "center"}}>Have an account? <Link href="/Login" style={{color: "#188756"}}>Log in</Link></p>
-            </div>
+
+                <div style={{textAlign: "center",marginBottom: "10px"}}>
+                    <button type="submit" className="btn btn-success">Sign up</button>
+                </div>
+                <div>
+                    <p style={{color: "White",textAlign: "center"}}>Have an account? <Link href="/Login" style={{color: "#188756"}}>Log in</Link></p>
+                </div>
             </form>
         )}
         </Formik>
     </div>
     )
-}
