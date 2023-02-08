@@ -28,7 +28,7 @@ export default function SignupForm() {
         console.log(event.target.value);
         setSelected(event.target.value);
     }; 
-    };
+    
     function click() {
         // toggle the type attribute
         const togglePassword = document.querySelector("#togglePassword");
@@ -150,3 +150,4 @@ export default function SignupForm() {
         </Formik>
     </div>
     )
+}
