@@ -37,15 +37,10 @@ export default function LoginForm() {
             alert(result.error);
         }
         else{
-            alert("Welcome to MuseConnect")
-            // console.log(window)
-            // console.log(result)
+            localStorage.setItem('user',JSON.stringify(result))
+            alert("Login Complete");
         }
         actions.setSubmitting(false);
-        // setTimeout(() => {
-        // alert(JSON.stringify(values, null, 2));
-        // actions.setSubmitting(false);
-        // }, 1000);
     }
 
     return (
