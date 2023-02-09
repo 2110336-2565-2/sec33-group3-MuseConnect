@@ -20,4 +20,20 @@ const chatSchema = mongoose.Schema({
     timeStamps: true,
 });
 
+// get chat by id
+chatSchema.statics.findChatByUser = async function (user_id_1, user_id_2) {
+    let chat = null;
+    chat = await this.findOne({
+        organizer: user_id_1,
+        musician: user_id_2
+    });
+    if(!chat) {
+        chat = await this.findOne({
+            organizer: user_id_2,
+            musician: user_id_1
+        });
+    }
+    return chat;
+};
+
 module.exports = mongoose.model("Chat", chatSchema);

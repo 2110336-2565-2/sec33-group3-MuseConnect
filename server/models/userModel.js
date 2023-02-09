@@ -114,4 +114,13 @@ userSchema.methods.getSignedJwtToken=function() {
   });
 }
 
+userSchema.methods.isOrganizer=function() {
+  return this.role == "ORGANIZER";
+}
+
+userSchema.methods.isMusician=function() {
+  return this.role == "MUSICIAN";
+}
+
+
 module.exports = mongoose.model("User", userSchema);

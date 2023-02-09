@@ -2,19 +2,23 @@ const router = require("express").Router();
 
 // controller functions
 const { 
-  getChat,
-  createChat
+  fetchChats,
+  accessChat,
+  // createChat
 } = require("../controllers/chatConntroller");
 
 // TODO uncomment this in production
-// const requireAuth = require('../middleware/requireAuth')
-// router.use(requireAuth)
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth)
 
 // get chat
-router.get("/", getChat);
+router.post("/", accessChat);
+
+// fetech chats
+router.get("/", fetchChats)
 
 // post chat
-router.post("/", createChat);
+// router.post("/", createChat);
 
 // delete chat
 // router.delete("/:id", deleteChat);
