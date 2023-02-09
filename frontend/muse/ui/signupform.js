@@ -8,11 +8,13 @@ import { createContext } from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Button from './Button'
+import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
 //-----------------
 // If you find an error from this file, it's probably that you haven't installed
 // formik. Please use 'npm install formik --save' command to install.
 //-----------------
+const SignUp_Api_Path = "http://localhost:4000/api/signup";
 
 import { Montserrat } from '@next/font/google'
 
@@ -40,7 +42,31 @@ export default function SignupForm() {
         passwordV.setAttribute("type", type);
 
     }
-    
+        const onSubmit = async (values, actions) => {
+        // console.log(values)
+        const respone = await fetch(SignUp_Api_Path,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({...values,phone_number:"1111111111"})
+        })
+        // console.log(respone)
+        const result = await respone.json()
+        if(!respone.ok){
+            actions.setSubmitting(false);
+            alert(result.error);
+        }
+        else{
+            alert("signup complete");
+            // console.log(window)
+            // console.log(result)
+        }
+        actions.setSubmitting(false);
+        // alert(JSON.stringify(values, null, 2));
+        
+    }
+
     return (
         <div className={montserrat.className}>
         <p className='top'>
@@ -49,15 +75,9 @@ export default function SignupForm() {
         {/* className='topic'  */}
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
-        initialValues={{email: '', password:'', firstname:'', 
-                        lastname:'', phone:'', type:''}}
-
-        onSubmit={(values, actions) => {
-            setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-            }, 1000);
-        }}
+        initialValues={{email: '', password:'', first_name:'', 
+                        last_name:'', phone:'', role:''}}
+        onSubmit={(values, actions) => onSubmit(values,actions)}
         >
         {props => (
             <form onSubmit={props.handleSubmit}>
@@ -93,8 +113,8 @@ export default function SignupForm() {
                     placeholder="First Name"
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
-                    value={props.values.firstname}
-                    name="firstname">    
+                    value={props.values.first_name}
+                    name="first_name">    
                     </input>
                 </div>
 
@@ -106,8 +126,8 @@ export default function SignupForm() {
                     placeholder="Last Name"
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
-                    value={props.values.lastname}
-                    name="lastname">    
+                    value={props.values.last_name}
+                    name="last_name">    
                     </input>
                 </div>
 
@@ -134,10 +154,10 @@ export default function SignupForm() {
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
-                    <select value={selected} onChange={handleChange} className="form-select" aria-label="Default select example" style={{color: "#585C5E"}}>
+                    <select value={selected} onChange={handleChange} className="form-select" aria-label="Default select example" style={{color: "#585C5E"}}  name="role">
                         <option value="">Select your role</option>
-                        <option value="musician">Musician</option>
-                        <option value="organizer">Organizer</option>
+                        <option value="MUSICIAN" >Musician</option>
+                        <option value="ORGANIZER">Organizer</option>
                     </select>
                 </div>
 

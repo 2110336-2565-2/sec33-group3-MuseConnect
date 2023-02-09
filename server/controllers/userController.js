@@ -37,7 +37,7 @@ const signupUser = async (req, res) => {
       role,
     });
 
-    sendTokenResponse(user, 200, res);
+    sendTokenResponse(user, 201, res);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -52,7 +52,6 @@ const getUser = async (req, res) => {
     }
 
     const user = await User.findById(id);
-    console.log(user.wage);
 
     res.status(200).json(user);
   } catch (error) {
