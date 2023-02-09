@@ -5,6 +5,8 @@ import Link from 'next/link'
 import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
+import 'react-phone-number-input/style.css'
+import PhoneNumber from "react-phone-number-input"
 import Button from './Button'
 const Context = createContext()
 //-----------------
@@ -15,6 +17,7 @@ const Context = createContext()
 import { Montserrat } from '@next/font/google'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
+
 
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -70,7 +73,7 @@ export default function SignupForm() {
                     name="email"></input>
                 </div>
 
-
+        
                 {/* Password */}
                 <div className="field">
                     <p>Create a password</p>
