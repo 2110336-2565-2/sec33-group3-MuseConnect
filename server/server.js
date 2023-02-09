@@ -12,6 +12,8 @@ const portfolioRoutes = require("./routes/portfolio");
 const musicianRoutes = require("./routes/musician");
 const organizerRoutes = require("./routes/organizer");
 const chatRoutes = require("./routes/chat");
+const messageRoutes = require("./routes/message");
+
 
 // express app
 const app = express();

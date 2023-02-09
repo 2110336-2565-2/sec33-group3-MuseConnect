@@ -94,5 +94,4 @@ const accessChat = async (req, res) => {
 module.exports = {
   fetchChats,
   accessChat,
-  // createChat,
 };
