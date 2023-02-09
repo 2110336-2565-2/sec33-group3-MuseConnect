@@ -11,6 +11,9 @@ const adminRoutes = require("./routes/admin");
 const portfolioRoutes = require("./routes/portfolio");
 const musicianRoutes = require("./routes/musician");
 const organizerRoutes = require("./routes/organizer");
+const chatRoutes = require("./routes/chat");
+const messageRoutes = require("./routes/message");
+
 
 // express app
 const app = express();
@@ -35,6 +38,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/musician", musicianRoutes);
 app.use("/api/organizer", organizerRoutes);
+app.use("/api/chat", chatRoutes);
 
 // connect to database
 const PORT = process.env.PORT || 4000;
