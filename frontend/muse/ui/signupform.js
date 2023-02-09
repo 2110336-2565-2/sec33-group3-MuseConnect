@@ -5,6 +5,8 @@ import Link from 'next/link'
 import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 import Button from './Button'
 const Context = createContext()
 //-----------------
@@ -115,13 +117,14 @@ export default function SignupForm() {
                 {/* I'll try to find the auto phone number input format later */}
                 <div className="field">
                     <p style={{color: "White"}}>Phone Number</p>
-                    <input className="form-control" type="text" 
+                    <PhoneInput className="form-control" type="text" 
                     placeholder="xxx-xxx-xxxx"
                     onChange={props.handleChange}
+                    country={'th'}
                     onBlur={props.handleBlur}
                     value={props.values.phone}
                     name="phone">    
-                    </input>
+                    </PhoneInput>
                 </div>
 
 
