@@ -93,7 +93,7 @@ export default function LoginForm() {
             <button type="submit" className="btn btn-success" style={{marginTop: "25px"}}>Log in</button>
             </div>
             <div>
-                <p style={{color: "White",textAlign: "center"}}>Don't have an account?<Link href="/Signup" style={{color: "#188756"}}>Sign up</Link></p>
+                <p style={{color: "White",textAlign: "center"}}>Don't have an account? <Link href="/Signup" style={{color: "#188756"}}>Sign up</Link></p>
             </div>
             </form>
         )}
