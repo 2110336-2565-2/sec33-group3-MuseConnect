@@ -12,7 +12,7 @@ const portfolioRoutes = require("./routes/portfolio");
 const musicianRoutes = require("./routes/musician");
 const organizerRoutes = require("./routes/organizer");
 const chatRoutes = require("./routes/chat");
-// const messageRoutes = require("./routes/message");
+const messageRoutes = require("./routes/message");
 
 
 // express app
@@ -39,11 +39,11 @@ app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/musician", musicianRoutes);
 app.use("/api/organizer", organizerRoutes);
 app.use("/api/chat", chatRoutes);
-// app.use("/api/message", messageRoutes);
+app.use("/api/message", messageRoutes);
 
 // connect to database
 const PORT = process.env.PORT || 4000;
-mongoose.set("strictQuery", false);
+mongoose.set("strictQuery", false); 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
