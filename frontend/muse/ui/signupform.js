@@ -5,8 +5,8 @@ import Link from 'next/link'
 import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
-import 'react-phone-number-input/style.css'
-import PhoneNumber from "react-phone-number-input"
+//import 'react-phone-number-input/style.css'
+//import PhoneNumber from "react-phone-number-input"
 import Button from './Button'
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
