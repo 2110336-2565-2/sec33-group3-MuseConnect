@@ -3,17 +3,14 @@ const Message = require("../models/messageModel");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
+
+// getting all messages from seletected chat
 const allMessages = async (req, res) => {
   try {
-    const currentUser = await User.findById(req.user._id);
-
-    let message = null;
-    if (currentUser.isMusician()) {
-      message = await User.find({ musician: currentUser._id });
-    } else {
-      message = await User.find({ organizer: currentUser._id });
-    }
-    res.status(200).json(message);
+    const messages = await Message.find({chat: req.params.chatId})
+    // .populate("sender")
+    // .populate("chat")
+    res.status(200).json(messages);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
