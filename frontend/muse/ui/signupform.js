@@ -6,7 +6,7 @@ import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
-import PhoneNumber from "react-phone-number-input"
+import PhoneInput from "react-phone-number-input"
 import Button from './Button'
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
@@ -155,8 +155,8 @@ export default function SignupForm() {
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
-                    <select value={selected} onChange={handleChange} className="form-select" aria-label="Default select example" style={{color: "#585C5E"}}  name="role">
-                        <option value="">Select your role</option>
+                    <select className="form-select" aria-label="Default select example" style={{color: "#585C5E"}} onChange={props.handleChange} name="role">
+                        <option selected>Select your role</option>
                         <option value="MUSICIAN" >Musician</option>
                         <option value="ORGANIZER">Organizer</option>
                     </select>
