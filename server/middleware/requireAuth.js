@@ -13,6 +13,7 @@ router.get('/', ...)
 '''
 */
 
+// middleware that restricts access only to users who have already logged in
 const requireAuth = async (req, res, next) => {
     // verify user is authenticated
     const { authorization } = req.headers
