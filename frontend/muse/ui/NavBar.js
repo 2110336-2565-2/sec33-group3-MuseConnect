@@ -6,7 +6,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Button, Stack } from 'react-bootstrap'
 import React from 'react'
 import Link from 'next/link';
-import "../ui/NavBar.css"
 
 export default function NavBar({show}) {
   return (
@@ -17,10 +16,10 @@ export default function NavBar({show}) {
             </Button>
             <Stack direction='horizontal' gap={3}>
               <Button>
-              <Link href="/Signup">Sign up</Link>
+              <a href="/Signup">Sign up</a>
             </Button>
             <Button>
-              <Link href="/Login">Log in</Link>
+              <a href="/Login">log in</a>
             </Button>    
             </Stack>
             
