@@ -23,16 +23,16 @@ export default function SignupForm() {
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
+
     const onSubmit = async (values, actions) => {
-        // console.log(values)
+        console.log(values)
         const respone = await fetch(SignUp_Api_Path,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...values,phone_number:"1111111111"})
+            body: JSON.stringify(values)
         })
-        // console.log(respone)
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
@@ -40,12 +40,8 @@ export default function SignupForm() {
         }
         else{
             alert("signup complete");
-            // console.log(window)
-            // console.log(result)
         }
         actions.setSubmitting(false);
-        // alert(JSON.stringify(values, null, 2));
-        
     }
 
     return (
@@ -62,6 +58,7 @@ export default function SignupForm() {
         >
         {props => (
             <form onSubmit={props.handleSubmit}>
+
                 {/* Email */}
                 <div className="field">
                     {/* <p id='email' style={{color: "White",marginBottom: "5px"}}>Email</p> */}
@@ -72,14 +69,8 @@ export default function SignupForm() {
                     onBlur={props.handleBlur}
                     value={props.values.email}
                     name="email"></input>
-                    {/* <input
-                        type="text"
-                        onChange={props.handleChange}
-                        onBlur={props.handleBlur}
-                        value={props.values.email}
-                        name="email"
-                    /> */}
                 </div>
+
                 {/* Password */}
                 <div className="field">
                     <p>Create a password</p>
@@ -104,6 +95,7 @@ export default function SignupForm() {
                     name="first_name">    
                     </input>
                 </div>
+
                 {/* Last Name */}
                 <div className="field">
                     <p style={{color: "White"}}>Last name</p>
@@ -115,6 +107,7 @@ export default function SignupForm() {
                     name="last_name">    
                     </input>
                 </div>
+
                 {/* User type */}
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
