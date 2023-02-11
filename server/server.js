@@ -12,6 +12,8 @@ const portfolioRoutes = require("./routes/portfolio");
 const musicianRoutes = require("./routes/musician");
 const organizerRoutes = require("./routes/organizer");
 const chatRoutes = require("./routes/chat");
+const messageRoutes = require("./routes/message");
+
 
 // express app
 const app = express();
@@ -28,7 +30,7 @@ app.use((req, res, next) => {
 
 // routes
 app.get("/", (req, res) => {
-  res.json({ mess: "main!" });
+  res.json({ mess: "Welcome to muse-connect server!" });
 });
 app.use("/api", authRoutes);
 app.use("/api/user", userRoutes);
@@ -37,16 +39,32 @@ app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/musician", musicianRoutes);
 app.use("/api/organizer", organizerRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
 
 // connect to database
 const PORT = process.env.PORT || 4000;
-mongoose.set("strictQuery", false);
+mongoose.set("strictQuery", false); 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     // listen for requests
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log("connected to db & listening on port", PORT);
+    });
+    const io = require("socket.io")(server, {
+      pingTimeout: 60000,
+      cors: {
+        origin: "http://localhost:3000",
+      },
+    });
+
+    io.on("connection", (socket) => {
+      console.log("connected to socket.io");
+
+      socket.on('setup', (userData) => {
+        socket.join(userData._id);
+        socket.emit('connected socket');
+      })
     });
   })
   .catch((error) => {
