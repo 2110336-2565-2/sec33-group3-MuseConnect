@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
-// fetch chat: fetch all chat that relate to current user
+// fetch all chat that relate to current user
 const fetchChats = async (req, res) => {
   const currentUser = await User.findById(req.user._id);
 
@@ -20,38 +19,7 @@ const fetchChats = async (req, res) => {
   }
 };
 
-
-// TODO move createChat into access chat
-// create chat
-// const createChat = async (req, res) => {
-//   const {
-//     organizer,
-//     musician
-//   } = req.body;
-
-//   try {
-//     const exists = await Chat.findOne({
-//       organizer: organizer,
-//       musician: musician
-//     });
-
-//     if (exists) {
-//       throw Error("Chatroom already in use");
-//     }
-
-//     const chat = await Chat.create({
-//       organizer,
-//       musician
-//     })
-
-//     res.status(200).json(chat);
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
-
-
-// access chat
+// access chat the chat by [current user, target user], if chat doesn't exist then create new chat
 const accessChat = async (req, res) => {
   const { userId } = req.body
 
@@ -89,7 +57,6 @@ const accessChat = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
 
 module.exports = {
   fetchChats,

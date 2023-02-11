@@ -20,7 +20,8 @@ const chatSchema = mongoose.Schema({
     timeStamps: true,
 });
 
-// get chat by id
+// retrieve a chat based on the unique identifiers of two users
+// use the user_id_1 and user_id_2 values to retrieve the chat between the two users
 chatSchema.statics.findChatByUser = async function (user_id_1, user_id_2) {
     let chat = null;
     chat = await this.findOne({
