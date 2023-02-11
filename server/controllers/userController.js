@@ -1,9 +1,10 @@
 require("dotenv").config();
-const User = require("../models/userModel");
-const { sendTokenResponse, authorize } = require("../middleware/auth");
+
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
-const mongoose = require("mongoose");
+const User = require("../models/userModel");
+const { sendTokenResponse } = require("../middleware/auth");
 
 // login a user
 const loginUser = async (req, res) => {
