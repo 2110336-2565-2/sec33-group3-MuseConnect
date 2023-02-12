@@ -15,6 +15,7 @@ const sendMessage = async (message, user) => {
 const Chatbox = () => {
   // user currently login
   const user = localStorage.getItem("user");
+  // TODO change to actual reciever of the chat page
   // test reciever
   const testReciever = "63e8da0e491bf69c080bbef1";
   // message at the specific chat
@@ -73,6 +74,7 @@ const Chatbox = () => {
     // console.log("initail messages");
   }, []);
 
+  // TODO update message chat and chatbox page
   // useEffect for receiving a message
   useEffect(() => {
     socket.on("receiveMessage", (data) => {
@@ -83,6 +85,7 @@ const Chatbox = () => {
 
   return (
     <div className="chatbox">
+      {/* TODO make messages map accual content for check and display */}
       {messages.map((mes) => (
         <p id={mes._id}>Lorem, ipsum.</p>
       ))}
