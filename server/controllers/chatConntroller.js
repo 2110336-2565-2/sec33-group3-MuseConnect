@@ -52,7 +52,7 @@ const accessChat = async (req, res) => {
       throw Error("User role is not valid");
     }
     console.log("Create new chat");
-    res.status(200).json(chat);
+    res.status(201).json(chat);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

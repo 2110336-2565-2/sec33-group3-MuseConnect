@@ -14,7 +14,6 @@ const organizerRoutes = require("./routes/organizer");
 const chatRoutes = require("./routes/chat");
 const messageRoutes = require("./routes/message");
 
-
 // express app
 const app = express();
 
@@ -43,7 +42,7 @@ app.use("/api/message", messageRoutes);
 
 // connect to database
 const PORT = process.env.PORT || 4000;
-mongoose.set("strictQuery", false); 
+mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -59,12 +58,21 @@ mongoose
     });
 
     io.on("connection", (socket) => {
-      console.log("connected to socket.io");
+      //// # connection check
+      // console.log("connected to socket.io");
+      console.log(`User Connected: ${socket.id}`);
 
-      socket.on('setup', (userData) => {
+      // test socket setup
+      socket.on("setup", (userData) => {
+        // console.log(userData)
         socket.join(userData._id);
-        socket.emit('connected socket');
-      })
+        socket.emit("connected socket");
+      });
+
+      // recieve message from send message button
+      socket.on("sendMessage", (userData) => {
+        socket.broadcast.emit("receiveMessage", "I get your data");
+      });
     });
   })
   .catch((error) => {

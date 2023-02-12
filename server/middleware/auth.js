@@ -8,6 +8,7 @@ const sendTokenResponse = (user, statusCode, res) => {
         httpOnly: true
     }
     res.status(statusCode).cookie("token", token, options).json({
+        _id: user._id,
         email: user.email,
         token
     })
