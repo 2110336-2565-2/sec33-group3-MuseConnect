@@ -20,6 +20,7 @@ body{
     
 }       
 .top{
+    margin-top: 60px;
     text-align: center;
     font-weight: bolder;
     font-size:1.15cm;

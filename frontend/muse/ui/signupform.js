@@ -24,7 +24,6 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
     const [selected, setSelected] = useState('');
-
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
 
@@ -56,6 +55,8 @@ export default function SignupForm() {
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
+            //const out = result.error;
+            //console.log(out);
             alert(result.error);
         }
         else{
@@ -97,6 +98,7 @@ export default function SignupForm() {
                 {/* Password */}
                 <div className="field">
                     <p>Create a password</p>
+                    <p style={{fontSize: "12px"}}>- Password must be more than 7 characters<br></br>- Password must contain an uppercase, a number, a special character</p>
                     <input type="password" className="form-control" id="inputPassword" 
                     placeholder="Password"
                     onChange={props.handleChange}
@@ -139,7 +141,7 @@ export default function SignupForm() {
                 <div className="field">
                     <p style={{color: "White"}}>Phone Number</p>
                     <PhoneInput className="form-control" type="text" 
-                    placeholder="xxx-xxx-xxxx"
+                    // placeholder="xxx-xxx-xxxx"
                     onChange={props.handleChange}
                     country={'th'}
                     onBlur={props.handleBlur}
