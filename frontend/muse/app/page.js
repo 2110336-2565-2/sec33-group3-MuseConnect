@@ -5,8 +5,6 @@ import SideBar from '../ui/SideBar'
 import NavBar from '../ui/NavBar'
 import '../app/globals.css'
 import React, { useEffect, useState } from "react";
-import { Montserrat } from '@next/font/google'
-const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home() {
   const [isActive, setActive] = useState("false");
@@ -18,7 +16,6 @@ export default function Home() {
   return(
     <>
       <style>
-       
       </style>
       <body>
         <div className="wrapper d-flex align-items-stretch">
@@ -32,7 +29,6 @@ export default function Home() {
         <h4 className="mb-4">Music connects us.</h4>
         </div>
       </div>
-
 		</div>
       </body>
     </>

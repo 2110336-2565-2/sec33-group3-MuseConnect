@@ -14,7 +14,7 @@ const Context = createContext()
 
 import { Montserrat } from '@next/font/google'
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+const montserrat = Montserrat({ subsets: ['latin'] });
 // api path
 const Login_Api_Path = "http://localhost:4000/api/login"
 
