@@ -28,12 +28,11 @@ export default function Home() {
       <div id="content">
         <NavBar show={handleClick} />
         <div className="p-4 p-md-5">
-        <h2 className="mb-4">Spint 1</h2>
-
-
+        <h2 className="mb-4">Welcome to Muse Connect</h2>
+        <h4 className="mb-4">Music connects us.</h4>
         </div>
       </div>
-      {/* comment */}
+
 		</div>
       </body>
     </>

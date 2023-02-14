@@ -4,6 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ /* @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap'); */
  :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -129,13 +130,13 @@
   
   sup {
     top: -.5em; }
-  
+
   a {
     color: #007bff;
     text-decoration: none;
     background-color: transparent; }
     a:hover {
-      color: #0056b3;
+      /* color: #000000; */
       text-decoration: underline; }
   
   a:not([href]):not([tabindex]) {
@@ -8132,6 +8133,7 @@
   
   body {
     font-family: 'Montserrat', Tahoma, Geneva,italic;
+    /* font-family: 'Montserrat', sans-serif; */
     font-size: 14px;
     line-height: 1.8;
     font-weight: normal;
