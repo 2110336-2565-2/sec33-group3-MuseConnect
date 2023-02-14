@@ -3,6 +3,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
 import Link from 'next/link';
+import { Montserrat } from '@next/font/google'
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function SideBar({ children }) {
     const isActive = children
