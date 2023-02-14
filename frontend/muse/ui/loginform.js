@@ -5,7 +5,7 @@ import Link from 'next/link'
 import styles from './Login.css'
 //-----------------
 import { createContext } from 'react'
-import Button from './Button'
+
 const Context = createContext()
 //-----------------
 // If you find an error from this file, it's probably that you haven't installed
