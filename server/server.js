@@ -69,6 +69,7 @@ mongoose
         socket.emit("connected socket");
       });
 
+      // TODO change to send to specific user
       // recieve message from send message button
       socket.on("sendMessage", (userData) => {
         socket.broadcast.emit("receiveMessage", "I get your data");
