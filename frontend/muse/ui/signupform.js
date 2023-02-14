@@ -70,6 +70,8 @@ export default function SignupForm() {
         
     }
 
+    const [value, setValue] = useState()
+
     return (
         <div className={montserrat.className}>
         <p className='top'>
@@ -99,7 +101,7 @@ export default function SignupForm() {
                 {/* Password */}
                 <div className="field">
                     <p>Create a password</p>
-                    <p style={{fontSize: "12px"}}>- Password must be more than 7 characters<br></br>- Password must contain an uppercase, a number, a special character</p>
+                    <p style={{fontSize: "12px"}}>- Password must be at least 8 characters<br></br>- Password must contain an uppercase, a lowercase, a number, a special character</p>
                     <input type="password" className="form-control" id="inputPassword" 
                     placeholder="Password"
                     onChange={props.handleChange}
@@ -143,11 +145,11 @@ export default function SignupForm() {
                     <p style={{color: "White"}}>Phone Number</p>
                     <PhoneInput className="form-control" type="text" 
                     // placeholder="xxx-xxx-xxxx"
-                    onChange={props.handleChange}
-                    country={'th'}
+                    onChange={setValue}
+                    country={'TH'}
                     onBlur={props.handleBlur}
-                    value={props.values.phone}
-                    name="phone">    
+                    value={value}
+                    name="phone">   
                     </PhoneInput>
                 </div>
 
