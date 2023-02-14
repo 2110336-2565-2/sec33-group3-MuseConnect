@@ -17,9 +17,6 @@ export default function Home() {
 
   return(
     <>
-      <style>
-       
-      </style>
       <body>
         <div className="wrapper d-flex align-items-stretch">
 			<SideBar children={isActive}/>

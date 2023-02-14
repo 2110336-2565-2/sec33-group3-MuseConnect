@@ -11,22 +11,43 @@ import styles from './Navbar.css'
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function NavBar({show}) {
-  return (
+
+  const user = localStorage.getItem('user');
+  const logOut = () => {
+    localStorage.removeItem('user');
+  }; 
+
+  if(user == null){
+    return (
+      <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
+        <Container>
+          <Button id = "menuButton" onClick={show} >
+            click
+          </Button>
+          <Stack direction='horizontal' gap={3}>
+            <button className="btn btn-outline-dark">
+              <a href="/Signup">Sign up</a>
+            </button>
+            <button className="btn btn-success ">
+              <a href="/Login">log in</a>
+            </button>
+          </Stack>
+        </Container>
+      </Navbar>
+    )
+  } else {
+    return(
     <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
-          <Container>
-            <Button id = "menuButton" onClick={show} >
-              click
-            </Button>
-            <Stack direction='horizontal' gap={3}>
-              <button className="btn btn-outline-dark">
-                <a href="/Signup">Sign up</a>
-              </button>
-              <button className="btn btn-success ">
-                <a href="/Login">log in</a>
-              </button> 
-            {/* className="btn btn-success" */}   
-            </Stack>
-          </Container>
-        </Navbar>
-  )
+        <Container>
+          <Button id = "menuButton" onClick={show} >
+            click
+          </Button>
+            <button className="btn btn-success" onClick={logOut}>
+              <a href="">log out</a>
+            </button>
+        </Container>
+      </Navbar>
+    )
+  }
+  
 }
