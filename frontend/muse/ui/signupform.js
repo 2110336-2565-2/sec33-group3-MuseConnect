@@ -7,7 +7,7 @@ import styles from './Signup.css'
 import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
-import Button from './Button'
+
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
 //-----------------
@@ -15,9 +15,7 @@ const Context = createContext()
 // formik. Please use 'npm install formik --save' command to install.
 //-----------------
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
-
 import { Montserrat } from '@next/font/google'
-
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 

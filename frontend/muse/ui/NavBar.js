@@ -6,6 +6,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Button, Stack } from 'react-bootstrap'
 import React from 'react'
 import Link from 'next/link';
+import { Montserrat } from '@next/font/google'
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function NavBar({show}) {
   return (
@@ -15,12 +17,13 @@ export default function NavBar({show}) {
               click
             </Button>
             <Stack direction='horizontal' gap={3}>
-              <Button>
-              <a href="/Signup">Sign up</a>
-            </Button>
-            <Button>
-              <a href="/Login">log in</a>
-            </Button>    
+              <button className="btn btn-success">
+                <a href="/Signup">Sign up</a>
+              </button>
+            {/* className="btn btn-success" */}
+              <button className="btn btn-outline-light">
+                <a href="/Login">log in</a>
+              </button>    
             </Stack>
             
           </Container>
