@@ -49,9 +49,8 @@ export default function SignupForm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...values,phone_number:"1111111111"})
+            body: JSON.stringify(values)
         })
-        // console.log(respone)
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
@@ -59,12 +58,8 @@ export default function SignupForm() {
         }
         else{
             alert("signup complete");
-            // console.log(window)
-            // console.log(result)
         }
         actions.setSubmitting(false);
-        // alert(JSON.stringify(values, null, 2));
-        
     }
 
     return (
@@ -81,6 +76,7 @@ export default function SignupForm() {
         >
         {props => (
             <form onSubmit={props.handleSubmit}>
+
                 {/* Email */}
                 <div className="field">
                     <p>Email</p>
@@ -129,22 +125,6 @@ export default function SignupForm() {
                     value={props.values.last_name}
                     name="last_name">    
                     </input>
-                </div>
-
-
-                {/* Phone Number */}
-                {/* Requirement in MS3 takes phone number as a string not a number */}
-                {/* I'll try to find the auto phone number input format later */}
-                <div className="field">
-                    <p style={{color: "White"}}>Phone Number</p>
-                    <PhoneInput className="form-control" type="text" 
-                    placeholder="xxx-xxx-xxxx"
-                    onChange={props.handleChange}
-                    country={'th'}
-                    onBlur={props.handleBlur}
-                    value={props.values.phone}
-                    name="phone">    
-                    </PhoneInput>
                 </div>
 
 
