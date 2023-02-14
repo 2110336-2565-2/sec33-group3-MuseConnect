@@ -8131,11 +8131,15 @@
       border-color: #dee2e6; } }
   
   body {
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: 'Montserrat', Tahoma, Geneva,italic;
     font-size: 14px;
     line-height: 1.8;
     font-weight: normal;
     background-image: url(https://img3.goodfon.com/wallpaper/nbig/9/9a/fon-temno-plastinka-vinil.jpg);
+    background-attachment: fixed;
+    background-position: right top;
+    background-repeat: no-repeat;
+    /* background-size: 150% auto; */
     color: white; }
   
   a {
@@ -8163,7 +8167,7 @@
   .h1, .h2, .h3, .h4, .h5 {
     line-height: 1.5;
     font-weight: 400;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: "Montserrat";
     color: white; }
   
   .ftco-section {
