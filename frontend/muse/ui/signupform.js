@@ -48,9 +48,8 @@ export default function SignupForm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...values,phone_number:"1111111111"})
+            body: JSON.stringify(values)
         })
-        // console.log(respone)
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
@@ -60,12 +59,8 @@ export default function SignupForm() {
         }
         else{
             alert("signup complete");
-            // console.log(window)
-            // console.log(result)
         }
         actions.setSubmitting(false);
-        // alert(JSON.stringify(values, null, 2));
-        
     }
 
     const [value, setValue] = useState()
@@ -84,6 +79,7 @@ export default function SignupForm() {
         >
         {props => (
             <form onSubmit={props.handleSubmit}>
+
                 {/* Email */}
                 <div className="field">
                     <p>Email</p>
