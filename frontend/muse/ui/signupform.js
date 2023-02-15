@@ -26,9 +26,9 @@ export default function SignupForm() {
     }; 
 
     const handleChangePhone = event => {
-        console.log('Label 👉️', event.target.selectedOptions[0].label);
-        console.log(event.target.value);
-        setValue(event.target.value);
+        //console.log('Label 👉️', event.target.selectedOptions[0].label);
+        //console.log(event.target.value);
+        props.values.phone_number = event;
     }; 
     
     function click() {
@@ -62,7 +62,7 @@ export default function SignupForm() {
         actions.setSubmitting(false);
     }
 
-    const [value, setValue] = useState()
+    const [value, setValue] = useState("1")
 
     return (
         <div className={montserrat.className}>
@@ -73,7 +73,7 @@ export default function SignupForm() {
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
         initialValues={{email: '', password:'', first_name:'', 
-                        last_name:'', phone_number:'', role:''}}
+                        last_name:'', phone_number:value, role:''}}
         onSubmit={(values, actions) => onSubmit(values,actions)}
         >
         {props => (
@@ -138,7 +138,7 @@ export default function SignupForm() {
                     <p style={{color: "White"}}>Phone Number</p>
                     <PhoneInput className="form-control" type="text" 
                     // placeholder="xxx-xxx-xxxx"
-                    onChange={setValue}
+                    onChange={(number) => {props.values.phone_number = number}}
                     country={'TH'}
                     onBlur={props.handleBlur}
                     value={props.values.phone_number}
