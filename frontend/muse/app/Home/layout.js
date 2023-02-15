@@ -20,9 +20,7 @@ export default function RootLayout({ children }) {
     {/* <!-- Page Content  --> */}
         <div id="content">
           <NavBar show={handleClick} />
-          <div className="p-4 p-md-5">
             {children}
-          </div>
         </div>
       </div>
     </body>
