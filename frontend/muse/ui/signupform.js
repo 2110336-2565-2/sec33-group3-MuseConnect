@@ -7,18 +7,11 @@ import styles from './Signup.css'
 import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
-
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
-//-----------------
-// If you find an error from this file, it's probably that you haven't installed
-// formik. Please use 'npm install formik --save' command to install.
-// This is Matthew
-//-----------------
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })
-
 
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -48,9 +41,8 @@ export default function SignupForm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...values,phone_number:"1111111111"})
+            body: JSON.stringify(values)
         })
-        // console.log(respone)
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
@@ -60,12 +52,8 @@ export default function SignupForm() {
         }
         else{
             alert("signup complete");
-            // console.log(window)
-            // console.log(result)
         }
         actions.setSubmitting(false);
-        // alert(JSON.stringify(values, null, 2));
-        
     }
 
     const [value, setValue] = useState()
@@ -84,6 +72,7 @@ export default function SignupForm() {
         >
         {props => (
             <form onSubmit={props.handleSubmit}>
+
                 {/* Email */}
                 <div className="field">
                     <p>Email</p>
@@ -152,9 +141,7 @@ export default function SignupForm() {
                 </div>
 
 
-                {/* User type */}
-                {/* **The value of selected field hasn't assigned to the value and onchange,
-                please kindly wait for me to solve this (or feel free to do it!) */}
+                {/* User type */}   
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
@@ -170,7 +157,7 @@ export default function SignupForm() {
                     <button type="submit" className="btn btn-success">Sign up</button>
                 </div>
                 <div>
-                    <p style={{color: "White",textAlign: "center"}}>Have an account? <Link href="/Login" style={{color: "#188756"}}>Log in</Link></p>
+                    <p style={{color: "White",textAlign: "center"}}>Have an account? <a href="/Login" style={{color: "#188756"}}>Log in</a></p>
                 </div>
             </form>
         )}

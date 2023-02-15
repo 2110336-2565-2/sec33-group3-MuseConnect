@@ -8,15 +8,15 @@ const sendTokenResponse = (user, statusCode, res) => {
         httpOnly: true
     }
     res.status(statusCode).cookie("token", token, options).json({
+        _id: user._id,
         email: user.email,
         token
     })
 }
 
-// TODO testing authorize method [admin, musician, organizer]
+// middleware that grants access to an endpoint only to users belonging to specific roles
 const authorize = function authorize(...roles) {
     return (req, res, next) => {
-        // console.log(roles);
         if(!roles.includes(req.user.role)) {
             return res.status(403).json({
                 success: false,

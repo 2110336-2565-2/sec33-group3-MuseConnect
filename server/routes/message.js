@@ -4,7 +4,7 @@ const router = require("express").Router();
 const { 
   allMessages,
   sendMessage,
-} = require("../controllers/chatConntroller");
+} = require("../controllers/messageController");
 
 const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)

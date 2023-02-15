@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// TODO add require attribute
 const eventSchema = mongoose.Schema({
   event_id: {
     type: String,

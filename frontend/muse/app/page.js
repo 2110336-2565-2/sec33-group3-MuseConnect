@@ -4,9 +4,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SideBar from '../ui/SideBar'
 import NavBar from '../ui/NavBar'
 import '../app/globals.css'
+import Elehome from '../ui/elehome';
 import React, { useEffect, useState } from "react";
+
 import { Montserrat } from '@next/font/google'
-const montserrat = Montserrat({ subsets: ['latin'] })
+const montserratBold = Montserrat({ 
+  weight: '700',
+  subsets: ['latin'] })
+const montserrat = Montserrat({ 
+    weight: '400',
+    subsets: ['latin'] })
 
 export default function Home() {
   const [isActive, setActive] = useState("false");
@@ -17,10 +24,6 @@ export default function Home() {
 
   return(
     <>
-      <style>
-       
-      </style>
-      <body>
         <div className="wrapper d-flex align-items-stretch">
 			<SideBar children={isActive}/>
 
@@ -28,13 +31,13 @@ export default function Home() {
       <div id="content">
         <NavBar show={handleClick} />
         <div className="p-4 p-md-5">
-        <h2 className="mb-4">Welcome to Muse Connect</h2>
-        <h4 className="mb-4">Music connects us.</h4>
+          <h3 style={{fontSize:"60px", marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect</h3>
+          <h4 style={{fontSize:"40px", marginBottom:"30px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h4>
+          {/* textDecorationLine:"underline", textDecorationColor:"#26A74C"} */}
+          <Elehome/>
         </div>
       </div>
-
 		</div>
-      </body>
     </>
         
   )
