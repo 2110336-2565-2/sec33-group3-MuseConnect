@@ -3,7 +3,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SideBar from '../../ui/SideBar'
 import NavBar from '../../ui/NavBar'
-import '../../style/style2.css'
+import '../../app/globals.css'
 import React, { useState } from "react";
 
 export default function RootLayout({ children }) {
@@ -20,9 +20,7 @@ export default function RootLayout({ children }) {
     {/* <!-- Page Content  --> */}
         <div id="content">
           <NavBar show={handleClick} />
-          <div className="p-4 p-md-5">
             {children}
-          </div>
         </div>
       </div>
     </body>
