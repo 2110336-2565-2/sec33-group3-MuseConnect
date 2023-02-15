@@ -7994,17 +7994,17 @@
   
   body {
     font-family: 'Montserrat', Tahoma, Geneva,italic;
-    /* font-family: 'Montserrat', sans-serif; */
     font-size: 14px;
     line-height: 1.8;
     font-weight: normal;
-    background-image: url(https://img3.goodfon.com/wallpaper/nbig/9/9a/fon-temno-plastinka-vinil.jpg);
+    /* background-image: url(https://img3.goodfon.com/wallpaper/nbig/9/9a/fon-temno-plastinka-vinil.jpg); */
     background-attachment: fixed;
-    background-position: right top;
+    /* background-position: right top;  */
+    background-position: center;
     background-repeat: no-repeat;
-    /* background-size: 150% auto; */
-    color: white; }
-  
+    background-size: cover;
+    background-color: #1E1E1E; }
+    
   a {
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
