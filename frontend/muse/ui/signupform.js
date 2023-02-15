@@ -79,7 +79,7 @@ export default function SignupForm() {
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
         initialValues={{email: '', password:'', first_name:'', 
-                        last_name:'', phone:'', role:''}}
+                        last_name:'', phone_number:'', role:''}}
         onSubmit={(values, actions) => onSubmit(values,actions)}
         >
         {props => (
@@ -147,7 +147,7 @@ export default function SignupForm() {
                     country={'TH'}
                     onBlur={props.handleBlur}
                     value={value}
-                    name="phone">   
+                    name="phone_number">   
                     </PhoneInput>
                 </div>
 
