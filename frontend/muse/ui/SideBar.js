@@ -16,13 +16,13 @@ export default function SideBar({ children }) {
         </h3>
 	        <ul className="list-unstyled components mb-5">
             <li>
-	              <Link href="/Home/Profile" className={montserrat.className}>Profile</Link>
+	              <a href="/Home/Profile" className={montserrat.className}>Profile</a>
 	          </li>
 	          <li>
-	              <Link href="/Home/Search" className={montserrat.className}>Search</Link>
+	              <a href="/Home/Search" className={montserrat.className}>Search</a>
 	          </li>
             <li>
-	              <Link href="/Home/Calendar" className={montserrat.className}>Calendar</Link>
+	              <a href="/Home/Calendar" className={montserrat.className}>Calendar</a>
 	          </li>
 	        </ul>
 
