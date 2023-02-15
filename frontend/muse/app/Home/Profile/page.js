@@ -11,7 +11,8 @@ export default function profile() {
         <Row class=" text-white" style={{backgroundColor: "#1E1E1E", height: "20rem"}}>
           <Col style={{margin: "1rem"}}>
             <Row className='justify-content-center'>
-              <Image src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2" style={{borderRadius: "10rem",width: "14rem",height: "13rem"}}></Image>
+              <Image src="../images/win.jpg" style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}></Image>
+              {/* class="img-fluid img-thumbnail mt-4 mb-2" */}
             </Row>
             <Row xs>
               <button type="button" class="btn btn-outline-light mt-3" data-mdb-ripple-color="dark">
