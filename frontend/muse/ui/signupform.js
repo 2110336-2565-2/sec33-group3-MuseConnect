@@ -6,7 +6,7 @@ import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
-import PhoneInput from "reac`t-phone-number-input"
+import PhoneInput from "react-phone-number-input"
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
