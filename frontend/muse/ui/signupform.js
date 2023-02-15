@@ -6,19 +6,12 @@ import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
-import PhoneInput from "react-phone-number-input"
-
+import PhoneInput from "reac`t-phone-number-input"
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
-//-----------------
-// If you find an error from this file, it's probably that you haven't installed
-// formik. Please use 'npm install formik --save' command to install.
-// This is Matthew
-//-----------------
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })
-
 
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -148,9 +141,7 @@ export default function SignupForm() {
                 </div>
 
 
-                {/* User type */}
-                {/* **The value of selected field hasn't assigned to the value and onchange,
-                please kindly wait for me to solve this (or feel free to do it!) */}
+                {/* User type */}   
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}

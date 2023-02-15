@@ -23,8 +23,7 @@ export default function NavBar({show}) {
               </button>
               <button className="btn btn-success ">
                 <a href="/Login">log in</a>
-              </button> 
-            {/* className="btn btn-success" */}   
+              </button>   
             </Stack>
           </Container>
         </Navbar>
