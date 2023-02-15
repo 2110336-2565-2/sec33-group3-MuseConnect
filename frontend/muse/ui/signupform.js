@@ -157,7 +157,7 @@ export default function SignupForm() {
                     <button type="submit" className="btn btn-success">Sign up</button>
                 </div>
                 <div>
-                    <p style={{color: "White",textAlign: "center"}}>Have an account? <Link href="/Login" style={{color: "#188756"}}>Log in</Link></p>
+                    <p style={{color: "White",textAlign: "center"}}>Have an account? <a href="/Login" style={{color: "#188756"}}>Log in</a></p>
                 </div>
             </form>
         )}
