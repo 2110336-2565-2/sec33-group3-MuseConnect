@@ -1,6 +1,6 @@
 'use client'
 import { Formik, Field, Form } from 'formik'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './Signup.css'
 //-----------------
@@ -23,6 +23,12 @@ export default function SignupForm() {
         console.log('Label 👉️', event.target.selectedOptions[0].label);
         console.log(event.target.value);
         setSelected(event.target.value);
+    }; 
+
+    const handleChangePhone = event => {
+        console.log('Label 👉️', event.target.selectedOptions[0].label);
+        console.log(event.target.value);
+        setValue(event.target.value);
     }; 
     
     function click() {
@@ -135,7 +141,7 @@ export default function SignupForm() {
                     onChange={setValue}
                     country={'TH'}
                     onBlur={props.handleBlur}
-                    value={value}
+                    value={props.values.phone_number}
                     name="phone_number">   
                     </PhoneInput>
                 </div>
