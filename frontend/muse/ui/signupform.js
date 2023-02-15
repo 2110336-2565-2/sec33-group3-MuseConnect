@@ -1,24 +1,17 @@
 'use client'
 import { Formik, Field, Form } from 'formik'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
-
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
-//-----------------
-// If you find an error from this file, it's probably that you haven't installed
-// formik. Please use 'npm install formik --save' command to install.
-// This is Matthew
-//-----------------
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })
-
 
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -30,6 +23,12 @@ export default function SignupForm() {
         console.log('Label 👉️', event.target.selectedOptions[0].label);
         console.log(event.target.value);
         setSelected(event.target.value);
+    }; 
+
+    const handleChangePhone = event => {
+        console.log('Label 👉️', event.target.selectedOptions[0].label);
+        console.log(event.target.value);
+        setValue(event.target.value);
     }; 
     
     function click() {
@@ -74,7 +73,7 @@ export default function SignupForm() {
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
         initialValues={{email: '', password:'', first_name:'', 
-                        last_name:'', phone:'', role:''}}
+                        last_name:'', phone_number:'', role:''}}
         onSubmit={(values, actions) => onSubmit(values,actions)}
         >
         {props => (
@@ -142,15 +141,13 @@ export default function SignupForm() {
                     onChange={setValue}
                     country={'TH'}
                     onBlur={props.handleBlur}
-                    value={value}
-                    name="phone">   
+                    value={props.values.phone_number}
+                    name="phone_number">   
                     </PhoneInput>
                 </div>
 
 
-                {/* User type */}
-                {/* **The value of selected field hasn't assigned to the value and onchange,
-                please kindly wait for me to solve this (or feel free to do it!) */}
+                {/* User type */}   
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
@@ -166,7 +163,7 @@ export default function SignupForm() {
                     <button type="submit" className="btn btn-success">Sign up</button>
                 </div>
                 <div>
-                    <p style={{color: "White",textAlign: "center"}}>Have an account? <Link href="/Login" style={{color: "#188756"}}>Log in</Link></p>
+                    <p style={{color: "White",textAlign: "center"}}>Have an account? <a href="/Login" style={{color: "#188756"}}>Log in</a></p>
                 </div>
             </form>
         )}

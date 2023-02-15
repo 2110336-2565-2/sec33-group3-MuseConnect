@@ -51,6 +51,7 @@
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    /* font-family: 'Dancing Script', cursive; */
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -478,7 +479,8 @@
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-right: -15px;
-    margin-left: -15px; }
+    margin-left: -15px;
+     }
   
   .no-gutters {
     margin-right: 0;
@@ -8137,11 +8139,12 @@
     font-size: 14px;
     line-height: 1.8;
     font-weight: normal;
-    background-image: url(https://img3.goodfon.com/wallpaper/nbig/9/9a/fon-temno-plastinka-vinil.jpg);
+    /* background-image: url(https://img3.goodfon.com/wallpaper/nbig/9/9a/fon-temno-plastinka-vinil.jpg); */
     background-attachment: fixed;
     background-position: right top;
     background-repeat: no-repeat;
     /* background-size: 150% auto; */
+    background-color: #1e1e1e;
     color: white; }
   
   a {
@@ -8197,7 +8200,7 @@
     background: #fff;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
     -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); }
   

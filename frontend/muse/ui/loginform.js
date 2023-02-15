@@ -14,7 +14,7 @@ const Context = createContext()
 
 import { Montserrat } from '@next/font/google'
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+const montserrat = Montserrat({ subsets: ['latin'] });
 // api path
 const Login_Api_Path = "http://localhost:4000/api/login"
 
@@ -93,7 +93,7 @@ export default function LoginForm() {
             <button type="submit" className="btn btn-success" style={{marginTop: "25px"}}>Log in</button>
             </div>
             <div>
-                <p style={{color: "White",textAlign: "center"}}>Don't have an account? <Link href="/Signup" style={{color: "#188756"}}>Sign up</Link></p>
+                <p style={{color: "White",textAlign: "center"}}>Don't have an account? <a href="/Signup" style={{color: "#188756"}}>Sign up</a></p>
             </div>
             </form>
         )}
