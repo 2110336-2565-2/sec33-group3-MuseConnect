@@ -3,7 +3,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SideBar from '../../ui/SideBar'
 import NavBar from '../../ui/NavBar'
-import '../../style/style2.css'
+import '../globals.css'
 import React, { useState } from "react";
 
 export default function RootLayout({ children }) {
