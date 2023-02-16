@@ -1,5 +1,6 @@
 'use client'
 
+import {FaBars} from 'react-icons/fa'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -22,7 +23,7 @@ export default function NavBar({show}) {
       <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
         <Container>
           <Button id = "menuButton" onClick={show} >
-            click
+            <span>  <FaBars/> </span>
           </Button>
           <Stack direction='horizontal' gap={3}>
             <button className="btn btn-outline-dark">
@@ -40,7 +41,7 @@ export default function NavBar({show}) {
     <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
         <Container>
           <Button id = "menuButton" onClick={show} >
-            click
+             lick
           </Button>
             <button className="btn btn-success" onClick={logOut}>
               <a href="" className={montserrat.className}>log out</a>
