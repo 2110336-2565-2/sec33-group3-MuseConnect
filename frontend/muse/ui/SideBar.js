@@ -12,7 +12,7 @@ export default function SideBar({ children }) {
         <nav style={{backgroundColor:"#000000"}} id="sidebar" className= {isActive ? null : "active"} >
 				<div className="p-4 pt-5">
           <h3 style={{color: "white"}} className={montserrat.className}>
-            <a href={""}>Muse Connect</a> 
+            <a href="/">Muse Connect</a> 
         </h3>
 	        <ul className="list-unstyled components mb-5">
             <li>
