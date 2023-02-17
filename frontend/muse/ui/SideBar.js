@@ -10,7 +10,8 @@ export default function SideBar({ children }) {
     const isActive = children
     return (
         <nav style={{backgroundColor:"#000000"}} id="sidebar" className= {isActive ? null : "active"} >
-				<div className="p-4 pt-5">
+				<div className="p-4 pt-5" >
+					<div class="position-fixed">
           <h3 style={{color: "white"}} className={montserrat.className}>
             <a href={""}>Muse Connect</a> 
         </h3>
@@ -25,6 +26,7 @@ export default function SideBar({ children }) {
 	              <a href="/Home/Calendar" className={montserrat.className}>Calendar</a>
 	          </li>
 	        </ul>
+			</div>
 
 	      </div>
     	</nav>
