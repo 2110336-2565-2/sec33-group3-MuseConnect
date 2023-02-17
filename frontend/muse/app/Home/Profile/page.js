@@ -1,10 +1,43 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button,Container,Image,Row,Col } from 'react-bootstrap';
+// import io from "socket.io-client";
+
+// const socket = io.connect("http://localhost:4000");
 
 
 export default function profile() {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const getUser =async () =>{
+      const user_loc  = localStorage.getItem("user");
+      const userToken = await JSON.parse(user_loc).token;
+      const respone = await fetch("http://localhost:4000/api/user/63e8d9bf491bf69c080bbeeb", { //ส่งไอดีมาแปะแทนด้วย
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${userToken}`,
+        },
+      });
+      const result = await respone.json();
+      if (!respone.ok) {
+        alert(result.error);
+      } else {
+        setUser(result)
+      }
+    }
+    getUser() ;
+
+  },[]);
+
+  useEffect(()=>{
+    console.log(user)
+  },[user])
+
+
+
+
   return (
     <Container class="justify-content-center align-items-center">
       <div class="mt-5">
@@ -22,9 +55,9 @@ export default function profile() {
           </Col>
           <Col md={{ span: 8 }} style={{marginTop: "3rem"}} >
           <h7>Profile</h7>
-          <h1>Username</h1>
+          <h1>{user.first_name} {user.last_name}</h1>
           <p>Bangkok, Thailand</p>
-          <p>+ 66 xx xxx xxxx</p>
+          <p>{user.phone_number}</p>
           </Col>
         </Row>
         <Row>
