@@ -28,7 +28,7 @@ router.put("/:id", updateUser);
 // delete user
 router.delete("/:id", deleteUser);
 
-// uploadImage user
+// upload user profile image
 router.put("/upload/:id", uploadImage);
 
 module.exports = router;

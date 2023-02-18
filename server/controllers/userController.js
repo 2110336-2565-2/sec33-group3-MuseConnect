@@ -116,38 +116,37 @@ const deleteUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-//upload image
+// upload a user profile image
 //storage
-const Storage = multer.diskStorage({
-  destination: "uploads",
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
+// const Storage = multer.diskStorage({
+//   destination: "uploads",
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
 
-const upload = multer({
-  storage: Storage,
-}).single("profile_picture");
+// const upload = multer({
+//   // storage: Storage,
+// }).single("profile_picture");
 
 const uploadImage = async (req, res) => {
   const id = req.params.id;
-  if (!mongoose.isValidObjectId(id)) {
-    res.status(400).json({ error: "Invalid Id" });
-  }
-  upload(req, res, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      User.findByIdAndUpdate(id, {
-        profile_picture: {
-          data: req.file.filename,
-          contentType: "image/png",
-        },
-      })
-        .then(() => res.status(200).json({ message: "Uploaded successfully" }))
-        .catch((err) => res.status(400).json({ error: err }));
+  try {
+    if (!mongoose.isValidObjectId(id)) {
+      throw Error("Invalid Id");
     }
-  });
+    // console.log(req.body.picture);
+    const user = await User.findByIdAndUpdate(id, {
+      profile_picture: {
+        data: req.body.picture,
+        contentType: "image/png",
+      },
+    });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
 };
 
 module.exports = {
