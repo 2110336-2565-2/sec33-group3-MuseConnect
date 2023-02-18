@@ -4,6 +4,7 @@ import Head from "next/head";
 import styles from "./page.module.css";
 const Home: NextPage = () => {
   return (
+    <body>
     <div className={styles.container}>
       <Head>
         <title>Sign up Page</title>
@@ -12,7 +13,8 @@ const Home: NextPage = () => {
         <SignupForm />
       </main>
     </div>
-  );
-};
+    </body>
+  )
+}
 
 export default Home;

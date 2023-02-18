@@ -1,31 +1,47 @@
 'use client'
 import { Formik, Field, Form } from 'formik'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
-import Button from './Button'
+import 'react-phone-number-input/style.css'
+import PhoneInput from "react-phone-number-input"
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
-//-----------------
-// If you find an error from this file, it's probably that you haven't installed
-// formik. Please use 'npm install formik --save' command to install.
-//-----------------
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
-
 import { Montserrat } from '@next/font/google'
-
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
+    const [selected, setSelected] = useState('');
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
-    };
 
-    const onSubmit = async (values, actions) => {
-        console.log(values)
+    };const handleChange = event => {
+        console.log('Label 👉️', event.target.selectedOptions[0].label);
+        console.log(event.target.value);
+        setSelected(event.target.value);
+    }; 
+
+    const handleChangePhone = event => {
+        //console.log('Label 👉️', event.target.selectedOptions[0].label);
+        //console.log(event.target.value);
+        props.values.phone_number = event;
+    }; 
+    
+    function click() {
+        // toggle the type attribute
+        const togglePassword = document.querySelector("#togglePassword");
+        const passwordV = document.querySelector("#password_field");
+        const type = passwordV.getAttribute("type") === "password" ? "text" : "password";
+        togglePassword.className === 'fa fa-eye viewpass mr-4 text-muted' ? document.getElementById("togglePassword").className = 'fa fa-eye-slash viewpass mr-4 text-muted' : document.getElementById("togglePassword").className = 'fa fa-eye viewpass mr-4 text-muted';
+        passwordV.setAttribute("type", type);
+
+    }
+        const onSubmit = async (values, actions) => {
+        // console.log(values)
         const respone = await fetch(SignUp_Api_Path,{
             method: 'POST',
             headers: {
@@ -36,6 +52,8 @@ export default function SignupForm() {
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
+            //const out = result.error;
+            //console.log(out);
             alert(result.error);
         }
         else{
@@ -43,6 +61,8 @@ export default function SignupForm() {
         }
         actions.setSubmitting(false);
     }
+
+    const [value, setValue] = useState("1")
 
     return (
         <div className={montserrat.className}>
@@ -53,7 +73,7 @@ export default function SignupForm() {
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
         initialValues={{email: '', password:'', first_name:'', 
-                        last_name:'', role:''}}
+                        last_name:'', phone_number:value, role:''}}
         onSubmit={(values, actions) => onSubmit(values,actions)}
         >
         {props => (
@@ -61,7 +81,6 @@ export default function SignupForm() {
 
                 {/* Email */}
                 <div className="field">
-                    {/* <p id='email' style={{color: "White",marginBottom: "5px"}}>Email</p> */}
                     <p>Email</p>
                     <input type="email" className="form-control" 
                     id="exampleFormControlInput1" placeholder="name@example.com"
@@ -71,9 +90,11 @@ export default function SignupForm() {
                     name="email"></input>
                 </div>
 
+        
                 {/* Password */}
                 <div className="field">
                     <p>Create a password</p>
+                    <p style={{fontSize: "12px"}}>- Password must be at least 8 characters<br></br>- Password must contain an uppercase, a lowercase, a number, a special character</p>
                     <input type="password" className="form-control" id="inputPassword" 
                     placeholder="Password"
                     onChange={props.handleChange}
@@ -81,8 +102,8 @@ export default function SignupForm() {
                     value={props.values.password}
                     name="password">
                     </input>
-                    {/* <button onClick={togglePassword}>Show Password</button> */}
                 </div>
+
 
                 {/* Name */}
                 <div className="field">
@@ -96,6 +117,7 @@ export default function SignupForm() {
                     </input>
                 </div>
 
+
                 {/* Last Name */}
                 <div className="field">
                     <p style={{color: "White"}}>Last name</p>
@@ -108,7 +130,24 @@ export default function SignupForm() {
                     </input>
                 </div>
 
-                {/* User type */}
+
+                {/* Phone Number */}
+                {/* Requirement in MS3 takes phone number as a string not a number */}
+                {/* I'll try to find the auto phone number input format later */}
+                <div className="field">
+                    <p style={{color: "White"}}>Phone Number</p>
+                    <PhoneInput className="form-control" type="text" 
+                    // placeholder="xxx-xxx-xxxx"
+                    onChange={(number) => {props.values.phone_number = number}}
+                    country={'TH'}
+                    onBlur={props.handleBlur}
+                    value={props.values.phone_number}
+                    name="phone_number">   
+                    </PhoneInput>
+                </div>
+
+
+                {/* User type */}   
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
@@ -119,12 +158,13 @@ export default function SignupForm() {
                     </select>
                 </div>
 
-            <div style={{textAlign: "center",marginBottom: "10px"}}>
-            <button type="submit" className="btn btn-success">Sign up</button>
-            </div>
-            <div>
-                <p style={{color: "White",textAlign: "center"}}>Have an account? <Link href="/Login" style={{color: "#188756"}}>Log in</Link></p>
-            </div>
+
+                <div style={{textAlign: "center",marginBottom: "10px"}}>
+                    <button type="submit" className="btn btn-success">Sign up</button>
+                </div>
+                <div>
+                    <p style={{color: "White",textAlign: "center"}}>Have an account? <a href="/Login" style={{color: "#188756"}}>Log in</a></p>
+                </div>
             </form>
         )}
         </Formik>
