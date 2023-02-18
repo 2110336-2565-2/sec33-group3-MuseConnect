@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const User = require("../models/userModel");
+const multer = require("multer");
 const { sendTokenResponse } = require("../middleware/auth");
 
 // login a user
@@ -21,14 +22,8 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const {
-    email,
-    password,
-    first_name,
-    last_name,
-    phone_number,
-    role
-  } = req.body;
+  const { email, password, first_name, last_name, phone_number, role } =
+    req.body;
 
   try {
     const user = await User.signup(email, password, {
@@ -121,6 +116,39 @@ const deleteUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+//upload image
+//storage
+const Storage = multer.diskStorage({
+  destination: "uploads",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: Storage,
+}).single("profile_picture");
+
+const uploadImage = async (req, res) => {
+  const id = req.params.id;
+  if (!mongoose.isValidObjectId(id)) {
+    res.status(400).json({ error: "Invalid Id" });
+  }
+  upload(req, res, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      User.findByIdAndUpdate(id, {
+        profile_picture: {
+          data: req.file.filename,
+          contentType: "image/png",
+        },
+      })
+        .then(() => res.status(200).json({ message: "Uploaded successfully" }))
+        .catch((err) => res.status(400).json({ error: err }));
+    }
+  });
+};
 
 module.exports = {
   signupUser,
@@ -128,4 +156,5 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  uploadImage,
 };

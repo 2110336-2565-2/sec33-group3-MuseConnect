@@ -6,24 +6,48 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Button, Stack } from 'react-bootstrap'
 import React from 'react'
 import Link from 'next/link';
+import styles from './Navbar.css'
+import { Montserrat } from '@next/font/google'
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function NavBar({show}) {
-  return (
+
+  const user = localStorage.getItem('user');
+  const logOut = () => {
+    localStorage.removeItem('user');
+  }; 
+
+  if(user == null){
+    return (
+      <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
+        <Container>
+          <Button id = "menuButton" onClick={show} >
+            click
+          </Button>
+          <Stack direction='horizontal' gap={3}>
+            <button className="btn btn-outline-dark">
+              <a href="/Signup" className={montserrat.className}>Sign up</a>
+            </button>
+            <button className="btn btn-success ">
+              <a href="/Login" className={montserrat.className}>log in</a>
+            </button>
+          </Stack>
+        </Container>
+      </Navbar>
+    )
+  } else {
+    return(
     <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
-          <Container>
-            <Button id = "menuButton" onClick={show} >
-              click
-            </Button>
-            <Stack direction='horizontal' gap={3}>
-              <Button>
-              <a href="/Signup">Sign up</a>
-            </Button>
-            <Button>
-              <a href="/Login">log in</a>
-            </Button>    
-            </Stack>
-            
-          </Container>
-        </Navbar>
-  )
+        <Container>
+          <Button id = "menuButton" onClick={show} >
+            click
+          </Button>
+            <button className="btn btn-success" onClick={logOut}>
+              <a href="" className={montserrat.className}>log out</a>
+            </button>
+        </Container>
+      </Navbar>
+    )
+  }
+  
 }
