@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Button,Container,Image,Row,Col } from 'react-bootstrap';
+import Link from 'next/link'
 // import io from "socket.io-client";
 
 // const socket = io.connect("http://localhost:4000");
@@ -48,8 +49,8 @@ export default function profile() {
               {/* class="img-fluid img-thumbnail mt-4 mb-2" */}
             </Row>
             <Row xs>
-              <button type="button" class="btn btn-outline-light mt-3" data-mdb-ripple-color="dark">
-                Edit profile
+              <button type="button" class="btn btn-outline-light mt-3" data-mdb-ripple-color="dark" >
+              <a href="/Edit">Edit profile</a>
               </button>
             </Row>
           </Col>

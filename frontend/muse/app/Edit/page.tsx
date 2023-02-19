@@ -1,0 +1,22 @@
+// import SignupForm from "../../ui/signupform";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Link from 'next/link'
+// import styles from "./page.module.css";
+const Home: NextPage = () => {
+  return (
+    <body>
+    <div>
+      <Head>
+        <title>Edit Profile Page</title>
+      </Head>
+      <main>
+        {/* <SignupForm /> */}
+        <h1>Edit profile page</h1>
+      </main>
+    </div>
+    </body>
+  )
+}
+
+export default Home;
