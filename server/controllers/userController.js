@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const User = require("../models/userModel");
-const multer = require("multer");
 const { sendTokenResponse } = require("../middleware/auth");
 
 // login a user
@@ -116,19 +115,8 @@ const deleteUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 // upload a user profile image
-//storage
-// const Storage = multer.diskStorage({
-//   destination: "uploads",
-//   filename: (req, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-// });
-
-// const upload = multer({
-//   // storage: Storage,
-// }).single("profile_picture");
-
 const uploadImage = async (req, res) => {
   const id = req.params.id;
   try {
@@ -146,7 +134,6 @@ const uploadImage = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-
 };
 
 module.exports = {
