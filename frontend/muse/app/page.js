@@ -4,7 +4,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SideBar from '../ui/SideBar'
 import NavBar from '../ui/NavBar'
 import '../app/globals.css'
+import Elehome from '../ui/elehome';
 import React, { useEffect, useState } from "react";
+
+import { Montserrat } from '@next/font/google'
+const montserratBold = Montserrat({ 
+  weight: '700',
+  subsets: ['latin'] })
+const montserrat = Montserrat({ 
+    weight: '400',
+    subsets: ['latin'] })
 
 export default function Home() {
   const [isActive, setActive] = useState("false");
@@ -15,7 +24,6 @@ export default function Home() {
 
   return(
     <>
-      <body>
         <div className="wrapper d-flex align-items-stretch">
 			<SideBar children={isActive}/>
 
@@ -23,14 +31,12 @@ export default function Home() {
       <div id="content">
         <NavBar show={handleClick} />
         <div className="p-4 p-md-5">
-        <h2 className="mb-4">Sidebar #01</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
+          <h3 style={{fontSize:"60px", marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect</h3>
+          <h4 style={{fontSize:"40px", marginBottom:"20px", textDecorationLine:"underline", textDecorationColor:"#26A74C"}} className={montserrat.className}>Music connects us.</h4>
+          <Elehome/>
         </div>
       </div>
 		</div>
-      </body>
     </>
         
   )
