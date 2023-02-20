@@ -13,7 +13,7 @@ export default function SideBar({ children }) {
 				<div className="p-4 pt-5" >
 					<div class="position-fixed">
           <h3 style={{color: "white"}} className={montserrat.className}>
-            <a href={""}>Muse Connect</a> 
+            <a href={"/"}>Muse Connect</a> 
         </h3>
 	        <ul className="list-unstyled components mb-5">
             <li>

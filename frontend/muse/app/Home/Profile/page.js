@@ -15,7 +15,8 @@ export default function profile() {
     const getUser =async () =>{
       const user_loc  = localStorage.getItem("user");
       const userToken = await JSON.parse(user_loc).token;
-      const respone = await fetch("http://localhost:4000/api/user/63e8d9bf491bf69c080bbeeb", { //ส่งไอดีมาแปะแทนด้วย
+      const userID = await JSON.parse(user_loc)._id;
+      const respone = await fetch(`http://localhost:4000/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
         method: "GET",
         headers: {
           authorization: `Bearer ${userToken}`,
