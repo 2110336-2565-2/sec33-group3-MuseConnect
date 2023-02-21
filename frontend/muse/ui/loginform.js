@@ -39,6 +39,7 @@ export default function LoginForm() {
         else{
             localStorage.setItem('user',JSON.stringify(result))
             alert("Login Complete");
+            window.location.href="/";
         }
         actions.setSubmitting(false);
     }
