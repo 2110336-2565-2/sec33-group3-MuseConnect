@@ -58,7 +58,9 @@ export default function SignupForm() {
             alert(result.error);
         }
         else{
+            localStorage.setItem('user',JSON.stringify(result))
             alert("signup complete");
+            window.location.href="/";
         }
         actions.setSubmitting(false);
     }

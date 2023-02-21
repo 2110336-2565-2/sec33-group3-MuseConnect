@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         {/* <h1>Edit profile page</h1> */}
       </main>
     </div>
-    </body>
+    
   )
 }
 
