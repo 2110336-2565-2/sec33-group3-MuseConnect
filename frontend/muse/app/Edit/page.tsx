@@ -5,7 +5,7 @@ import Link from 'next/link'
 import styles from "./page.module.css";
 const Home: NextPage = () => {
   return (
-    <body>
+
     <div>
       <Head>
         <title>Edit Profile Page</title>
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         {/* <h1>Edit profile page</h1> */}
       </main>
     </div>
-    </body>
+    
   )
 }
 
