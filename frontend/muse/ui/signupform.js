@@ -3,10 +3,11 @@ import { Formik, Field, Form } from 'formik'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './Signup.css'
-//-----------------
-import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
+//-----------------
+import { createContext } from 'react'
+
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
@@ -62,7 +63,7 @@ export default function SignupForm() {
         actions.setSubmitting(false);
     }
 
-    const [value, setValue] = useState("1")
+    const [value, setValue] = useState("")
 
     return (
         <div className={montserrat.className}>
@@ -132,8 +133,6 @@ export default function SignupForm() {
 
 
                 {/* Phone Number */}
-                {/* Requirement in MS3 takes phone number as a string not a number */}
-                {/* I'll try to find the auto phone number input format later */}
                 <div className="field">
                     <p style={{color: "White"}}>Phone Number</p>
                     <PhoneInput className="form-control" type="text" 

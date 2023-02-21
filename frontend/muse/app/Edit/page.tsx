@@ -1,4 +1,4 @@
-import EditForm from "../../ui/signupform";
+import EditForm from "../../ui/editform";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from 'next/link'
@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 const Home: NextPage = () => {
   return (
     <body>
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>Edit Profile Page</title>
       </Head>

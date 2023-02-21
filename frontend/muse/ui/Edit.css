@@ -10,6 +10,7 @@ body{
     margin-bottom: 30px;
 }
 .topic{
+    text-align: left;
     color:white;
     text-decoration: none;
     
@@ -35,4 +36,4 @@ body{
     position: relative;
     font-size: large;
     z-index: 2;
-  }
+}
