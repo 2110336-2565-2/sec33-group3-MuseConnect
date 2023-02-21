@@ -43,7 +43,7 @@ export default function NavBar({show}) {
             click
           </Button>
             <button className="btn btn-success" onClick={logOut}>
-              <a href="">log out</a>
+              <a href="" className={montserrat.className}>log out</a>
             </button>
         </Container>
       </Navbar>

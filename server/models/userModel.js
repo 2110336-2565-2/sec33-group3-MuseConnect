@@ -30,6 +30,10 @@ const userSchema = mongoose.Schema({
     enum: ["ADMIN", "MUSICIAN", "ORGANIZER"],
     required: true,
   },
+  profile_picture: {
+    data: Buffer,
+    contentType: String,
+  },
   specialization: {
     type: [String],
   },

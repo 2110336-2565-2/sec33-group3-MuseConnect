@@ -13,6 +13,9 @@ const musicianRoutes = require("./routes/musician");
 const organizerRoutes = require("./routes/organizer");
 const chatRoutes = require("./routes/chat");
 const messageRoutes = require("./routes/message");
+const eventRoutes = require("./routes/event");
+const userModel = require("./models/userModel");
+ 
 
 // express app
 const app = express();
@@ -27,6 +30,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // routes
 app.get("/", (req, res) => {
   res.json({ mess: "Welcome to muse-connect server!" });
@@ -39,6 +43,7 @@ app.use("/api/musician", musicianRoutes);
 app.use("/api/organizer", organizerRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
+app.use("/api/event", eventRoutes);
 
 // connect to database
 const PORT = process.env.PORT || 4000;
