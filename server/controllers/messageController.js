@@ -6,7 +6,7 @@ const User = require("../models/userModel");
 // get all messages from seletected chat
 const allMessages = async (req, res) => {
   try {
-    const messages = await Message.find({chat: req.params.chatId})
+    const messages = await Message.find({chat: req.params.chatId}).sort({ createdAt: -1 });
     // .populate("sender")
     // .populate("chat")
     res.status(200).json(messages);
