@@ -62,18 +62,23 @@ mongoose
       // console.log("connected to socket.io");
       console.log(`User Connected: ${socket.id}`);
 
-      // test socket setup
-      socket.on("setup", (userData) => {
-        // console.log(userData)
-        socket.join(userData._id);
-        socket.emit("connected socket");
+      // // test socket setup
+      // socket.on("setup", (userData) => {
+      //   // console.log(userData)
+      //   socket.join(userData._id);
+      //   socket.emit("connected socket");
+      // });
+
+      socket.on("sendMessage", (userData) => {
+        // console.log(userData);
+        socket.broadcast.emit('receiveMessage', userData);
       });
 
-      // TODO change to send to specific user
-      // recieve message from send message button
-      socket.on("sendMessage", (userData) => {
-        socket.broadcast.emit("receiveMessage", "I get your data");
-      });
+
+      socket.on("disconnect", (userData) => {
+        // console.log(userData, socket)
+        console.log(`User Disconnected: ${userData.id}`);
+      })
     });
   })
   .catch((error) => {

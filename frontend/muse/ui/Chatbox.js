@@ -5,140 +5,72 @@ import io from "socket.io-client";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
-// emit message when button clicked
-const sendMessage = async (message, chatId, user) => {
-  // console.log(message);
+const user = localStorage.getItem("user");
+// const userData = JSON.parse(user);
+// const userToken = userData.token;
 
-  if (message.length === 0) {
-    alert("no message");
-    return;
-  }
 
-  const userData = await JSON.parse(user);
-  const userToken = await userData.token;
+function Chatbox() {
+  const [messages, setMessages] = useState([]);
+  const [messageInput, setMessageInput] = useState("");
 
-  // save message to database
-  const respone = await fetch("http://localhost:4000/api/message", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${userToken}`,
-    },
-    body: JSON.stringify({ content: message, chatId: chatId }),
-  });
-
-  const result = await respone.json();
-
-  if (!respone.ok) {
-    alert(result.error);
-  } else {
-    // emit message via socket
-    socket.emit("sendMessage", userData);
-  }
-};
-
-const Chatbox = ({ reciever }) => {
-  // user currently login
-  const user = localStorage.getItem("user");
-
-  // message at the specific chat
-  const [messages, setMessages] = useState(null);
-  const [chatId, setChatId] = useState("");
-
-  // initialize chatBox
+  // when a new message is received from the server
   useEffect(() => {
-    // add chatId value with post /api/chat
-    const accessChat = async () => {
-      const userToken = await JSON.parse(user).token;
-      const respone = await fetch("http://localhost:4000/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify({ userId: reciever }),
-      });
-
-      const result = await respone.json();
-
-      if (!respone.ok) {
-        alert(result.error);
-      } else {
-        setChatId(result._id);
-      }
-    };
-
-    if (!chatId) {
-      accessChat().catch(console.error);
-    }
-    // console.log("initail messages");
-  }, []);
-
-  // get all messages when chatId changed
-  useEffect(() => {
-    // get all message
-    const getMessages = async () => {
-      const userToken = await JSON.parse(user).token;
-
-      const respone = await fetch(
-        `http://localhost:4000/api/message/${chatId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
-
-      const result = await respone.json();
-
-      if (!respone.ok) {
-        alert(result.error);
-      } else {
-        setMessages(result);
-      }
-    };
-
-    getMessages();
-  }, [chatId]);
-
-  // TODO update message chat and chatbox page
-  // useEffect for receiving a message
-  useEffect(() => {
-    socket.on("receiveMessage", (data) => {
-      //   alert(data);
-      console.log(data);
+    socket.on("receiveMessage", (message) => {
+      setMessages([...messages, message]);
     });
-  }, [socket]);
+  }, [messages]);
 
-  const side = (sender) => {
-    if (sender == reciever){
-      return "reciever text-danger"
+  // when the user submits the chat form
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent form submission
+    if (messageInput) {
+
+      socket.emit('sendMessage', messageInput); // send message to server
+      setMessageInput(''); // clear input field
+      setMessages([...messages, messageInput]);
     }
-    return "own text-primary";
   };
 
   return (
-    <div className="chatbox">
-      {/* TODO make messages map accual content for check and display */}
-      {messages &&
-        messages.map((mes) => (
-          <p id={mes._id} className={side(mes.sender)}>
-            {mes.content.text}
-          </p>
+    <div>
+      <ul>
+        {messages.map((message, i) => (
+          <li key={i}>{message}</li>
         ))}
-      <input id="message" type="text" placeholder="Message..." />
-      <button onClick={() => console.log(user)}>Log Me</button>
-      <button
-        onClick={() =>
-          sendMessage(document.getElementById("message").value, chatId, user)
-        }
-      >
-        Send Message
-      </button>
+      </ul>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={messageInput}
+          onChange={(e) => setMessageInput(e.target.value)}
+        />
+        <button type="submit">Send</button>
+      </form>
     </div>
   );
-};
+  // return (
+  //   <div className="App">
+  //     <div className="left-panel">
+  //       <form onSubmit={handleSubmit}>
+  //         <input
+  //           type="text"
+  //           value={messageInput}
+  //           onChange={(e) => setMessageInput(e.target.value)}
+  //           placeholder="Type your message here..."
+  //         />
+  //         <button type="submit">Send</button>
+  //       </form>
+  //     </div>
+  //     <div className="right-panel">
+  //       <ul>
+  //         {messages.map((message, i) => (
+  //           <li key={i}>{message}</li>
+  //         ))}
+  //       </ul>
+  //     </div>
+  //   </div>
+  // );
+}
 
 export default Chatbox;
