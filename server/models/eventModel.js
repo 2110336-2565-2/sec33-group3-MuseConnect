@@ -2,11 +2,6 @@ const mongoose = require('mongoose')
 
 // TODO add require attribute
 const eventSchema = mongoose.Schema({
-  event_id: {
-    type: String,
-    required: true,
-    unique: true
-  },
   date: {
     type: Date,
     required: true
@@ -31,7 +26,7 @@ const eventSchema = mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["ACCEPT", "DECLINE", "PENDING"],
+    enum: ["ACCEPT", "DECLINE", "PENDING", "CANCELLED"],
     default: "PENDING"
   },
   wage: {

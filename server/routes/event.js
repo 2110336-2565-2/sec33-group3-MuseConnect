@@ -22,13 +22,13 @@ router.get("/:id", getEvent);
 // only organizer can post, put and delete events
 router.use(auth.authorize('ORGANIZER'));
 
-// post portfolio
+// post event
 router.post('/', createEvent)
 
-// put portfolio
+// put event
 router.put('/:id', updateEvent)
 
-// delete portfolio
+// delete event
 router.delete('/:id', deleteEvent)
 
 
