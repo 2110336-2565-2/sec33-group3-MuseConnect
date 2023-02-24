@@ -1,20 +1,22 @@
-import SignupForm from "../../ui/signupform";
+"use client";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "./page.module.css";
+import Chatbox from "../../../ui/Chatbox";
+import { usePathname } from "next/navigation";
 const Home: NextPage = () => {
+  const id = usePathname().split("/").at(-1);
+
   return (
-    <body>
     <div className={styles.container}>
       <Head>
-        <title>Sign up Page</title>
+        <title>Chat Page</title>
       </Head>
       <main>
-        <SignupForm />
+        <Chatbox reciever={id} />
       </main>
     </div>
-    </body>
-  )
-}
+  );
+};
 
 export default Home;

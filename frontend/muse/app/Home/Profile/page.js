@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 export default function profile() {
   return (
-    <div>profile
+    <div>profile page
     </div>
   )
 }

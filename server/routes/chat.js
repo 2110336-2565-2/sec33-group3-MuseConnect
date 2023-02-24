@@ -7,18 +7,14 @@ const {
   // createChat
 } = require("../controllers/chatConntroller");
 
-// TODO uncomment this in production
 const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)
 
 // access chat
 router.post("/", accessChat);
 
-// fetech chats
+// fetch chats
 router.get("/", fetchChats)
-
-// post chat
-// router.post("/", createChat);
 
 // delete chat
 // router.delete("/:id", deleteChat);

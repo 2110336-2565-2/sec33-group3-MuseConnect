@@ -17,7 +17,7 @@ const chatSchema = mongoose.Schema({
         ref: "Message"
     }
 }, {
-    timeStamps: true,
+    timestamps: true,
 });
 
 // retrieve a chat based on the unique identifiers of two users

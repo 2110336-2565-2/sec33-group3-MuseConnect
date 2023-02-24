@@ -5,25 +5,17 @@ import Link from 'next/link'
 import styles from './Signup.css'
 //-----------------
 import { createContext } from 'react'
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-import Button from './Button'
+import 'react-phone-number-input/style.css'
+import PhoneInput from "react-phone-number-input"
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
-//-----------------
-// If you find an error from this file, it's probably that you haven't installed
-// formik. Please use 'npm install formik --save' command to install.
-//-----------------
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
-
 import { Montserrat } from '@next/font/google'
-
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function SignupForm() {
     const [passwordShown, setPasswordShown] = useState(false);
     const [selected, setSelected] = useState('');
-
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
 
@@ -49,23 +41,22 @@ export default function SignupForm() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({...values,phone_number:"1111111111"})
+            body: JSON.stringify(values)
         })
-        // console.log(respone)
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
+            //const out = result.error;
+            //console.log(out);
             alert(result.error);
         }
         else{
             alert("signup complete");
-            // console.log(window)
-            // console.log(result)
         }
         actions.setSubmitting(false);
-        // alert(JSON.stringify(values, null, 2));
-        
     }
+
+    const [value, setValue] = useState()
 
     return (
         <div className={montserrat.className}>
@@ -81,6 +72,7 @@ export default function SignupForm() {
         >
         {props => (
             <form onSubmit={props.handleSubmit}>
+
                 {/* Email */}
                 <div className="field">
                     <p>Email</p>
@@ -92,10 +84,11 @@ export default function SignupForm() {
                     name="email"></input>
                 </div>
 
-
+        
                 {/* Password */}
                 <div className="field">
                     <p>Create a password</p>
+                    <p style={{fontSize: "12px"}}>- Password must be at least 8 characters<br></br>- Password must contain an uppercase, a lowercase, a number, a special character</p>
                     <input type="password" className="form-control" id="inputPassword" 
                     placeholder="Password"
                     onChange={props.handleChange}
@@ -138,24 +131,22 @@ export default function SignupForm() {
                 <div className="field">
                     <p style={{color: "White"}}>Phone Number</p>
                     <PhoneInput className="form-control" type="text" 
-                    placeholder="xxx-xxx-xxxx"
-                    onChange={props.handleChange}
-                    country={'th'}
+                    // placeholder="xxx-xxx-xxxx"
+                    onChange={setValue}
+                    country={'TH'}
                     onBlur={props.handleBlur}
-                    value={props.values.phone}
-                    name="phone">    
+                    value={value}
+                    name="phone">   
                     </PhoneInput>
                 </div>
 
 
-                {/* User type */}
-                {/* **The value of selected field hasn't assigned to the value and onchange,
-                please kindly wait for me to solve this (or feel free to do it!) */}
+                {/* User type */}   
                 <div className="field">
                     <p style={{color: "White"}}>User role</p>
                     {/* <Button id="dropdown-test"></Button> */}
-                    <select value={selected} onChange={handleChange} className="form-select" aria-label="Default select example" style={{color: "#585C5E"}}  name="role">
-                        <option value="">Select your role</option>
+                    <select className="form-select" aria-label="Default select example" style={{color: "#585C5E"}} onChange={props.handleChange} name="role">
+                        <option selected>Select your role</option>
                         <option value="MUSICIAN" >Musician</option>
                         <option value="ORGANIZER">Organizer</option>
                     </select>
