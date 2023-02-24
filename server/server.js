@@ -74,11 +74,10 @@ mongoose
         socket.broadcast.emit('receiveMessage', userData);
       });
 
-
-      socket.on("disconnect", (userData) => {
-        // console.log(userData, socket)
-        console.log(`User Disconnected: ${userData.id}`);
-      })
+      // socket.on("disconnect", (userData) => {
+      //   console.log(userData, socket)
+      //   console.log(`User Disconnected: ${userData.id}`);
+      // })
     });
   })
   .catch((error) => {

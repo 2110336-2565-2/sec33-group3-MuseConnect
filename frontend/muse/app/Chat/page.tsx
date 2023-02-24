@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "./page.module.css";
-import Chatbox from "../../ui/Chatbox";
+import ChatMain from "../../ui/ChatMain";
 import { useState } from "react";
 const Home: NextPage = () => {
 
@@ -11,7 +11,7 @@ const Home: NextPage = () => {
         <title>Chat Page</title>
       </Head>
       <main>
-        <Chatbox/>
+        <ChatMain/>
       </main>
     </div>
   );

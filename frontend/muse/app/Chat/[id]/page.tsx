@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         <title>Chat Page</title>
       </Head>
       <main>
-        <Chatbox reciever={id} />
+        <Chatbox chatId={id} />
       </main>
     </div>
   );
