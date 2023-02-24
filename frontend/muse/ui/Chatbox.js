@@ -44,8 +44,6 @@ function Chatbox({chatId}) {
           texts.push(text);
         }
         setMessages([...messages, ...texts]);
-        // console.log(data);
-        // console.log(texts);
       })
       .catch((err) => {
         console.error(err);
