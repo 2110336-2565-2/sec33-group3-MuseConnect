@@ -114,6 +114,10 @@ userSchema.methods.getSignedJwtToken=function() {
   });
 }
 
+userSchema.methods.isAdmin=function() {
+  return this.role == "ADMIN";
+}
+
 userSchema.methods.isOrganizer=function() {
   return this.role == "ORGANIZER";
 }

@@ -44,6 +44,35 @@ const sendMessage = async (req, res) => {
   }
 };
 
+// TODO update send event
+// const sendEventMessage = async (req, res) => {
+//   const { content, chatId } = req.body;
+
+//   try {
+//     if (!content || !chatId) {
+//       throw Error("Invalid data passed into request");
+//     }
+//     let newMessage = {
+//       sender: req.user._id,
+//       content: {
+//         text: content
+//       },
+//       chat: chatId
+//     }
+
+//     const message = await Message.create(newMessage);
+
+//     await Chat.findByIdAndUpdate(req.body.chatId, {
+//       latestMessage: message
+//     });
+
+//     res.status(200).json(message);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
+
+
 
 module.exports = {
   allMessages,

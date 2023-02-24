@@ -11,7 +11,7 @@ const {
 const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)
 
-// get chat
+// access chat
 router.post("/", accessChat);
 
 // fetech chats
