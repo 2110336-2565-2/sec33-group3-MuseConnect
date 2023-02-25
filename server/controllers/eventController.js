@@ -30,6 +30,7 @@ const getEvent = async (req, res) => {
 const createEvent = async (req, res) => {
     //console.log(req)
     const {
+      name,
       date,
       location,
       organizer,
@@ -40,7 +41,9 @@ const createEvent = async (req, res) => {
     } = req.body;
     console.log(wage)
     try {
-      const event = await Event.create({date,
+      const event = await Event.create({
+        name,
+        date,
         location,
         organizer,
         musician,
@@ -56,7 +59,11 @@ const createEvent = async (req, res) => {
   
 const updateEvent = async (req, res) => {
     //console.log(req)
+    const id = req.params.id;
     try {
+      if (!mongoose.isValidObjectId(id)) {
+        throw Error("Invalid Id");
+      }
       res.status(200).json({ result: req.params.id });
     } catch (error) {
       res.status(400).json({ error: error.message });

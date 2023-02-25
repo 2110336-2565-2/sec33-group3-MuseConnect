@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 // TODO add require attribute
 const eventSchema = mongoose.Schema({
+  name:{
+    type: String,
+    require: true
+  },
   date: {
     type: Date,
     required: true
