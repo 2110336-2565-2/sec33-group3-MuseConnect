@@ -39,7 +39,7 @@ const createEvent = async (req, res) => {
       status,
       wage,
     } = req.body;
-    console.log(wage)
+    //console.log(wage)
     try {
       const event = await Event.create({
         name,
@@ -64,7 +64,11 @@ const updateEvent = async (req, res) => {
       if (!mongoose.isValidObjectId(id)) {
         throw Error("Invalid Id");
       }
-      res.status(200).json({ result: req.params.id });
+      delete req.body.user_id;
+      const event = await Event.findByIdAndUpdate(id, req.body, {
+        returnDocument: "after",
+      });
+      res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
