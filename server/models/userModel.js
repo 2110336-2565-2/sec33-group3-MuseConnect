@@ -53,12 +53,19 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   preference: {
-    type: String,
+    type: [String],
   },
   wage: {
     type: Number,
     min: 0,
   },
+  description:{
+    type: String
+  },
+  link:{
+    type:String
+  },
+  
 });
 
 // static signup method
