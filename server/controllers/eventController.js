@@ -72,8 +72,13 @@ const updateEvent = async (req, res) => {
 
 const deleteEvent = async (req, res) => {
     //console.log(req.params.id)
+    const id = req.params.id;
     try {
-      res.status(200).json({ result: req.params.id });
+      if (!mongoose.isValidObjectId(id)){
+        throw Error("Invalid Id");
+      }
+      const event = await Event.findByIdAndDelete(id);
+      res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
