@@ -123,7 +123,7 @@ export default function SignupForm() {
 
                 {/* Last Name */}
                 <div className="field">
-                    <p style={{color: "White"}}>Last name</p>
+                    <p style={{color: "White"}}>Last Name</p>
                     <input className="form-control" type="text" 
                     placeholder="Last Name"
                     onChange={props.handleChange}
@@ -150,7 +150,7 @@ export default function SignupForm() {
 
                 {/* User type */}   
                 <div className="field">
-                    <p style={{color: "White"}}>User role</p>
+                    <p style={{color: "White"}}>User Role</p>
                     {/* <Button id="dropdown-test"></Button> */}
                     <select className="form-select" aria-label="Default select example" style={{color: "#585C5E"}} onChange={props.handleChange} name="role">
                         <option selected>Select your role</option>

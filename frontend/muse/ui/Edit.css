@@ -37,3 +37,10 @@ body{
     font-size: large;
     z-index: 2;
 }
+
+.subheading{
+    color: white;
+    text-align: center;
+    margin-bottom: 45px;
+    font-weight:lighter;
+}

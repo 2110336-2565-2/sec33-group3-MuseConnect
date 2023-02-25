@@ -38,13 +38,39 @@ export default function EditOrganizerForm() {
         console.log(user.email);
     },[user])
 
+
+    const onSubmit = async (values, actions) => {
+        // console.log(values)
+        const respone = await fetch(SignUp_Api_Path,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values)
+        })
+        const result = await respone.json()
+        if(!respone.ok){
+            actions.setSubmitting(false);
+            //const out = result.error;
+            //console.log(out);
+            alert(result.error);
+        }
+        else{
+            localStorage.setItem('user',JSON.stringify(result))
+            alert("signup complete");
+            window.location.href="/";
+        }
+        actions.setSubmitting(false);
+    }
+
     const [value, setValue] = useState("");
     return (
         <div className={montserrat.className}>
         <p className='top'>
             <a className='topic' href="/Home/Profile">Edit profile</a>
         </p>
-        {/* musician should have location and link */}
+        <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
+        
         <Formik
         initialValues={{first_name:'', last_name:'', phone_number:value, location:''}}
         onSubmit={(values, actions) => onSubmit(values,actions)}>
@@ -67,7 +93,7 @@ export default function EditOrganizerForm() {
 
                 {/* Last Name */}
                 <div className="field">
-                    <p style={{color: "White"}}>Last name</p>
+                    <p style={{color: "White"}}>Last Name</p>
                     <input className="form-control" type="text" 
                     placeholder={user.last_name}
                     onChange={props.handleChange}
@@ -91,8 +117,25 @@ export default function EditOrganizerForm() {
                     </PhoneInput>
                 </div>
 
-                <div style={{textAlign: "center",marginBottom: "10px"}}>
-                    <button type="submit" className="btn btn-success">Save Profile</button>
+
+                {/* Location */}
+                <div className="field">
+                    <p style={{color: "White"}}>Location</p>
+                    <input className="form-control" type="text" 
+                    placeholder={user.location}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.last_name}
+                    name="last_name">    
+                    </input>
+                </div>
+
+
+                <div style={{textAlign: "left",marginBottom: "10px"}}>
+                <button className="btn btn-outline-dark">
+                    <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
+                </button>
+                    <button type="submit" className="btn btn-success" style={{marginLeft:"15px"}}>Save Changes</button>
                 </div>
                 
             </form>
