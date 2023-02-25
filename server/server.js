@@ -59,7 +59,6 @@ mongoose
 
     io.on("connection", (socket) => {
       //// # connection check
-      // console.log("connected to socket.io");
       console.log(`User Connected: ${socket.id}`);
 
       // // test socket setup
@@ -69,9 +68,22 @@ mongoose
       //   socket.emit("connected socket");
       // });
 
-      socket.on("sendMessage", (userData) => {
+      socket.on("sendMessage", (userData, room) => {
         // console.log(userData);
-        socket.broadcast.emit('receiveMessage', userData);
+        if (room === "") {
+          console.log("Please enter room");
+          socket.broadcast.emit('receiveMessage', userData);
+        } else {
+          console.log("send message to room:", room);
+          socket.to(room).emit("receiveMessage", userData);
+        }
+      });
+
+
+      // TODO check is socket or io
+      socket.on("join-room", (room) => {
+        console.log("Your are in room", room);
+        socket.join(room);
       });
 
       // socket.on("disconnect", (userData) => {

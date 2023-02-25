@@ -10,7 +10,7 @@ const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
   // console.log(chatId);
-  chatId = '63f49f4bac5f92798c761606';
+  chatId = '63fa509243b30b769e2ba355';
 
 
   const [messages, setMessages] = useState([]);
@@ -45,6 +45,8 @@ function Chatbox({ chatId }) {
           texts.push(text);
         }
         setMessages([...messages, ...texts]);
+
+        socket.emit('join-room', chatId);
       })
       .catch((err) => {
         console.error(err);
@@ -59,6 +61,11 @@ function Chatbox({ chatId }) {
       setMessages([...messages, message]);
     });
   }, [messages]);
+
+  // socket.on("receiveMessage", (message) => {
+  //   console.log('reciver message');
+  //   setMessages([...messages, message]);
+  // });
 
 
 
@@ -89,9 +96,9 @@ function Chatbox({ chatId }) {
           return response.json();
         })
         .then(data => {
-          console.log(data);
+          // console.log(data);
           // socket.to(chatId).emit('sendMessage', messageInput); // send message to server
-          socket.emit('sendMessage', messageInput)
+          socket.emit('sendMessage', messageInput, chatId)
           setMessageInput(''); // clear input field
           setMessages([...messages, messageInput]);
         })
@@ -122,28 +129,6 @@ function Chatbox({ chatId }) {
       </form>
     </div>
   );
-  // return (
-  //   <div className="App">
-  //     <div className="left-panel">
-  //       <form onSubmit={handleSubmit}>
-  //         <input
-  //           type="text"
-  //           value={messageInput}
-  //           onChange={(e) => setMessageInput(e.target.value)}
-  //           placeholder="Type your message here..."
-  //         />
-  //         <button type="submit">Send</button>
-  //       </form>
-  //     </div>
-  //     <div className="right-panel">
-  //       <ul>
-  //         {messages.map((message, i) => (
-  //           <li key={i}>{message}</li>
-  //         ))}
-  //       </ul>
-  //     </div>
-  //   </div>
-  // );
 }
 
 export default Chatbox;
