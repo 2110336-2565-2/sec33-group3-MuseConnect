@@ -13,14 +13,13 @@ body{
     text-align: left;
     color:white;
     text-decoration: none;
-    
 }       
 .top{
     margin-top: 60px;
     text-align: center;
     font-weight: bolder;
     font-size:1.15cm;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 .subheading{
     color: white;

@@ -12,6 +12,7 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function EditOrganizerForm() {
     const [user, setUser] = useState({});
+    const [picture, setPicture] = useState(null);
     //Get user's info from database
     useEffect(() => {
         const getUser =async () =>{
@@ -41,10 +42,14 @@ export default function EditOrganizerForm() {
 
     const onSubmit = async (values, actions) => {
         // console.log(values)
-        const respone = await fetch(SignUp_Api_Path,{
-            method: 'POST',
+        const user_loc  = localStorage.getItem("user");
+        const userToken = await JSON.parse(user_loc).token;
+        const userID = await JSON.parse(user_loc)._id;
+        const respone = await fetch(`http://localhost:4000/api/user/${userID}`,{
+            method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${userToken}`
             },
             body: JSON.stringify(values)
         })
@@ -57,7 +62,7 @@ export default function EditOrganizerForm() {
         }
         else{
             localStorage.setItem('user',JSON.stringify(result))
-            alert("signup complete");
+            alert("Your changes have been saved");
             window.location.href="/";
         }
         actions.setSubmitting(false);
@@ -77,7 +82,6 @@ export default function EditOrganizerForm() {
 
         {props => (
             <form onSubmit={props.handleSubmit}>
- 
                 {/* Name */}
                 <div className="field">
                     <p>Name</p>
@@ -125,8 +129,8 @@ export default function EditOrganizerForm() {
                     placeholder={user.location}
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
-                    value={props.values.last_name}
-                    name="last_name">    
+                    value={props.values.location}
+                    name="location">    
                     </input>
                 </div>
 
@@ -137,7 +141,6 @@ export default function EditOrganizerForm() {
                 </button>
                     <button type="submit" className="btn btn-success" style={{marginLeft:"15px"}}>Save Changes</button>
                 </div>
-                
             </form>
         )}
         </Formik>

@@ -14,7 +14,7 @@ const sendData = async (base64) => {
         "Content-Type": "application/json",
         authorization: `Bearer ${userToken}`,
       },
-      body: JSON.stringify({ picture: base64 }),
+      body: JSON.stringify({picture: base64}), //{ picture: base64,...values }
     }
   );
   const result = await respone.json();

@@ -7,7 +7,7 @@ import Link from 'next/link'
 import styles from "./page.module.css";
 import React, { useEffect, useState } from 'react'
 const Home: NextPage = () => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     //Get user's info from database
     useEffect(() => {
         const getUser =async () =>{
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
     },[]);
     
     useEffect(()=>{
-      console.log(user.role);
+      if(user) console.log(user.role);
     },[user])
     const [value, setValue] = useState("");
 
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
       <main>
         {/* <EditForm /> */}
         {(() => {
-        if (user.role=="MUSICIAN") {
+        if (user && user.role=="MUSICIAN") { //if user is not NULL
           return (
             <EditForm/>
           )

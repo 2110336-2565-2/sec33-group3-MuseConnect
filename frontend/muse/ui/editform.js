@@ -144,7 +144,10 @@ export default function EditForm() {
 
 
                 <div style={{textAlign: "center",marginBottom: "10px"}}>
-                    <button type="submit" className="btn btn-success">Save Profile</button>
+                    <button className="btn btn-outline-dark">
+                        <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
+                    </button>
+                    <button type="submit" className="btn btn-success">Save Changes</button>
                 </div>
                 
             </form>
