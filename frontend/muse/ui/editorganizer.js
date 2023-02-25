@@ -5,50 +5,12 @@ import Link from 'next/link'
 import styles from "./Edit.css";
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
-//-----------------
 import { createContext } from 'react'
 const Context = createContext()
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
-//This form is for musician -- for organizer please see "editorganizer.js"
 
-export default function EditForm() {
-    const handleChange = event => {
-        console.log('Label 👉️', event.target.selectedOptions[0].label);
-        console.log(event.target.value);
-        setSelected(event.target.value);
-    }; 
-
-    const handleChangePhone = event => {
-        //console.log('Label 👉️', event.target.selectedOptions[0].label);
-        //console.log(event.target.value);
-        props.values.phone_number = event;
-    };
-
-    // const onSubmit = async (values, actions) => {
-    //     // console.log(values)
-    //     const respone = await fetch(SignUp_Api_Path,{
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(values)
-    //     })
-    //     const result = await respone.json()
-    //     if(!respone.ok){
-    //         actions.setSubmitting(false);
-    //         //const out = result.error;
-    //         //console.log(out);
-    //         alert(result.error);
-    //     }
-    //     else{
-    //         localStorage.setItem('user',JSON.stringify(result))
-    //         alert("signup complete");
-    //         window.location.href="/";
-    //     }
-    //     actions.setSubmitting(false);
-    // }
-
+export default function EditOrganizerForm() {
     const [user, setUser] = useState({});
     //Get user's info from database
     useEffect(() => {
@@ -128,20 +90,6 @@ export default function EditForm() {
                     name="phone_number">   
                     </PhoneInput>
                 </div>
-
-
-                {/* Location */}
-                <div className="field">
-                    <p>Location</p>
-                    <input className="form-control" type="text" 
-                    placeholder={user.location}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.location}
-                    name="location">    
-                    </input>
-                </div>
-
 
                 <div style={{textAlign: "center",marginBottom: "10px"}}>
                     <button type="submit" className="btn btn-success">Save Profile</button>

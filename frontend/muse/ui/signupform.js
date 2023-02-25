@@ -72,7 +72,7 @@ export default function SignupForm() {
         <p className='top'>
             <a className='topic' href="/">Muse Connect</a>
         </p>
-        {/* className='topic'  */}
+        
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
         initialValues={{email: '', password:'', first_name:'', 
