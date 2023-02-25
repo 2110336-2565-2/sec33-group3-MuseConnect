@@ -37,4 +37,8 @@ chatSchema.statics.findChatByUser = async function (user_id_1, user_id_2) {
     return chat;
 };
 
+chatSchema.methods.isUserIn = function(userId) {
+    return (this.musician.equals(userId)) || (this.organizer.equals(userId));
+}
+
 module.exports = mongoose.model("Chat", chatSchema);

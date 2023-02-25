@@ -5,6 +5,7 @@ const nextConfig = {
   },
 
   // fast reload while using docker
+  reactStrictMode: false,
   // reactStrictMode: true,
   swcMinify: true,
   // except for webpack, other parts are left as generated

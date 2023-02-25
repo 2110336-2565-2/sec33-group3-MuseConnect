@@ -8,11 +8,11 @@ import io from "socket.io-client";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
-function Chatbox({chatId}) {
-  console.log(chatId);
+function Chatbox({ chatId }) {
+  // console.log(chatId);
   chatId = '63f49f4bac5f92798c761606';
 
-  
+
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
 
@@ -20,6 +20,7 @@ function Chatbox({chatId}) {
     const user = localStorage.getItem("user")
     const userData = JSON.parse(user);
     const userToken = userData.token;
+
     // fetch all messages for the chat room
     fetch(
       `http://localhost:4000/api/message/${chatId}`,
@@ -44,18 +45,15 @@ function Chatbox({chatId}) {
           texts.push(text);
         }
         setMessages([...messages, ...texts]);
-        // console.log(data);
-        // console.log(texts);
       })
       .catch((err) => {
         console.error(err);
       });
-    }, [chatId]);
-    // }, []);
+  // }, [chatId]);
+  }, []);
 
   // when a new message is received from the server
   useEffect(() => {
-    console.log(messages);
     socket.on("receiveMessage", (message) => {
       console.log('reciver message');
       setMessages([...messages, message]);
@@ -92,17 +90,18 @@ function Chatbox({chatId}) {
         })
         .then(data => {
           console.log(data);
-          // socket.emit('sendMessage', messageInput); // send message to server
-          // setMessageInput(''); // clear input field
-          // setMessages([...messages, messageInput]);
+          // socket.to(chatId).emit('sendMessage', messageInput); // send message to server
+          socket.emit('sendMessage', messageInput)
+          setMessageInput(''); // clear input field
+          setMessages([...messages, messageInput]);
         })
         .catch(error => {
           console.error(error);
         });
 
-      socket.emit('sendMessage', messageInput); // send message to server
-      setMessageInput(''); // clear input field
-      setMessages([...messages, messageInput]);
+      // socket.emit('sendMessage', messageInput); // send message to server
+      // setMessageInput(''); // clear input field
+      // setMessages([...messages, messageInput]);
     }
   };
 
