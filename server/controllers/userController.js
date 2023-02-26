@@ -3,6 +3,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+// const File = require("")
+const FileReader = require("filereader");
 const User = require("../models/userModel");
 const { sendTokenResponse } = require("../middleware/auth");
 
@@ -123,15 +125,16 @@ const uploadImage = async (req, res) => {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
     }
-    // console.log(req.body.picture);
     const user = await User.findByIdAndUpdate(id, {
       profile_picture: {
         data: req.body.picture,
-        contentType: "image/png",
+        contentType: req.body.picture.split(";")[0].split(":")[1],
       },
     });
+
     res.status(200).json(user);
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 };

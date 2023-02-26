@@ -14,8 +14,6 @@ const organizerRoutes = require("./routes/organizer");
 const chatRoutes = require("./routes/chat");
 const messageRoutes = require("./routes/message");
 const eventRoutes = require("./routes/event");
-const userModel = require("./models/userModel");
- 
 
 // express app
 const app = express();
@@ -29,7 +27,6 @@ app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
-
 
 // routes
 app.get("/", (req, res) => {

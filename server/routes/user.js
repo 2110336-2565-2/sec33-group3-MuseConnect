@@ -1,4 +1,7 @@
 const router = require("express").Router();
+// multer for read form data
+const multer = require("multer");
+const upload = multer();
 
 // controller functions
 const {
@@ -27,6 +30,6 @@ router.put("/:id", updateUser);
 router.delete("/:id", deleteUser);
 
 // upload user profile image
-router.put("/upload/:id", uploadImage);
+router.put("/upload/:id", upload.single("picture"), uploadImage);
 
 module.exports = router;
