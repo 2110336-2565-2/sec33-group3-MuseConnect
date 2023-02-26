@@ -58,11 +58,6 @@ function Chatbox({ chatId }) {
           texts.push(text);
         }
         setMessages([...messages, ...texts]);
-        // console.log(data[0]);
-        // setMessagesEvent([...messageEvent, data]);
-        // setMessagesEvent(data);
-        // console.log(messageEvent);
-        // displayMessage()
 
         socket.emit("join-room", chatId);
       })
@@ -114,7 +109,7 @@ function Chatbox({ chatId }) {
       console.log("ok");
     }
 
-    
+
 
     setEventName('');
     setEventDate('');
