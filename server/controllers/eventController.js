@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Event = require("../models/eventModel");
+const User = require("../models/userModel");
 
 const getAllEvents = async (req, res) => {
     const { p, m } = req.query;
@@ -16,11 +17,20 @@ const getAllEvents = async (req, res) => {
 const getEvent = async (req, res) => {
     //console.log(req)
     const id = req.params.id;
+    //user_id is id of user who call this function
+    const user_id = req.body.user_id;
     try {
       if(!mongoose.isValidObjectId(id)){
         throw Error("Invalid Id");
       }
+      // Check id
+      if(!mongoose.isValidObjectId(user_id)){
+        throw Error("Invalid user_id")
+      }
       const event = await Event.findById(id);
+      if(String(event.organizer) != user_id && String(event.musician) != user_id){
+        throw Error("Authentication failed")
+      }
       res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
