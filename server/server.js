@@ -77,7 +77,7 @@ mongoose
       });
 
       socket.on("join-room", (room) => {
-        console.log("Your are in room", room);
+        // console.log("Your are in room", room);
         socket.join(room);
       });
 
