@@ -3,6 +3,9 @@ import { Formik, Field, Form } from 'formik'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from "./Edit.css";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+//Select and makeAnimated is used for preference input, you can install using "npm i --save react-select"
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
 import { createContext } from 'react'
@@ -13,6 +16,15 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 export default function EditOrganizerForm() {
     const [user, setUser] = useState({});
     const [picture, setPicture] = useState(null);
+    const colourOptions = [
+        { value: 'Pop', label: 'Pop' },
+        { value: 'Rock', label: 'Rock' },
+        { value: 'Jazz', label: 'Jazz' },
+        { value: 'Country', label: 'Country' },
+        { value: 'Indie', label: 'Indie' }
+    ];
+    const animatedComponents = makeAnimated();
+    
     //Get user's info from database
     useEffect(() => {
         const getUser =async () =>{
@@ -40,7 +52,7 @@ export default function EditOrganizerForm() {
     },[user])
 
 
-    const onSubmit = async (values, actions) => {
+    const onSubmit = async ({profile_picture: base64,...values}, actions) => {
         // console.log(values)
         const user_loc  = localStorage.getItem("user");
         const userToken = await JSON.parse(user_loc).token;
@@ -51,7 +63,7 @@ export default function EditOrganizerForm() {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${userToken}`
             },
-            body: JSON.stringify(values)
+            body: JSON.stringify({profile_picture: base64,...values})
         })
         const result = await respone.json()
         if(!respone.ok){
@@ -135,20 +147,28 @@ export default function EditOrganizerForm() {
                 </div>
 
 
+                <div className="field">
+                    <p style={{color: "White"}}>Preference</p>
+                    <Select
+                    closeMenuOnSelect={false}
+                    components={animatedComponents}
+                    defaultValue={[colourOptions[4], colourOptions[5]]}
+                    isMulti
+                    options={colourOptions}
+                    />
+                </div>
+
+
                 {/* Picture */}
                 <div className="field">
                     <p style={{color: "White"}}>Profile Picture</p>
-                    <input className="form-control" type="text" 
-                    placeholder={user.location}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.location}
-                    name="location">    
+                    {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
+                    <input class="form-control" type="file" id="formFile">
                     </input>
                 </div>
 
 
-                <div style={{textAlign: "left",marginBottom: "10px"}}>
+                <div style={{textAlign: "left",marginBottom: "35px"}}>
                 <button className="btn btn-outline-dark">
                     <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
                 </button>
