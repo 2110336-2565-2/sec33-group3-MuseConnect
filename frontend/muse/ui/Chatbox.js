@@ -22,11 +22,12 @@ function Chatbox({ chatId }) {
     console.log(messageEventBuffer);
     let texts = [];
     for (let i = 0; i < messageEventBuffer.length; i++) {
+      let text = "";
       if ("text" in messageEventBuffer[i].content) {
-        let text = messageEventBuffer[i].content.text;
+        text = messageEventBuffer[i].content.text;
         texts.push(text);
       } else if ("event" in messageEventBuffer[i].content) {
-        let text = messageEventBuffer[i].content.event;
+        text = messageEventBuffer[i].content.event;
         texts.push(text);
       }
     }
@@ -110,7 +111,9 @@ function Chatbox({ chatId }) {
           authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({
-          content: messageInput,
+          content: {
+            text: messageInput
+          },
           chatId: chatId,
         }),
       })
@@ -177,7 +180,9 @@ function Chatbox({ chatId }) {
               authorization: `Bearer ${userToken}`,
             },
             body: JSON.stringify({
-              content: data,
+              content: {
+                event: data
+              },
               chatId: chatId,
             }),
           })
