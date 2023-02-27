@@ -27,7 +27,14 @@ function Chatbox({ chatId }) {
         text = messageEventBuffer[i].content.text;
         texts.push(text);
       } else if ("event" in messageEventBuffer[i].content) {
-        text = messageEventBuffer[i].content.event;
+        let eventBuffer = messageEventBuffer[i].content.event;
+        text = `
+          Name: ${eventBuffer.name}\n
+          Date: ${eventBuffer.date}\n
+          Wage: ${eventBuffer.wage}\n
+        `;
+        // text = messageEventBuffer[i].content.event._id;
+        console.log(messageEventBuffer[i].content);
         texts.push(text);
       }
     }
@@ -112,7 +119,7 @@ function Chatbox({ chatId }) {
         },
         body: JSON.stringify({
           content: {
-            text: messageInput
+            text: messageInput,
           },
           chatId: chatId,
         }),
@@ -144,7 +151,6 @@ function Chatbox({ chatId }) {
     const userToken = userData.token;
 
     if (eventName && eventDate && eventWage) {
-
       // save event to the database
       fetch("http://localhost:4000/api/event", {
         method: "POST",
@@ -181,7 +187,7 @@ function Chatbox({ chatId }) {
             },
             body: JSON.stringify({
               content: {
-                event: data
+                event: data,
               },
               chatId: chatId,
             }),

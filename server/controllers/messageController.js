@@ -8,7 +8,8 @@ const allMessages = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.chatId);
     if(chat.isUserIn(req.user._id)) {
-      const messages = await Message.find({chat: req.params.chatId}).sort({ createdAt: 1 });
+      const messages = await Message.find({chat: req.params.chatId}).sort({ createdAt: 1 })
+        .populate("content.event");
       res.status(200).json(messages);
     } else {
       res.status(400).json({ error: "This user doesn't have permission to current chat" });
@@ -33,9 +34,7 @@ const sendMessage = async (req, res) => {
     if(chat.isUserIn(req.user._id)) {
       let newMessage = {
         sender: req.user._id,
-        content: {
-          text: content.text
-        },
+        content: content,
         chat: chatId
       }
   
