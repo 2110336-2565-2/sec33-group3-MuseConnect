@@ -34,7 +34,7 @@ const sendMessage = async (req, res) => {
       let newMessage = {
         sender: req.user._id,
         content: {
-          text: content
+          text: content.text
         },
         chat: chatId
       }
