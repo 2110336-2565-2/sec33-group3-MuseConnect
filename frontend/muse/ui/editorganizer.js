@@ -77,7 +77,7 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:''}}
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',profile_picture:''}}
         onSubmit={(values, actions) => onSubmit(values,actions)}>
 
         {props => (
@@ -125,6 +125,19 @@ export default function EditOrganizerForm() {
                 {/* Location */}
                 <div className="field">
                     <p style={{color: "White"}}>Location</p>
+                    <input className="form-control" type="text" 
+                    placeholder={user.location}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.location}
+                    name="location">    
+                    </input>
+                </div>
+
+
+                {/* Picture */}
+                <div className="field">
+                    <p style={{color: "White"}}>Profile Picture</p>
                     <input className="form-control" type="text" 
                     placeholder={user.location}
                     onChange={props.handleChange}
