@@ -14,13 +14,21 @@ function Chatbox({ chatId }) {
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [eventWage, setEventWage] = useState("");
+  const [currentMusician, setCurrentMusician] = useState("");
+  const [currentOrganizer, setCurrentOrganizer] = useState("");
 
+  // TODO handle display event
   const displayMessage = () => {
-    // console.log(messageEventBuffer);
+    console.log(messageEventBuffer);
     let texts = [];
     for (let i = 0; i < messageEventBuffer.length; i++) {
-      const text = messageEventBuffer[i].content.text;
-      texts.push(text);
+      if ("text" in messageEventBuffer[i].content) {
+        let text = messageEventBuffer[i].content.text;
+        texts.push(text);
+      } else if ("event" in messageEventBuffer[i].content) {
+        let text = messageEventBuffer[i].content.event;
+        texts.push(text);
+      }
     }
     setMessages([...texts]);
   };
@@ -51,6 +59,29 @@ function Chatbox({ chatId }) {
       .catch((err) => {
         console.error(err);
       });
+
+    // get musician and organizer
+    fetch(`http://localhost:4000/api/chat/${chatId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${userToken}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch messages from database");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // console.log(data)
+        setCurrentMusician(data.musician);
+        setCurrentOrganizer(data.organizer);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   useEffect(() => {
@@ -63,7 +94,7 @@ function Chatbox({ chatId }) {
     setMessageEventBuffer([...messageEventBuffer, mess]);
   });
 
-  // when the user submits the chat form
+  // the user submits the chat form
   const sendMessageHandler = (e) => {
     e.preventDefault(); // prevent form submission
     const user = localStorage.getItem("user");
@@ -100,16 +131,74 @@ function Chatbox({ chatId }) {
         });
     }
   };
+
+  // TODO create event and send to message api
   const sendEventHandler = (e) => {
     e.preventDefault(); // prevent form submission
-    // console.log(eventName, eventDate, eventWage);
-    if (eventName && eventDate && eventWage) {
-      console.log("ok");
-    }
 
-    setEventName("");
-    setEventDate("");
-    setEventWage("");
+    const user = localStorage.getItem("user");
+    const userData = JSON.parse(user);
+    const userToken = userData.token;
+
+    if (eventName && eventDate && eventWage) {
+
+      // save event to the database
+      fetch("http://localhost:4000/api/event", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({
+          name: eventName,
+          location: "test_location",
+          wage: eventWage,
+          musician: currentMusician,
+          organizer: currentOrganizer,
+          date: eventDate,
+          status: "PENDING",
+          detail: "test_detail",
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to save message to database");
+          }
+          console.log("Successfully create event");
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+
+          fetch("http://localhost:4000/api/message", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${userToken}`,
+            },
+            body: JSON.stringify({
+              content: data,
+              chatId: chatId,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to save message to database");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              setMessageEventBuffer([...messageEventBuffer, data]);
+              socket.emit("send-message", data, chatId); // send message to server
+              setEventName("");
+              setEventDate("");
+              setEventWage("");
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        });
+    }
   };
 
   return (
@@ -150,7 +239,7 @@ function Chatbox({ chatId }) {
             </label>
             <input
               // type="date"
-              type="text"
+              type="date"
               id="date"
               value={eventDate}
               onChange={(e) => setEventDate(e.target.value)}
@@ -174,7 +263,6 @@ function Chatbox({ chatId }) {
         </form>
       </div>
     </div>
-
   );
 }
 
