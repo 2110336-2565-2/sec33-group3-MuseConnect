@@ -1,9 +1,11 @@
+"use client";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "./page.module.css";
-import ChatMain from "../../ui/ChatMain";
-import { useState } from "react";
+import Chatbox from "../../../ui/Chatbox";
+import { usePathname } from "next/navigation";
 const Home: NextPage = () => {
+  const id = usePathname().split("/").at(-1);
 
   return (
     <div className={styles.container}>
@@ -11,7 +13,7 @@ const Home: NextPage = () => {
         <title>Chat Page</title>
       </Head>
       <main>
-        <ChatMain/>
+        <Chatbox chatId={id} />
       </main>
     </div>
   );

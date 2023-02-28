@@ -4,21 +4,21 @@ const router = require("express").Router();
 const { 
   fetchChats,
   accessChat,
+  getChat
   // createChat
 } = require("../controllers/chatConntroller");
 
-// TODO uncomment this in production
 const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)
 
-// get chat
+// access chat
 router.post("/", accessChat);
 
-// fetech chats
+// fetch chats
 router.get("/", fetchChats)
 
-// post chat
-// router.post("/", createChat);
+// get chat
+router.get("/:id", getChat)
 
 // delete chat
 // router.delete("/:id", deleteChat);

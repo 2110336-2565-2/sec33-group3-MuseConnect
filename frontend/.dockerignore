@@ -1,6 +1,5 @@
 muse/node_modules
+muse/.gitignore
 Dockerfile
 .dockerignore
-.git
-.gitignore
 .env
