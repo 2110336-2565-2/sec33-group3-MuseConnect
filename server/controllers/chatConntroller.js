@@ -73,12 +73,20 @@ const getChat = async (req, res) => {
 
 const deleteChat  = async (req, res) => {
   const id = req.params.id;
+  const user_id = req.body.user_id;
   try {
     if (!mongoose.isValidObjectId(id)){
       throw Error("Invalid Id");
     }
-    const chat = await Chat.findByIdAndDelete(id);
-    res.status(200).json(chat);
+    if (!mongoose.isValidObjectId(user_id)){
+      throw Error("Invalid user_id");
+    }
+    const chat = await Chat.findById(id);
+    if (String(chat.organizer) != user_id && String(chat.musician) != user_id){
+      throw Error("Authentication failed");
+    }
+    const chat_del = await Chat.findByIdAndDelete(id);
+    res.status(200).json(chat_del);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
