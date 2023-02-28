@@ -1,5 +1,7 @@
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
+const mongoose = require("mongoose");
+
 
 // fetch all chats of an user
 const fetchChats = async (req, res) => {
@@ -69,8 +71,40 @@ const getChat = async (req, res) => {
   }
 };
 
+const deleteChat  = async (req, res) => {
+  const id = req.params.id;
+  try {
+    if (!mongoose.isValidObjectId(id)){
+      throw Error("Invalid Id");
+    }
+    const chat = await Chat.findByIdAndDelete(id);
+    res.status(200).json(chat);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const updateChat = async (req, res) => {
+  const id = req.params.id;
+  try {
+    if (!mongoose.isValidObjectId(id)){
+      throw Error("Invalid Id");
+    }
+    //delete req.body.chat
+    console.log(req.body)
+    const chat = await Chat.findByIdAndUpdate(id, req.body,{
+      returnDocument:"after"
+    });
+    res.status(200).json(chat);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   fetchChats,
   accessChat,
-  getChat
+  getChat,
+  deleteChat,
+  updateChat
 };
