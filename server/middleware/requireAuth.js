@@ -1,18 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-/*
-[Use requireAuth in the routers that require authentication] for routes protection
-Example:
-'''
-const router = express.Router()
-router.use(requireAuth)
-const requireAuth = require('../middleware/requireAuth')
-router.use(requireAuth)
-router.get('/', ...)
-'''
-*/
-
 // middleware that restricts access only to users who have already logged in
 const requireAuth = async (req, res, next) => {
     // verify user is authenticated

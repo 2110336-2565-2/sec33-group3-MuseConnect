@@ -66,7 +66,6 @@ mongoose
 
 
       socket.on("send-message", (userData, room) => {
-        // console.log(userData);
         if (room === "") {
           console.log("Please enter room");
           // socket.broadcast.emit('receive-message', userData);

@@ -11,7 +11,6 @@ const chatSchema = mongoose.Schema({
         ref: "User",
         require: true
     },
-    // [Optional] display of the most recent message before entering the chat room
     latestMessage: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Message"

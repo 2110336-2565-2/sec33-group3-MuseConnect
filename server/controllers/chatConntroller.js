@@ -1,7 +1,7 @@
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
-// fetch all chat that relate to current user
+// fetch all chats of an user
 const fetchChats = async (req, res) => {
   const currentUser = await User.findById(req.user._id);
 
@@ -62,7 +62,7 @@ const accessChat = async (req, res) => {
 const getChat = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.id);
-    
+
     res.status(200).json(chat);
   } catch (error) {
     res.status(400).json({ error: error.message });

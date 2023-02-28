@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-// TODO add require attribute
 const eventSchema = mongoose.Schema({
   name:{
     type: String,
@@ -14,7 +13,6 @@ const eventSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  //may adjust organizer and musician to Object
   organizer: {
     type: mongoose.ObjectId,
     ref: "userSchema",
