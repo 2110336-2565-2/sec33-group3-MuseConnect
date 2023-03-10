@@ -35,7 +35,7 @@ const ChatMain = () => {
       } else {
         setChatRooms(
           result.map((chatroom) => {
-            if (typeof organizer === "string") {
+            if (typeof chatroom.organizer === "string") {
               return {
                 id: chatroom._id,
                 name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,

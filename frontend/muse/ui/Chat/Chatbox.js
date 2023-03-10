@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
+import { Button, Modal } from "react-bootstrap";
 
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
@@ -10,6 +11,10 @@ const socket = io.connect("http://localhost:4000");
 function Chatbox({ chatId }) {
   // chatId = '63fa509243b30b769e2ba355';
 
+  // page variable
+  const [active, setActive] = useState(false);
+  const handleCloseModal = () => setActive(false);
+  const handleShowModal = () => setActive(true);
   // chatrooms variable
   const [chatRooms, setChatRooms] = useState(null);
   // message variable
@@ -59,6 +64,7 @@ function Chatbox({ chatId }) {
     const paresString = async (string) => await JSON.parse(string);
     const user = localStorage.getItem("user");
 
+    setActive(false);
     paresString(user)
       .then((User) => setUser(User))
       .catch(console.error);
@@ -81,7 +87,7 @@ function Chatbox({ chatId }) {
       } else {
         setChatRooms(
           result.map((chatroom) => {
-            if (typeof organizer === "string") {
+            if (typeof chatroom.organizer === "string") {
               return {
                 id: chatroom._id,
                 name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
@@ -274,16 +280,16 @@ function Chatbox({ chatId }) {
       return {
         side: "end",
         style: {
-          "border-radius": "15px",
-          "background-color": "rgba(57, 192, 237,.2)",
+          borderRadius: "15px",
+          backgroundColor: "rgba(57, 192, 237,.2)",
         },
       };
     }
     return {
       side: "start",
       style: {
-        "border-radius": "15px",
-        "background-color": "#90EE90",
+        borderRadius: "15px",
+        backgroundColor: "#90EE90",
       },
     };
   };
@@ -295,7 +301,7 @@ function Chatbox({ chatId }) {
         <div className="chat_content">
           <NavBar />
           <div style={{ flex: 1, height: "80vh", overflow: "scroll" }}>
-            <ul>
+            <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
                 const { side, style } = haveSide(message.sender);
                 return (
@@ -312,62 +318,79 @@ function Chatbox({ chatId }) {
               })}
             </ul>
           </div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {user._id === currentOrganizer && (
+              <Button variant="primary" onClick={handleShowModal}>
+                make request
+              </Button>
+            )}
 
-          <form onSubmit={sendMessageHandler}>
-            <input
-              type="text"
-              value={messageInput}
-              onChange={(e) => setMessageInput(e.target.value)}
-            />
-            <button type="submit">Send</button>
-          </form>
+            <form
+              onSubmit={sendMessageHandler}
+              style={{ display: "inline-flex" }}
+            >
+              <input
+                type="text"
+                value={messageInput}
+                onChange={(e) => setMessageInput(e.target.value)}
+              />
+              <button type="submit">{">"}</button>
+            </form>
+          </div>
         </div>
       </div>
 
-      <div key="eventForm" style={{ flex: 1, paddingLeft: "10px" }}>
-        <form onSubmit={sendEventHandler}>
-          <br />
-          <div>
-            <label htmlFor="name" style={{ paddingRight: "10px" }}>
-              Name:{" "}
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={eventName}
-              onChange={(e) => setEventName(e.target.value)}
-            />
-          </div>
+      <Modal show={active} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Event Form</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div key="eventForm" style={{ flex: 1, paddingLeft: "10px" }}>
+            <form onSubmit={sendEventHandler}>
+              <br />
+              <div>
+                <label htmlFor="name" style={{ paddingRight: "10px" }}>
+                  Name:{" "}
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  value={eventName}
+                  onChange={(e) => setEventName(e.target.value)}
+                />
+              </div>
 
-          <div>
-            <label htmlFor="date" style={{ paddingRight: "10px" }}>
-              Date:{" "}
-            </label>
-            <input
-              // type="date"
-              type="date"
-              id="date"
-              value={eventDate}
-              onChange={(e) => setEventDate(e.target.value)}
-            />
-          </div>
+              <div>
+                <label htmlFor="date" style={{ paddingRight: "10px" }}>
+                  Date:{" "}
+                </label>
+                <input
+                  // type="date"
+                  type="date"
+                  id="date"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
+                />
+              </div>
 
-          <div>
-            <label htmlFor="wage" style={{ paddingRight: "10px" }}>
-              Wage:{" "}
-            </label>
-            <input
-              type="number"
-              id="wage"
-              value={eventWage}
-              onChange={(e) => setEventWage(e.target.value)}
-            />
-          </div>
+              <div>
+                <label htmlFor="wage" style={{ paddingRight: "10px" }}>
+                  Wage:{" "}
+                </label>
+                <input
+                  type="number"
+                  id="wage"
+                  value={eventWage}
+                  onChange={(e) => setEventWage(e.target.value)}
+                />
+              </div>
 
-          <br />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+              <br />
+              <button type="submit">save & send</button>
+            </form>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
