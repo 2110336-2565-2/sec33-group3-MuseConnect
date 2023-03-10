@@ -1,7 +1,9 @@
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
+const mongoose = require("mongoose");
 
-// fetch all chat that relate to current user
+
+// fetch all chats of an user
 const fetchChats = async (req, res) => {
   const currentUser = await User.findById(req.user._id);
 
@@ -62,7 +64,52 @@ const accessChat = async (req, res) => {
 const getChat = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.id);
-    
+
+    res.status(200).json(chat);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const deleteChat  = async (req, res) => {
+  const id = req.params.id;
+  const user_id = req.body.user_id;
+  try {
+    if (!mongoose.isValidObjectId(id)){
+      throw Error("Invalid Id");
+    }
+    if (!mongoose.isValidObjectId(user_id)){
+      throw Error("Invalid user_id");
+    }
+    const chat = await Chat.findById(id);
+    if (String(chat.organizer) != user_id && String(chat.musician) != user_id){
+      throw Error("Authentication failed");
+    }
+    const chat_del = await Chat.findByIdAndDelete(id);
+    res.status(200).json(chat_del);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+const updateChat = async (req, res) => {
+  const id = req.params.id;
+  const user_id = req.body.user_id
+  try {
+    if (!mongoose.isValidObjectId(id)){
+      throw Error("Invalid Id");
+    }
+    if (!mongoose.isValidObjectId(user_id)){
+      throw Error("Invalid user_id");
+    }
+    const chat_check = await Chat.findById(id)
+    if (String(chat_check.organizer) != user_id && String(chat_check.musician) != user_id){
+      throw Error("Authentication failed");
+    }
+    delete req.body.user_id
+    const chat = await Chat.findByIdAndUpdate(id, req.body,{
+      returnDocument:"after"
+    });
     res.status(200).json(chat);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -72,5 +119,7 @@ const getChat = async (req, res) => {
 module.exports = {
   fetchChats,
   accessChat,
-  getChat
+  getChat,
+  deleteChat,
+  updateChat
 };

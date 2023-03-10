@@ -4,7 +4,9 @@ const router = require("express").Router();
 const { 
   fetchChats,
   accessChat,
-  getChat
+  getChat,
+  deleteChat,
+  updateChat
   // createChat
 } = require("../controllers/chatConntroller");
 
@@ -21,10 +23,10 @@ router.get("/", fetchChats)
 router.get("/:id", getChat)
 
 // delete chat
-// router.delete("/:id", deleteChat);
+router.delete("/:id", deleteChat);
 
 // // put chat
-// router.put("/:id", updateUser);
+router.put("/:id", updateChat);
 
 
 module.exports = router

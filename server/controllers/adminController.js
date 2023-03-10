@@ -13,7 +13,7 @@ const getAdmin = async (req, res) => {
     if (admin.role !== "ADMIN") {
       throw Error("Not admin account");
     }
-    
+
     res.status(200).json(admin);
   } catch (error) {
     res.status(400).json({ error: error.message });

@@ -2,7 +2,6 @@ const Message = require("../models/messageModel");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
-// TODO update res
 // get all messages from seletected chat
 const allMessages = async (req, res) => {
   try {
@@ -19,7 +18,6 @@ const allMessages = async (req, res) => {
   }
 };
 
-// TODO make it can send other type of content
 // send a message by getting content and chatId
 const sendMessage = async (req, res) => {
   const { content, chatId } = req.body;
