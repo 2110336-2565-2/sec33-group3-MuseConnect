@@ -12,7 +12,7 @@ const fetchChats = async (req, res) => {
     if (currentUser.isMusician()) {
       chat = await Chat.find({ musician: currentUser }).sort({ updatedAt: -1 }).populate("organizer");
     } else {
-      chat = await Chat.find({ organizer: currentUser }).sort({ updatedAt: -1 }).populate("musicians");
+      chat = await Chat.find({ organizer: currentUser }).sort({ updatedAt: -1 }).populate("musician");
     }
 
     res.status(200).json(chat);

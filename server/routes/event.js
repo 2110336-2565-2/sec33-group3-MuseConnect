@@ -20,7 +20,7 @@ router.get("/", getAllEvents)
 router.get("/:id", getEvent);
 
 // only organizer can post, put and delete events
-// router.use(auth.authorize('ORGANIZER'));
+router.use(auth.authorize('ORGANIZER'));
 
 // post event
 router.post('/', createEvent)

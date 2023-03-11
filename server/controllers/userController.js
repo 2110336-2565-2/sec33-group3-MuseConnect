@@ -93,10 +93,7 @@ const updateUser = async (req, res) => {
       const hash = await bcrypt.hash(password, salt);
       req.body.password = hash;
     }
-
-    // validation update field
-    const user = User.findById(id);
-
+    
     // update user
     const new_user = await User.findByIdAndUpdate(id, req.body, {
       returnDocument: "after",

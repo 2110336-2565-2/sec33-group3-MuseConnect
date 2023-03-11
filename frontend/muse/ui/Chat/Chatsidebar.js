@@ -16,8 +16,8 @@ export default function ChatsideBar({ chatRooms }) {
         <ul className="list-unstyled components mb-5">
           {chatRooms &&
             chatRooms.map((chatRoom, index) => (
-              <li key = {`chatroom_${index}`} id={index}>
-                <img src={chatRoom.picture} alt="Flowers" />
+              <li key={`chatroom_${index}`} id={index}>
+                {/* <img src={chatRoom.picture} alt="Flowers" /> */}
                 <Link
                   className="link-light text-decoration-none fw-bold"
                   href={`/Chat/${chatRoom.id}`}
