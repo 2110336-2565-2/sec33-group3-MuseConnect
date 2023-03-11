@@ -301,7 +301,7 @@ function Chatbox({ chatId }) {
         <ChatsideBar chatRooms={chatRooms} />
         <div className="chat_content">
           <NavBar />
-          <div style={{ flex: 1, height: "80vh", overflow: "scroll" }}>
+          <div style={{ flex: 1, height: "80vh", overflow: "scroll", "overflow-x": "hidden"}}>
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
                 const { side, style } = haveSide(message.sender);
