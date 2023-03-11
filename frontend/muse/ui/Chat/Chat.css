@@ -1,4 +1,63 @@
-#check {
-  text-align: center;
-  color: red;
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body
+{
+    margin : 0;
+    padding : 0;
+    font: 'Montserrat';
 }
+
+.model -body
+{
+    font : 'Montserrat'
+}
+
+#name 
+{
+    font: 'Montserrat';
+}
+.name label, .date label, .wage label 
+{
+    display: inline-block;
+    width: 100px;
+}
+  
+.name input, .date input, .wage input {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+button[type="submit"] {
+background-color: #1E1E1E;
+color: #fff;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+}
+.modal-content {
+font-family: 'Montserrat';
+}
+.modal-header {
+    background-color: #86898b80;
+    color: #280505;
+}
+
+.modal-header .closeButton {
+    color: rgb(245, 238, 238);
+}
+
+#head > button
+{
+    color: rgb(245, 238, 238);
+}
+
+input[type="text"] {
+    background-color: #f2f2f2;
+    border: 2px solid #ccc;
+    padding: 8px;
+  }
+  

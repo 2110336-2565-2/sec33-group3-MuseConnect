@@ -5,7 +5,9 @@ import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
 import eventFormat from "../../logic/chat";
-import "./chat.css"
+import './chat.css' ;
+
+
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
@@ -32,16 +34,6 @@ function Chatbox({ chatId }) {
   const [currentOrganizer, setCurrentOrganizer] = useState("");
   const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
 
-  const pretifyDateFormat = (date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // getMonth() returns 0-based index, so we add 1 to get the actual month number
-    const year = date.getFullYear();
-    const hour = date.getHours().toString().padStart(2, '0');
-    const minute = date.getMinutes().toString().padStart(2, '0');
-    const formattedDate = `${day}/${month}/${year}, ${hour}:${minute}`;
-    return formattedDate
-  }
-
   // TODO handle display event
   const displayMessage = () => {
     // console.log(messageEventBuffer);
@@ -56,18 +48,17 @@ function Chatbox({ chatId }) {
         texts.push(data);
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
-
-        let eventDate = new Date(eventBuffer.date);
-        eventDate = pretifyDateFormat(eventDate);
         const value = {
           Name: `${eventBuffer.name}`,
           Location: `${currentOrganizer.location}`,
           Phone: `${currentOrganizerDetails.phone_number}`,
-          Date: `${eventDate}`,
+          Date: `${Date(eventBuffer.date).toString()}`,
           Wage: `${eventBuffer.wage} bath`,
         };
         sender = messageEventBuffer[i].sender;
         const data = { value, sender };
+        // text = messageEventBuffer[i].content.event._id;
+        // console.log(messageEventBuffer[i].content);
         texts.push(data);
       }
     }
@@ -292,6 +283,25 @@ function Chatbox({ chatId }) {
     }
   };
 
+  const haveSide = (sender) => {
+    if (sender === user._id) {
+      return {
+        side: "end",
+        style: {
+          borderRadius: "15px",
+          backgroundColor: "rgba(57, 192, 237,.2)",
+        },
+      };
+    }
+    return {
+      side: "start",
+      style: {
+        borderRadius: "15px",
+        backgroundColor: "#90EE90",
+      },
+    };
+  };
+
   // useEffect(() => {
   //   console.log(currentOrganizer);
   // }, [currentOrganizer]);
@@ -305,7 +315,7 @@ function Chatbox({ chatId }) {
           <div style={{ flex: 1, height: "80vh", overflow: "scroll", "overflow-x": "hidden"}}>
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
-                const { side, style } = haveSide(user, message.sender);
+                const { side, style } = haveSide(message.sender);
                 if (typeof message.text === "string") {
                   return (
                     <div
@@ -318,6 +328,9 @@ function Chatbox({ chatId }) {
                       </div>
                     </div>
                   );
+                }
+                {
+                  console.log(message);
                 }
                 return eventFormat(message.value, { side, style, i });
               })}
