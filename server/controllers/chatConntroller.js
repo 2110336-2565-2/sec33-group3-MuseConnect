@@ -63,7 +63,7 @@ const accessChat = async (req, res) => {
 
 const getChat = async (req, res) => {
   try {
-    const chat = await Chat.findById(req.params.id);
+    const chat = await Chat.findById(req.params.id).populate("organizer");
 
     res.status(200).json(chat);
   } catch (error) {

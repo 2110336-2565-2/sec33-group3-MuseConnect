@@ -4,6 +4,7 @@ import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
+import eventFormat from "../../logic/chat";
 
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
@@ -29,6 +30,7 @@ function Chatbox({ chatId }) {
   const [user, setUser] = useState("");
   const [currentMusician, setCurrentMusician] = useState("");
   const [currentOrganizer, setCurrentOrganizer] = useState("");
+  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
 
   // TODO handle display event
   const displayMessage = () => {
@@ -44,13 +46,15 @@ function Chatbox({ chatId }) {
         texts.push(data);
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
-        text = `
-          Name: ${eventBuffer.name}\n
-          Date: ${eventBuffer.date}\n
-          Wage: ${eventBuffer.wage}\n
-        `;
+        const value = {
+          Name: `${eventBuffer.name}`,
+          Location: `${currentOrganizer.location}`,
+          Phone: `${currentOrganizerDetails.phone_number}`,
+          Date: `${Date(eventBuffer.date).toString()}`,
+          Wage: `${eventBuffer.wage} bath`,
+        };
         sender = messageEventBuffer[i].sender;
-        const data = { text, sender };
+        const data = { value, sender };
         // text = messageEventBuffer[i].content.event._id;
         // console.log(messageEventBuffer[i].content);
         texts.push(data);
@@ -151,7 +155,8 @@ function Chatbox({ chatId }) {
       .then((data) => {
         // console.log(data)
         setCurrentMusician(data.musician);
-        setCurrentOrganizer(data.organizer);
+        setCurrentOrganizer(data.organizer._id);
+        setCurrentOrganizerDetails(data.organizer);
       })
       .catch((err) => {
         console.error(err);
@@ -295,6 +300,10 @@ function Chatbox({ chatId }) {
     };
   };
 
+  // useEffect(() => {
+  //   console.log(currentOrganizer);
+  // }, [currentOrganizer]);
+
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <div className="wrapper d-flex align-items-stretch">
@@ -305,17 +314,23 @@ function Chatbox({ chatId }) {
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
                 const { side, style } = haveSide(message.sender);
-                return (
-                  <div
-                    className={`d-flex flex-row justify-content-${side} mb-4`}
-                  >
-                    <div className="p-3 ms-3" style={style}>
-                      <p key={`message_${i}`} className="small mb-0">
-                        {message.text}
-                      </p>
+                if (typeof message.text === "string") {
+                  return (
+                    <div
+                      className={`d-flex flex-row justify-content-${side} mb-4`}
+                    >
+                      <div className="p-3 ms-3" style={style}>
+                        <p key={`message_${i}`} className="small mb-0">
+                          {message.text}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                );
+                  );
+                }
+                {
+                  console.log(message);
+                }
+                return eventFormat(message.value, { side, style, i });
               })}
             </ul>
           </div>
