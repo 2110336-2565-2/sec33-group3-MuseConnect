@@ -171,7 +171,7 @@ function Chatbox({ chatId }) {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Failed to save message to database");
+            throw new Error("Failed to save event to database");
           }
           console.log("Successfully create event");
           return response.json();

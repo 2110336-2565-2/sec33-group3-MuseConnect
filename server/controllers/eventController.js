@@ -15,6 +15,7 @@ const getAllEvents = async (req, res) => {
 
 const getEvent = async (req, res) => {
     const id = req.params.id;
+    console.log(req);
     //user_id is id of user who call this function
     const user_id = req.body.user_id;
     try {
