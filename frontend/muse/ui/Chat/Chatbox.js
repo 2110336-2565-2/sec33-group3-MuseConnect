@@ -4,8 +4,8 @@ import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
-import eventFormat from "../../logic/chat";
-import "./chat.css"
+import { haveSide, eventFormat } from "../../logic/chat";
+import "./chat.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
@@ -374,9 +374,7 @@ function Chatbox({ chatId }) {
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
               />
-              <button type="submit">
-                {">"}
-              </button>
+              <button type="submit">{">"}</button>
             </form>
           </div>
         </div>
@@ -387,13 +385,16 @@ function Chatbox({ chatId }) {
           <Modal.Title>Event Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="from_box" key="eventForm" style={{ flex: 1, paddingLeft: "10px" }} href="chat.css">
+          <div
+            className="from_box"
+            key="eventForm"
+            style={{ flex: 1, paddingLeft: "10px" }}
+            href="chat.css"
+          >
             <form onSubmit={sendEventHandler}>
               <br />
-              <div className ="name">
-                <label htmlFor="name" >
-                  Name:{" "}
-                </label>
+              <div className="name">
+                <label htmlFor="name">Name: </label>
                 <input
                   type="text"
                   id="name"
@@ -402,7 +403,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className ="date">
+              <div className="date">
                 <label htmlFor="date" style={{ paddingRight: "10px" }}>
                   Date:{" "}
                 </label>
@@ -415,7 +416,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className ="wage">
+              <div className="wage">
                 <label htmlFor="wage" style={{ paddingRight: "10px" }}>
                   Wage:{" "}
                 </label>
