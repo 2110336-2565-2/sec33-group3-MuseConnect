@@ -5,7 +5,7 @@ import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
 import eventFormat from "../../logic/chat";
-
+import "./chat.css"
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
