@@ -239,7 +239,7 @@ function Chatbox({ chatId }) {
       })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Failed to save message to database");
+            throw new Error("Failed to save event to database");
           }
           console.log("Successfully create event");
           return response.json();
@@ -266,9 +266,10 @@ function Chatbox({ chatId }) {
               }
               return response.json();
             })
-            .then((data) => {
-              setMessageEventBuffer([...messageEventBuffer, data]);
-              socket.emit("send-message", data, chatId); // send message to server
+            .then((resMessage) => {
+              console.log("Message after create event", resMessage);
+              setMessageEventBuffer([...messageEventBuffer, resMessage]);
+              socket.emit("send-message", resMessage, chatId); // send message to server
               setEventName("");
               setEventDate("");
               setEventWage("");
