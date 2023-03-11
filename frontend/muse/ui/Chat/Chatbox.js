@@ -4,7 +4,7 @@ import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
-import eventFormat from "../../logic/chat";
+import { eventFormat, haveSide } from "../../logic/chat";
 
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
@@ -50,7 +50,7 @@ function Chatbox({ chatId }) {
           Name: `${eventBuffer.name}`,
           Location: `${currentOrganizer.location}`,
           Phone: `${currentOrganizerDetails.phone_number}`,
-          Date: `${Date(eventBuffer.date).toString()}`,
+          Date: `${eventBuffer.date}`,
           Wage: `${eventBuffer.wage} bath`,
         };
         sender = messageEventBuffer[i].sender;
@@ -281,25 +281,6 @@ function Chatbox({ chatId }) {
     }
   };
 
-  const haveSide = (sender) => {
-    if (sender === user._id) {
-      return {
-        side: "end",
-        style: {
-          borderRadius: "15px",
-          backgroundColor: "rgba(57, 192, 237,.2)",
-        },
-      };
-    }
-    return {
-      side: "start",
-      style: {
-        borderRadius: "15px",
-        backgroundColor: "#90EE90",
-      },
-    };
-  };
-
   // useEffect(() => {
   //   console.log(currentOrganizer);
   // }, [currentOrganizer]);
@@ -313,7 +294,7 @@ function Chatbox({ chatId }) {
           <div style={{ flex: 1, height: "80vh", overflow: "scroll" }}>
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
-                const { side, style } = haveSide(message.sender);
+                const { side, style } = haveSide(user, message.sender);
                 if (typeof message.text === "string") {
                   return (
                     <div
@@ -326,9 +307,6 @@ function Chatbox({ chatId }) {
                       </div>
                     </div>
                   );
-                }
-                {
-                  console.log(message);
                 }
                 return eventFormat(message.value, { side, style, i });
               })}
