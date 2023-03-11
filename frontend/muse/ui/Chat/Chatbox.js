@@ -261,9 +261,10 @@ function Chatbox({ chatId }) {
               }
               return response.json();
             })
-            .then((data) => {
-              setMessageEventBuffer([...messageEventBuffer, data]);
-              socket.emit("send-message", data, chatId); // send message to server
+            .then((resMessage) => {
+              console.log("Message after create event", resMessage);
+              setMessageEventBuffer([...messageEventBuffer, resMessage]);
+              socket.emit("send-message", resMessage, chatId); // send message to server
               setEventName("");
               setEventDate("");
               setEventWage("");

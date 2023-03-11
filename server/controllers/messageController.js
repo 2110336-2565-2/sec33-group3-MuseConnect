@@ -6,8 +6,8 @@ const User = require("../models/userModel");
 const allMessages = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.chatId);
-    if(chat.isUserIn(req.user._id)) {
-      const messages = await Message.find({chat: req.params.chatId}).sort({ createdAt: 1 })
+    if (chat.isUserIn(req.user._id)) {
+      const messages = await Message.find({ chat: req.params.chatId }).sort({ createdAt: 1 })
         .populate("content.event");
       res.status(200).json(messages);
     } else {
@@ -29,22 +29,23 @@ const sendMessage = async (req, res) => {
 
     const chat = await Chat.findById(chatId);
 
-    if(chat.isUserIn(req.user._id)) {
+    if (chat.isUserIn(req.user._id)) {
       let newMessage = {
         sender: req.user._id,
         content: content,
         chat: chatId
       }
-  
-      const message = await Message.create(newMessage);
-  
+
+      let message = await Message.create(newMessage);
+      message = await  message.populate("content.event");
+
       await Chat.findByIdAndUpdate(req.body.chatId, {
         latestMessage: message
       });
-  
+
       res.status(200).json(message);
     }
-    
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
