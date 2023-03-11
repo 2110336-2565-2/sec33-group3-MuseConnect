@@ -4,22 +4,17 @@ import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
-import eventFormat from "../../logic/chat";
-import './chat.css' ;
-
-
+import { haveSide, eventFormat } from "../../logic/chat";
+import "./chat.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
   // chatId = '63fa509243b30b769e2ba355';
 
-  // page variable
-  const [active, setActive] = useState(false);
-  const handleCloseModal = () => setActive(false);
-  const handleShowModal = () => setActive(true);
   // chatrooms variable
   const [chatRooms, setChatRooms] = useState(null);
+  const [latestEvent, setLatestEvent] = useState(null);
   // message variable
   const [messages, setMessages] = useState([]);
   const [messageEventBuffer, setMessageEventBuffer] = useState([]);
@@ -34,6 +29,35 @@ function Chatbox({ chatId }) {
   const [currentOrganizer, setCurrentOrganizer] = useState("");
   const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
 
+  // page variable
+  const [active, setActive] = useState(false);
+  const handleCloseModal = () => {
+    setEventName("");
+    setEventDate("");
+    setEventWage("");
+    setActive(false);
+  };
+  const handleShowModal = ({ Name, Wage }) => {
+    setActive(true);
+    if (typeof Name !== "undefined") {
+      setEventName(Name);
+    }
+    if (typeof Wage !== "undefined") {
+      const value = parseInt(Wage);
+      setEventWage(value);
+    }
+  };
+
+  const pretifyDateFormat = (date) => {
+    const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const word_day = weekday[date.getDay()];
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // getMonth() returns 0-based index, so we add 1 to get the actual month number
+    const year = date.getFullYear();
+    const formattedDate = `${word_day} ${day}/${month}/${year}`;
+    return formattedDate;
+  };
+
   // TODO handle display event
   const displayMessage = () => {
     // console.log(messageEventBuffer);
@@ -41,10 +65,12 @@ function Chatbox({ chatId }) {
     for (let i = 0; i < messageEventBuffer.length; i++) {
       let text = "";
       let sender;
+      let messageId;
       if ("text" in messageEventBuffer[i].content) {
         text = messageEventBuffer[i].content.text;
         sender = messageEventBuffer[i].sender;
-        const data = { text, sender };
+        messageId = messageEventBuffer[i]._id;
+        const data = { text, sender, messageId };
         texts.push(data);
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
@@ -52,13 +78,12 @@ function Chatbox({ chatId }) {
           Name: `${eventBuffer.name}`,
           Location: `${currentOrganizer.location}`,
           Phone: `${currentOrganizerDetails.phone_number}`,
-          Date: `${Date(eventBuffer.date).toString()}`,
-          Wage: `${eventBuffer.wage} bath`,
+          Date: `${eventDate}`,
+          Wage: `${eventBuffer.wage}`,
         };
         sender = messageEventBuffer[i].sender;
-        const data = { value, sender };
-        // text = messageEventBuffer[i].content.event._id;
-        // console.log(messageEventBuffer[i].content);
+        messageId = messageEventBuffer[i]._id;
+        const data = { value, sender, messageId };
         texts.push(data);
       }
     }
@@ -107,6 +132,9 @@ function Chatbox({ chatId }) {
             };
           })
         );
+        result.forEach((chatroom) => {
+          if (chatId === chatroom._id) setLatestEvent(chatroom.latestEvent);
+        });
       }
     };
 
@@ -312,7 +340,14 @@ function Chatbox({ chatId }) {
         <ChatsideBar chatRooms={chatRooms} />
         <div className="chat_content">
           <NavBar />
-          <div style={{ flex: 1, height: "80vh", overflow: "scroll", "overflow-x": "hidden"}}>
+          <div
+            style={{
+              flex: 1,
+              height: "80vh",
+              overflow: "scroll",
+              "overflow-x": "hidden",
+            }}
+          >
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
                 const { side, style } = haveSide(message.sender);
@@ -329,16 +364,19 @@ function Chatbox({ chatId }) {
                     </div>
                   );
                 }
-                {
-                  console.log(message);
-                }
-                return eventFormat(message.value, { side, style, i });
+                return eventFormat(
+                  message.value,
+                  { side, style, i },
+                  currentMusician === user._id,
+                  handleShowModal,
+                  message.messageId === latestEvent
+                );
               })}
             </ul>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
             {user._id === currentOrganizer && (
-              <Button variant="primary" onClick={handleShowModal}>
+              <Button variant="primary" onClick={() => handleShowModal({})}>
                 make request
               </Button>
             )}
@@ -352,9 +390,7 @@ function Chatbox({ chatId }) {
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
               />
-              <button type="submit">
-                {">"}
-              </button>
+              <button type="submit">{">"}</button>
             </form>
           </div>
         </div>
@@ -365,13 +401,16 @@ function Chatbox({ chatId }) {
           <Modal.Title>Event Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="from_box" key="eventForm" style={{ flex: 1, paddingLeft: "10px" }} href="chat.css">
+          <div
+            className="from_box"
+            key="eventForm"
+            style={{ flex: 1, paddingLeft: "10px" }}
+            href="chat.css"
+          >
             <form onSubmit={sendEventHandler}>
               <br />
-              <div className ="name">
-                <label htmlFor="name" >
-                  Name:{" "}
-                </label>
+              <div className="name">
+                <label htmlFor="name">Name: </label>
                 <input
                   type="text"
                   id="name"
@@ -380,7 +419,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className ="date">
+              <div className="date">
                 <label htmlFor="date" style={{ paddingRight: "10px" }}>
                   Date:{" "}
                 </label>
@@ -393,7 +432,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className ="wage">
+              <div className="wage">
                 <label htmlFor="wage" style={{ paddingRight: "10px" }}>
                   Wage:{" "}
                 </label>
