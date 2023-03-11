@@ -4,8 +4,8 @@ import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
-import { eventFormat, haveSide } from "../../logic/chat";
-
+import eventFormat from "../../logic/chat";
+import "./chat.css"
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
@@ -374,22 +374,24 @@ function Chatbox({ chatId }) {
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
               />
-              <button type="submit">{">"}</button>
+              <button type="submit">
+                {">"}
+              </button>
             </form>
           </div>
         </div>
       </div>
 
-      <Modal show={active} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+      <Modal show={active} onHide={handleCloseModal} href="chat.css">
+        <Modal.Header closeButton id="head">
           <Modal.Title>Event Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div key="eventForm" style={{ flex: 1, paddingLeft: "10px" }}>
+          <div className="from_box" key="eventForm" style={{ flex: 1, paddingLeft: "10px" }} href="chat.css">
             <form onSubmit={sendEventHandler}>
               <br />
-              <div>
-                <label htmlFor="name" style={{ paddingRight: "10px" }}>
+              <div className ="name">
+                <label htmlFor="name" >
                   Name:{" "}
                 </label>
                 <input
@@ -400,7 +402,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div>
+              <div className ="date">
                 <label htmlFor="date" style={{ paddingRight: "10px" }}>
                   Date:{" "}
                 </label>
@@ -413,7 +415,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div>
+              <div className ="wage">
                 <label htmlFor="wage" style={{ paddingRight: "10px" }}>
                   Wage:{" "}
                 </label>
