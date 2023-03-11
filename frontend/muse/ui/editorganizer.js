@@ -12,18 +12,20 @@ import { createContext } from 'react'
 const Context = createContext()
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
+import {redirect} from 'next/navigation';
 
 export default function EditOrganizerForm() {
     const [user, setUser] = useState({});
     const [picture, setPicture] = useState(null);
-    const colourOptions = [
+    const genreOptions = [
         { value: 'Pop', label: 'Pop' },
         { value: 'Rock', label: 'Rock' },
         { value: 'Jazz', label: 'Jazz' },
         { value: 'Country', label: 'Country' },
+        { value: 'Alternative', label: 'Alternative' },
         { value: 'Indie', label: 'Indie' }
-    ];
-    const animatedComponents = makeAnimated();
+    ];  
+    // const animatedComponents = makeAnimated();
     
     //Get user's info from database
     useEffect(() => {
@@ -47,13 +49,26 @@ export default function EditOrganizerForm() {
         getUser() ;
         console.log("use effect");
     },[]);
-    useEffect(()=>{
-        console.log(user.email);
-    },[user])
 
+
+    const test = async () => {
+        const files = document.getElementsByClassName("picture")[0].files;
+        if (files.length !== 0) {
+            let f = files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(f);
+            reader.onloadend = () => {
+                const base64String = reader.result;
+                sendData(base64String);
+                console.log("send picture successfully");
+            };
+        } else {
+            alert("no picture");
+        }
+    };
 
     const onSubmit = async ({profile_picture: base64,...values}, actions) => {
-        // console.log(values)
+        //if len=0 --> remove or delete
         const user_loc  = localStorage.getItem("user");
         const userToken = await JSON.parse(user_loc).token;
         const userID = await JSON.parse(user_loc)._id;
@@ -75,12 +90,30 @@ export default function EditOrganizerForm() {
         else{
             localStorage.setItem('user',JSON.stringify(result))
             alert("Your changes have been saved");
-            window.location.href="/";
+            // window.location.href="/Home/Profile";
+            redirect('/Home/Profile');
         }
         actions.setSubmitting(false);
     }
 
     const [value, setValue] = useState("");
+    const [dataArray, setdataArray] = useState([]);
+    
+    const handleChange = (e)=>{
+        if(e.target.checked === true){
+            setdataArray([...dataArray, e.target.value]);
+        }
+        else if(e.target.checked === false){
+            let freshArray = dataArray.filter(val => val !== e.target.value);
+            setdataArray([...freshArray]);
+        }
+    }
+
+    useEffect(()=>{
+        console.log(dataArray);
+    },[dataArray]);
+
+
     return (
         <div className={montserrat.className}>
         <p className='top'>
@@ -89,8 +122,9 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',profile_picture:''}}
-        onSubmit={(values, actions) => onSubmit(values,actions)}>
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',preference:[],profile_picture:''}}
+        onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
+
 
         {props => (
             <form onSubmit={props.handleSubmit}>
@@ -149,23 +183,37 @@ export default function EditOrganizerForm() {
 
                 <div className="field">
                     <p style={{color: "White"}}>Preference</p>
-                    <Select
+                    <input 
+                    type="checkbox"
+                    value='Pop'
+                    onChange={e => handleChange(e)} 
+                    />
+                    <span style={{color:"white"}}>Pop</span>
+
+                    <input 
+                    type="checkbox"
+                    value='Rock'
+                    onChange={e => handleChange(e)} 
+                    />
+                    <span style={{color:"white"}}>Rock</span>
+                    {/* <Select
                     closeMenuOnSelect={false}
                     components={animatedComponents}
-                    defaultValue={[colourOptions[4], colourOptions[5]]}
+                    defaultValue={[genreOptions[0]]}
                     isMulti
-                    options={colourOptions}
-                    />
+                    options={genreOptions}
+                    /> */}
+                    
                 </div>
 
 
-                {/* Picture */}
                 <div className="field">
                     <p style={{color: "White"}}>Profile Picture</p>
                     {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="file" id="formFile" className="picture">
                     </input>
                 </div>
+
 
 
                 <div style={{textAlign: "left",marginBottom: "35px"}}>

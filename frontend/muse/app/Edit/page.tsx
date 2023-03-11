@@ -49,6 +49,7 @@ const Home: NextPage = () => {
             <EditForm/>
           )
         } else {
+          //console.log("this is organizer");
           return (
             <EditOrganizerForm/>
           )
