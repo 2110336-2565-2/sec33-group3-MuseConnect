@@ -1,6 +1,9 @@
 const eventFormat = (
   { Name, Location, Phone, Date, Wage },
-  { side, style, i }
+  { side, style, i },
+  isMusician,
+  handleShowModal,
+  isLastestEvent
 ) => {
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
@@ -10,9 +13,25 @@ const eventFormat = (
           {Location !== "undefined" && <p className="mb-0">{Location}</p>}
           <p className="mb-0">{Phone}</p>
           <p className="mb-0">{Date}</p>
-          <p className="mb-0">{Wage}</p>
-          <button className="mx-3 mt-2">Edit</button>
-          <button className="mx-3 mt-2">Cancel</button>
+          <p className="mb-0">{Wage} bath</p>
+          {console.log(isLastestEvent)}
+          {isLastestEvent && isMusician && (
+            <div>
+              <button className="mx-3 mt-2">Accept</button>
+              <button className="mx-3 mt-2">Decline</button>
+            </div>
+          )}
+          {isLastestEvent && !isMusician && (
+            <div>
+              <button
+                className="mx-3 mt-2"
+                onClick={() => handleShowModal({ Name, Wage })}
+              >
+                Edit
+              </button>
+              <button className="mx-3 mt-2">Cancel</button>
+            </div>
+          )}
         </p>
       </div>
     </div>
