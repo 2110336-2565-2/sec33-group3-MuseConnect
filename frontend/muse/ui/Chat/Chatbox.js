@@ -76,7 +76,7 @@ function Chatbox({ chatId }) {
         let eventBuffer = messageEventBuffer[i].content.event;
         const value = {
           Name: `${eventBuffer.name}`,
-          Location: `${currentOrganizer.location}`,
+          Location: `${currentOrganizerDetails.location}`,
           Phone: `${currentOrganizerDetails.phone_number}`,
           Date: `${eventDate}`,
           Wage: `${eventBuffer.wage}`,
