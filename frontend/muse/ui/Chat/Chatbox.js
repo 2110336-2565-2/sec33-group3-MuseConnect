@@ -28,13 +28,14 @@ function Chatbox({ chatId }) {
   const [user, setUser] = useState("");
   const [currentMusician, setCurrentMusician] = useState("");
   const [currentOrganizer, setCurrentOrganizer] = useState("");
-  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
+  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState({});
 
   // update status
   useEffect(() => {
     // do something
     if (status !== "") {
-      // do
+      console.log(status);
+
       setStatus("");
     }
   }, [status]);
@@ -84,12 +85,13 @@ function Chatbox({ chatId }) {
         texts.push(data);
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
+        console.log(currentOrganizerDetails);
         const value = {
-          Name: `${eventBuffer.name}`,
-          Location: `${currentOrganizerDetails.location}`,
-          Phone: `${currentOrganizerDetails.phone_number}`,
-          Date: `${eventDate}`,
-          Wage: `${eventBuffer.wage}`,
+          Name: eventBuffer.name,
+          Location: currentOrganizerDetails.location,
+          Phone: currentOrganizerDetails.phone_number,
+          Date: eventDate,
+          Wage: eventBuffer.wage,
         };
         sender = messageEventBuffer[i].sender;
         messageId = messageEventBuffer[i]._id;
@@ -341,7 +343,7 @@ function Chatbox({ chatId }) {
           >
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
-                const { side, style } = haveSide(message.sender);
+                const { side, style } = haveSide(user, message.sender);
                 if (typeof message.text === "string") {
                   return (
                     <div

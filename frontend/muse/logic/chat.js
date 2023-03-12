@@ -17,12 +17,12 @@ const eventFormat = (
           <p className="mb-0">{Wage} bath</p>
           {isLastestEvent && isMusician && (
             <div>
-              <button className="mx-3 mt-2" onClick={() => setStatus("accept")}>
+              <button className="mx-3 mt-2" onClick={() => setStatus("ACCEPT")}>
                 Accept
               </button>
               <button
                 className="mx-3 mt-2"
-                onClick={() => setStatus("decline")}
+                onClick={() => setStatus("DECLINE")}
               >
                 Decline
               </button>
@@ -53,6 +53,8 @@ const eventFormat = (
 };
 
 const haveSide = (user, sender) => {
+  console.log(user);
+  console.log(sender);
   if (sender === user._id) {
     return {
       side: "end",
