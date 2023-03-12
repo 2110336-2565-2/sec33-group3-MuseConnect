@@ -369,7 +369,7 @@ function Chatbox({ chatId }) {
                   { side, style, i },
                   currentMusician === user._id,
                   handleShowModal,
-                  message.messageId === latestEvent
+                  message.messageId === latestEvent,
                 );
               })}
             </ul>

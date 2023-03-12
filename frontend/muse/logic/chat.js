@@ -1,9 +1,36 @@
+// const cancelEventHandler = ({userToken, latestEvent}) => {
+//   console.log("Cancel Event Handler", eventId, userToken);
+//   fetch(`http://localhost:4000/api/event/${eventId}`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//       authorization: `Bearer ${userToken}`,
+//     },
+//     body: JSON.stringify({
+//       status: "CANCELLED",
+//     }),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Failed to cancel event to database");
+//       }
+//       console.log("Successfully cancel event");
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log(data);
+//     }).catch((error) => {
+//       console.error(error);
+//     });
+// }
+
 const eventFormat = (
   { Name, Location, Phone, Date, Wage },
   { side, style, i },
   isMusician,
   handleShowModal,
-  isLastestEvent
+  isLastestEvent,
+  {userToken, latestEvent}
 ) => {
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
@@ -14,7 +41,7 @@ const eventFormat = (
           <p className="mb-0">{Phone}</p>
           <p className="mb-0">{Date}</p>
           <p className="mb-0">{Wage} bath</p>
-          {console.log(isLastestEvent)}
+          {/* {console.log(isLastestEvent)} */}
           {isLastestEvent && isMusician && (
             <div>
               <button className="mx-3 mt-2">Accept</button>
@@ -29,7 +56,9 @@ const eventFormat = (
               >
                 Edit
               </button>
-              <button className="mx-3 mt-2">Cancel</button>
+              <button
+                className="mx-3 mt-2"
+              >Cancel</button>
             </div>
           )}
         </p>
