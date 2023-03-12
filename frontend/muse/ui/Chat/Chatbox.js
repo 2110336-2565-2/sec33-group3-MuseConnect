@@ -28,7 +28,40 @@ function Chatbox({ chatId }) {
   const [user, setUser] = useState("");
   const [currentMusician, setCurrentMusician] = useState("");
   const [currentOrganizer, setCurrentOrganizer] = useState("");
-  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState({});
+  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
+
+  // update status
+  useEffect(() => {
+    const userToken = user.token;
+    // console.log("Change status to ", status, userToken);
+    if (status !== "") {
+      // do
+      fetch(`http://localhost:4000/api/event/${latestEvent}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({
+          status: status,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to change event status in database");
+          }
+          // console.log("Successfully change event status");
+          console.log(response)
+          return response.json();
+        }).then((data) => {
+          console.log("Change event status to", data);
+        })
+      if (status === "CANCELLED") {
+        // console.log("Cancel");
+      }
+      setStatus("");
+    }
+  }, [status]);
 
   // page variable
   const [active, setActive] = useState(false);
