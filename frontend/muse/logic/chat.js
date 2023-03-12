@@ -29,8 +29,15 @@ const eventFormat = (
   { side, style, i },
   isMusician,
   handleShowModal,
+<<<<<<< HEAD
   isLastestEvent,
   {userToken, latestEvent}
+||||||| 23d4dee
+  isLastestEvent
+=======
+  isLastestEvent,
+  setStatus
+>>>>>>> b2ddb2c6fb5da443801c7187eb40a361c27879f3
 ) => {
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
@@ -43,8 +50,15 @@ const eventFormat = (
           <p className="mb-0">{Wage} bath</p>
           {isLastestEvent && isMusician && (
             <div>
-              <button className="mx-3 mt-2">Accept</button>
-              <button className="mx-3 mt-2">Decline</button>
+              <button className="mx-3 mt-2" onClick={() => setStatus("accept")}>
+                Accept
+              </button>
+              <button
+                className="mx-3 mt-2"
+                onClick={() => setStatus("decline")}
+              >
+                Decline
+              </button>
             </div>
           )}
           {isLastestEvent && !isMusician && (
