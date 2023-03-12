@@ -1,29 +1,3 @@
-// const cancelEventHandler = ({userToken, latestEvent}) => {
-//   console.log("Cancel Event Handler", eventId, userToken);
-//   fetch(`http://localhost:4000/api/event/${eventId}`, {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "application/json",
-//       authorization: `Bearer ${userToken}`,
-//     },
-//     body: JSON.stringify({
-//       status: "CANCELLED",
-//     }),
-//   })
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error("Failed to cancel event to database");
-//       }
-//       console.log("Successfully cancel event");
-//       return response.json();
-//     })
-//     .then((data) => {
-//       console.log(data);
-//     }).catch((error) => {
-//       console.error(error);
-//     });
-// }
-
 const eventFormat = (
   { Name, Location, Phone, Date, Wage },
   { side, style, i },
