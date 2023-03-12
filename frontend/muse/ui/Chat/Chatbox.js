@@ -282,7 +282,7 @@ function Chatbox({ chatId }) {
 
   // TODO create event and send to message api
   const sendEventHandler = (e) => {
-    e.preventDefault(); // prevent form submission
+    // e.preventDefault(); // prevent form submission
 
     const userToken = user.token;
 

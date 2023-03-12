@@ -7,11 +7,14 @@ const allMessages = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.chatId);
     if (chat.isUserIn(req.user._id)) {
-      const messages = await Message.find({ chat: req.params.chatId }).sort({ createdAt: 1 })
+      const messages = await Message.find({ chat: req.params.chatId })
+        .sort({ createdAt: 1 })
         .populate("content.event");
       res.status(200).json(messages);
     } else {
-      res.status(400).json({ error: "This user doesn't have permission to current chat" });
+      res
+        .status(400)
+        .json({ error: "This user doesn't have permission to current chat" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -33,19 +36,20 @@ const sendMessage = async (req, res) => {
       let newMessage = {
         sender: req.user._id,
         content: content,
-        chat: chatId
-      }
+        chat: chatId,
+      };
 
       let message = await Message.create(newMessage);
-      message = await  message.populate("content.event");
+      const value = { latestMessage: message._id };
 
-      await Chat.findByIdAndUpdate(req.body.chatId, {
-        latestMessage: message
-      });
+      if (message.content.event !== undefined) {
+        value["latestMessageEvent"] = message._id;
+      }
 
+      await Chat.findByIdAndUpdate(req.body.chatId, value);
+      message = await message.populate("content.event");
       res.status(200).json(message);
     }
-
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
