@@ -30,7 +30,7 @@ const eventFormat = (
           )}
           {isLastestEvent && !isMusician && (
             <div class="edit-cancle">
-              <button 
+              <button
                 className="mx-3 mt-2 button-edit"
                 onClick={() => handleShowModal({ Name, Wage })}
               >

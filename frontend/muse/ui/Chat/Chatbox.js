@@ -4,7 +4,7 @@ import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
-import { haveSide, eventFormat } from "../../logic/chat";
+import { eventFormat, haveSide } from "../../logic/chat";
 import "./chat2.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
@@ -170,7 +170,8 @@ function Chatbox({ chatId }) {
           })
         );
         result.forEach((chatroom) => {
-          if (chatId === chatroom._id) setlatestMessageEvent(chatroom.latestMessageEvent);
+          if (chatId === chatroom._id)
+            setlatestMessageEvent(chatroom.latestMessageEvent);
         });
       }
     };
@@ -348,25 +349,6 @@ function Chatbox({ chatId }) {
     }
   };
 
-  const haveSide = (sender) => {
-    if (sender === user._id) {
-      return {
-        side: "end",
-        style: {
-          borderRadius: "15px",
-          backgroundColor: "rgba(57, 192, 237,.2)",
-        },
-      };
-    }
-    return {
-      side: "start",
-      style: {
-        borderRadius: "15px",
-        backgroundColor: "#90EE90",
-      },
-    };
-  };
-
   // useEffect(() => {
   //   console.log(currentOrganizer);
   // }, [currentOrganizer]);
@@ -387,7 +369,7 @@ function Chatbox({ chatId }) {
           >
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
-                const { side, style } = haveSide(message.sender);
+                const { side, style } = haveSide(user, message.sender);
                 if (typeof message.text === "string") {
                   return (
                     <div
@@ -406,7 +388,7 @@ function Chatbox({ chatId }) {
                   { side, style, i },
                   currentMusician === user._id,
                   handleShowModal,
-                  message.messageId === latestEvent,
+                  message.messageId === latestMessageEvent,
                   setStatus
                 );
               })}
