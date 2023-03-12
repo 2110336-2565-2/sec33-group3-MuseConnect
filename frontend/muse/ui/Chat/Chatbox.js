@@ -15,7 +15,7 @@ function Chatbox({ chatId }) {
   const [status, setStatus] = useState("");
   // chatrooms variable
   const [chatRooms, setChatRooms] = useState(null);
-  const [latestEvent, setLatestEvent] = useState(null);
+  const [latestMessageEvent, setlatestMessageEvent] = useState(null);
   // message variable
   const [messages, setMessages] = useState([]);
   const [messageEventBuffer, setMessageEventBuffer] = useState([]);
@@ -25,7 +25,7 @@ function Chatbox({ chatId }) {
   const [eventDate, setEventDate] = useState("");
   const [eventWage, setEventWage] = useState("");
   // person variable
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(""); // object
   const [currentMusician, setCurrentMusician] = useState("");
   const [currentOrganizer, setCurrentOrganizer] = useState("");
   const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState({});
@@ -36,7 +36,7 @@ function Chatbox({ chatId }) {
     // console.log("Change status to ", status, userToken);
     if (status !== "") {
       // do
-      fetch(`http://localhost:4000/api/event/${latestEvent}`, {
+      fetch(`http://localhost:4000/api/event/${latestMessageEvent}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -170,7 +170,7 @@ function Chatbox({ chatId }) {
           })
         );
         result.forEach((chatroom) => {
-          if (chatId === chatroom._id) setLatestEvent(chatroom.latestEvent);
+          if (chatId === chatroom._id) setlatestMessageEvent(chatroom.latestMessageEvent);
         });
       }
     };
