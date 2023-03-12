@@ -1,3 +1,5 @@
+import "../ui/Chat/chat2.css"
+
 const eventFormat = (
   { Name, Location, Phone, Date, Wage },
   { side, style, i },
@@ -29,15 +31,15 @@ const eventFormat = (
             </span>
           )}
           {isLastestEvent && !isMusician && (
-            <div>
-              <button
-                className="mx-3 mt-2"
+            <div class="edit-cancle">
+              <button 
+                className="mx-3 mt-2 button-edit"
                 onClick={() => handleShowModal({ Name, Wage })}
               >
                 Edit
               </button>
               <button
-                className="mx-3 mt-2"
+                className="mx-3 mt-2 button-cancle"
                 onClick={() => {
                   location.reload();
                 }}

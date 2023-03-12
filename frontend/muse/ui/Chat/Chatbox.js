@@ -30,16 +30,6 @@ function Chatbox({ chatId }) {
   const [currentOrganizer, setCurrentOrganizer] = useState("");
   const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState({});
 
-  // update status
-  useEffect(() => {
-    // do something
-    if (status !== "") {
-      console.log(status);
-
-      setStatus("");
-    }
-  }, [status]);
-
   // page variable
   const [active, setActive] = useState(false);
   const handleCloseModal = () => {
@@ -325,6 +315,25 @@ function Chatbox({ chatId }) {
     }
   };
 
+  const haveSide = (sender) => {
+    if (sender === user._id) {
+      return {
+        side: "end",
+        style: {
+          borderRadius: "15px",
+          backgroundColor: "rgba(57, 192, 237,.2)",
+        },
+      };
+    }
+    return {
+      side: "start",
+      style: {
+        borderRadius: "15px",
+        backgroundColor: "#90EE90",
+      },
+    };
+  };
+
   // useEffect(() => {
   //   console.log(currentOrganizer);
   // }, [currentOrganizer]);
@@ -345,7 +354,7 @@ function Chatbox({ chatId }) {
           >
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
-                const { side, style } = haveSide(user, message.sender);
+                const { side, style } = haveSide(message.sender);
                 if (typeof message.text === "string") {
                   return (
                     <div
@@ -364,29 +373,31 @@ function Chatbox({ chatId }) {
                   { side, style, i },
                   currentMusician === user._id,
                   handleShowModal,
-                  message.messageId === latestEvent,
-                  setStatus
+                  message.messageId === latestEvent
                 );
               })}
             </ul>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="sub">
             {user._id === currentOrganizer && (
-              <Button variant="primary" onClick={() => handleShowModal({})}>
+              <Button
+                variant="primary"
+                onClick={() => handleShowModal({})}
+                className="sub_button"
+              >
                 make request
               </Button>
             )}
 
-            <form
-              onSubmit={sendMessageHandler}
-              style={{ display: "inline-flex" }}
-            >
+            <form onSubmit={sendMessageHandler} className="from">
               <input
                 type="text"
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
+                placeholder="Enter your message here"
+                className="input"
               />
-              <button type="submit">{">"}</button>
+              <button type="submit">{">"} </button>
             </form>
           </div>
         </div>
