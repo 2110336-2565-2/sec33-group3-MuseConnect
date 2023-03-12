@@ -12,9 +12,11 @@ import { createContext } from 'react'
 const Context = createContext()
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
-import {redirect} from 'next/navigation';
+//import {redirect} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function EditOrganizerForm() {
+    const router = useRouter();
     const [user, setUser] = useState({});
     const [picture, setPicture] = useState(null);
     const genreOptions = [
@@ -22,8 +24,7 @@ export default function EditOrganizerForm() {
         { value: 'Rock', label: 'Rock' },
         { value: 'Jazz', label: 'Jazz' },
         { value: 'Country', label: 'Country' },
-        { value: 'Alternative', label: 'Alternative' },
-        { value: 'Indie', label: 'Indie' }
+        { value: 'Alternative', label: 'Alternative' }
     ];  
     // const animatedComponents = makeAnimated();
     
@@ -85,13 +86,13 @@ export default function EditOrganizerForm() {
             actions.setSubmitting(false);
             //const out = result.error;
             //console.log(out);
-            alert(result.error);
         }
         else{
             localStorage.setItem('user',JSON.stringify(result))
             alert("Your changes have been saved");
-            // window.location.href="/Home/Profile";
-            redirect('/Home/Profile');
+            //window.location.href="/Home/Profile";
+            console.log("sucessfully");
+            //router.push('/Home/Profile');
         }
         actions.setSubmitting(false);
     }
@@ -122,7 +123,7 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',preference:[],profile_picture:''}}
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',preference:dataArray,profile_picture:''}}
         onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
 
 
@@ -183,27 +184,42 @@ export default function EditOrganizerForm() {
 
                 <div className="field">
                     <p style={{color: "White"}}>Preference</p>
-                    <input 
+                    
+                    <input class="form-check-input" style={{marginRight:"5px"}}
                     type="checkbox"
                     value='Pop'
-                    onChange={e => handleChange(e)} 
-                    />
-                    <span style={{color:"white"}}>Pop</span>
+                    onChange={e => handleChange(e)} />
+                    <span style={{color:"white",marginRight:"15px"}}>Pop</span>
 
-                    <input 
+                    <input class="form-check-input" style={{marginRight:"5px"}}
                     type="checkbox"
                     value='Rock'
-                    onChange={e => handleChange(e)} 
-                    />
-                    <span style={{color:"white"}}>Rock</span>
-                    {/* <Select
-                    closeMenuOnSelect={false}
-                    components={animatedComponents}
-                    defaultValue={[genreOptions[0]]}
-                    isMulti
-                    options={genreOptions}
-                    /> */}
-                    
+                    onChange={e => handleChange(e)} />
+                    <span style={{color:"white",marginRight:"15px"}}>Rock</span>
+
+                    <input class="form-check-input" style={{marginRight:"5px"}}
+                    type="checkbox"
+                    value='Jazz'
+                    onChange={e => handleChange(e)} />
+                    <span style={{color:"white",marginRight:"15px"}}>Jazz</span>
+
+                    <input class="form-check-input" style={{marginRight:"5px"}}
+                    type="checkbox"
+                    value='Country'
+                    onChange={e => handleChange(e)} />
+                    <span style={{color:"white",marginRight:"15px"}}>Country</span>
+
+                    <input class="form-check-input" style={{marginRight:"5px"}}
+                    type="checkbox"
+                    value='Indie'
+                    onChange={e => handleChange(e)} />
+                    <span style={{color:"white",marginRight:"15px"}}>Indie</span>
+
+                    <input class="form-check-input" style={{marginRight:"5px"}}
+                    type="checkbox"
+                    value='Alternative'
+                    onChange={e => handleChange(e)} />
+                    <span style={{color:"white",marginRight:"15px"}}>Alternative</span>
                 </div>
 
 
