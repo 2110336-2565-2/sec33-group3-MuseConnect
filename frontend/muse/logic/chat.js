@@ -64,9 +64,7 @@ const eventFormat = (
               </button>
               <button
                 className="mx-3 mt-2"
-                onClick={() => {
-                  location.reload();
-                }}
+                onClick={() => setStatus("CANCELLED")}
               >
                 Cancel
               </button>
