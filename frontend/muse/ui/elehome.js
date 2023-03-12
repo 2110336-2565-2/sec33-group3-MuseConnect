@@ -28,7 +28,7 @@ export default function Elehome() {
         </Carousel.Caption>
       </Carousel.Item>
 
-      <Carousel.Item interval={7000}>
+      {/* <Carousel.Item interval={7000}>
         <img
           className="d-block w-100"
           src="images/gaze.png"
@@ -40,7 +40,7 @@ export default function Elehome() {
           <h3 className={montserratBold.className} style={{marginBottom: "0px"}}>Gaze Gutter</h3>
           <p className={montserrat.className} style={{marginBottom: "0px"}}>Pop rock | Engineering Student</p>
         </Carousel.Caption>
-      </Carousel.Item>
+      </Carousel.Item> */}
 
       <Carousel.Item interval={7000}>
         <img

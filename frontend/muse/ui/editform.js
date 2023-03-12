@@ -8,14 +8,49 @@ import PhoneInput from "react-phone-number-input"
 //-----------------
 import { createContext } from 'react'
 const Context = createContext()
-
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
-
-// const Login_Api_Path = "http://localhost:4000/api/login"
+//This form is for musician -- for organizer please see "editorganizer.js"
 
 export default function EditForm() {
+    const handleChange = event => {
+        console.log('Label 👉️', event.target.selectedOptions[0].label);
+        console.log(event.target.value);
+        setSelected(event.target.value);
+    }; 
+
+    const handleChangePhone = event => {
+        //console.log('Label 👉️', event.target.selectedOptions[0].label);
+        //console.log(event.target.value);
+        props.values.phone_number = event;
+    };
+
+    // const onSubmit = async (values, actions) => {
+    //     // console.log(values)
+    //     const respone = await fetch(SignUp_Api_Path,{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(values)
+    //     })
+    //     const result = await respone.json()
+    //     if(!respone.ok){
+    //         actions.setSubmitting(false);
+    //         //const out = result.error;
+    //         //console.log(out);
+    //         alert(result.error);
+    //     }
+    //     else{
+    //         localStorage.setItem('user',JSON.stringify(result))
+    //         alert("signup complete");
+    //         window.location.href="/";
+    //     }
+    //     actions.setSubmitting(false);
+    // }
+
     const [user, setUser] = useState({});
+    //Get user's info from database
     useEffect(() => {
         const getUser =async () =>{
             const user_loc  = localStorage.getItem("user");
@@ -37,9 +72,9 @@ export default function EditForm() {
         getUser() ;
         console.log("use effect");
     },[]);
-    // useEffect(()=>{
-    //     console.log(user.email)
-    // },[user])
+    useEffect(()=>{
+        console.log(user.email);
+    },[user])
 
     const [value, setValue] = useState("");
     return (
@@ -47,12 +82,11 @@ export default function EditForm() {
         <p className='top'>
             <a className='topic' href="/Home/Profile">Edit profile</a>
         </p>
-        
+        {/* musician should have location and link */}
         <Formik
-        initialValues={{email: '', password:'', first_name:'', 
-                        last_name:'', phone_number:value, role:''}}
-        onSubmit={(values, actions) => onSubmit(values,actions)}
-        >
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:''}}
+        onSubmit={(values, actions) => onSubmit(values,actions)}>
+
         {props => (
             <form onSubmit={props.handleSubmit}>
  
@@ -95,8 +129,25 @@ export default function EditForm() {
                     </PhoneInput>
                 </div>
 
+
+                {/* Location */}
+                <div className="field">
+                    <p>Location</p>
+                    <input className="form-control" type="text" 
+                    placeholder={user.location}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.location}
+                    name="location">    
+                    </input>
+                </div>
+
+
                 <div style={{textAlign: "center",marginBottom: "10px"}}>
-                    <button type="submit" className="btn btn-success">Save Profile</button>
+                    <button className="btn btn-outline-dark">
+                        <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
+                    </button>
+                    <button type="submit" className="btn btn-success">Save Changes</button>
                 </div>
                 
             </form>

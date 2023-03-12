@@ -7,7 +7,8 @@ import UserPhoto from '../../../ui/UserPhoto';
 // import io from "socket.io-client";
 
 // const socket = io.connect("http://localhost:4000");
-
+import { Montserrat } from '@next/font/google'
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function profile() {
   const [user, setUser] = useState({});
@@ -42,7 +43,7 @@ export default function profile() {
 
 
   return (
-    <Container class="justify-content-center align-items-center">
+    <Container class="justify-content-center align-items-center" className={montserrat.className}>
       <div class="mt-5">
         <Row class=" text-white" style={{backgroundColor: "#1E1E1E", height: "20rem"}}>
           <Col style={{margin: "1rem"}}>
@@ -52,16 +53,16 @@ export default function profile() {
               <UserPhoto/>
             </Row>
             <Row xs>
-              <button type="button" class="btn btn-outline-light mt-3" data-mdb-ripple-color="dark" >
+              <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" >
               <a href="/Edit">Edit profile</a>
               </button>
             </Row>
           </Col>
           <Col md={{ span: 8 }} style={{marginTop: "3rem"}} >
-          <h2>Profile</h2>
-          <h1>{user.first_name} {user.last_name}</h1>
-          <p>Bangkok, Thailand</p>
-          <p>{user.phone_number}</p>
+          <h2 className={montserrat.className}>Profile</h2>
+          <h1 className={montserrat.className}>{user.first_name} {user.last_name}</h1>
+          <p className={montserrat.className}>{user.location}</p>
+          <p className={montserrat.className}>{user.phone_number}</p>
           </Col>
         </Row>
         <Row>

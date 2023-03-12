@@ -15,8 +15,13 @@ const getAllEvents = async (req, res) => {
 
 const getEvent = async (req, res) => {
     //console.log(req)
+    const id = req.params.id;
     try {
-      res.status(200).json({ result: req.params.id });
+      if(!mongoose.isValidObjectId(id)){
+        throw Error("Invalid Id");
+      }
+      const event = await Event.findById(id);
+      res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -24,17 +29,46 @@ const getEvent = async (req, res) => {
 
 const createEvent = async (req, res) => {
     //console.log(req)
+    const {
+      name,
+      date,
+      location,
+      organizer,
+      musician,
+      detail,
+      status,
+      wage,
+    } = req.body;
+    //console.log(wage)
     try {
-      res.status(200).json({ result: true });
+      const event = await Event.create({
+        name,
+        date,
+        location,
+        organizer,
+        musician,
+        detail,
+        status,
+        wage})
+      res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
+
   };  
   
 const updateEvent = async (req, res) => {
     //console.log(req)
+    const id = req.params.id;
     try {
-      res.status(200).json({ result: req.params.id });
+      if (!mongoose.isValidObjectId(id)) {
+        throw Error("Invalid Id");
+      }
+      delete req.body.user_id;
+      const event = await Event.findByIdAndUpdate(id, req.body, {
+        returnDocument: "after",
+      });
+      res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -42,8 +76,13 @@ const updateEvent = async (req, res) => {
 
 const deleteEvent = async (req, res) => {
     //console.log(req.params.id)
+    const id = req.params.id;
     try {
-      res.status(200).json({ result: req.params.id });
+      if (!mongoose.isValidObjectId(id)){
+        throw Error("Invalid Id");
+      }
+      const event = await Event.findByIdAndDelete(id);
+      res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

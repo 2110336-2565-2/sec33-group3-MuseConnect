@@ -1,43 +1,62 @@
-'use client'
-
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, Button, Dropdown,Popover} from 'react-bootstrap';
-
-const popover = (
-  <Popover id="popover-basic">
-    <Popover.Header as="h3">Popover right</Popover.Header>
-    <Popover.Body>
-      And here's some <strong>amazing</strong> content. It's very engaging.
-      right?
-    </Popover.Body>
-  </Popover>
-);
+"use client";
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function page() {
-  return (
-    <div>
-      <Form className="d-flex" style={{marginTop: "2rem", marginLeft: "3rem"}} >
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-              style={{width: "20%"}}
-            />
-            <Button variant="outline-success">Search</Button>
-            <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Dropdown Button
-      </Dropdown.Toggle>
+  const [musicians, setMusicians] = useState(null);
+  const [isFilter, setIsFilter] = useState(false);
+  const [data, setData] = useState({
+    name: "first",
+    preference: ["jazz","pop"],
+  });
 
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-          </Form>
+  useEffect(() => {
+    // get all musician with filter condition
+    const getMusicians = async () => {
+      const queryParams = new URLSearchParams({
+        p: 0,
+        m: 7,
+        ...data
+      }).toString();
+      console.log(queryParams);
+      const respone = await fetch(
+        "http://localhost:4000/api/musician?" + queryParams,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const result = await respone.json();
+      if (!respone.ok) {
+        alert(result.error);
+      } else {
+        setMusicians(result.result);
+      }
+    };
+
+    if (isFilter) {
+      // console.log(data);
+      getMusicians();
+    }
+    setIsFilter(false);
+  }, [isFilter]);
+
+  return (
+    <div style={{ color: "white" }}>
+      <button
+        type="button"
+        class="btn btn-warning"
+        onClick={() => setIsFilter(true)}
+      >
+        filter
+      </button>
+      {musicians &&
+        musicians.map((musician) => {
+          console.log(musician);
+          return <p> musician profile </p>;
+        })}
     </div>
-  )
+  );
 }

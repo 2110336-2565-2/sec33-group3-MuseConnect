@@ -30,7 +30,7 @@ export default function NavBar({show}) {
               <a href="/Signup" className={montserrat.className}>Sign up</a>
             </button>
             <button className="btn btn-success ">
-              <a href="/Login" className={montserrat.className}>log in</a>
+              <a href="/Login" className={montserrat.className}>Log in</a>
             </button>
           </Stack>
         </Container>
@@ -44,7 +44,7 @@ export default function NavBar({show}) {
           <FaBars/>
           </Button>
             <button className="btn btn-success" onClick={logOut}>
-              <a href="" className={montserrat.className}>log out</a>
+              <a href="" className={montserrat.className}>Log out</a>
             </button>
         </Container>
       </Navbar>
