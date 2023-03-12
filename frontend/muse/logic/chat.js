@@ -41,7 +41,6 @@ const eventFormat = (
           <p className="mb-0">{Phone}</p>
           <p className="mb-0">{Date}</p>
           <p className="mb-0">{Wage} bath</p>
-          {/* {console.log(isLastestEvent)} */}
           {isLastestEvent && isMusician && (
             <div>
               <button className="mx-3 mt-2">Accept</button>
@@ -58,7 +57,12 @@ const eventFormat = (
               </button>
               <button
                 className="mx-3 mt-2"
-              >Cancel</button>
+                onClick={() => {
+                  location.reload();
+                }}
+              >
+                Cancel
+              </button>
             </div>
           )}
         </p>

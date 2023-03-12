@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import ChatsideBar from "./Chatsidebar";
-import "./Chat.css";
 
 const ChatMain = () => {
   const [chatRooms, setChatRooms] = useState(null);
@@ -58,7 +57,7 @@ const ChatMain = () => {
     }
   }, [user]);
 
-  useEffect(() => console.log(chatRooms), [chatRooms]);
+  // useEffect(() => console.log(chatRooms), [chatRooms]);
 
   return (
     <div className="wrapper d-flex align-items-stretch">
@@ -67,7 +66,6 @@ const ChatMain = () => {
         <NavBar />
         <div className="p-4 p-md-5">
           <h2>Chat Room</h2>
-          <p id="check">wow za</p>
         </div>
       </div>
     </div>
