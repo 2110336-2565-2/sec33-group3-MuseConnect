@@ -21,6 +21,9 @@ export default function SideBar({ children }) {
 	          <li>
 	              <Link href="/Home/Search" className={montserrat.className}>Search</Link>
 	          </li>
+			  <li>
+	              <Link href="/Chat" className={montserrat.className}>Chat</Link>
+	          </li>
             <li>
 	              <Link href="/Home/Calendar" className={montserrat.className}>Calendar</Link>
 	          </li>
