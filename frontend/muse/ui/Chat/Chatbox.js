@@ -346,6 +346,9 @@ function Chatbox({ chatId }) {
               console.error(error);
             });
         });
+    } else {
+      e.preventDefault();
+      alert("please complete all fields");
     }
   };
 
@@ -394,12 +397,12 @@ function Chatbox({ chatId }) {
               })}
             </ul>
           </div>
-          <div className="sub">
+          <div className="sub m-0">
             {user._id === currentOrganizer && (
               <Button
                 variant="primary"
                 onClick={() => handleShowModal({})}
-                className="sub_button"
+                className="sub_button m-1"
               >
                 make request
               </Button>

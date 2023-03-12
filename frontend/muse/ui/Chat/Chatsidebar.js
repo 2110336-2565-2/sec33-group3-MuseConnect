@@ -12,11 +12,11 @@ export default function ChatsideBar({ chatRooms }) {
       style={{ backgroundColor: "#000000", width: "170px" }}
       id="chatsidebar"
     >
-      <div className="p-4">
+      <div className="ps-2 pe-3 mt-1">
         <h3>
           <Link
             href={""}
-            style={{ color: "white", "text-decoration": "none" }}
+            style={{ color: "white", textDecoration: "none" }}
             className={`${montserrat.className}`}
           >
             Muse Connect

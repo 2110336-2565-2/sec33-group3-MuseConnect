@@ -29,7 +29,7 @@ const eventFormat = (
             </span>
           )}
           {isLastestEvent && !isMusician && (
-            <div class="edit-cancle">
+            <div className="edit-cancle">
               <button
                 className="mx-3 mt-2 button-edit"
                 onClick={() => handleShowModal({ Name, Wage })}
@@ -37,7 +37,7 @@ const eventFormat = (
                 Edit
               </button>
               <button
-                className="mx-3 mt-2"
+                className="mx-3 mt-2 button-cancel"
                 onClick={() => setStatus("CANCELLED")}
               >
                 Cancel
