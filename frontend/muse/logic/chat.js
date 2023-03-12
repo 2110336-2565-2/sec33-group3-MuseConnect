@@ -1,10 +1,11 @@
+import "../ui/Chat/Chat.css"
+
 const eventFormat = (
   { Name, Location, Phone, Date, Wage },
   { side, style, i },
   isMusician,
   handleShowModal,
-  isLastestEvent,
-  setStatus
+  isLastestEvent
 ) => {
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
@@ -17,27 +18,20 @@ const eventFormat = (
           <p className="mb-0">{Wage} bath</p>
           {isLastestEvent && isMusician && (
             <div>
-              <button className="mx-3 mt-2" onClick={() => setStatus("ACCEPT")}>
-                Accept
-              </button>
-              <button
-                className="mx-3 mt-2"
-                onClick={() => setStatus("DECLINE")}
-              >
-                Decline
-              </button>
+              <button className="mx-3 mt-2">Accept</button>
+              <button className="mx-3 mt-2">Decline</button>
             </div>
           )}
           {isLastestEvent && !isMusician && (
-            <div>
-              <button
-                className="mx-3 mt-2"
+            <div class="edit-cancle">
+              <button 
+                className="mx-3 mt-2 button-edit"
                 onClick={() => handleShowModal({ Name, Wage })}
               >
                 Edit
               </button>
               <button
-                className="mx-3 mt-2"
+                className="mx-3 mt-2 button-cancle"
                 onClick={() => {
                   location.reload();
                 }}
@@ -53,8 +47,6 @@ const eventFormat = (
 };
 
 const haveSide = (user, sender) => {
-  console.log(user);
-  console.log(sender);
   if (sender === user._id) {
     return {
       side: "end",

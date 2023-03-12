@@ -1,0 +1,52 @@
+.navbar {
+    background-color: rgba(16, 16, 16, 1);
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+#menuButton {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn {
+    margin: 0 10px;
+}
+
+.btn-outline-dark {
+    color: white;
+    border-color: white;
+}
+
+.btn-outline-dark:hover {
+    background-color: white;
+    color: black;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-logout {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}

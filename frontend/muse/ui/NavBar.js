@@ -19,17 +19,17 @@ export default function NavBar({show}) {
 
   if(user == null){
     return (
-      <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
+      <Navbar className="navbar" expand="lg">
         <Container>
-          <Button id = "menuButton" onClick={show} >
-            click
+          <Button id="menuButton" onClick={show}>
+            Click
           </Button>
-          <Stack direction='horizontal' gap={3}>
+          <Stack direction="horizontal" gap={3}>
             <button className="btn btn-outline-dark">
-              <a href="/Signup" className={montserrat.className}>Sign up</a>
+              <a href="/Signup" className="link">Sign up</a>
             </button>
-            <button className="btn btn-success ">
-              <a href="/Login" className={montserrat.className}>log in</a>
+            <button className="btn btn-success">
+              <a href="/Login" className="link">Log in</a>
             </button>
           </Stack>
         </Container>
@@ -37,14 +37,14 @@ export default function NavBar({show}) {
     )
   } else {
     return(
-    <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
+      <Navbar className="navbar" expand="lg">
         <Container>
-          <Button id = "menuButton" onClick={show} >
-            click
+          <Button id="menuButton" onClick={show}>
+            Click
           </Button>
-            <button className="btn btn-success" onClick={logOut}>
-              <a href="/">log out</a>
-            </button>
+          <button className="btn btn-success btn-logout " onClick={logOut}>
+            <a href="/" className="link">Log out</a>
+          </button>
         </Container>
       </Navbar>
     )

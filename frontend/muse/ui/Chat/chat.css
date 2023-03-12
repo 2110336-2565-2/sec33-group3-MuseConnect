@@ -59,5 +59,124 @@ input[type="text"] {
     background-color: #f2f2f2;
     border: 2px solid #ccc;
     padding: 8px;
-  }
+}
+
+.sub {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+  
+.sub_button {
+    /* background-color: #062a07;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+    */
+    /* background-color: #ebedf2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px; */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    margin-right: 10px;
+} 
+  
+.form {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    justify-content: center;
+}
+  
+.input {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+  
+@media (max-width: 768px) {
+    /* Add styles for mobile devices */
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .button {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .input {
+      width: 100%;
+    }
+}
+
+.save-send-btn {
+    background-color: blue;
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 10px 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-edit {
+    box-shadow: 0px 1px 0px 0px #1c1b18;
+	background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+	background-color:#eae0c2;
+	border-radius:15px;
+	border:2px solid #333029;
+	display:inline-block;
+	cursor:pointer;
+	color:#505739;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:4px 8px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+
+.button-cancle {
+    box-shadow:inset 0px 1px 0px 0px #cf866c;
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	background-color:#d0451b;
+	border-radius:15px;
+	border:2px solid #942911;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:14px;
+	padding:4px 8px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #854629;
+}
+
+.edit-cancle {
+    display: flex;
+    justify-content: space-between;
+}
   
