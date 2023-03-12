@@ -28,7 +28,7 @@ function Chatbox({ chatId }) {
   const [user, setUser] = useState("");
   const [currentMusician, setCurrentMusician] = useState("");
   const [currentOrganizer, setCurrentOrganizer] = useState("");
-  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
+  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState({});
 
   // update status
   useEffect(() => {
@@ -51,11 +51,12 @@ function Chatbox({ chatId }) {
             throw new Error("Failed to change event status in database");
           }
           // console.log("Successfully change event status");
-          console.log(response)
+          console.log(response);
           return response.json();
-        }).then((data) => {
-          console.log("Change event status to", data);
         })
+        .then((data) => {
+          console.log("Change event status to", data);
+        });
       if (status === "CANCELLED") {
         // console.log("Cancel");
       }
@@ -405,7 +406,8 @@ function Chatbox({ chatId }) {
                   { side, style, i },
                   currentMusician === user._id,
                   handleShowModal,
-                  message.messageId === latestEvent
+                  message.messageId === latestEvent,
+                  setStatus
                 );
               })}
             </ul>
