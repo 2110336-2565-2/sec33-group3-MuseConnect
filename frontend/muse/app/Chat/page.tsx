@@ -8,9 +8,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Chat Page</title>
       </Head>
-      <main>
-        <ChatMain />
-      </main>
+      <ChatMain/>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import ChatsideBar from "./Chatsidebar";
+import "./chat2.css";
 
 const ChatMain = () => {
   const [chatRooms, setChatRooms] = useState(null);
@@ -38,13 +39,15 @@ const ChatMain = () => {
             if (typeof chatroom.organizer === "string") {
               return {
                 id: chatroom._id,
-                name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                // name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                name: `${chatroom.musician.first_name}`,
                 picture: chatroom.musician.profile_picture,
               };
             }
             return {
               id: chatroom._id,
-              name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
+              name: `${chatroom.organizer.first_name}`,
+              // name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
               picture: chatroom.organizer.profile_picture,
             };
           })
@@ -63,7 +66,7 @@ const ChatMain = () => {
     <div className="wrapper d-flex align-items-stretch">
       <ChatsideBar chatRooms={chatRooms} />
       <div id="chat-room">
-        <NavBar />
+        <NavBar show={true} />
         <div className="p-4 p-md-5">
           <h2>Chat Room</h2>
         </div>

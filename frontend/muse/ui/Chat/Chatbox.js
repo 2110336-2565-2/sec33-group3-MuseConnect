@@ -5,7 +5,7 @@ import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
 import { haveSide, eventFormat } from "../../logic/chat";
-import "./chat.css";
+import "./chat2.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
@@ -80,6 +80,7 @@ function Chatbox({ chatId }) {
       const value = parseInt(Wage);
       setEventWage(value);
     }
+    messageEventBuffer;
   };
 
   const pretifyDateFormat = (date) => {
@@ -109,11 +110,11 @@ function Chatbox({ chatId }) {
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
         const value = {
-          Name: `${eventBuffer.name}`,
-          Location: `${currentOrganizerDetails.location}`,
-          Phone: `${currentOrganizerDetails.phone_number}`,
-          Date: `${eventDate}`,
-          Wage: `${eventBuffer.wage}`,
+          Name: eventBuffer.name,
+          Location: currentOrganizerDetails.location,
+          Phone: currentOrganizerDetails.phone_number,
+          Date: eventDate,
+          Wage: eventBuffer.wage,
         };
         sender = messageEventBuffer[i].sender;
         messageId = messageEventBuffer[i]._id;
@@ -155,13 +156,15 @@ function Chatbox({ chatId }) {
             if (typeof chatroom.organizer === "string") {
               return {
                 id: chatroom._id,
-                name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                // name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                name: `${chatroom.musician.first_name}`,
                 picture: chatroom.musician.profile_picture,
               };
             }
             return {
               id: chatroom._id,
-              name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
+              name: `${chatroom.organizer.first_name}`,
+              // name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
               picture: chatroom.organizer.profile_picture,
             };
           })
@@ -345,6 +348,25 @@ function Chatbox({ chatId }) {
     }
   };
 
+  const haveSide = (sender) => {
+    if (sender === user._id) {
+      return {
+        side: "end",
+        style: {
+          borderRadius: "15px",
+          backgroundColor: "rgba(57, 192, 237,.2)",
+        },
+      };
+    }
+    return {
+      side: "start",
+      style: {
+        borderRadius: "15px",
+        backgroundColor: "#90EE90",
+      },
+    };
+  };
+
   // useEffect(() => {
   //   console.log(currentOrganizer);
   // }, [currentOrganizer]);
@@ -360,7 +382,7 @@ function Chatbox({ chatId }) {
               flex: 1,
               height: "80vh",
               overflow: "scroll",
-              "overflow-x": "hidden",
+              overflowX: "hidden",
             }}
           >
             <ul className="ps-0 pe-2">
@@ -384,29 +406,31 @@ function Chatbox({ chatId }) {
                   { side, style, i },
                   currentMusician === user._id,
                   handleShowModal,
-                  message.messageId === latestEvent,
-                  setStatus
+                  message.messageId === latestEvent
                 );
               })}
             </ul>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="sub">
             {user._id === currentOrganizer && (
-              <Button variant="primary" onClick={() => handleShowModal({})}>
+              <Button
+                variant="primary"
+                onClick={() => handleShowModal({})}
+                className="sub_button"
+              >
                 make request
               </Button>
             )}
 
-            <form
-              onSubmit={sendMessageHandler}
-              style={{ display: "inline-flex" }}
-            >
+            <form onSubmit={sendMessageHandler} className="from">
               <input
                 type="text"
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
+                placeholder="Enter your message here"
+                className="input"
               />
-              <button type="submit">{">"}</button>
+              <button type="submit">{">"} </button>
             </form>
           </div>
         </div>

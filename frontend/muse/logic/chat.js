@@ -35,29 +35,29 @@ const eventFormat = (
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
       <div className="p-3 ms-3" style={style}>
-        <p key={`message_${i}`} className="small mb-0">
+        <div key={`message_${i}`} className="small mb-0">
           <p className="mb-0">{Name}</p>
           {Location !== "undefined" && <p className="mb-0">{Location}</p>}
           <p className="mb-0">{Phone}</p>
           <p className="mb-0">{Date}</p>
           <p className="mb-0">{Wage} bath</p>
           {isLastestEvent && isMusician && (
-            <div>
-              <button className="mx-3 mt-2" onClick={() => setStatus("accept")}>
+            <span>
+              <button className="mx-3 mt-2" onClick={() => setStatus("ACCEPT")}>
                 Accept
               </button>
               <button
                 className="mx-3 mt-2"
-                onClick={() => setStatus("decline")}
+                onClick={() => setStatus("DECLINE")}
               >
                 Decline
               </button>
-            </div>
+            </span>
           )}
           {isLastestEvent && !isMusician && (
-            <div>
-              <button
-                className="mx-3 mt-2"
+            <div class="edit-cancle">
+              <button 
+                className="mx-3 mt-2 button-edit"
                 onClick={() => handleShowModal({ Name, Wage })}
               >
                 Edit
@@ -70,7 +70,7 @@ const eventFormat = (
               </button>
             </div>
           )}
-        </p>
+        </div>
       </div>
     </div>
   );
