@@ -47,7 +47,6 @@ function Chatbox({ chatId }) {
       const value = parseInt(Wage);
       setEventWage(value);
     }
-    messageEventBuffer;
   };
 
   const pretifyDateFormat = (date) => {
