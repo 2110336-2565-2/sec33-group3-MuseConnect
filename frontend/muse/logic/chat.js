@@ -1,4 +1,4 @@
-import "../ui/Chat/Chat.css"
+import "../ui/Chat/chat.css"
 
 const eventFormat = (
   { Name, Location, Phone, Date, Wage },
