@@ -5,7 +5,7 @@ import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
 import { haveSide, eventFormat } from "../../logic/chat";
-import "./chat.css";
+import "./chat2.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
@@ -57,6 +57,7 @@ function Chatbox({ chatId }) {
       const value = parseInt(Wage);
       setEventWage(value);
     }
+    messageEventBuffer;
   };
 
   const pretifyDateFormat = (date) => {
@@ -85,7 +86,6 @@ function Chatbox({ chatId }) {
         texts.push(data);
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
-        console.log(currentOrganizerDetails);
         const value = {
           Name: eventBuffer.name,
           Location: currentOrganizerDetails.location,
@@ -133,13 +133,15 @@ function Chatbox({ chatId }) {
             if (typeof chatroom.organizer === "string") {
               return {
                 id: chatroom._id,
-                name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                // name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                name: `${chatroom.musician.first_name}`,
                 picture: chatroom.musician.profile_picture,
               };
             }
             return {
               id: chatroom._id,
-              name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
+              name: `${chatroom.organizer.first_name}`,
+              // name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
               picture: chatroom.organizer.profile_picture,
             };
           })
@@ -338,7 +340,7 @@ function Chatbox({ chatId }) {
               flex: 1,
               height: "80vh",
               overflow: "scroll",
-              "overflow-x": "hidden",
+              overflowX: "hidden",
             }}
           >
             <ul className="ps-0 pe-2">

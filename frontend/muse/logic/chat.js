@@ -9,14 +9,14 @@ const eventFormat = (
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
       <div className="p-3 ms-3" style={style}>
-        <p key={`message_${i}`} className="small mb-0">
+        <div key={`message_${i}`} className="small mb-0">
           <p className="mb-0">{Name}</p>
           {Location !== "undefined" && <p className="mb-0">{Location}</p>}
           <p className="mb-0">{Phone}</p>
           <p className="mb-0">{Date}</p>
           <p className="mb-0">{Wage} bath</p>
           {isLastestEvent && isMusician && (
-            <div>
+            <span>
               <button className="mx-3 mt-2" onClick={() => setStatus("ACCEPT")}>
                 Accept
               </button>
@@ -26,7 +26,7 @@ const eventFormat = (
               >
                 Decline
               </button>
-            </div>
+            </span>
           )}
           {isLastestEvent && !isMusician && (
             <div>
@@ -46,15 +46,13 @@ const eventFormat = (
               </button>
             </div>
           )}
-        </p>
+        </div>
       </div>
     </div>
   );
 };
 
 const haveSide = (user, sender) => {
-  console.log(user);
-  console.log(sender);
   if (sender === user._id) {
     return {
       side: "end",
