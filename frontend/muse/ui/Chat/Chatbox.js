@@ -11,7 +11,8 @@ const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
   // chatId = '63fa509243b30b769e2ba355';
-
+  // status update
+  const [status, setStatus] = useState("");
   // chatrooms variable
   const [chatRooms, setChatRooms] = useState(null);
   const [latestEvent, setLatestEvent] = useState(null);
@@ -28,6 +29,15 @@ function Chatbox({ chatId }) {
   const [currentMusician, setCurrentMusician] = useState("");
   const [currentOrganizer, setCurrentOrganizer] = useState("");
   const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
+
+  // update status
+  useEffect(() => {
+    // do something
+    if (status !== "") {
+      // do
+      setStatus("");
+    }
+  }, [status]);
 
   // page variable
   const [active, setActive] = useState(false);
@@ -311,25 +321,6 @@ function Chatbox({ chatId }) {
     }
   };
 
-  const haveSide = (sender) => {
-    if (sender === user._id) {
-      return {
-        side: "end",
-        style: {
-          borderRadius: "15px",
-          backgroundColor: "rgba(57, 192, 237,.2)",
-        },
-      };
-    }
-    return {
-      side: "start",
-      style: {
-        borderRadius: "15px",
-        backgroundColor: "#90EE90",
-      },
-    };
-  };
-
   // useEffect(() => {
   //   console.log(currentOrganizer);
   // }, [currentOrganizer]);
@@ -369,7 +360,8 @@ function Chatbox({ chatId }) {
                   { side, style, i },
                   currentMusician === user._id,
                   handleShowModal,
-                  message.messageId === latestEvent
+                  message.messageId === latestEvent,
+                  setStatus
                 );
               })}
             </ul>
