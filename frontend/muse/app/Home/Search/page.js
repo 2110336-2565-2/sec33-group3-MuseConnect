@@ -7,7 +7,7 @@ export default function page() {
   const [isFilter, setIsFilter] = useState(false);
   const [data, setData] = useState({
     name: "first",
-    preference: ["jazz","pop"],
+    preference: ["pop","jazz"],
   });
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function page() {
       {musicians &&
         musicians.map((musician) => {
           console.log(musician);
-          return <p> musician profile </p>;
+          return `${musician.first_name} ${musician.last_name}`;
         })}
     </div>
   );
