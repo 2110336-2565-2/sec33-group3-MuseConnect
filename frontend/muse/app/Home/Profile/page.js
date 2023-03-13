@@ -45,26 +45,25 @@ export default function profile() {
   return (
     <Container class="justify-content-center align-items-center" className={montserrat.className}>
       <div class="mt-5">
-        <Row class=" text-white" style={{backgroundColor: "#1E1E1E", height: "20rem"}}>
-          <Col style={{margin: "1rem"}}>
+        <Row class=" text-white" style={{backgroundColor: "#1E1E1E"}}>
+          <Col  style={{margin: "1rem"}}>
             <Row className='justify-content-center'>
-              {/* <Image src="../images/win.jpg" style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}></Image> */}
-              {/* class="img-fluid img-thumbnail mt-4 mb-2" */}
               <UserPhoto/>
             </Row>
             <Row xs>
-              <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" >
-              <a href="/Edit">Edit profile</a>
-              </button>
-            </Row>
+          <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+            <a href="/Edit">Edit profile</a>
+          </button>
+        </Row>
           </Col>
-          <Col md={{ span: 8 }} style={{marginTop: "3rem"}} >
+          <Col style={{marginTop: "3rem"}} >
           <h2 className={montserrat.className}>Profile</h2>
           <h1 className={montserrat.className}>{user.first_name} {user.last_name}</h1>
           <p className={montserrat.className}>{user.location}</p>
           <p className={montserrat.className}>{user.phone_number}</p>
           </Col>
         </Row>
+        
         <Row>
           <hr color='#ffffff'></hr>
           <dl>
