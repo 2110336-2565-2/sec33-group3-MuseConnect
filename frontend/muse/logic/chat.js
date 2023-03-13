@@ -22,7 +22,7 @@ const eventFormat = (
       <div className="p-3 ms-3" style={style}>
         <div key={`message_${i}`} className="small mb-0">
           <p className="mb-0">{name}</p>
-          {location !== "undefined" && <p className="mb-0">{location}</p>}
+          {location !== undefined && <p className="mb-0">{location}</p>}
           {location === undefined && <p className="mb-0">undefined location</p>}
           <p className="mb-0">{phone}</p>
           <p className="mb-0">{pretifyDateFormat(date)}</p>

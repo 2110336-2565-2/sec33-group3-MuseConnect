@@ -84,8 +84,6 @@ function Chatbox({ chatId }) {
     }
   };
 
-  
-
   // TODO handle display event
   const displayMessage = () => {
     // console.log(messageEventBuffer);
@@ -108,7 +106,7 @@ function Chatbox({ chatId }) {
           phone: currentOrganizerDetails.phone_number,
           date: eventBuffer.date,
           wage: eventBuffer.wage,
-          currentMessageStatus: eventBuffer.status
+          currentMessageStatus: eventBuffer.status,
         };
         sender = messageEventBuffer[i].sender;
         messageId = messageEventBuffer[i]._id;
@@ -346,10 +344,6 @@ function Chatbox({ chatId }) {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(currentOrganizer);
-  // }, [currentOrganizer]);
-
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <div className="wrapper d-flex align-items-stretch">
@@ -391,28 +385,32 @@ function Chatbox({ chatId }) {
               })}
             </ul>
           </div>
-          <div className="sub m-0">
-            {user._id === currentOrganizer && (
-              <Button
-                variant="primary"
-                onClick={() => handleShowModal({})}
-                className="sub_button m-1"
-              >
-                make request
-              </Button>
-            )}
 
-            <form onSubmit={sendMessageHandler} className="from">
-              <input
-                type="text"
-                value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
-                placeholder="Enter your message here"
-                className="input"
-              />
-              <button type="submit">{">"} </button>
-            </form>
+          <div className="container">
+            <div className="sub m-0">
+              {user._id === currentOrganizer && (
+                <Button
+                  variant="primary"
+                  onClick={() => handleShowModal({})}
+                  className="sub_button m-1"
+                >
+                  make request
+                </Button>
+              )}
+
+              <form onSubmit={sendMessageHandler} className="from">
+                <input
+                  type="text"
+                  value={messageInput}
+                  onChange={(e) => setMessageInput(e.target.value)}
+                  placeholder="Enter your message here"
+                  className="input"
+                />
+                <button type="submit">{">"} </button>
+              </form>
+            </div>
           </div>
+          
         </div>
       </div>
 
