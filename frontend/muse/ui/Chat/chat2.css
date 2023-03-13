@@ -79,7 +79,7 @@ button > a {
   margin-bottom: 20px;
   justify-content: space-around;
   transition: transform 0.3s ease-in-out;
-  width: 500px;
+  /* width: 500px; */
 }
 
 .sub_button {
@@ -154,7 +154,7 @@ button > a {
   cursor: pointer;
 }
 
-.button-edit {
+.button-edit-acep {
   box-shadow: inset 0px 1px 0px 0px #000000;
   background: linear-gradient(to bottom, #000000 5%, #010101 100%);
   background-color: #3f44d4;
@@ -170,7 +170,7 @@ button > a {
   text-shadow: 0px 1px 0px #b16e4f;
 }
 
-.button-cancel {
+.button-can-dec {
   box-shadow: inset 0px 1px 0px 0px #cf866c;
   background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
   background-color: #d0451b;
@@ -189,4 +189,73 @@ button > a {
 .edit-cancle {
   display: flex;
   justify-content: space-between;
+}
+
+#chatsidebar {
+  background-color: #000000dc;
+  width: 170px;
+  margin: 20;
+  padding: 20;
+  font-family: "Montserrat";
+  font-size: 16px ;
+  z-index: 1000;
+  
+
+}
+
+#muse_con {
+  background-color: #000000dc;
+  width: 170px;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat";
+  font-size: 24px;
+  margin-bottom: 20px;
+  
+
+}
+
+.muse-link {
+  color: white;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.muse-link:hover {
+  color: lightgray;
+}
+
+.message-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.message-row.left {
+  justify-content: flex-start;
+}
+
+.message-row.right {
+  justify-content: flex-end;
+}
+
+.message-content {
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.message-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.message-row.right .message-content {
+  background-color: #cceeff;
+}
+
+.message-row.right .message-text {
+  color: #000;
 }

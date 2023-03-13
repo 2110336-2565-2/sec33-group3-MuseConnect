@@ -5,22 +5,21 @@ import React from "react";
 import Link from "next/link";
 import { Montserrat } from "@next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
+import "./chat2.css";
 
 export default function ChatsideBar({ chatRooms }) {
   return (
     <nav
-      style={{ backgroundColor: "#000000", width: "170px" }}
       id="chatsidebar"
     >
       <div className="ps-2 pe-3 mt-1">
-        <h3>
-          <Link
-            href={""}
-            style={{ color: "white", textDecoration: "none" }}
-            className={`${montserrat.className}`}
+        <h3 id="muse_con">
+          <a
+            href={"/"}
+            className= " muse-link"
           >
             Muse Connect
-          </Link>
+          </a>
         </h3>
         <ul className="list-unstyled components mb-5">
           {chatRooms &&
