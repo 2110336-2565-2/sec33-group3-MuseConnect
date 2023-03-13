@@ -3,9 +3,6 @@ import { Formik, Field, Form } from 'formik'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from "./Edit.css";
-//import Select from 'react-select';
-//import makeAnimated from 'react-select/animated';
-//Select and makeAnimated is used for preference input, you can install using "npm i --save react-select"
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
 import { createContext } from 'react'
@@ -72,6 +69,15 @@ export default function EditOrganizerForm() {
         if (user.location.length>0 && value.location.length==0){ //have in database but update nothing
             value["location"] = user.location;
         }
+        if (user.description.length>0 && value.description.length==0){ //have in database but update nothing
+            value["description"] = user.description;
+        }
+        if (user.wage==null && value.wage!=null){
+            value["wage"] = value.wage;
+        }
+        if (value.wage==null && user.wage!=null){
+            value["wage"] = user.wage;
+        }
         if (value.first_name.length==0){
             value["first_name"] = user.first_name;
         }
@@ -131,7 +137,7 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',profile_picture:''}}
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', wage:null, profile_picture:''}}
         onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
 
 
@@ -190,6 +196,19 @@ export default function EditOrganizerForm() {
                 </div>
 
 
+                {/* Description */}
+                <div className="field">
+                    <p style={{color: "White"}}>Description</p>
+                    <input className="form-control" type="text" 
+                    placeholder={user.description}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.description}
+                    name="description">    
+                    </input>
+                </div>
+
+
                 <div className="field">
                     <p style={{color: "White"}}>Preference</p>
                     
@@ -231,13 +250,25 @@ export default function EditOrganizerForm() {
                 </div>
 
 
+                {/* Wage */}
+                <div className="field">
+                    <p style={{color: "White"}}>Wage</p>
+                    <input className="form-control" type="number" min="0"
+                    placeholder={"Your Wage"}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.wage}
+                    name="wage">    
+                    </input>
+                </div>
+
+
                 <div className="field">
                     <p style={{color: "White"}}>Profile Picture</p>
                     {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
                     <input class="form-control" type="file" id="formFile" className="picture">
                     </input>
                 </div>
-
 
 
                 <div style={{textAlign: "left",marginBottom: "35px"}}>
