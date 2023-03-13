@@ -43,12 +43,14 @@ export default function NavBar({ show }) {
     return (
       <Navbar style={{ backgroundColor: "rgba(16, 16, 16, 1)" }} expand="lg">
         <Container>
-          <Button id = "menuButton" onClick={show} >
-          <FaBars/>
+          <Button id="menuButton" onClick={show}>
+            <FaBars />
           </Button>
-            <button className="btn btn-success" onClick={logOut}>
-              <a href="" className={montserrat.className}>Log out</a>
-            </button>
+          <button className="btn btn-success" onClick={logOut}>
+            <a href="/" className={montserrat.className}>
+              Log out
+            </a>
+          </button>
         </Container>
       </Navbar>
     );
