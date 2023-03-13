@@ -7,15 +7,8 @@ import styles from './Login.css'
 import { createContext } from 'react'
 
 const Context = createContext()
-//-----------------
-// If you find an error from this file, it's probably that you haven't installed
-// formik. Please use 'npm install formik --save' command to install.
-//-----------------
-
 import { Montserrat } from '@next/font/google'
-
 const montserrat = Montserrat({ subsets: ['latin'] });
-// api path
 const Login_Api_Path = "http://localhost:4000/api/login"
 
 export default function LoginForm() {
@@ -39,6 +32,7 @@ export default function LoginForm() {
         else{
             localStorage.setItem('user',JSON.stringify(result))
             alert("Login Complete");
+            window.location.href="/";
         }
         actions.setSubmitting(false);
     }

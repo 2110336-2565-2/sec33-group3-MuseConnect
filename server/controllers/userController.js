@@ -21,14 +21,8 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const {
-    email,
-    password,
-    first_name,
-    last_name,
-    phone_number,
-    role
-  } = req.body;
+  const { email, password, first_name, last_name, phone_number, role } =
+    req.body;
 
   try {
     const user = await User.signup(email, password, {
@@ -93,10 +87,7 @@ const updateUser = async (req, res) => {
       const hash = await bcrypt.hash(password, salt);
       req.body.password = hash;
     }
-
-    // validation update field
-    const user = User.findById(id);
-
+    
     // update user
     const new_user = await User.findByIdAndUpdate(id, req.body, {
       returnDocument: "after",
@@ -122,10 +113,31 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// upload a user profile image
+const uploadImage = async (req, res) => {
+  const id = req.params.id;
+  try {
+    if (!mongoose.isValidObjectId(id)) {
+      throw Error("Invalid Id");
+    }
+    // console.log(req.body.picture);
+    const user = await User.findByIdAndUpdate(id, {
+      profile_picture: {
+        data: req.body.picture,
+        contentType: "image/png",
+      },
+    });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   signupUser,
   loginUser,
   getUser,
   updateUser,
   deleteUser,
+  uploadImage,
 };

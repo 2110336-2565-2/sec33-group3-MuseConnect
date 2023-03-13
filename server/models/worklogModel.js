@@ -6,10 +6,6 @@ const worklogSchema = mongoose.Schema({
     ref: "userSchema",
     require: true,
   },
-  profile_picture: {
-    data: Buffer,
-    contentType: String,
-  },
   link: {
     type: String,
   },

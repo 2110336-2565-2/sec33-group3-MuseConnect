@@ -30,6 +30,10 @@ const userSchema = mongoose.Schema({
     enum: ["ADMIN", "MUSICIAN", "ORGANIZER"],
     required: true,
   },
+  profile_picture: {
+    data: Buffer,
+    contentType: String,
+  },
   specialization: {
     type: [String],
   },
@@ -49,12 +53,19 @@ const userSchema = mongoose.Schema({
     type: String,
   },
   preference: {
-    type: String,
+    type: [String],
   },
   wage: {
     type: Number,
     min: 0,
   },
+  description:{
+    type: String
+  },
+  link:{
+    type:String
+  },
+  
 });
 
 // static signup method
@@ -78,7 +89,7 @@ userSchema.statics.signup = async function (email, password, profile) {
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
-  // for api testing
+
   const user = await this.create({
     email,
     password: hash,
@@ -112,6 +123,10 @@ userSchema.methods.getSignedJwtToken=function() {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE
   });
+}
+
+userSchema.methods.isAdmin=function() {
+  return this.role == "ADMIN";
 }
 
 userSchema.methods.isOrganizer=function() {

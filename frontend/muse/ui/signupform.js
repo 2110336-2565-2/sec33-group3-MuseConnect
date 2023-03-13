@@ -3,10 +3,11 @@ import { Formik, Field, Form } from 'formik'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import styles from './Signup.css'
-//-----------------
-import { createContext } from 'react'
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
+//-----------------
+import { createContext } from 'react'
+
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
 const SignUp_Api_Path = "http://localhost:4000/api/signup";
@@ -57,19 +58,21 @@ export default function SignupForm() {
             alert(result.error);
         }
         else{
+            localStorage.setItem('user',JSON.stringify(result))
             alert("signup complete");
+            window.location.href="/";
         }
         actions.setSubmitting(false);
     }
 
-    const [value, setValue] = useState("1")
+    const [value, setValue] = useState("")
 
     return (
         <div className={montserrat.className}>
         <p className='top'>
             <a className='topic' href="/">Muse Connect</a>
         </p>
-        {/* className='topic'  */}
+        
         <h3 className='subheading'>Find your new music experiences here.</h3>
         <Formik
         initialValues={{email: '', password:'', first_name:'', 
@@ -120,7 +123,7 @@ export default function SignupForm() {
 
                 {/* Last Name */}
                 <div className="field">
-                    <p style={{color: "White"}}>Last name</p>
+                    <p style={{color: "White"}}>Last Name</p>
                     <input className="form-control" type="text" 
                     placeholder="Last Name"
                     onChange={props.handleChange}
@@ -132,8 +135,6 @@ export default function SignupForm() {
 
 
                 {/* Phone Number */}
-                {/* Requirement in MS3 takes phone number as a string not a number */}
-                {/* I'll try to find the auto phone number input format later */}
                 <div className="field">
                     <p style={{color: "White"}}>Phone Number</p>
                     <PhoneInput className="form-control" type="text" 
@@ -149,7 +150,7 @@ export default function SignupForm() {
 
                 {/* User type */}   
                 <div className="field">
-                    <p style={{color: "White"}}>User role</p>
+                    <p style={{color: "White"}}>User Role</p>
                     {/* <Button id="dropdown-test"></Button> */}
                     <select className="form-select" aria-label="Default select example" style={{color: "#585C5E"}} onChange={props.handleChange} name="role">
                         <option selected>Select your role</option>
