@@ -75,24 +75,16 @@ function Chatbox({ chatId }) {
   };
   const handleShowModal = ({ Name, Wage }) => {
     setActive(true);
-    if (typeof Name !== "undefined") {
+    if (typeof Name !== undefined) {
       setEventName(Name);
     }
-    if (typeof Wage !== "undefined") {
+    if (typeof Wage !== undefined) {
       const value = parseInt(Wage);
       setEventWage(value);
     }
   };
 
-  const pretifyDateFormat = (date) => {
-    const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const word_day = weekday[date.getDay()];
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // getMonth() returns 0-based index, so we add 1 to get the actual month number
-    const year = date.getFullYear();
-    const formattedDate = `${word_day} ${day}/${month}/${year}`;
-    return formattedDate;
-  };
+  
 
   // TODO handle display event
   const displayMessage = () => {
@@ -111,11 +103,11 @@ function Chatbox({ chatId }) {
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
         const value = {
-          Name: eventBuffer.name,
-          Location: currentOrganizerDetails.location,
-          Phone: currentOrganizerDetails.phone_number,
-          Date: eventDate,
-          Wage: eventBuffer.wage,
+          name: eventBuffer.name,
+          location: currentOrganizerDetails.location,
+          phone: currentOrganizerDetails.phone_number,
+          date: eventBuffer.date,
+          wage: eventBuffer.wage,
           currentMessageStatus: eventBuffer.status
         };
         sender = messageEventBuffer[i].sender;
