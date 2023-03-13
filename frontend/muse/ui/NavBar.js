@@ -3,8 +3,7 @@
 import {FaBars} from 'react-icons/fa'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import { Button, Stack } from 'react-bootstrap'
+import { Button, Stack,Navbar } from 'react-bootstrap'
 import React from 'react'
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })

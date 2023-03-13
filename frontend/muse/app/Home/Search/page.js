@@ -1,14 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { Button, Stack,Nav, Form} from 'react-bootstrap' ;
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function page() {
   const [musicians, setMusicians] = useState(null);
   const [isFilter, setIsFilter] = useState(false);
-  const [data, setData] = useState({
-    name: "first",
-    preference: ["pop","jazz"],
-  });
+  const [data, setData] = useState({});
 
   useEffect(() => {
     // get all musician with filter condition
@@ -37,21 +35,37 @@ export default function page() {
     };
 
     if (isFilter) {
-      // console.log(data);
+      console.log(data);
       getMusicians();
     }
     setIsFilter(false);
   }, [isFilter]);
 
   return (
-    <div style={{ color: "white" }}>
-      <button
-        type="button"
-        class="btn btn-warning"
-        onClick={() => setIsFilter(true)}
-      >
-        filter
-      </button>
+    <div>
+
+    <Nav>
+    <Form className="d-flex" name="my-form" action="" method="post">
+            <Form.Control
+              name="name"
+              type="search"
+              placeholder="name"
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button onClick={() => setIsFilter(true)} variant="outline-success">Filter</Button>
+            <Button onClick={() => setData({name: "asd"})} variant="outline-success">name</Button>
+            <Button onClick={() => setData({})} variant="outline-success">"{}"</Button>
+          </Form>
+    </Nav>
+
+
+
+
+
+
+
+    
       {musicians &&
         musicians.map((musician) => {
           console.log(musician);
