@@ -76,7 +76,7 @@ export default function UserPhoto() {
 
   return (
     <div>
-      {<Image src={picture} alt="hi" style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}/>}
+      {<Image src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}/>}
     </div>
   );
 
