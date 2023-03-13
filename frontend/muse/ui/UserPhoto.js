@@ -1,6 +1,8 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 const user = localStorage.getItem("user");
+import { useEffect } from "react";
+import { Image } from "react-bootstrap";
 
 // test upload picture api
 const sendData = async (base64) => {
@@ -14,7 +16,7 @@ const sendData = async (base64) => {
         "Content-Type": "application/json",
         authorization: `Bearer ${userToken}`,
       },
-      body: JSON.stringify({picture: base64}), //{ picture: base64,...values }
+      body: JSON.stringify({ picture: base64 }),
     }
   );
   const result = await respone.json();
@@ -41,7 +43,7 @@ const test = async () => {
   }
 };
 
-export default function page() {
+export default function UserPhoto() {
 
   // img src
   const [picture, setPicture] = useState(null);
@@ -67,17 +69,14 @@ export default function page() {
       setPicture(base64);
     }
   };
-
   useEffect(()=>{
-    display() ;
-    console.log("Hi")
-  },[]);
+    display();
+    console.log(picture) ;
+  },[])
+
   return (
     <div>
-      <input type="file" className="picture" />
-      <button onClick={() => test()}>Save picture</button>
-      <button onClick={() => display()}>Display picture</button>
-      {picture && <img src={picture} alt="hello" />}
+      {<Image src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}/>}
     </div>
   );
 

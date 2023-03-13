@@ -10,9 +10,9 @@ body{
     margin-bottom: 30px;
 }
 .topic{
+    text-align: left;
     color:white;
     text-decoration: none;
-    
 }       
 .top{
     margin-top: 60px;
@@ -24,7 +24,7 @@ body{
 .subheading{
     color: white;
     text-align: center;
-    margin-bottom: 45px;
+    margin-bottom: 20px;
     font-weight:lighter;
 }
 
@@ -35,4 +35,4 @@ body{
     position: relative;
     font-size: large;
     z-index: 2;
-  }
+}

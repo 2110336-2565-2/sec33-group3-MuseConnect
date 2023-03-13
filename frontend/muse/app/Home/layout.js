@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     setActive(!isActive);
   };
   return (
-    <body>
+
       <div className="wrapper d-flex align-items-stretch">
         <SideBar children={isActive}/>
 
@@ -23,6 +23,6 @@ export default function RootLayout({ children }) {
             {children}
         </div>
       </div>
-    </body>
+
   )
 }

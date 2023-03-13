@@ -7,10 +7,13 @@ const {
 } = require('../controllers/musicianController')
 const requireAuth = require('../middleware/requireAuth')
 
-router.use(requireAuth)
+
 
 // get musicians
 router.get('/', getMusicians)
+
+// authentication
+router.use(requireAuth)
 
 // get a musician
 router.get('/:id', getMusician)
