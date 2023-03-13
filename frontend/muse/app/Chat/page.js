@@ -3,7 +3,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Chatsidebar from '../../ui/Chat2/Chatsidebar'
 import NavBar from '../../ui/NavBar'
-import '../../style/style2.css'
 import React, { useState } from "react";
 
 export default function RootLayout() {

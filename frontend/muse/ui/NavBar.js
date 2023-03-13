@@ -7,7 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Button, Stack } from 'react-bootstrap'
 import React from 'react'
 import { Montserrat } from '@next/font/google'
-import { FaBars } from 'react-icons/fa';
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function NavBar({ show }) {
