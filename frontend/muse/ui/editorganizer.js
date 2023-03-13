@@ -72,6 +72,12 @@ export default function EditOrganizerForm() {
         if (user.description.length>0 && value.description.length==0){ //have in database but update nothing
             value["description"] = user.description;
         }
+        if (user.wage==null && value.wage!=null){
+            value["wage"] = value.wage;
+        }
+        if (value.wage==null && user.wage!=null){
+            value["wage"] = user.wage;
+        }
         if (value.first_name.length==0){
             value["first_name"] = user.first_name;
         }
@@ -131,7 +137,7 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', profile_picture:''}}
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', wage:null, profile_picture:''}}
         onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
 
 
@@ -245,16 +251,16 @@ export default function EditOrganizerForm() {
 
 
                 {/* Wage */}
-                {/* <div className="field">
+                <div className="field">
                     <p style={{color: "White"}}>Wage</p>
-                    <input className="form-control" type="text" 
+                    <input className="form-control" type="number" min="0"
                     placeholder={"Your Wage"}
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
                     value={props.values.wage}
                     name="wage">    
                     </input>
-                </div> */}
+                </div>
 
 
                 <div className="field">
