@@ -42,7 +42,6 @@ const Home: NextPage = () => {
         <title>Edit Profile Page</title>
       </Head>
       <main>
-        {/* <EditForm /> */}
         {(() => {
         if (user && user.role=="MUSICIAN") { //if user is not NULL
           return (

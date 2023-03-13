@@ -3,8 +3,8 @@ import { Formik, Field, Form } from 'formik'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import styles from "./Edit.css";
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
+//import Select from 'react-select';
+//import makeAnimated from 'react-select/animated';
 //Select and makeAnimated is used for preference input, you can install using "npm i --save react-select"
 import 'react-phone-number-input/style.css'
 import PhoneInput from "react-phone-number-input"
@@ -19,13 +19,13 @@ export default function EditOrganizerForm() {
     const router = useRouter();
     const [user, setUser] = useState({});
     const [picture, setPicture] = useState(null);
-    const genreOptions = [
-        { value: 'Pop', label: 'Pop' },
-        { value: 'Rock', label: 'Rock' },
-        { value: 'Jazz', label: 'Jazz' },
-        { value: 'Country', label: 'Country' },
-        { value: 'Alternative', label: 'Alternative' }
-    ];  
+    // const genreOptions = [
+    //     { value: 'Pop', label: 'Pop' },
+    //     { value: 'Rock', label: 'Rock' },
+    //     { value: 'Jazz', label: 'Jazz' },
+    //     { value: 'Country', label: 'Country' },
+    //     { value: 'Alternative', label: 'Alternative' }
+    // ];  
     // const animatedComponents = makeAnimated();
     
     //Get user's info from database
@@ -68,8 +68,14 @@ export default function EditOrganizerForm() {
         }
     };
 
-    const onSubmit = async ({profile_picture: base64,...values}, actions) => {
-        //if len=0 --> remove or delete
+    const onSubmit = async (value, actions) => {
+        //if len=0 --> remove or 
+        // ,{profile_picture: base64,...values}
+        
+        if (preference.length > 0){
+            value["preference"] = preference
+        }
+        console.log(value)
         const user_loc  = localStorage.getItem("user");
         const userToken = await JSON.parse(user_loc).token;
         const userID = await JSON.parse(user_loc)._id;
@@ -79,7 +85,7 @@ export default function EditOrganizerForm() {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${userToken}`
             },
-            body: JSON.stringify({profile_picture: base64,...values})
+            body: JSON.stringify(value)
         })
         const result = await respone.json()
         if(!respone.ok){
@@ -88,31 +94,34 @@ export default function EditOrganizerForm() {
             //console.log(out);
         }
         else{
-            localStorage.setItem('user',JSON.stringify(result))
+            //localStorage.setItem('user',JSON.stringify(result))
             alert("Your changes have been saved");
             //window.location.href="/Home/Profile";
+            //console.log(preference);
             console.log("sucessfully");
-            //router.push('/Home/Profile');
+            router.push('/Home/Profile');
         }
         actions.setSubmitting(false);
     }
 
     const [value, setValue] = useState("");
-    const [dataArray, setdataArray] = useState([]);
-    
-    const handleChange = (e)=>{
+    //const [dataArray, setdataArray] = useState([]);
+    const [preference, setPreference] = useState([]);
+    const handleChange =(e)=>{
         if(e.target.checked === true){
-            setdataArray([...dataArray, e.target.value]);
+            setPreference([...preference, e.target.value]);
+            //setPreference([...dataArray]);
         }
         else if(e.target.checked === false){
-            let freshArray = dataArray.filter(val => val !== e.target.value);
-            setdataArray([...freshArray]);
+            let freshArray = preference.filter(val => val !== e.target.value);
+            setPreference([...freshArray]);
+            //setPreference([...dataArray]);
         }
     }
 
     useEffect(()=>{
-        console.log(dataArray);
-    },[dataArray]);
+        console.log("preference: " + preference);
+    },[preference]);
 
 
     return (
@@ -123,7 +132,7 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',preference:dataArray,profile_picture:''}}
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'',profile_picture:''}}
         onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
 
 
