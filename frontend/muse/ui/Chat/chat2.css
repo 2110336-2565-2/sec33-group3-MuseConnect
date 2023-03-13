@@ -259,3 +259,11 @@ button > a {
 .message-row.right .message-text {
   color: #000;
 }
+
+.my-icon::before {
+  content: url("http://www.w3.org/2000/svg");
+  display: inline-block;
+  margin-right: 5px;
+  color: #000;
+}
+

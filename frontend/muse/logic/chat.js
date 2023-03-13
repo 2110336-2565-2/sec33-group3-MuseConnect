@@ -21,7 +21,7 @@ const eventFormat = (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
       <div className="p-3 ms-3" style={style}>
         <div key={`message_${i}`} className="small mb-0">
-          <p className="mb-0">{name}</p>
+          <p className="mb-0 ">{name}</p>
           {location !== "undefined" && <p className="mb-0">{location}</p>}
           {location === undefined && <p className="mb-0">undefined location</p>}
           <p className="mb-0">{phone}</p>
@@ -67,13 +67,14 @@ const haveSide = (user, sender) => {
       side: "end",
       style: {
         borderRadius: "15px",
-        backgroundColor: "rgba(57, 192, 237,.2)",
+        backgroundColor: "white"
       },
     };
   }
   return {
     side: "start",
     style: {
+      
       borderRadius: "15px",
       backgroundColor: "#90EE90",
     },

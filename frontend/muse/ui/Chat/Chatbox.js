@@ -362,6 +362,7 @@ function Chatbox({ chatId }) {
               height: "80vh",
               overflow: "scroll",
               overflowX: "hidden",
+              backgroundColor:"#333",
             }}
           >
             <ul className="ps-0 pe-2">
@@ -372,9 +373,9 @@ function Chatbox({ chatId }) {
                     <div
                       className={`d-flex flex-row justify-content-${side} mb-4`}
                     >
-                      <div className="p-3 ms-3" style={style}>
+                      <div className="p-3 ms-3  " style={style}>
                         <p key={`message_${i}`} className="small mb-0">
-                          {message.text}
+                          {message.text} 
                         </p>
                       </div>
                     </div>
