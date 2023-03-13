@@ -72,6 +72,9 @@ export default function EditForm() {
         if (user.description.length>0 && value.description.length==0){ //have in database but update nothing
             value["description"] = user.description;
         }
+        // if (user.link.length>0 && value.link.length==0){ //have in database but update nothing
+        //     value["link"] = user.link;
+        // }
         if (value.first_name.length==0){
             value["first_name"] = user.first_name;
         }
@@ -188,6 +191,19 @@ export default function EditForm() {
                     name="location">    
                     </input>
                 </div>
+
+
+                {/* Link */}
+                {/* <div className="field">
+                    <p style={{color: "White"}}>Link</p>
+                    <input className="form-control" type="text" 
+                    placeholder={user.link}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.link}
+                    name="link">    
+                    </input>
+                </div> */}
 
 
                 {/* Description */}
