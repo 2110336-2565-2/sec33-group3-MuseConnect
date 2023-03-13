@@ -43,11 +43,6 @@ const eventFormat = (
               </button>
             </div>
           )}
-          { currentMessageStatus !== "PENDING" &&
-            <div>
-              <p><strong>{currentMessageStatus}</strong></p>
-            </div>
-          }
         </div>
       </div>
     </div>
