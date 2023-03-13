@@ -398,7 +398,7 @@ function Chatbox({ chatId }) {
                 </Button>
               )}
 
-              <form onSubmit={sendMessageHandler} className="from">
+              <form onSubmit={sendMessageHandler} className="form">
                 <input
                   type="text"
                   value={messageInput}
