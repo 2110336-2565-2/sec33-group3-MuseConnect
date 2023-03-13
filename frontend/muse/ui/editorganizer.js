@@ -19,15 +19,7 @@ export default function EditOrganizerForm() {
     const router = useRouter();
     const [user, setUser] = useState({});
     const [picture, setPicture] = useState(null);
-    // const genreOptions = [
-    //     { value: 'Pop', label: 'Pop' },
-    //     { value: 'Rock', label: 'Rock' },
-    //     { value: 'Jazz', label: 'Jazz' },
-    //     { value: 'Country', label: 'Country' },
-    //     { value: 'Alternative', label: 'Alternative' }
-    // ];  
-    // const animatedComponents = makeAnimated();
-    
+
     //Get user's info from database
     useEffect(() => {
         const getUser =async () =>{
@@ -69,13 +61,27 @@ export default function EditOrganizerForm() {
     };
 
     const onSubmit = async (value, actions) => {
-        //if len=0 --> remove or 
-        // ,{profile_picture: base64,...values}
-        
-        if (preference.length > 0){
-            value["preference"] = preference
+        //{profile_picture: base64,...values} 
+        console.log(value.first_name);
+        if (user.preference.length>0 && preference.length==0){ //have in database but update nothing
+            value["preference"] = user.preference;
         }
-        console.log(value)
+        if (preference.length > 0){
+            value["preference"] = preference;
+        }
+        if (user.location.length>0 && value.location.length==0){ //have in database but update nothing
+            value["location"] = user.location;
+        }
+        if (value.first_name.length==0){
+            value["first_name"] = user.first_name;
+        }
+        if (value.last_name.length==0){
+            value["last_name"] = user.last_name;
+        }
+        if (value.phone_number.length==0){
+            value["phone_number"] = user.phone_number;
+        }
+        //console.log(value)
         const user_loc  = localStorage.getItem("user");
         const userToken = await JSON.parse(user_loc).token;
         const userID = await JSON.parse(user_loc)._id;
@@ -90,14 +96,10 @@ export default function EditOrganizerForm() {
         const result = await respone.json()
         if(!respone.ok){
             actions.setSubmitting(false);
-            //const out = result.error;
-            //console.log(out);
         }
         else{
             //localStorage.setItem('user',JSON.stringify(result))
             alert("Your changes have been saved");
-            //window.location.href="/Home/Profile";
-            //console.log(preference);
             console.log("sucessfully");
             router.push('/Home/Profile');
         }
@@ -105,17 +107,14 @@ export default function EditOrganizerForm() {
     }
 
     const [value, setValue] = useState("");
-    //const [dataArray, setdataArray] = useState([]);
     const [preference, setPreference] = useState([]);
     const handleChange =(e)=>{
         if(e.target.checked === true){
             setPreference([...preference, e.target.value]);
-            //setPreference([...dataArray]);
         }
         else if(e.target.checked === false){
             let freshArray = preference.filter(val => val !== e.target.value);
             setPreference([...freshArray]);
-            //setPreference([...dataArray]);
         }
     }
 
