@@ -115,6 +115,7 @@ function Chatbox({ chatId }) {
           Phone: currentOrganizerDetails.phone_number,
           Date: eventDate,
           Wage: eventBuffer.wage,
+          currentMessageStatus: eventBuffer.status
         };
         sender = messageEventBuffer[i].sender;
         messageId = messageEventBuffer[i]._id;

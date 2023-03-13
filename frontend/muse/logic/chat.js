@@ -1,6 +1,5 @@
-
 const eventFormat = (
-  { Name, Location, Phone, Date, Wage },
+  { Name, Location, Phone, Date, Wage, currentMessageStatus },
   { side, style, i },
   isMusician,
   handleShowModal,
@@ -16,35 +15,39 @@ const eventFormat = (
           <p className="mb-0">{Phone}</p>
           <p className="mb-0">{Date}</p>
           <p className="mb-0">{Wage} bath</p>
-          {isLastestEvent && isMusician && (
+          {isLastestEvent && isMusician && currentMessageStatus !== "CANCELLED" && (
             <span>
-              <button className="mx-3 mt-2 button-edit-acep" onClick={() => setStatus("ACCEPT")}>
+              <button
+                className="mx-3 mt-2 button-edit-acep"
+                onClick={() => setStatus("ACCEPT")}>
                 Accept
               </button>
               <button
                 className="mx-3 mt-2 button-can-dec"
-                onClick={() => setStatus("DECLINE")}
-              >
+                onClick={() => setStatus("DECLINE")}>
                 Decline
               </button>
             </span>
           )}
-          {isLastestEvent && !isMusician && (
+          {isLastestEvent && !isMusician && currentMessageStatus !== "CANCELLED" && (
             <div className="edit-cancle">
               <button
                 className="mx-3 mt-2 button-edit-acep"
-                onClick={() => handleShowModal({ Name, Wage })}
-              >
+                onClick={() => handleShowModal({ Name, Wage })}>
                 Edit
               </button>
               <button
                 className="mx-3 mt-2 button-can-dec"
-                onClick={() => setStatus("CANCELLED")}
-              >
+                onClick={() => setStatus("CANCELLED")}>
                 Cancel
               </button>
             </div>
           )}
+          { currentMessageStatus !== "PENDING" &&
+            <div>
+              <p><strong>{currentMessageStatus}</strong></p>
+            </div>
+          }
         </div>
       </div>
     </div>
