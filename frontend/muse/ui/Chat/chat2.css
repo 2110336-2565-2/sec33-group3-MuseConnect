@@ -1,0 +1,261 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+body {
+  margin: 0;
+  padding: 0;
+  font: "Montserrat";
+}
+
+.model -body {
+  font: "Montserrat";
+}
+
+#name {
+  font: "Montserrat";
+}
+
+.name label,
+.date label,
+.wage label {
+  display: inline-block;
+  width: 100px;
+}
+
+.name input,
+.date input,
+.wage input {
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+}
+
+button[type="submit"] {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content {
+  font-family: "Montserrat";
+}
+
+.modal-header {
+  background-color: #86898b80;
+  color: #280505;
+}
+
+.modal-header .closeButton {
+  color: rgb(245, 238, 238);
+}
+
+#head > button {
+  color: rgb(245, 238, 238);
+}
+
+input[type="text"] {
+  background-color: #f2f2f2;
+  border: 2px solid #ccc;
+  padding: 8px;
+}
+
+#menuButton {
+  visibility: hidden;
+}
+
+button > a {
+  font-family: "Montserrat";
+  text-decoration: none;
+  color: white;
+}
+
+.sub {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: space-around;
+  transition: transform 0.3s ease-in-out;
+  /* width: 500px; */
+}
+
+.sub_button {
+  /* background-color: #062a07;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  */
+  /* background-color: #ebedf2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px; */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.form {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fff;
+  justify-content: center;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 2px;
+}
+
+@media (max-width: 768px) {
+  /* Add styles for mobile devices */
+  .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .button {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .input {
+    width: 100%;
+  }
+}
+
+.save-send-btn {
+  background-color: blue;
+  color: white;
+  font-size: 18px;
+  border: none;
+  padding: 10px 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-edit-acep {
+  box-shadow: inset 0px 1px 0px 0px #000000;
+  background: linear-gradient(to bottom, #000000 5%, #010101 100%);
+  background-color: #3f44d4;
+  border-radius: 15px;
+  border: 2px solid #000000;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 14px;
+  padding: 4px 8px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #b16e4f;
+}
+
+.button-can-dec {
+  box-shadow: inset 0px 1px 0px 0px #cf866c;
+  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  background-color: #d0451b;
+  border-radius: 15px;
+  border: 2px solid #942911;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 14px;
+  padding: 4px 8px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #854629;
+}
+
+.edit-cancle {
+  display: flex;
+  justify-content: space-between;
+}
+
+#chatsidebar {
+  background-color: #000000dc;
+  width: 170px;
+  margin: 20;
+  padding: 20;
+  font-family: "Montserrat";
+  font-size: 16px ;
+  z-index: 1000;
+  
+
+}
+
+#muse_con {
+  background-color: #000000dc;
+  width: 170px;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat";
+  font-size: 24px;
+  margin-bottom: 20px;
+  
+
+}
+
+.muse-link {
+  color: white;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.muse-link:hover {
+  color: lightgray;
+}
+
+.message-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.message-row.left {
+  justify-content: flex-start;
+}
+
+.message-row.right {
+  justify-content: flex-end;
+}
+
+.message-content {
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.message-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.message-row.right .message-content {
+  background-color: #cceeff;
+}
+
+.message-row.right .message-text {
+  color: #000;
+}

@@ -2,24 +2,25 @@ const Message = require("../models/messageModel");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
-// TODO update res
 // get all messages from seletected chat
 const allMessages = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.chatId);
-    if(chat.isUserIn(req.user._id)) {
-      const messages = await Message.find({chat: req.params.chatId}).sort({ createdAt: 1 })
+    if (chat.isUserIn(req.user._id)) {
+      const messages = await Message.find({ chat: req.params.chatId })
+        .sort({ createdAt: 1 })
         .populate("content.event");
       res.status(200).json(messages);
     } else {
-      res.status(400).json({ error: "This user doesn't have permission to current chat" });
+      res
+        .status(400)
+        .json({ error: "This user doesn't have permission to current chat" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// TODO make it can send other type of content
 // send a message by getting content and chatId
 const sendMessage = async (req, res) => {
   const { content, chatId } = req.body;
@@ -31,22 +32,24 @@ const sendMessage = async (req, res) => {
 
     const chat = await Chat.findById(chatId);
 
-    if(chat.isUserIn(req.user._id)) {
+    if (chat.isUserIn(req.user._id)) {
       let newMessage = {
         sender: req.user._id,
         content: content,
-        chat: chatId
+        chat: chatId,
+      };
+
+      let message = await Message.create(newMessage);
+      const value = { latestMessage: message._id };
+
+      if (message.content.event !== undefined) {
+        value["latestMessageEvent"] = message._id;
       }
-  
-      const message = await Message.create(newMessage);
-  
-      await Chat.findByIdAndUpdate(req.body.chatId, {
-        latestMessage: message
-      });
-  
+
+      await Chat.findByIdAndUpdate(req.body.chatId, value);
+      message = await message.populate("content.event");
       res.status(200).json(message);
     }
-    
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

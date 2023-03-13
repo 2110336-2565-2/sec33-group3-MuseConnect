@@ -2,7 +2,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "./page.module.css";
-import Chatbox from "../../../ui/Chatbox";
+import Chatbox from "../../../ui/Chat/Chatbox";
 import { usePathname } from "next/navigation";
 const Home: NextPage = () => {
   const id = usePathname().split("/").at(-1);
@@ -12,9 +12,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Chat Page</title>
       </Head>
-      <main>
-        <Chatbox chatId={id} />
-      </main>
+      <Chatbox chatId={id} />
     </div>
   );
 };

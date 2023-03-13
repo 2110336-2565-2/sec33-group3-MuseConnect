@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -11,34 +11,37 @@ import { Montserrat } from '@next/font/google'
 import { FaBars } from 'react-icons/fa';
 const montserrat = Montserrat({ subsets: ['latin'] })
 
-export default function NavBar({show}) {
-
-  const user = localStorage.getItem('user');
+export default function NavBar({ show }) {
+  const user = localStorage.getItem("user");
   const logOut = () => {
-    localStorage.removeItem('user');
-  }; 
+    localStorage.removeItem("user");
+  };
 
-  if(user == null){
+  if (user == null) {
     return (
-      <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
+      <Navbar style={{ backgroundColor: "rgba(16, 16, 16, 1)" }} expand="lg">
         <Container>
           <Button id = "menuButton" onClick={show} >
             <FaBars/>
           </Button>
-          <Stack direction='horizontal' gap={3}>
+          <Stack direction="horizontal" gap={3}>
             <button className="btn btn-outline-dark">
-              <a href="/Signup" className={montserrat.className}>Sign up</a>
+              <a href="/Signup" className={montserrat.className}>
+                Sign up
+              </a>
             </button>
             <button className="btn btn-success ">
-              <a href="/Login" className={montserrat.className}>Log in</a>
+              <a href="/Login" className={montserrat.className}>
+                Log in
+              </a>
             </button>
           </Stack>
         </Container>
       </Navbar>
-    )
+    );
   } else {
-    return(
-    <Navbar style={{backgroundColor:"rgba(16, 16, 16, 1)"}} expand="lg">
+    return (
+      <Navbar style={{ backgroundColor: "rgba(16, 16, 16, 1)" }} expand="lg">
         <Container>
           <Button id = "menuButton" onClick={show} >
           <FaBars/>
@@ -48,7 +51,6 @@ export default function NavBar({show}) {
             </button>
         </Container>
       </Navbar>
-    )
+    );
   }
-  
 }
