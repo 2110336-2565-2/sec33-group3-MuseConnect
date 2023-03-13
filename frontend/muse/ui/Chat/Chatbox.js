@@ -59,6 +59,7 @@ function Chatbox({ chatId }) {
         });
       if (status === "CANCELLED") {
         // console.log("Cancel");
+        window.location.reload();
       }
       setStatus("");
     }
