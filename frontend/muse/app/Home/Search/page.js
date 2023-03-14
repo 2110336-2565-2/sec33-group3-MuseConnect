@@ -41,22 +41,50 @@ export default function page() {
     setIsFilter(false);
   }, [isFilter]);
 
+  const filterHandler = (e) => {
+    e.preventDefault(); // prevent form submission
+  }
+  const [nameFilter, setnameFilter] = useState("");
+  const [specialFilter, setspecialFilter] = useState([]);
+
   return (
     <div>
 
     <Nav>
-    <Form className="d-flex" name="my-form" action="" method="post">
+    <Form.Group className="d-flex" onSubmit={filterHandler}>
             <Form.Control
               name="name"
-              type="search"
+              type="text"
               placeholder="name"
               className="me-2"
               aria-label="Search"
+              value={nameFilter}
+              onChange={(e) => setnameFilter(e.target.value)}
             />
-            <Button onClick={() => setIsFilter(true)} variant="outline-success">Filter</Button>
-            <Button onClick={() => setData({name: "asd"})} variant="outline-success">name</Button>
-            <Button onClick={() => setData({})} variant="outline-success">"{}"</Button>
-          </Form>
+        
+      </Form.Group>
+            
+            {/* <Button onClick={() => setData({name: "asd"})} variant="outline-success">name</Button> */}
+            {/* <Button onClick={() => setData({})} variant="outline-success">"{}"</Button> */}
+      <Form.Group className="mb-3" controlId="my_multiselect_field">
+      <Form.Label className="mb-3">Disabled select menu</Form.Label>
+        <Form.Select as="select" multiple value={specialFilter} onChange={e => setspecialFilter([].slice.call(e.target.selectedOptions).map(item => item.value))}>
+        <option>please select your filter</option>
+          <option value={"pop"}>Pop</option>
+          <option value={'metal'}>Metal</option>
+          <option value={'jazz'}>Jazz</option>
+          <option value={'country'}>Country</option>
+          <option value={'edm'}>edm</option>
+          <option value={'classic'}>Classic</option>
+        </Form.Select>
+      </Form.Group>
+      <Button type="submit" onClick={() => {
+              console.log(specialFilter) ;
+              setData({name: nameFilter,specialization: specialFilter}) ;
+              console.log(data) ;
+              setIsFilter(true)}} 
+              variant="outline-success">Filter
+        </Button>
     </Nav>
 
 
@@ -68,7 +96,7 @@ export default function page() {
     
       {musicians &&
         musicians.map((musician) => {
-          console.log(musician);
+          // console.log(musician);
           return `${musician.first_name} ${musician.last_name}`;
         })}
     </div>

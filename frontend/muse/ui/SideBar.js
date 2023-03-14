@@ -15,7 +15,7 @@ export default function SideBar({ children }) {
       className={isActive ? null : "active"}
     >
       <div className="p-4 pt-5">
-        <div class="position-fixed">
+        <div className="position-fixed">
           <h3 style={{ color: "white" }} className={montserrat.className}>
             <a href="/">Muse Connect</a>
           </h3>
