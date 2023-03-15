@@ -4,20 +4,18 @@ import ChatsideBar from "./Chatsidebar";
 import NavBar from "../NavBar";
 import io from "socket.io-client";
 import { Button, Modal } from "react-bootstrap";
-import eventFormat from "../../logic/chat";
-
+import { eventFormat, haveSide } from "../../logic/chat";
+import "./chat2.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
   // chatId = '63fa509243b30b769e2ba355';
-
-  // page variable
-  const [active, setActive] = useState(false);
-  const handleCloseModal = () => setActive(false);
-  const handleShowModal = () => setActive(true);
+  // status update
+  const [status, setStatus] = useState("");
   // chatrooms variable
   const [chatRooms, setChatRooms] = useState(null);
+  const [latestMessageEvent, setlatestMessageEvent] = useState(null);
   // message variable
   const [messages, setMessages] = useState([]);
   const [messageEventBuffer, setMessageEventBuffer] = useState([]);
@@ -27,10 +25,66 @@ function Chatbox({ chatId }) {
   const [eventDate, setEventDate] = useState("");
   const [eventWage, setEventWage] = useState("");
   // person variable
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(""); // object
   const [currentMusician, setCurrentMusician] = useState("");
   const [currentOrganizer, setCurrentOrganizer] = useState("");
-  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState(null);
+  const [currentOrganizerDetails, setCurrentOrganizerDetails] = useState({});
+
+  // update status
+  useEffect(() => {
+    const userToken = user.token;
+    // console.log("Change status to ", status, userToken);
+    if (status !== "") {
+      // do
+      fetch(`http://localhost:4000/api/event/${latestMessageEvent}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({
+          status: status,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to change event status in database");
+          }
+          // console.log("Successfully change event status");
+          console.log(response);
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Change event status to", data);
+        });
+      if (status === "CANCELLED") {
+        // console.log("Cancel");
+        window.location.reload();
+      }
+      setStatus("");
+    }
+  }, [status]);
+
+  // page variable
+  const [active, setActive] = useState(false);
+  const handleCloseModal = () => {
+    setEventName("");
+    setEventDate("");
+    setEventWage("");
+    setActive(false);
+  };
+  const handleShowModal = ({ Name, Wage }) => {
+    setActive(true);
+    if (typeof Name !== undefined) {
+      setEventName(Name);
+    }
+    if (typeof Wage !== undefined) {
+      const value = parseInt(Wage);
+      setEventWage(value);
+    }
+  };
+
+  
 
   // TODO handle display event
   const displayMessage = () => {
@@ -39,24 +93,26 @@ function Chatbox({ chatId }) {
     for (let i = 0; i < messageEventBuffer.length; i++) {
       let text = "";
       let sender;
+      let messageId;
       if ("text" in messageEventBuffer[i].content) {
         text = messageEventBuffer[i].content.text;
         sender = messageEventBuffer[i].sender;
-        const data = { text, sender };
+        messageId = messageEventBuffer[i]._id;
+        const data = { text, sender, messageId };
         texts.push(data);
       } else if ("event" in messageEventBuffer[i].content) {
         let eventBuffer = messageEventBuffer[i].content.event;
         const value = {
-          Name: `${eventBuffer.name}`,
-          Location: `${currentOrganizer.location}`,
-          Phone: `${currentOrganizerDetails.phone_number}`,
-          Date: `${Date(eventBuffer.date).toString()}`,
-          Wage: `${eventBuffer.wage} bath`,
+          name: eventBuffer.name,
+          location: currentOrganizerDetails.location,
+          phone: currentOrganizerDetails.phone_number,
+          date: eventBuffer.date,
+          wage: eventBuffer.wage,
+          currentMessageStatus: eventBuffer.status
         };
         sender = messageEventBuffer[i].sender;
-        const data = { value, sender };
-        // text = messageEventBuffer[i].content.event._id;
-        // console.log(messageEventBuffer[i].content);
+        messageId = messageEventBuffer[i]._id;
+        const data = { value, sender, messageId };
         texts.push(data);
       }
     }
@@ -94,17 +150,23 @@ function Chatbox({ chatId }) {
             if (typeof chatroom.organizer === "string") {
               return {
                 id: chatroom._id,
-                name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                // name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
+                name: `${chatroom.musician.first_name}`,
                 picture: chatroom.musician.profile_picture,
               };
             }
             return {
               id: chatroom._id,
-              name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
+              name: `${chatroom.organizer.first_name}`,
+              // name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
               picture: chatroom.organizer.profile_picture,
             };
           })
         );
+        result.forEach((chatroom) => {
+          if (chatId === chatroom._id)
+            setlatestMessageEvent(chatroom.latestMessageEvent);
+        });
       }
     };
 
@@ -214,7 +276,7 @@ function Chatbox({ chatId }) {
 
   // TODO create event and send to message api
   const sendEventHandler = (e) => {
-    e.preventDefault(); // prevent form submission
+    // e.preventDefault(); // prevent form submission
 
     const userToken = user.token;
 
@@ -278,26 +340,10 @@ function Chatbox({ chatId }) {
               console.error(error);
             });
         });
+    } else {
+      e.preventDefault();
+      alert("please complete all fields");
     }
-  };
-
-  const haveSide = (sender) => {
-    if (sender === user._id) {
-      return {
-        side: "end",
-        style: {
-          borderRadius: "15px",
-          backgroundColor: "rgba(57, 192, 237,.2)",
-        },
-      };
-    }
-    return {
-      side: "start",
-      style: {
-        borderRadius: "15px",
-        backgroundColor: "#90EE90",
-      },
-    };
   };
 
   // useEffect(() => {
@@ -310,64 +356,82 @@ function Chatbox({ chatId }) {
         <ChatsideBar chatRooms={chatRooms} />
         <div className="chat_content">
           <NavBar />
-          <div style={{ flex: 1, height: "80vh", overflow: "scroll", "overflow-x": "hidden"}}>
+          <div
+            style={{
+              flex: 1,
+              height: "80vh",
+              overflow: "scroll",
+              overflowX: "hidden",
+              backgroundColor:"#333",
+            }}
+          >
             <ul className="ps-0 pe-2">
               {messages.map((message, i) => {
-                const { side, style } = haveSide(message.sender);
+                const { side, style } = haveSide(user, message.sender);
                 if (typeof message.text === "string") {
                   return (
                     <div
                       className={`d-flex flex-row justify-content-${side} mb-4`}
                     >
-                      <div className="p-3 ms-3" style={style}>
+                      <div className="p-3 ms-3  " style={style}>
                         <p key={`message_${i}`} className="small mb-0">
-                          {message.text}
+                          {message.text} 
                         </p>
                       </div>
                     </div>
                   );
                 }
-                {
-                  console.log(message);
-                }
-                return eventFormat(message.value, { side, style, i });
+                return eventFormat(
+                  message.value,
+                  { side, style, i },
+                  currentMusician === user._id,
+                  handleShowModal,
+                  message.messageId === latestMessageEvent,
+                  setStatus
+                );
               })}
             </ul>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="sub m-0">
             {user._id === currentOrganizer && (
-              <Button variant="primary" onClick={handleShowModal}>
+              <Button
+                variant="primary"
+                onClick={() => handleShowModal({})}
+                className="sub_button m-1"
+              >
                 make request
               </Button>
             )}
 
-            <form
-              onSubmit={sendMessageHandler}
-              style={{ display: "inline-flex" }}
-            >
+            <form onSubmit={sendMessageHandler} className="from">
               <input
                 type="text"
                 value={messageInput}
                 onChange={(e) => setMessageInput(e.target.value)}
+                placeholder="Enter your message here"
+                className="input"
               />
-              <button type="submit">{">"}</button>
+              <button type="submit">{">"} </button>
             </form>
           </div>
         </div>
       </div>
 
-      <Modal show={active} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
+      <Modal show={active} onHide={handleCloseModal} href="chat.css">
+        <Modal.Header closeButton id="head">
           <Modal.Title>Event Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div key="eventForm" style={{ flex: 1, paddingLeft: "10px" }}>
+          <div
+            className="from_box"
+            key="eventForm"
+            style={{ flex: 1, paddingLeft: "10px" }}
+            href="chat.css"
+          >
             <form onSubmit={sendEventHandler}>
               <br />
-              <div>
-                <label htmlFor="name" style={{ paddingRight: "10px" }}>
-                  Name:{" "}
-                </label>
+              <div className="name">
+                <label htmlFor="name">Name: </label>
                 <input
                   type="text"
                   id="name"
@@ -376,7 +440,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div>
+              <div className="date">
                 <label htmlFor="date" style={{ paddingRight: "10px" }}>
                   Date:{" "}
                 </label>
@@ -389,7 +453,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div>
+              <div className="wage">
                 <label htmlFor="wage" style={{ paddingRight: "10px" }}>
                   Wage:{" "}
                 </label>
