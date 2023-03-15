@@ -99,7 +99,7 @@ const requireAuth = require('../middleware/requireAuth')
 */
 /**
 * @swagger
-* /users/{id}:
+* /user/{id}:
 *   get:
 *     summary: Get the user by id
 *     tags: [Users]
@@ -112,17 +112,19 @@ const requireAuth = require('../middleware/requireAuth')
 *         description: The user id
 *     responses:
 *       200:
-*         description: the user descriotion by id
+*         description: the user description by id
 *         content:
 *           application/json:
 *             schema:
 *                 $ref: '#/components/schemas/User'
+*       400:
+*         description: Some error
 *       404:
-*         description: The hospital was not found
+*         description: The user was not found
 */
 /**
 * @swagger
-* /users/{id}:
+* /user/{id}:
 *   put:
 *     summary: Update the user by the id
 *     tags: [Users]
@@ -147,13 +149,15 @@ const requireAuth = require('../middleware/requireAuth')
 *             schema:
 *               $ref: '#/components/schemas/User'
 *       404:
-*         description: The user was not found
+*         description: | 
+*            - The user was not found 
+*            - The user was invalid
 *       500:
 *         description: Some error happened
 */
 /**
 * @swagger
-* /users/{id}:
+* /user/{id}:
 *   delete:
 *     summary: Remove the user by id
 *     tags: [Users]
