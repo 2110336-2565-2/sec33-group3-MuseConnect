@@ -21,6 +21,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.9.0",
     "socket.io": "^4.5.4",
+    "swagger-jsdoc": "^6.0.0",
+    "swagger-ui-express": "^4.6.2",
     "validator": "^13.7.0"
   },
   "devDependencies": {
