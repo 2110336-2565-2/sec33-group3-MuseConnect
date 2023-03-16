@@ -148,6 +148,8 @@ const requireAuth = require('../middleware/requireAuth')
 *           application/json:
 *             schema:
 *               $ref: '#/components/schemas/User'
+*       400:
+*         description: Some error
 *       404:
 *         description: | 
 *            - The user was not found 
@@ -172,6 +174,8 @@ const requireAuth = require('../middleware/requireAuth')
 *     responses:
 *       200:
 *         description: The user was deleted
+*       400:
+*         description: Some error
 *       404:
 *         description: The user was not found
 */
