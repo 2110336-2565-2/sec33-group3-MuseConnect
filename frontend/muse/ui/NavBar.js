@@ -4,12 +4,19 @@ import {FaBars} from 'react-icons/fa'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import { Button, Stack,Navbar } from 'react-bootstrap'
-import React from 'react'
+import {useEffect,React} from 'react'
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function NavBar({ show }) {
-  const user = localStorage.getItem("user");
+  let user = null ;
+  useEffect(() => {
+    // Perform localStorage action
+    if(typeof window !== 'undefined'){
+      user = localStorage.getItem("user");
+    }
+    
+  }, [])
   const logOut = () => {
     localStorage.removeItem("user");
   };

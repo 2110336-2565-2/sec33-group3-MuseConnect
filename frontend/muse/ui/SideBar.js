@@ -1,13 +1,19 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import {React,useEffect} from "react";
 import { Montserrat } from "@next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function SideBar({ children }) {
   const isActive = children;
-  const user = localStorage.getItem("user");
+  useEffect(() => {
+    // Perform localStorage action
+    if(typeof window !== 'undefined'){
+      const user = localStorage.getItem("user");
+    }
+    
+  }, [])
   return (
     <nav
       style={{ backgroundColor: "#000000" }}

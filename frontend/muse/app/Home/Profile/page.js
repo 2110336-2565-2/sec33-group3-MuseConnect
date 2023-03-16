@@ -43,15 +43,16 @@ export default function profile() {
 
 
   return (
-    <Container class="justify-content-center align-items-center" className={montserrat.className}>
-      <div class="mt-5">
-        <Row class=" text-white" style={{backgroundColor: "#1E1E1E"}}>
+    <div className={montserrat.className}>
+    <Container className="justify-content-center align-items-center" >
+      <div className="mt-5">
+        <Row className=" text-white" style={{backgroundColor: "#1E1E1E"}}>
           <Col  style={{margin: "1rem"}}>
             <Row className='justify-content-center'>
               <UserPhoto/>
             </Row>
             <Row xs>
-          <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+          <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark">
             <a href="/Edit">Edit profile</a>
           </button>
         </Row>
@@ -78,5 +79,6 @@ export default function profile() {
         </Row>
       </div>
     </Container>
+    </div>
   )
 }
