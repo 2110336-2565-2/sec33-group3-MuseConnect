@@ -66,15 +66,6 @@ export default function page() {
   const filterHandler = (e) => {
     e.preventDefault(); // prevent form submission
   }
-  
-  //Peoplecard
-  let i = 0 ;
-  let peoplecards = musicians && musicians.map((musician) => {
-    i = i + 1 ;
-    return (
-      <PeopleCard key={i} musician={musician.first_name} />
-    )
-  })
 
   return (
     <div>
@@ -112,8 +103,8 @@ export default function page() {
       
 
     </Nav>
-    <Container fluid>
-      <Row>{peoplecards}</Row>
+    <Container fluid style={{}}>
+      <Row><PeopleCard musicians={musicians}/></Row>
     </Container>
     
     </div>

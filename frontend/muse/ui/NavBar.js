@@ -9,14 +9,7 @@ import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function NavBar({ show }) {
-  let user = null ;
-  useEffect(() => {
-    // Perform localStorage action
-    if(typeof window !== 'undefined'){
-      user = localStorage.getItem("user");
-    }
-    
-  }, [])
+  let user = localStorage.getItem("user");
   const logOut = () => {
     localStorage.removeItem("user");
   };
