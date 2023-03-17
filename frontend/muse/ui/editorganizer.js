@@ -146,13 +146,13 @@ export default function EditOrganizerForm() {
                 {/* Name */}
                 <div className="field">
                     <p>Name</p>
-                    <input className="form-control" type="text" 
-                    placeholder={user.first_name}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.first_name}
-                    name="first_name">    
-                    </input>
+                        <input className="form-control" type="text"
+                            placeholder={user.first_name}
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            value={props.values.first_name}
+                            name="first_name">    
+                        </input>
                 </div>
 
 

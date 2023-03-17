@@ -35,7 +35,7 @@ const Home: NextPage = () => {
       if(user) console.log(user.role);
     },[user])
     const [value, setValue] = useState("");
-
+    
   return (
     <div className={styles.container}>
       <Head>
