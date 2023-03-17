@@ -7,13 +7,8 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function SideBar({ children }) {
   const isActive = children;
-  useEffect(() => {
-    // Perform localStorage action
-    if(typeof window !== 'undefined'){
-      const user = localStorage.getItem("user");
-    }
-    
-  }, [])
+  const user = localStorage.getItem("user");
+
   return (
     <nav
       style={{ backgroundColor: "#000000" }}
@@ -27,11 +22,11 @@ export default function SideBar({ children }) {
           </h3>
           <ul className="list-unstyled components mb-5">
             <li>
-              <a href="/Home/Profile" className={montserrat.className}>
+              {/* <a href="/Home/Profile" className={montserrat.className}>
                 Profile
-              </a>
+              </a> */}
               {/* use this when need to present the feature */}
-              {/* {user && <a href="/Home/Profile" className={montserrat.className}>Profile</a>} */}
+              {user && <a href="/Home/Profile" className={montserrat.className}>Profile</a>}
             </li>
             <li>
               <a href="/Chat" className={montserrat.className}>

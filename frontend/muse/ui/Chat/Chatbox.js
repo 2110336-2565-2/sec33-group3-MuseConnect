@@ -1,11 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
-import ChatsideBar from "./Chatsidebar";
-import NavBar from "../NavBar";
+import { useEffect, useState,useRef } from "react";
 import io from "socket.io-client";
-import { Button, Modal } from "react-bootstrap";
+import { Image,Col,Row,Container,Button, Modal,Form,InputGroup } from "react-bootstrap";
 import { eventFormat, haveSide } from "../../logic/chat";
-import "./chat2.css";
+import "bootstrap/dist/css/bootstrap.min.css";  
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
@@ -344,25 +342,33 @@ function Chatbox({ chatId }) {
     }
   };
 
+  //set scroll position
+
+  const bottomRef = useRef(null);
+  bottomRef.current?.scrollIntoView({behavior: 'auto'});
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [messages]);
+
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <div className="wrapper d-flex align-items-stretch">
-        <ChatsideBar chatRooms={chatRooms} />
-        <div className="chat_content">
-          <NavBar />
-          <div
+    <div>
+          <Container
             style={{
-              flex: 1,
-              height: "80vh",
+              height: "83vh",
               overflow: "scroll",
               overflowX: "hidden",
+              objectFit: "cover",
+              
             }}
           >
-            <ul className="ps-0 pe-2">
+            <ul className="">
               {messages.map((message, i) => {
                 const { side, style } = haveSide(user, message.sender);
                 if (typeof message.text === "string") {
                   return (
+                    <>
+                    {/* <div><Image src="https://img.lovepik.com/element/45001/3052.png_860.png" roundedCircle style={{borderRadius:"50%"}}></Image></div> */}
                     <div
                       className={`d-flex flex-row justify-content-${side} mb-4`}
                     >
@@ -371,7 +377,7 @@ function Chatbox({ chatId }) {
                           {message.text}
                         </p>
                       </div>
-                    </div>
+                    </div></>
                   );
                 }
                 return eventFormat(
@@ -384,35 +390,33 @@ function Chatbox({ chatId }) {
                 );
               })}
             </ul>
-          </div>
-
-          <div className="container">
-            <div className="sub m-0">
-              {user._id === currentOrganizer && (
+            <div ref={bottomRef} />
+          </Container>
+          <Container style={{position: "fixed",bottom:"0px"}}>
+              <Form onSubmit={sendMessageHandler} className="form">
+                <InputGroup>
+                  {user._id === currentOrganizer && (
                 <Button
                   variant="primary"
                   onClick={() => handleShowModal({})}
-                  className="sub_button m-1"
+                  className=""
                 >
                   make request
                 </Button>
               )}
-
-              <form onSubmit={sendMessageHandler} className="form">
-                <input
-                  type="text"
-                  value={messageInput}
-                  onChange={(e) => setMessageInput(e.target.value)}
-                  placeholder="Enter your message here"
-                  className="input"
-                />
-                <button type="submit">{">"} </button>
-              </form>
-            </div>
-          </div>
-          
-        </div>
-      </div>
+                  
+                  <Form.Control
+                    type="text"
+                    value={messageInput}
+                    onChange={(e) => setMessageInput(e.target.value)}
+                    placeholder="Enter your message here"
+                    className="input"
+                  />
+                  
+                  <Button type="submit">{">"} </Button> 
+                </InputGroup>
+              </Form>
+          </Container>
 
       <Modal show={active} onHide={handleCloseModal} href="chat.css">
         <Modal.Header closeButton id="head">
@@ -425,7 +429,7 @@ function Chatbox({ chatId }) {
             style={{ flex: 1, paddingLeft: "10px" }}
             href="chat.css"
           >
-            <form onSubmit={sendEventHandler}>
+            <Form onSubmit={sendEventHandler}>
               <br />
               <div className="name">
                 <label htmlFor="name">Name: </label>
@@ -463,8 +467,8 @@ function Chatbox({ chatId }) {
               </div>
 
               <br />
-              <button type="submit">save & send</button>
-            </form>
+              <Button type="submit">save & send</Button>
+            </Form>
           </div>
         </Modal.Body>
       </Modal>
