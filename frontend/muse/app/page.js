@@ -40,13 +40,13 @@ export default function Home() {
       <div id="content">
         <NavBar show={handleClick} />
         <div className="p-4 p-md-5">
-          <h3 style={{fontSize:"60px", marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect</h3>
-          <h4 style={{fontSize:"40px", marginBottom:"20px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h4>
+          <h1 style={{marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect</h1>
+          <h2 style={{marginBottom:"20px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h2>
           {/* textDecorationLine:"underline", textDecorationColor:"#26A74C"} */}
           <Elehome/>
           <h4 onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
-          style={{fontSize:"30px", marginTop:"15px",textDecoration:"underline", width:"fit-content"}}
+          style={{marginTop:"15px",textDecoration:"underline", width:"fit-content"}}
           className={montserrat.className}
           >
           Get in {isHovering? "Touchy" : "touch"}</h4>

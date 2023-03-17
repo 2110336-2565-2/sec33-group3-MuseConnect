@@ -1,8 +1,8 @@
 "use client";
-import React, {useState} from "react";
-const user = localStorage.getItem("user");
-import { useEffect } from "react";
+import { React,useEffect,useState} from "react";
 import { Image } from "react-bootstrap";
+
+let user = null ;
 
 // test upload picture api
 const sendData = async (base64) => {
@@ -44,6 +44,14 @@ const test = async () => {
 };
 
 export default function UserPhoto() {
+
+  useEffect(() => {
+    // Perform localStorage action
+    if(typeof window !== 'undefined'){
+      user = localStorage.getItem("user");
+    }
+    
+  }, [])
 
   // img src
   const [picture, setPicture] = useState(null);

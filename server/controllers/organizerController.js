@@ -1,3 +1,6 @@
+const mongoose = require("mongoose");
+const User = require("../models/userModel")
+
 // get organizers
 const getOrganizers = async (req, res) => {
   const { p, m } = req.query;

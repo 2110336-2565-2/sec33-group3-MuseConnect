@@ -15,5 +15,4 @@ router.get("/:chatId", allMessages)
 // send message
 router.post("/", sendMessage);
 
-
 module.exports = router

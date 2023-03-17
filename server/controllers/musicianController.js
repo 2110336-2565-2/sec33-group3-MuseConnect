@@ -31,7 +31,7 @@ const getMusicians = async (req, res) => {
   }
 };
 
-// get musician
+// get a musician
 const getMusician = async (req, res) => {
   const id = req.params.id;
   try {

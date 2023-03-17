@@ -1,13 +1,22 @@
 "use client";
+import PeopleCard from "../../../ui/PeopleCard";
 import React, { useEffect, useState } from "react";
-import { Button, Stack,Nav, Form} from 'react-bootstrap' ;
+import { Button, Stack,Row,Nav, Form , Card, Container} from 'react-bootstrap' ;
+import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
+import Multiselect from 'multiselect-react-dropdown';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function page() {
   const [musicians, setMusicians] = useState(null);
   const [isFilter, setIsFilter] = useState(false);
   const [data, setData] = useState({});
+  const [nameFilter, setnameFilter] = useState("");
+  const [options, setOptions] = useState(['pop','metal','jazz','country','edm','classic']);
+  const [specialFilter, setspecialFilter] = useState([]);
+  const [placeholder, setPlaceholder] = useState("specialization");
 
+
+  //effect when press filter
   useEffect(() => {
     // get all musician with filter condition
     const getMusicians = async () => {
@@ -39,38 +48,65 @@ export default function page() {
       getMusicians();
     }
     setIsFilter(false);
+
   }, [isFilter]);
+
+    //effect when press select specialiazation
+  useEffect(() => {
+    // get all musician with filter condition
+    if(specialFilter.length == 0){
+      console.log("blank") ;
+      setPlaceholder("specialization")
+    } else {
+      setPlaceholder("")
+    }
+    console.log(specialFilter) ;
+  }, [specialFilter]);
+
+  const filterHandler = (e) => {
+    e.preventDefault(); // prevent form submission
+  }
 
   return (
     <div>
 
     <Nav>
-    <Form className="d-flex" name="my-form" action="" method="post">
+    <Form.Group className="d-flex" onSubmit={filterHandler}>
             <Form.Control
               name="name"
-              type="search"
+              type="text"
               placeholder="name"
               className="me-2"
               aria-label="Search"
+              value={nameFilter}
+              onChange={(e) => setnameFilter(e.target.value)}
             />
-            <Button onClick={() => setIsFilter(true)} variant="outline-success">Filter</Button>
-            <Button onClick={() => setData({name: "asd"})} variant="outline-success">name</Button>
-            <Button onClick={() => setData({})} variant="outline-success">"{}"</Button>
-          </Form>
+        
+      </Form.Group>
+
+      <Button type="submit" onClick={() => {
+              console.log(specialFilter) ;
+              setData({name: nameFilter,specialization: specialFilter}) ;
+              console.log(data) ;
+              setIsFilter(true)}} 
+              variant="outline-success">Filter
+        </Button>
+      <div className="text-dark d-flex" style={{backgroundColor: "white"}}><Multiselect
+        isObject ={false}
+        options ={options}
+        placeholder = {placeholder}
+        showCheckbox
+        displayValue="try"
+        onRemove={e => setspecialFilter([].slice.call(e).map(item => item))}
+        onSelect={e => setspecialFilter([].slice.call(e).map(item => item))}
+      /></div>
+      
+
     </Nav>
-
-
-
-
-
-
-
+    <Container fluid style={{}}>
+      <Row><PeopleCard musicians={musicians}/></Row>
+    </Container>
     
-      {musicians &&
-        musicians.map((musician) => {
-          console.log(musician);
-          return `${musician.first_name} ${musician.last_name}`;
-        })}
     </div>
   );
 }

@@ -51,6 +51,7 @@ mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
+
     // listen for requests
     const server = app.listen(PORT, () => {
       console.log("connected to db & listening on port", PORT);
@@ -63,22 +64,29 @@ mongoose
     });
 
     io.on("connection", (socket) => {
-      //// # connection check
-      // console.log("connected to socket.io");
+      // connection check
       console.log(`User Connected: ${socket.id}`);
 
-      // test socket setup
-      socket.on("setup", (userData) => {
-        // console.log(userData)
-        socket.join(userData._id);
-        socket.emit("connected socket");
+
+      socket.on("send-message", (userData, room) => {
+        if (room === "") {
+          console.log("Please enter room");
+          // socket.broadcast.emit('receive-message', userData);
+        } else {
+          console.log("send message to room:", room);
+          socket.to(room).emit("receive-message", userData);
+        }
       });
 
-      // TODO change to send to specific user
-      // recieve message from send message button
-      socket.on("sendMessage", (userData) => {
-        socket.broadcast.emit("receiveMessage", "I get your data");
+      socket.on("join-room", (room) => {
+        // console.log("Your are in room", room);
+        socket.join(room);
       });
+
+      // socket.on("disconnect", (userData) => {
+      //   console.log(userData, socket)
+      //   console.log(`User Disconnected: ${userData.id}`);
+      // })
     });
   })
   .catch((error) => {
