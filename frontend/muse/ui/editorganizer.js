@@ -195,17 +195,25 @@ export default function EditOrganizerForm() {
                     </input>
                 </div>
 
+                <div className="field">
+                    <p style={{color: "White"}}>Profile Picture</p>
+                    {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
+                    <input class="form-control" type="file" id="formFile" className="picture">
+                    </input>
+                </div>
+
 
                 {/* Description */}
                 <div className="field">
                     <p style={{color: "White"}}>Description</p>
-                    <input className="form-control" type="text" 
+                    <textarea class="form-control" id="exampleFormControlTextarea1" 
+                    rows="3"
                     placeholder={user.description}
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
                     value={props.values.description}
-                    name="description">    
-                    </input>
+                    name="description"
+                    ></textarea>
                 </div>
 
 
@@ -259,14 +267,6 @@ export default function EditOrganizerForm() {
                     onBlur={props.handleBlur}
                     value={props.values.wage}
                     name="wage">    
-                    </input>
-                </div>
-
-
-                <div className="field">
-                    <p style={{color: "White"}}>Profile Picture</p>
-                    {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
-                    <input class="form-control" type="file" id="formFile" className="picture">
                     </input>
                 </div>
 

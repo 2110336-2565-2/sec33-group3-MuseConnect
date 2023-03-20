@@ -6,7 +6,9 @@ import NavBar from '../ui/NavBar'
 import '../app/globals.css'
 import Elehome from '../ui/elehome';
 import React, { useEffect, useState } from "react";
-import { Montserrat } from '@next/font/google'
+import { Montserrat } from '@next/font/google';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 const montserratBold = Montserrat({ 
   weight: '700',
   subsets: ['latin'] })
