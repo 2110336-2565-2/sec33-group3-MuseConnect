@@ -21,14 +21,8 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const {
-    email,
-    password,
-    first_name,
-    last_name,
-    phone_number,
-    role
-  } = req.body;
+  const { email, password, first_name, last_name, phone_number, role } =
+    req.body;
 
   try {
     const user = await User.signup(email, password, {
@@ -93,7 +87,7 @@ const updateUser = async (req, res) => {
       const hash = await bcrypt.hash(password, salt);
       req.body.password = hash;
     }
-    
+
     // update user
     const new_user = await User.findByIdAndUpdate(id, req.body, {
       returnDocument: "after",

@@ -59,13 +59,12 @@ const userSchema = mongoose.Schema({
     type: Number,
     min: 0,
   },
-  description:{
-    type: String
+  description: {
+    type: String,
   },
-  link:{
-    type:String
+  link: {
+    type: String,
   },
-  
 });
 
 // static signup method
@@ -119,23 +118,22 @@ userSchema.statics.login = async function (email, password) {
 };
 
 // get JwtToken
-userSchema.methods.getSignedJwtToken=function() {
+userSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
+    expiresIn: process.env.JWT_EXPIRE,
   });
-}
+};
 
-userSchema.methods.isAdmin=function() {
+userSchema.methods.isAdmin = function () {
   return this.role == "ADMIN";
-}
+};
 
-userSchema.methods.isOrganizer=function() {
+userSchema.methods.isOrganizer = function () {
   return this.role == "ORGANIZER";
-}
+};
 
-userSchema.methods.isMusician=function() {
+userSchema.methods.isMusician = function () {
   return this.role == "MUSICIAN";
-}
-
+};
 
 module.exports = mongoose.model("User", userSchema);
