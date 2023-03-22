@@ -68,7 +68,7 @@ export default function SignupForm() {
     const [value, setValue] = useState("")
 
     return (
-        <div className={montserrat.className}>
+        <div className={montserrat.className} id="all">
         <p className='top'>
             <a className='topic' href="/">Muse Connect</a>
         </p>
