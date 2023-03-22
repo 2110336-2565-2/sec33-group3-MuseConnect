@@ -32,6 +32,10 @@ export default function Home() {
     const handleMouseOut = () => {
       setIsHovering(false);
     };
+    var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
+    var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
+      return new bootstrap.Offcanvas(offcanvasEl)
+    })
 
   return(
     <>
@@ -42,21 +46,23 @@ export default function Home() {
       <div id="content">
         <NavBar show={handleClick} />
         <div className="p-4 p-md-5">
-          <h1 style={{marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect</h1>
+          <h1 style={{marginTop:"0px",marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect</h1>
           <h2 style={{marginBottom:"20px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h2>
           {/* textDecorationLine:"underline", textDecorationColor:"#26A74C"} */}
           <Elehome/>
           <h4 onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
-          style={{marginTop:"15px",textDecoration:"underline", width:"fit-content"}}
+          style={{marginTop:"25px", width:"fit-content", fontSize:"15px"}}
           className={montserrat.className}
           >
-          Get in {isHovering? "Touchy" : "touch"}</h4>
-          {isHovering && (
+          Contact us{isHovering? " : Muse Connect - Chula Engineering | ♫⋆｡♪ ₊˚♬ ﾟWe are based in Bangkok, Thailand" : ""}</h4>
+          {/* {isHovering && (
             <h4 
             style={{fontSize:"15px"}}
             className={montserrat.className}>Muse Connect - Chula Engineering | ♫⋆｡♪ ₊˚♬ ﾟWe are based in Bangkok, Thailand</h4>
-          )}
+          )} */}
+          {isHovering}
+          {/* <h3 style={{marginBottom:"20px",marginTop:"10px",textDecoration:"underline", color:"white"}} className={montserrat.className}>Contact us.</h3> */}
         </div>
       </div>
 		</div>

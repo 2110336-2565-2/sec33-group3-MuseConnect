@@ -70,7 +70,7 @@ export default function page() {
   return (
     <div>
 
-    <Nav>
+    <Nav style={{marginBottom:"50px"}}>
     <Form.Group className="d-flex" onSubmit={filterHandler}>
             <Form.Control
               name="name"
