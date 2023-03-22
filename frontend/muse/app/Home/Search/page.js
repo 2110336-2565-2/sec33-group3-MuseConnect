@@ -5,6 +5,8 @@ import { Button, Stack,Row,Nav, Form , Card, Container} from 'react-bootstrap' ;
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import Multiselect from 'multiselect-react-dropdown';
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Montserrat } from '@next/font/google'
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function page() {
   const [musicians, setMusicians] = useState(null);
@@ -69,7 +71,7 @@ export default function page() {
 
   return (
     <div>
-
+    <h1>This is head</h1>
     <Nav style={{marginBottom:"50px"}}>
     <Form.Group className="d-flex" onSubmit={filterHandler}>
             <Form.Control

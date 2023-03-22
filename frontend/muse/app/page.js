@@ -50,6 +50,7 @@ export default function Home() {
           <h2 style={{marginBottom:"20px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h2>
           {/* textDecorationLine:"underline", textDecorationColor:"#26A74C"} */}
           <Elehome/>
+          
           <h4 onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           style={{marginTop:"25px", width:"fit-content", fontSize:"15px"}}
