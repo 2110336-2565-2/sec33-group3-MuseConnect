@@ -4,11 +4,11 @@ import Head from "next/head";
 import styles from "./page.module.css";
 const Home: NextPage = () => {
   return (
-    <div>
-        {/* <SignupForm /> */}
-        <h1>hello</h1>
+    <body>
+    <div className={styles.container}>
+        <SignupForm />
     </div>
-
+    </body>
   )
 }
 

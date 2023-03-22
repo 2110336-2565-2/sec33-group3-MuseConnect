@@ -46,7 +46,7 @@ export default function Home() {
       <div id="content">
         <NavBar show={handleClick} />
         <div className="p-4 p-md-5">
-          <h1 style={{marginTop:"0px",marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect</h1>
+          <h1 style={{marginTop:"0px",marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect ♫</h1>
           <h2 style={{marginBottom:"20px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h2>
           {/* textDecorationLine:"underline", textDecorationColor:"#26A74C"} */}
           <Elehome/>
@@ -55,7 +55,7 @@ export default function Home() {
           style={{marginTop:"25px", width:"fit-content", fontSize:"15px"}}
           className={montserrat.className}
           >
-          Contact us{isHovering? " : Muse Connect - Chula Engineering | ♫⋆｡♪ ₊˚♬ ﾟWe are based in Bangkok, Thailand" : ""}</h4>
+          ₊˚♬ Contact us{isHovering? " : Muse Connect - Chula Engineering | ♫⋆｡♪ ₊˚♬ ﾟWe are based in Bangkok, Thailand" : ""}</h4>
           {/* {isHovering && (
             <h4 
             style={{fontSize:"15px"}}
