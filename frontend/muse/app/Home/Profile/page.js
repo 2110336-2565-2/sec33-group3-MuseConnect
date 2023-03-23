@@ -2,6 +2,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { Button,Container,Image,Row,Col } from 'react-bootstrap';
+import Stack from 'react-bootstrap/Stack';
 import Link from 'next/link'
 import UserPhoto from '../../../ui/UserPhoto';
 // import io from "socket.io-client";
@@ -34,13 +35,13 @@ export default function profile() {
     getUser() ;
 
   },[]);
-
+  // const arr = user.preference;
+  // arr.forEach((pref) => {
+  //   console.log(pref)
+  // })
   useEffect(()=>{
     console.log(user)
   },[user])
-
-
-
 
   return (
     <div className={montserrat.className}>
@@ -52,24 +53,37 @@ export default function profile() {
               <UserPhoto/>
             </Row>
             <Row xs>
-          <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark"
-          style={{width:"200px",marginLeft:"24px",marginTop:"20px"}}>
-            <a href="/Edit">Edit profile</a>
-          </button>
-        </Row>
+              <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark"
+              style={{width:"200px",marginLeft:"24px",marginTop:"20px"}}>
+                <a href="/Edit">Edit profile</a>
+              </button>
+            </Row>
           </Col>
-          <Col style={{marginTop: "0px"}} >
-          <h2 className={montserrat.className}>Profile</h2>
-          <h1 className={montserrat.className}>{user.first_name} {user.last_name}</h1>
-          <p className={montserrat.className}>{user.location}</p>
-          <p className={montserrat.className}>{user.phone_number}</p>
-          <Chip
-            title={user.role}
-            color='#65D36E'
-            type='filledOutlined'
-            size='lg'
-          />
-          
+          <Col style={{marginTop: "0px", width:'100%'}} >
+            <h2 className={montserrat.className}>Profile</h2>
+            <h1 className={montserrat.className}>{user.first_name} {user.last_name}</h1>
+            <p className={montserrat.className}>{user.location}</p>
+            <p className={montserrat.className}>{user.phone_number}</p>
+            <Chip
+              title={user.role}
+              color='#65D36E'
+              type='filledOutlined'
+            />
+            <Stack direction='horizontal' gap={1}>
+              {(user.preference)?.map((pref) => (
+                  <Chip
+                  title={pref}
+                  color='#65D36E'
+                  type='filledOutlined'
+                  />
+              ))}
+            </Stack>
+            
+            {/* <Chip
+              title={(user.preference)[0]}
+              color='#65D36E'
+              type='filledOutlined'
+            /> */}
           </Col>
         </Row>
         

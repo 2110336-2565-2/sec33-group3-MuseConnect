@@ -17,7 +17,6 @@ export default function page() {
   const [specialFilter, setspecialFilter] = useState([]);
   const [placeholder, setPlaceholder] = useState("specialization");
 
-
   //effect when press filter
   useEffect(() => {
     // get all musician with filter condition

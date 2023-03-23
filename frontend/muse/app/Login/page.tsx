@@ -5,9 +5,11 @@ import styles from './page.module.css'
 
 const Home: NextPage = () => {
   return (
+    <body style={{backgroundColor:"green"}}>
       <div className={styles.container}>
             <LoginForm/>
       </div>
+      </body>
   )
 }
 
