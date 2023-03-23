@@ -6,6 +6,58 @@ const {
   loginUser,
 } = require("../controllers/userController");
 
+/**
+* @swagger
+* tags:
+*   name: Auth
+*   description: Authentication managing API
+*/
+/**
+* @swagger
+* /auth/signup:
+*   post:
+*     summary: sign up a user
+*     tags: [Auth]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/User'
+*     responses:
+*       201:
+*         description: The user was successfully created
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
+*       400:
+*         description: Some error
+*/
+/**
+* @swagger
+* /auth/login:
+*   post:
+*     summary: log in a user
+*     tags: [Auth]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/User'
+*     responses:
+*       201:
+*         description: The user successfully logged in
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
+*       400:
+*         description: Some error
+*/
+
+
 // login route
 router.post("/login", loginUser);
 
