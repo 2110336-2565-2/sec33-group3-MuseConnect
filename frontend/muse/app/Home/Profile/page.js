@@ -48,7 +48,7 @@ export default function profile() {
     <Container className="justify-content-center align-items-center" >
       <div className="mt-5">
         <Row className=" text-white" style={{backgroundColor: "#1E1E1E",width:"70%"}}>
-          <Col  style={{margin: "1rem",marginLeft:"60px"}}>
+          <Col  style={{marginLeft:"60px"}}>
             <Row className='justify-content-center'>
               <UserPhoto/>
             </Row>
@@ -60,7 +60,7 @@ export default function profile() {
             </Row>
           </Col>
           <Col style={{marginTop: "0px", width:'100%'}} >
-            <h2 className={montserrat.className}>Profile</h2>
+            <h2 className={montserrat.className} style={{marginBottom:"10px"}}>Profile</h2>
             <h1 className={montserrat.className}>{user.first_name} {user.last_name}</h1>
             <p className={montserrat.className}>{user.location}</p>
             <p className={montserrat.className}>{user.phone_number}</p>
@@ -69,12 +69,12 @@ export default function profile() {
               color='#65D36E'
               type='filledOutlined'
             />
+            <div style={{marginBottom:"15px"}}></div>
             <Stack direction='horizontal' gap={1}>
               {(user.preference)?.map((pref) => (
                   <Chip
                   title={pref}
-                  color='#65D36E'
-                  type='filledOutlined'
+                  color='#FFEA20'
                   />
               ))}
             </Stack>
