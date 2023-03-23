@@ -1,3 +1,5 @@
+const { Button } = require("react-bootstrap");
+
 const pretifyDateFormat = (date) => {
   date = new Date(date)
   const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -29,30 +31,34 @@ const eventFormat = (
           <p className="mb-0">{wage} bath</p>
           {isLastestEvent && isMusician && currentMessageStatus !== "CANCELLED" && (
             <span>
-              <button
+              <Button
+                variant="primary"
                 className="mx-3 mt-2 button-edit-acep"
                 onClick={() => setStatus("ACCEPT")}>
                 Accept
-              </button>
-              <button
+              </Button>
+              <Button 
+                variant="danger"
                 className="mx-3 mt-2 button-can-dec"
                 onClick={() => setStatus("DECLINE")}>
                 Decline
-              </button>
+              </Button>
             </span>
           )}
           {isLastestEvent && !isMusician && currentMessageStatus !== "CANCELLED" && (
             <div className="edit-cancle">
-              <button
+              <Button
+                variant="primary"
                 className="mx-3 mt-2 button-edit-acep"
                 onClick={() => handleShowModal({ name, wage })}>
                 Edit
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="danger"
                 className="mx-3 mt-2 button-can-dec"
                 onClick={() => setStatus("CANCELLED")}>
                 Cancel
-              </button>
+              </Button>
             </div>
           )}
         </div>
