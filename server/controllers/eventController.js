@@ -48,6 +48,7 @@ const createEvent = async (req, res) => {
       detail,
       status,
       wage,
+      transaction_state
     } = req.body;
     //console.log(wage)
     try {
@@ -59,7 +60,8 @@ const createEvent = async (req, res) => {
         musician,
         detail,
         status,
-        wage})
+        wage,
+        transaction_state})
       res.status(200).json(event);
     } catch (error) {
       res.status(400).json({ error: error.message });
