@@ -195,17 +195,25 @@ export default function EditOrganizerForm() {
                     </input>
                 </div>
 
+                <div className="field">
+                    <p style={{color: "White"}}>Profile Picture</p>
+                    {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
+                    <input class="form-control" type="file" id="formFile" className="picture">
+                    </input>
+                </div>
+
 
                 {/* Description */}
                 <div className="field">
                     <p style={{color: "White"}}>Description</p>
-                    <input className="form-control" type="text" 
+                    <textarea class="form-control" id="exampleFormControlTextarea1" 
+                    rows="3"
                     placeholder={user.description}
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
                     value={props.values.description}
-                    name="description">    
-                    </input>
+                    name="description"
+                    ></textarea>
                 </div>
 
 
@@ -263,14 +271,6 @@ export default function EditOrganizerForm() {
                 </div>
 
 
-                <div className="field">
-                    <p style={{color: "White"}}>Profile Picture</p>
-                    {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
-                    <input class="form-control" type="file" id="formFile" className="picture">
-                    </input>
-                </div>
-
-
                 <div style={{textAlign: "left",marginBottom: "35px"}}>
                 <button className="btn btn-outline-dark">
                     <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
@@ -283,3 +283,4 @@ export default function EditOrganizerForm() {
     </div>
     )
 }
+//edit

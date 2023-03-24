@@ -8,7 +8,8 @@ export default function PeopleCard({musicians}) {
   return (
     <>
     {musicians?.map((musician) => (
-    <div key={i++} className={"col-xs-12 col-sm-6 col-md-4"}>
+    //<div key={i++} className={"col-xs-6 col-sm-2 col-md-4"}>
+    <div key={i++} className="box">
       <div className={"image-flip"}>
         <div className={"mainflip"}>
           <div className={"frontside"}>

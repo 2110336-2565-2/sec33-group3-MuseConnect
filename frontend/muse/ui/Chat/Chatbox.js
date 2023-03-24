@@ -225,6 +225,10 @@ function Chatbox({ chatId }) {
     displayMessage();
   }, [messageEventBuffer]);
 
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+  },[messages]);
+
   // receiving message from interlocutor
   socket.on("receive-message", (mess) => {
     // console.log("on receive message:", mess);
@@ -346,10 +350,6 @@ function Chatbox({ chatId }) {
 
   const bottomRef = useRef(null);
   bottomRef.current?.scrollIntoView({behavior: 'auto'});
-  useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
-    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-  }, [messages]);
 
   return (
     <div>

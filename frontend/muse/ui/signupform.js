@@ -68,12 +68,12 @@ export default function SignupForm() {
     const [value, setValue] = useState("")
 
     return (
-        <div className={montserrat.className}>
+        <div className={montserrat.className} id="all">
         <p className='top'>
             <a className='topic' href="/">Muse Connect</a>
         </p>
         
-        <h3 className='subheading'>Find your new music experiences here.</h3>
+        <h3 className='subheading'>Sign up to find your new music experiences.</h3>
         <Formik
         initialValues={{email: '', password:'', first_name:'', 
                         last_name:'', phone_number:value, role:''}}
