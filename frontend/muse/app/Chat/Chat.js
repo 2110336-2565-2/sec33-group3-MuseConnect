@@ -1,6 +1,4 @@
 import React ,{useState,useEffect,useContext} from 'react'
-
-import
 import {useRouter} from "../../../../server/routes/chat"
 import Link from 'next/link'
 const ChatEngine = dynamic(()=>
@@ -16,7 +14,7 @@ const Message = dynamic(()=>
 
 export default function Chat() {
     const rounter = useRouter()
-    const {username,secret }  = 
+    // const {username,secret }  = 
 
     return (
         <div className='background'>
@@ -24,7 +22,7 @@ export default function Chat() {
                 <ChatEngine
                     height = "calc(100vh - 200px"
                     projectID=""
-                    userName = {}
+                    // userName = {}
                 />
 
             </div>

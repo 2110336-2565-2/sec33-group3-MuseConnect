@@ -1,7 +1,7 @@
 'use client'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Chatsidebar from '../../../ui/Chat2/Chatsidebar'
+import Chatsidebar from '../../../ui/Chat/Chatsidebar'
 import NavBar from '../../../ui/NavBar'
 import '../../globals.css'
 import React, { useState } from "react";
