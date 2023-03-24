@@ -14,9 +14,43 @@ const getAllEvents = async (req, res) => {
   }
 };
 
+const getUserEvents = async (req, res) => {
+  const id = req.params.id;
+  try {
+    if (!mongoose.isValidObjectId(id)) {
+      throw Error("Invalid Id");
+    }
+
+    const user = await User.findById(id);
+    if (!user) {
+      throw Error("Invalid Id");
+    }
+
+    let parameter = { status: "ACCEPT" };
+    let populateMusician = false;
+    if (user.role === "MUSICIAN") {
+      parameter["musician"] = id;
+    } else {
+      parameter["organizer"] = id;
+      populateMusician = true;
+    }
+
+    let events = Event.find(parameter);
+    if (populateMusician) {
+      events = await events.populate("musician");
+    } else {
+      events = await events.populate("organizer");
+    }
+
+    res.status(200).json({ result: events });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 const getEvent = async (req, res) => {
   const id = req.params.id;
-  console.log(req);
+
   //user_id is id of user who call this function
   const user_id = req.body.user_id;
   try {
@@ -100,6 +134,7 @@ const deleteEvent = async (req, res) => {
 };
 module.exports = {
   getAllEvents,
+  getUserEvents,
   getEvent,
   createEvent,
   updateEvent,

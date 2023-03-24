@@ -4,27 +4,26 @@ const User = require("../models/userModel");
 // get musicians
 const getMusicians = async (req, res) => {
   let { p, m, name, specialization } = req.query;
-  const value = {role: "MUSICIAN"}
-  console.log(name) ;
-  console.log(specialization) ;
-  const regex = new RegExp(`${name}`, "i");
 
-  if(name !== undefined){
-    value["$or"]= [
-      { first_name: { $regex: regex } },
-      { last_name: { $regex: regex } },
-    ]
-  }
-  if(specialization !== undefined){
-    value["specialization"]= { $in: specialization.split(",") }
-  }
-  
-  // console.log(regex) ;
   try {
+    const value = { role: "MUSICIAN" };
+
+    if (name !== undefined) {
+      const regex = new RegExp(`${name}`, "i");
+      value["$or"] = [
+        { first_name: { $regex: regex } },
+        { last_name: { $regex: regex } },
+      ];
+    }
+
+    if (specialization !== undefined) {
+      value["specialization"] = { $in: specialization.split(",") };
+    }
+
     const musicians = await User.find(value)
       .skip(p * m)
       .limit(m);
-      console.log(musicians) ;
+
     res.status(200).json({ result: musicians });
   } catch (error) {
     res.status(400).json({ error: error.message });
