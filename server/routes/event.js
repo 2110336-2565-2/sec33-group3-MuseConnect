@@ -2,19 +2,23 @@ const router = require("express").Router();
 const auth = require("../middleware/auth");
 
 // controller functions
-const { 
+const {
   getAllEvents,
+  getUserEvents,
   getEvent,
   createEvent,
   updateEvent,
-  deleteEvent
+  deleteEvent,
 } = require("../controllers/eventController");
 
-const requireAuth = require('../middleware/requireAuth')
-router.use(requireAuth)
+const requireAuth = require("../middleware/requireAuth");
+router.use(requireAuth);
 
-// fetech event
-router.get("/", getAllEvents)
+// fetch event
+router.get("/", getAllEvents);
+
+// get all the events of a musician
+router.get("/user/:id", getUserEvents);
 
 // get single event
 router.get("/:id", getEvent);
@@ -23,14 +27,12 @@ router.get("/:id", getEvent);
 // router.use(auth.authorize('ORGANIZER'));
 
 // post event
-router.post('/', createEvent)
+router.post("/", createEvent);
 
 // put event
-router.put('/:id', updateEvent)
+router.put("/:id", updateEvent);
 
 // delete event
-router.delete('/:id', deleteEvent)
+router.delete("/:id", deleteEvent);
 
-
-module.exports = router
-
+module.exports = router;

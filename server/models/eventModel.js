@@ -14,13 +14,13 @@ const eventSchema = mongoose.Schema({
     required: true
   },
   organizer: {
-    type: mongoose.ObjectId,
-    ref: "userSchema",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     require: true,
   },
   musician: {
-    type: mongoose.ObjectId,
-    ref: "userSchema",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     require: true,
   },
   detail: {
