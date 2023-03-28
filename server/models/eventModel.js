@@ -39,7 +39,7 @@ const eventSchema = mongoose.Schema({
   }, 
   transaction_state:{
     type: String,
-    enum: ['NOTACK','EVEACK', 'ORGPAID', 'MUSACC', 'MUSCAN', 'ORGACC'],
+    enum: ['NOTACK','EVEACK', 'ORGPAID', 'MUSACC', 'MUSCAN', 'ORGACC', 'ORGCAN'],
     default : 'NOTACK'
   }
 })
