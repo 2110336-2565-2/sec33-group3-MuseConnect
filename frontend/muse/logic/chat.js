@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 const { Button } = require("react-bootstrap");
 
 const pretifyDateFormat = (date) => {
@@ -11,6 +12,24 @@ const pretifyDateFormat = (date) => {
   return formattedDate;
 };
 
+const handleTransaction = () => {
+  // const router = useRouter();
+  // router.push("/Home");
+  window.location.href = "/";
+}
+
+const isShowMusicianButton = (isLastestEvent, isMusician, currentMessageStatus) => {
+  return isLastestEvent && isMusician && currentMessageStatus !== "CANCELLED"
+}
+
+const isShowOrganizerButton = (isLastestEvent, isMusician, currentMessageStatus) => {
+  return isLastestEvent && !isMusician && currentMessageStatus !== "CANCELLED"
+}
+
+const isShowTransactionButton = (isLastestEvent, currentMessageStatus) => {
+  return isLastestEvent && currentMessageStatus !== "CANCELLED"
+}
+
 const eventFormat = (
   { name, location, phone, date, wage, currentMessageStatus },
   { side, style, i },
@@ -23,29 +42,40 @@ const eventFormat = (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
       <div className="p-3 ms-3" style={style}>
         <div key={`message_${i}`} className="small mb-0">
-          <p className="mb-0">{name}</p>
-          {location !== undefined && <p className="mb-0">{location}</p>}
+          <p className="mb-0 ">{name}</p>
+          {location !== "undefined" && <p className="mb-0">{location}</p>}
           {location === undefined && <p className="mb-0">undefined location</p>}
           <p className="mb-0">{phone}</p>
           <p className="mb-0">{pretifyDateFormat(date)}</p>
-          <p className="mb-0">{wage} bath</p>
-          {isLastestEvent && isMusician && currentMessageStatus !== "CANCELLED" && (
+          <p className="mb-0">{wage} ฿</p>
+          {isShowMusicianButton(isLastestEvent, isMusician, currentMessageStatus) && (
             <span>
               <Button
-                variant="primary"
+                variant = "primary"
                 className="mx-3 mt-2 button-edit-acep"
-                onClick={() => setStatus("ACCEPT")}>
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to accept?")) {
+                    setStatus("DECLINE");
+                  }
+                }}>
                 Accept
+                
               </Button>
-              <Button 
+              <Button
                 variant="danger"
                 className="mx-3 mt-2 button-can-dec"
-                onClick={() => setStatus("DECLINE")}>
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to decline?")) {
+                    
+                    setStatus("DECLINE");
+                    alert()
+                  }
+                }}>
                 Decline
               </Button>
             </span>
           )}
-          {isLastestEvent && !isMusician && currentMessageStatus !== "CANCELLED" && (
+          {isShowOrganizerButton(isLastestEvent, isMusician, currentMessageStatus) && (
             <div className="edit-cancle">
               <Button
                 variant="primary"
@@ -59,6 +89,16 @@ const eventFormat = (
                 onClick={() => setStatus("CANCELLED")}>
                 Cancel
               </Button>
+            </div>
+          )}
+          {isShowTransactionButton(isLastestEvent, currentMessageStatus) && (
+            <div className="view-transaction text-center">
+              <button
+                type="button"
+                className="mx-3 mt-2 btn btn-info"
+                onClick={() => handleTransaction()}>
+                Transaction
+              </button>
             </div>
           )}
         </div>
