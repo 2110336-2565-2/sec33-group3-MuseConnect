@@ -87,6 +87,7 @@ const createEvent = async (req, res) => {
       detail,
       status,
       wage,
+      transaction_state
     });
     res.status(200).json(event);
   } catch (error) {
