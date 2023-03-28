@@ -58,33 +58,53 @@ export default function EditOrganizerForm() {
     };
 
     const onSubmit = async (value, actions) => {
-        //{profile_picture: base64,...values} 
-        console.log(value.first_name);
-        if (user.preference.length>0 && preference.length==0){ //have in database but update nothing
-            value["preference"] = user.preference;
+        
+        if (user.preference === undefined) value["preference"] = preference;
+        else{
+            if (preference.length > 0){
+                value["preference"] = preference;
+            }
         }
-        if (preference.length > 0){
-            value["preference"] = preference;
+        console.log(value)
+        // if(user.preference === undefined||null){
+        //     value["preference"] = value.preference;
+        // }
+        // else{
+        //     if(value.preference===[]) value["preference"] = user.preference;
+        //     else value["preference"] = value.preference;
+        // }
+        //------------------------------
+        if(user.location === undefined||null){
+            value["location"] = value.location;
         }
-        if (user.location.length>0 && value.location.length==0){ //have in database but update nothing
-            value["location"] = user.location;
+        else{
+            if(value.location==='') value["location"] = user.location;
+            else value["location"] = value.location;
         }
-        if (user.description.length>0 && value.description.length==0){ //have in database but update nothing
-            value["description"] = user.description;
-        }
-        if (user.wage==null && value.wage!=null){
+        //------------------------------
+        if(user.wage === undefined || null){
             value["wage"] = value.wage;
         }
-        if (value.wage==null && user.wage!=null){
-            value["wage"] = user.wage;
+        else{
+            if(value.wage==='') value["wage"] = user.wage;
+            else value["wage"] = value.wage;
         }
-        if (value.first_name.length==0){
+        //------------------------------
+        if(user.description === undefined||null){
+            value["description"] = value.description;
+        }
+        else{
+            if(value.description==='') value["description"] = user.description;
+            else value["description"] = value.description;
+        }
+        //---------------------------------------
+        if (value.first_name===''){
             value["first_name"] = user.first_name;
         }
-        if (value.last_name.length==0){
+        if (value.last_name===''){
             value["last_name"] = user.last_name;
         }
-        if (value.phone_number.length==0){
+        if (value.phone_number===''){
             value["phone_number"] = user.phone_number;
         }
         //console.log(value)
@@ -137,7 +157,7 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', wage:null, profile_picture:''}}
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', wage:'', profile_picture:''}}
         onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
 
 
@@ -249,12 +269,6 @@ export default function EditOrganizerForm() {
                     value='Indie'
                     onChange={e => handleChange(e)} />
                     <span style={{color:"white",marginRight:"15px"}}>Indie</span>
-
-                    <input class="form-check-input" style={{marginRight:"5px"}}
-                    type="checkbox"
-                    value='Alternative'
-                    onChange={e => handleChange(e)} />
-                    <span style={{color:"white",marginRight:"15px"}}>Alternative</span>
                 </div>
 
 

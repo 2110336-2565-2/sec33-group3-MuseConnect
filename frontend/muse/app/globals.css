@@ -8145,6 +8145,11 @@
     background-repeat: no-repeat;
     /* background-size: 150% auto; */
     background-color: #1e1e1e;
+    /* background-image: url('images/wallpaper2.png'); */
+    /* background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed; */
     color: white; }
   
   a {
