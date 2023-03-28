@@ -40,9 +40,36 @@ export default function profile() {
   // arr.forEach((pref) => {
   //   console.log(pref)
   // })
+  const [events, setEvents] = useState({});
+
+  useEffect(() => {
+    const getUserEvents =async () =>{
+      const user_loc  = localStorage.getItem("user");
+      const userToken = await JSON.parse(user_loc).token;
+      const userID = await JSON.parse(user_loc)._id;
+      const respone = await fetch(`http://localhost:4000/api/event/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${userToken}`,
+        },
+      });
+      const result = await respone.json();
+      if (!respone.ok) {
+        alert(result.error);
+      } else {
+        setEvents(result.result)
+      }
+    }
+    getUserEvents() ;
+
+  },[]);
   useEffect(()=>{
     console.log(user)
   },[user])
+  useEffect(()=>{
+    console.log(events)
+  },[events])
+  
 
   return (
     <div className={montserrat.className}>
