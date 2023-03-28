@@ -83,21 +83,25 @@ export default function page() {
     update transcation state progress bar
   */
   useEffect(() => {
+
+    let barCountPercent = 0;
     if (transactionStatus == "NOTACK") {
-      setTransactionStatusCount(0)
+      barCountPercent = 0
     } else if (transactionStatus == "EVEACK") {
-      setTransactionStatusCount(25)
+      barCountPercent = 25
     } else if (transactionStatus == "ORGPAID") {
-      setTransactionStatusCount(50)
+      barCountPercent = 50
     } else if (transactionStatus == "MUSACC") {
-      setTransactionStatusCount(75)
+      barCountPercent = 75
     } else if (transactionStatus == "CANCEL") {
-      setTransactionStatusCount(100)
+      barCountPercent = 100
     }
+
+    setTransactionStatusCount(barCountPercent)
   }, [transactionStatus])
 
   const transactionStateHandler = () => {
-    console.log({ eventStatus, transactionStatus });
+    // console.log({ eventStatus, transactionStatus });
 
     // TODO implement next state transaction status
     let nextTransactionStatus;
@@ -109,7 +113,7 @@ export default function page() {
       nextTransactionStatus = "MUSACC";
     } else if (transactionStatus == "MUSACC") {
       nextTransactionStatus = "CANCEL";
-    } else if (transactionStatus == "CANCEL") {
+    }else if (transactionStatus == "CANCEL") {
       nextTransactionStatus = "NOTACK";
     }
     setTransactionStatus(nextTransactionStatus);
@@ -120,6 +124,7 @@ export default function page() {
     user: 63e8d9bf491bf69c080bbeeb63e8d9bf491bf69c080bbeeb
     eventId: 642301c6628392c8dd8ee4ac
   */
+ // TODO implement logic to disable and set value in the button
   return (
     <div>
       <Container className="m-3 p-4 justify-content-center align-items-center">
