@@ -86,12 +86,12 @@ export default function page() {
       </Form.Group>
 
       <Button type="submit" onClick={() => {
-              console.log(specialFilter) ;
-              setData({name: nameFilter,specialization: specialFilter}) ;
-              console.log(data) ;
-              setIsFilter(true)}} 
-              variant="outline-success">Filter
-        </Button>
+        console.log(specialFilter) ;
+        setData({name: nameFilter,specialization: specialFilter}) ;
+        console.log(data) ;
+        setIsFilter(true)}} 
+        variant="outline-success">Filter
+      </Button>
       <div className="text-dark d-flex" style={{backgroundColor: "white"}}><Multiselect
         isObject ={false}
         options ={options}

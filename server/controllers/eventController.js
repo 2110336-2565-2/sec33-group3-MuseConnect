@@ -35,12 +35,12 @@ const getUserEvents = async (req, res) => {
       populateMusician = true;
     }
 
-    let events = Event.find(parameter);
-    if (populateMusician) {
-      events = await events.populate("musician");
-    } else {
-      events = await events.populate("organizer");
-    }
+    let events = await Event.find(parameter).sort({ date: 1 }).limit(10);
+    // if (populateMusician) {
+    //   events = await events.populate("musician");
+    // } else {
+    //   events = await events.populate("organizer");
+    // }
 
     res.status(200).json({ result: events });
   } catch (error) {

@@ -353,12 +353,14 @@ function Chatbox({ chatId }) {
 
   return (
     <div>
-          <Container
+          <div id=""
             style={{
               height: "83vh",
               overflow: "scroll",
               overflowX: "hidden",
               objectFit: "cover",
+              paddingLeft: "15px",
+              paddingRight: "15px" 
               
             }}
           >
@@ -391,9 +393,9 @@ function Chatbox({ chatId }) {
               })}
             </ul>
             <div ref={bottomRef} />
-          </Container>
-          <Container style={{position: "fixed",bottom:"0px"}}>
-              <Form onSubmit={sendMessageHandler} className="form">
+          </div>
+          <div style={{display: "block"}}>
+              <Form onSubmit={sendMessageHandler} xs="auto" className="form" style={{position: "fixed",bottom:"0px",display: "block",width:"100%"}}>
                 <InputGroup>
                   {user._id === currentOrganizer && (
                 <Button
@@ -416,7 +418,7 @@ function Chatbox({ chatId }) {
                   <Button type="submit">{">"} </Button> 
                 </InputGroup>
               </Form>
-          </Container>
+          </div>
 
       <Modal show={active} onHide={handleCloseModal} href="chat.css">
         <Modal.Header closeButton id="head">

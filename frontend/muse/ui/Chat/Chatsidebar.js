@@ -71,7 +71,7 @@ export default function ChatsideBar({ children}) {
       id="sidebar"
       className={isActive ? null : "active"}
     >
-      <div className="p-4 pt-5">
+      <div className="pt-5" style={{paddingLeft:"15px"}}>
         <h3 style={{ color: "white" }} className={montserrat.className}>
           <Link href={""}>Muse Connect</Link>
         </h3>
