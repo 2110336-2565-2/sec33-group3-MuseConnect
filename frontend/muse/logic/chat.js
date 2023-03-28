@@ -55,7 +55,7 @@ const eventFormat = (
                 className="mx-3 mt-2 button-edit-acep"
                 onClick={() => {
                   if (window.confirm("Are you sure you want to accept?")) {
-                    setStatus("DECLINE");
+                    setStatus("ACCEPT");
                   }
                 }}>
                 Accept
@@ -66,7 +66,6 @@ const eventFormat = (
                 className="mx-3 mt-2 button-can-dec"
                 onClick={() => {
                   if (window.confirm("Are you sure you want to decline?")) {
-                    
                     setStatus("DECLINE");
                     alert()
                   }
