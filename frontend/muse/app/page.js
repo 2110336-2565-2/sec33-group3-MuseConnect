@@ -19,7 +19,6 @@ const montserrat = Montserrat({
 export default function Home() {
   const [isActive, setActive] = useState("false");
   const handleClick = () => {
-    console.log('hello world');
     setActive(!isActive);
   };
 
