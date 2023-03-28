@@ -59,13 +59,26 @@ export default function EditForm() {
 
     const onSubmit = async (value, actions) => {
         //{profile_picture: base64,...values} 
-        console.log(value.first_name);
+        // console.log(value.first_name);
+        console.log(user);
+        if(typeof user.preference === 'undefined'){
+            value["specialization"] = value.specialization;
+        }
+        if(typeof user.location === 'undefined'){
+            value["location"] = value.location;
+        }
+        if(typeof user.description === 'undefined'){
+            value["description"] = value.description;
+        }
+        if(typeof user.wage === 'undefined'){
+            value["wage"] = value.wage;
+        }
         if (user.specialization.length>0 && specialization.length==0){ //have in database but update nothing
             value["specialization"] = user.specialization;
         }
-        if (specialization.length > 0){
-            value["specialization"] = specialization;
-        }
+        // if (specialization.length > 0){
+        //     value["specialization"] = specialization;
+        // }
         if (user.location.length>0 && value.location.length==0){ //have in database but update nothing
             value["location"] = user.location;
         }
@@ -84,7 +97,7 @@ export default function EditForm() {
         if (value.phone_number.length==0){
             value["phone_number"] = user.phone_number;
         }
-        //console.log(value)
+        
         const user_loc  = localStorage.getItem("user");
         const userToken = await JSON.parse(user_loc).token;
         const userID = await JSON.parse(user_loc)._id;

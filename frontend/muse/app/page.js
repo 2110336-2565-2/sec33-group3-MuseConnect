@@ -38,18 +38,24 @@ export default function Home() {
 
   return(
     <>
-      <div className="wrapper d-flex align-items-stretch">
+      <div className="wrapper d-flex align-items-stretch"
+      style={{backgroundImage:`url("images/wallpaper2.png")`,backgroundSize:"cover",
+      backgroundRepeat:"no-repeat",
+      backgroundPosition:"center center",
+      backgroundAttachment:"fixed"
+      }}
+      >
 			<SideBar children={isActive}/>
 
         {/* <!-- Page Content  --> */}
       <div id="content">
         <NavBar show={handleClick} />
         <div className="p-4 p-md-5">
-          <h1 style={{marginTop:"0px",marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect ♫</h1>
-          <h2 style={{marginBottom:"20px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h2>
+          <h1 style={{marginTop:"10px",marginBottom: "0px"}} className={montserratBold.className}>Welcome to Muse Connect ♫</h1>
+          <h2 style={{marginBottom:"60px", color:"#26A74C"}} className={montserrat.className}>Music connects us.</h2>
           {/* textDecorationLine:"underline", textDecorationColor:"#26A74C"} */}
           <Elehome/>
-          
+          <div></div>
           <h4 onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
           style={{marginTop:"25px", width:"fit-content", fontSize:"15px"}}
