@@ -18,6 +18,7 @@ const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
   // chatId = '642412f14c1bdfa91d8cb65a';
+
   // status update
   const [status, setStatus] = useState("");
   // chatrooms variable
@@ -221,7 +222,6 @@ function Chatbox({ chatId }) {
         return response.json();
       })
       .then((data) => {
-        // console.log(data)
         setCurrentMusician(data.musician);
         setCurrentOrganizer(data.organizer._id);
         setCurrentOrganizerDetails(data.organizer);
