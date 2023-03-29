@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
-  // chatId = '63fa509243b30b769e2ba355';
+  // chatId = '642412f14c1bdfa91d8cb65a';
   // status update
   const [status, setStatus] = useState("");
   // chatrooms variable
