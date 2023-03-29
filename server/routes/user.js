@@ -150,13 +150,11 @@ const requireAuth = require('../middleware/requireAuth')
 *             schema:
 *               $ref: '#/components/schemas/User'
 *       400:
-*         description: Some error
+*         description: |
+*             - The user was invalid
+*             - Some error
 *       404:
-*         description: | 
-*            - The user was not found 
-*            - The user was invalid
-*       500:
-*         description: Some error happened
+*         description: The user was not found 
 */
 /**
 * @swagger
