@@ -8,7 +8,8 @@ export default function page() {
   const eventId = usePathname().split("/").at(-1);
 
   const [mouthCount, setMouthCount] = useState(0);
-  const [user, setUser] = useState(""); // object
+  const [storedUser, setStoredUser] = useState(""); // user object from local
+  const [user, setUser] = useState(""); // user object from database
   const [eventStatus, setEventStatus] = useState("");
   const [transactionStatus, setTransactionStatus] = useState("");
   const [transactionStatusCount, setTransactionStatusCount] = useState(0);
@@ -22,9 +23,31 @@ export default function page() {
     const paresString = async (string) => await JSON.parse(string);
     paresString(storedUser)
       .then((tmpUser) => {
-        setUser(tmpUser);
-
         const userToken = tmpUser.token;
+        setStoredUser(tmpUser);
+
+        // fetch user details
+        fetch(`http://localhost:4000/api/user/${tmpUser._id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${userToken}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch user from database");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setUser(data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+
+        // fetch event details
         fetch(`http://localhost:4000/api/event/${eventId}`, {
           method: "GET",
           headers: {
@@ -56,7 +79,8 @@ export default function page() {
     if (mouthCount == 0) {
       setMouthCount(1);
     } else if (transactionStatus !== "") {
-      const userToken = user.token;
+      let userToken = storedUser.token;
+
       fetch(`http://localhost:4000/api/event/${eventId}`, {
         method: "PUT",
         headers: {
@@ -113,7 +137,7 @@ export default function page() {
       nextTransactionStatus = "MUSACC";
     } else if (transactionStatus == "MUSACC") {
       nextTransactionStatus = "CANCEL";
-    }else if (transactionStatus == "CANCEL") {
+    } else if (transactionStatus == "CANCEL") {
       nextTransactionStatus = "NOTACK";
     }
     setTransactionStatus(nextTransactionStatus);
@@ -124,7 +148,7 @@ export default function page() {
     user: 63e8d9bf491bf69c080bbeeb63e8d9bf491bf69c080bbeeb
     eventId: 642301c6628392c8dd8ee4ac
   */
- // TODO implement logic to disable and set value in the button
+  // TODO implement logic to disable and set value in the button
   return (
     <div>
       <Container className="m-3 p-4 justify-content-center align-items-center">
@@ -135,6 +159,8 @@ export default function page() {
               eventId: {eventId}
               <br />
               user: {user._id}
+              <br />
+              userRole: {user.role}
               <br />
               userEmail: {user.email}
               <br />
@@ -152,7 +178,7 @@ export default function page() {
           TransactionButton
         </button>
         <div className="progress">
-          <div className="progress-bar bg-danger" role="progressbar" style={{width: `${transactionStatusCount}%`}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${transactionStatusCount}%` }} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </Container>
     </div>
