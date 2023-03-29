@@ -83,7 +83,7 @@ const requireAuth = require('../middleware/requireAuth')
 *           last_name: ทดสอบ
 *           phone_number: 0234567891
 *           role: musician
-*           region: กรุงเทพมหานคร (Bangkok)
+*           specialization: metal
 *           price_min: 0
 *           price_max: 100000
 *           status: AVAILABLE
