@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 const pretifyDateFormat = (date) => {
   date = new Date(date)
   const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -8,6 +10,24 @@ const pretifyDateFormat = (date) => {
   const formattedDate = `${word_day} ${day}/${month}/${year}`;
   return formattedDate;
 };
+
+const handleTransaction = () => {
+  // const router = useRouter();
+  // router.push("/Home");
+  window.location.href = "/";
+}
+
+const isShowMusicianButton = (isLastestEvent, isMusician, currentMessageStatus) => {
+  return isLastestEvent && isMusician && currentMessageStatus !== "CANCELLED"
+}
+
+const isShowOrganizerButton = (isLastestEvent, isMusician, currentMessageStatus) => {
+  return isLastestEvent && !isMusician && currentMessageStatus !== "CANCELLED"
+}
+
+const isShowTransactionButton = (isLastestEvent, currentMessageStatus) => {
+  return isLastestEvent && currentMessageStatus !== "CANCELLED"
+}
 
 const eventFormat = (
   { name, location, phone, date, wage, currentMessageStatus },
@@ -26,8 +46,8 @@ const eventFormat = (
           {location === undefined && <p className="mb-0">undefined location</p>}
           <p className="mb-0">{phone}</p>
           <p className="mb-0">{pretifyDateFormat(date)}</p>
-          <p className="mb-0">{wage} bath</p>
-          {isLastestEvent && isMusician && currentMessageStatus !== "CANCELLED" && (
+          <p className="mb-0">{wage} ฿</p>
+          {isShowMusicianButton(isLastestEvent, isMusician, currentMessageStatus) && (
             <span>
               <button
                 className="mx-3 mt-2 button-edit-acep"
@@ -41,7 +61,7 @@ const eventFormat = (
               </button>
             </span>
           )}
-          {isLastestEvent && !isMusician && currentMessageStatus !== "CANCELLED" && (
+          {isShowOrganizerButton(isLastestEvent, isMusician, currentMessageStatus) && (
             <div className="edit-cancle">
               <button
                 className="mx-3 mt-2 button-edit-acep"
@@ -52,6 +72,16 @@ const eventFormat = (
                 className="mx-3 mt-2 button-can-dec"
                 onClick={() => setStatus("CANCELLED")}>
                 Cancel
+              </button>
+            </div>
+          )}
+          {isShowTransactionButton(isLastestEvent, currentMessageStatus) && (
+            <div className="view-transaction">
+              <button
+                type="button"
+                className="mx-3 mt-2 btn btn-info"
+                onClick={() => handleTransaction()}>
+                Transaction
               </button>
             </div>
           )}
@@ -67,7 +97,7 @@ const haveSide = (user, sender) => {
       side: "end",
       style: {
         borderRadius: "15px",
-        backgroundColor: "rgba(57, 192, 237,.2)",
+        backgroundColor: "white"
       },
     };
   }
