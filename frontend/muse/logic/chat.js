@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import {BsFillTelephoneFill} from "react-icons/bs"
+import {FaMapMarkerAlt} from "react-icons/fa"
 const { Button } = require("react-bootstrap");
 
 const pretifyDateFormat = (date) => {
@@ -51,16 +53,17 @@ const eventFormat = (
       <div className="p-3 ms-3" style={style}>
         <div key={`message_${i}`} className="small mb-0">
           <p className="mb-0 ">{name}</p>
-          {location !== undefined && <p className="mb-0">
-            <img src='https://cdn-icons-png.flaticon.com/512/3082/3082383.png' width="15" height="15"/>
-            &nbsp;{location}
+          {location !== undefined && 
+          <p className="mb-0">
+            <FaMapMarkerAlt className = "me-1" size = {15} style = {{color: "black"}}/>
+            {location}
           </p>}
           {location === undefined && <p className="mb-0">
             undefined location
           </p>}
           <p className="mb-0">
-            <img src='https://www.flaticon.com/svg/vstatic/svg/5068/5068731.svg?token=exp=1680107433~hmac=e6bbe9b9b1b19dde7cd542946c786be9' width="15" height="15"/>
-            &nbsp;{phone}
+            <BsFillTelephoneFill className = "me-1" size = {15} style = {{color: "black"}}/>
+            {phone}
           </p>
           <p className="mb-0">{pretifyDateFormat(date)}</p>
           <p className="mb-0">{wage} ฿</p>
