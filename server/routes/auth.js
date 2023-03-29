@@ -16,7 +16,7 @@ const {
 * @swagger
 * /auth/signup:
 *   post:
-*     summary: sign up a user
+*     summary: Sign up a user
 *     tags: [Auth]
 *     requestBody:
 *       required: true
@@ -38,7 +38,7 @@ const {
 * @swagger
 * /auth/login:
 *   post:
-*     summary: log in a user
+*     summary: Log in a user
 *     tags: [Auth]
 *     requestBody:
 *       required: true

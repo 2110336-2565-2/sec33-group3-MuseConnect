@@ -56,7 +56,7 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /chat:
 *   post:
-*     summary: access chat
+*     summary: Access chat
 *     tags: [Chats]
 *     requestBody:
 *       required: true
@@ -78,7 +78,7 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /chat:
 *   get:
-*       summary: fetch chats
+*       summary: Fetch chats
 *       tags: [Chats]
 *       responses:
 *           200:
@@ -121,7 +121,7 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /chat/{id}:
 *   put:
-*     summary: Update the chat by the id
+*     summary: Update the chat by id
 *     tags: [Chats]
 *     parameters:
 *       - in: path

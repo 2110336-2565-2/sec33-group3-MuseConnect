@@ -82,7 +82,7 @@ router.use(requireAuth)
 * @swagger
 * /message:
 *   post:
-*     summary: send message
+*     summary: Send a message
 *     tags: [Messages]
 *     requestBody:
 *       required: true

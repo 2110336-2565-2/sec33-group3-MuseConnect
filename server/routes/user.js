@@ -127,7 +127,7 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /user/{id}:
 *   put:
-*     summary: Update the user by the id
+*     summary: Update the user by id
 *     tags: [Users]
 *     parameters:
 *       - in: path

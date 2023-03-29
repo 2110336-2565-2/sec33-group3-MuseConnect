@@ -20,7 +20,7 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /portfolio:
 *   get:
-*       summary: get all portfolios
+*       summary: Get all portfolios
 *       tags: [Portfolios]
 *       responses:
 *           200:
@@ -53,7 +53,7 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /portfolio:
 *   post:
-*     summary: create portfolio
+*     summary: Create a portfolio
 *     tags: [Portfolios]
 *     requestBody:
 *       required: true
@@ -67,7 +67,7 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /portfolio/{id}:
 *   put:
-*     summary: Update the portfolio by the id
+*     summary: Update the portfolio by id
 *     tags: [Portfolios]
 *     parameters:
 *       - in: path
