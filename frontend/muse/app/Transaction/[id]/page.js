@@ -23,9 +23,7 @@ export default function page() {
   const [isSecondaryButtonAvailable, setIsSecondaryButtonAvailable] =
     useState(true);
 
-  /*
-    fetches the event details from the server and sets the event and transaction status
-  */
+  /* fetches the event details from the server and sets the event and transaction status */
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -81,13 +79,9 @@ export default function page() {
       .catch(console.error);
   }, []);
 
-  /*
-    update the transaction_state in the database when the transactionStatus has been modified
-  */
+  /* update the transaction_state in the database when the transactionStatus has been modified */
   useEffect(() => {
-    if (mouthCount == 0) {
-      setMouthCount(1);
-    } else if (transactionStatus !== "") {
+    if (transactionStatus !== "") {
       let userToken = storedUser.token;
 
       fetch(`http://localhost:4000/api/event/${eventId}`, {
@@ -104,17 +98,14 @@ export default function page() {
           if (!response.ok) {
             throw new Error("Failed to change transactionStatus");
           }
-          return response.json();
         })
-        .then((data) => {
-          // console.log("Change event transactionStatus to", data);
+        .catch((err) => {
+          console.error(err);
         });
     }
   }, [transactionStatus]);
 
-  /*
-    update transcation state progress bar
-  */
+  /* update transcation state progress bar */
   useEffect(() => {
     let barCountPercent = 0;
     if (transactionStatus == "NOTACK") {
@@ -145,26 +136,43 @@ export default function page() {
       setIsSecondaryButtonAvailable(sAvailable);
     };
 
-    if (transactionStatus == "NOTACK") {
-      setUiParameters("NOTACK", false, "NOTACK", true, true);
-    } else if (transactionStatus == "EVEACK") {
-      setUiParameters("EVEACK", true, "EVEACK", false, true);
-    } else if (transactionStatus == "ORGPAID") {
-      setUiParameters("ORGPAID", true, "ORGPAID", true, false);
-    } else if (transactionStatus == "MUSACC") {
-      setUiParameters("MUSACC", true, "MUSACC", true, true);
-    } else if (transactionStatus == "CANCEL") {
-      setUiParameters("CANCEL", true, "CANCEL", true, true);
-    } else if (transactionStatus == "MUSREF") {
-      setUiParameters("MUSREF", true, "MUSREF", true, true);
-    } else if (transactionStatus == "TRNFIN") {
-      setUiParameters("TRNFIN", true, "TRNFIN", true, true);
+    if (user.role == "ORGANIZER") {
+      if (transactionStatus == "NOTACK") {
+        setUiParameters("NOTACK", false, "NOTACK", true, true);
+      } else if (transactionStatus == "EVEACK") {
+        setUiParameters("EVEACK", true, "EVEACK", false, true);
+      } else if (transactionStatus == "ORGPAID") {
+        setUiParameters("ORGPAID", true, "ORGPAID", true, false);
+      } else if (transactionStatus == "MUSACC") {
+        setUiParameters("MUSACC", true, "MUSACC", true, true);
+      } else if (transactionStatus == "CANCEL") {
+        setUiParameters("CANCEL", true, "CANCEL", true, true);
+      } else if (transactionStatus == "MUSREF") {
+        setUiParameters("MUSREF", true, "MUSREF", true, true);
+      } else if (transactionStatus == "TRNFIN") {
+        setUiParameters("TRNFIN", true, "TRNFIN", true, true);
+      }
+    } else if (user.role == "MUSICIAN") {
+      if (transactionStatus == "NOTACK")
+        setUiParameters("NOTACK", false, "NOTACK", true, true);
+      else if (transactionStatus == "EVEACK") {
+        setUiParameters("EVEACK", true, "EVEACK", false, true);
+      } else if (transactionStatus == "ORGPAID") {
+        setUiParameters("ORGPAID", true, "ORGPAID", true, false);
+      } else if (transactionStatus == "MUSACC") {
+        setUiParameters("MUSACC", true, "MUSACC", true, true);
+      } else if (transactionStatus == "CANCEL") {
+        setUiParameters("CANCEL", true, "CANCEL", true, true);
+      } else if (transactionStatus == "MUSREF") {
+        setUiParameters("MUSREF", true, "MUSREF", true, true);
+      } else if (transactionStatus == "TRNFIN") {
+        setUiParameters("TRNFIN", true, "TRNFIN", true, true);
+      }
     }
   }, [transactionStatus]);
 
+  /* TODO implement next state transaction status */
   const transactionStateHandler = () => {
-    // console.log({ eventStatus, transactionStatus });
-    // TODO implement next state transaction status
     // if (present_state == 'NOTACK'){
 
     // } else if(present_state == 'EVEACK'){
@@ -182,7 +190,7 @@ export default function page() {
     // } else {
     //   return false
     // }
-    let nextTransactionStatus;
+    let nextTransactionStatus = transactionStatus;
     // Only route cancel first
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
@@ -209,8 +217,9 @@ export default function page() {
     setEventStatus(eventStatus);
   };
 
+  /* TODO implement next state transaction status */
   const secondaryTransactionStateHandler = () => {
-    let nextTransactionStatus = "NOTACK";
+    let nextTransactionStatus = transactionStatus;
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
     } else if (transactionStatus == "EVEACK") {
@@ -277,7 +286,7 @@ export default function page() {
           onClick={() => transactionStateHandler()}
           disabled={!isPrimaryButtonEnable}
         >
-          TransactionButton: {primaryButtonText} {isPrimaryButtonEnable}
+          TransactionButton: {primaryButtonText}
         </button>
         {isSecondaryButtonAvailable && (
           <button

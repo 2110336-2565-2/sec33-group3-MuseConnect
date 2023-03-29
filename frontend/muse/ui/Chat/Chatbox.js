@@ -4,11 +4,12 @@ import io from "socket.io-client";
 import { Image,Col,Row,Container,Button, Modal,Form,InputGroup } from "react-bootstrap";
 import { eventFormat, haveSide } from "../../logic/chat";
 import "bootstrap/dist/css/bootstrap.min.css";  
-// connect socket with server
+
 const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
   // chatId = '642412f14c1bdfa91d8cb65a';
+
   // status update
   const [status, setStatus] = useState("");
   // chatrooms variable
@@ -211,7 +212,6 @@ function Chatbox({ chatId }) {
         return response.json();
       })
       .then((data) => {
-        // console.log(data)
         setCurrentMusician(data.musician);
         setCurrentOrganizer(data.organizer._id);
         setCurrentOrganizerDetails(data.organizer);
