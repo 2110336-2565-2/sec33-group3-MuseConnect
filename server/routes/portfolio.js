@@ -1,30 +1,30 @@
-const router = require('express').Router()
+const router = require("express").Router();
 
 // controller functions
 const {
-    getPortfolios,
-    getPortfolio,
-    createPortfolio,
-    updatePortfolio,
-    deletePortfolio
-} = require('../controllers/portfolioController')
-const requireAuth = require('../middleware/requireAuth')
+  getPortfolios,
+  getPortfolio,
+  createPortfolio,
+  updatePortfolio,
+  deletePortfolio,
+} = require("../controllers/portfolioController");
+const requireAuth = require("../middleware/requireAuth");
 
-router.use(requireAuth)
+router.use(requireAuth);
 
 // get portfolios
-router.get('/', getPortfolios)
+router.get("/", getPortfolios);
 
 // get a portfolio
-router.get('/musician/:id', getPortfolio)
+router.get("/musician/:id", getPortfolio);
 
 // post portfolio
-router.post('/:id', createPortfolio)
+router.post("/:id", createPortfolio);
 
 // put portfolio
-router.put('/:id', updatePortfolio)
+router.put("/:id", updatePortfolio);
 
 // delete portfolio
-router.delete('/:id', deletePortfolio)
+router.delete("/:id", deletePortfolio);
 
-module.exports = router
+module.exports = router;

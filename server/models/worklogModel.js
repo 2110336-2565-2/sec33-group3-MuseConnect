@@ -13,11 +13,11 @@ const worklogSchema = mongoose.Schema({
     type: String,
     default: null,
   },
-  status:{
+  status: {
     type: String,
     enum: ["SHOW", "HIDE"],
-    default: "HIDE"
-  }
+    default: "HIDE",
+  },
 });
 
 module.exports = mongoose.model("worklog", worklogSchema);

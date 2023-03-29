@@ -132,7 +132,7 @@ const haveSide = (user, sender) => {
       side: "end",
       style: {
         borderRadius: "15px",
-        backgroundColor: "rgba(57, 192, 237,.2)",
+        backgroundColor: "white",
       },
     };
   }

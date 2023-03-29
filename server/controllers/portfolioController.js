@@ -29,7 +29,7 @@ const getPortfolio = async (req, res) => {
     if (portfolio.user_id !== req.body.user_id) {
       throw Error("Invalid User Id");
     }
-    
+
     res.status(200).json(portfolio);
   } catch (error) {
     res.status(400).json({ error: error.message });

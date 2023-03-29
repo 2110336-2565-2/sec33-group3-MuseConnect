@@ -75,7 +75,7 @@ const getEvent = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { name, date, location, organizer, musician, detail, status, wage } =
+  const { name, date, location, organizer, musician, detail, status, wage , transaction_state} =
     req.body;
   try {
     const event = await Event.create({
