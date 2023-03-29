@@ -216,7 +216,7 @@ export default function page() {
     let nextTransactionStatus = "NOTACK";
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
-      nextEventStatus = "ACCEPT";
+      //nextEventStatus = "ACCEPT";
     } else if (transactionStatus == "EVEACK") {
       nextTransactionStatus = "ORGPAID";
     } else if (transactionStatus == "ORGPAID") {
