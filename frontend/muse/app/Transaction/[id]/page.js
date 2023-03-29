@@ -8,20 +8,20 @@ export default function page() {
   const eventId = usePathname().split("/").at(-1);
 
   /* data */
-  const [mouthCount, setMouthCount] = useState(0);
   const [storedUser, setStoredUser] = useState(""); // user object from local
   const [user, setUser] = useState(""); // user object from database
   const [eventStatus, setEventStatus] = useState("");
   const [transactionStatus, setTransactionStatus] = useState("");
 
   /* UI */
+  const [mouthCount, setMouthCount] = useState(0);
   const [transactionStatusCount, setTransactionStatusCount] = useState(0);
   const [primaryButtonText, setPrimaryButtonText] = useState("");
-  const [isPrimaryButtonDisable, setIsPrimaryButtonDisable] = useState(true);
+  const [isPrimaryButtonEnable, setIsPrimaryButtoEnable] = useState(true);
   const [secondaryButtonText, setSecondaryButtonText] = useState("");
-  const [isSecondaryButtonDisable, setSecondaryButtonDisable] = useState(true);
-  const [isSecondaryButtonAvailable, setIsSecondaryButtonAvailable] = useState(true);
-
+  const [isSecondaryButtonEnable, setSecondaryButtonEnable] = useState(true);
+  const [isSecondaryButtonAvailable, setIsSecondaryButtonAvailable] =
+    useState(true);
 
   /*
     fetches the event details from the server and sets the event and transaction status
@@ -107,7 +107,7 @@ export default function page() {
           return response.json();
         })
         .then((data) => {
-          console.log("Change event transactionStatus to", data);
+          // console.log("Change event transactionStatus to", data);
         });
     }
   }, [transactionStatus]);
@@ -116,36 +116,57 @@ export default function page() {
     update transcation state progress bar
   */
   useEffect(() => {
-
     let barCountPercent = 0;
     if (transactionStatus == "NOTACK") {
-      barCountPercent = 0
+      barCountPercent = 0;
     } else if (transactionStatus == "EVEACK") {
-      barCountPercent = 25
+      barCountPercent = 25;
     } else if (transactionStatus == "ORGPAID") {
-      barCountPercent = 50
+      barCountPercent = 50;
     } else if (transactionStatus == "MUSACC") {
-      barCountPercent = 75
+      barCountPercent = 75;
     } else if (transactionStatus == "CANCEL") {
-      barCountPercent = 100
+      barCountPercent = 100;
     }
 
-    setTransactionStatusCount(barCountPercent)
-  }, [transactionStatus])
+    setTransactionStatusCount(barCountPercent);
+  }, [transactionStatus]);
 
   /* 
     update transaction button [text, available, disable]
     TODO implement logic for text, available, disable 
   */
- useEffect(() => {
+  useEffect(() => {
+    const setUiParameters = (pText, pEnable, sText, sEnable, sAvailable) => {
+      setPrimaryButtonText(pText);
+      setIsPrimaryButtoEnable(pEnable);
+      setSecondaryButtonText(sText);
+      setSecondaryButtonEnable(sEnable);
+      setIsSecondaryButtonAvailable(sAvailable);
+    };
 
- }, [transactionStatus])
+    if (transactionStatus == "NOTACK") {
+      setUiParameters("NOTACK", false, "NOTACK", true, true);
+    } else if (transactionStatus == "EVEACK") {
+      setUiParameters("EVEACK", true, "EVEACK", false, true);
+    } else if (transactionStatus == "ORGPAID") {
+      setUiParameters("ORGPAID", true, "ORGPAID", true, false);
+    } else if (transactionStatus == "MUSACC") {
+      setUiParameters("MUSACC", true, "MUSACC", true, true);
+    } else if (transactionStatus == "CANCEL") {
+      setUiParameters("CANCEL", true, "CANCEL", true, true);
+    } else if (transactionStatus == "MUSREF") {
+      setUiParameters("MUSREF", true, "MUSREF", true, true);
+    } else if (transactionStatus == "TRNFIN") {
+      setUiParameters("TRNFIN", true, "TRNFIN", true, true);
+    }
+  }, [transactionStatus]);
 
   const transactionStateHandler = () => {
     // console.log({ eventStatus, transactionStatus });
     // TODO implement next state transaction status
     // if (present_state == 'NOTACK'){
-      
+
     // } else if(present_state == 'EVEACK'){
 
     // } else if(present_state == 'ORGPAID'){
@@ -185,11 +206,11 @@ export default function page() {
       nextTransactionStatus = "TRNFIN";
     }
     setTransactionStatus(nextTransactionStatus);
-    setEventStatus(eventStatus)
+    setEventStatus(eventStatus);
   };
 
   const secondaryTransactionStateHandler = () => {
-    let nextTransactionStatus;
+    let nextTransactionStatus = "NOTACK";
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
     } else if (transactionStatus == "EVEACK") {
@@ -202,13 +223,31 @@ export default function page() {
       nextTransactionStatus = "NOTACK";
     }
     setTransactionStatus(nextTransactionStatus);
-    setEventStatus(eventStatus)
-  }
+    setEventStatus(eventStatus);
+  };
+
+  /* development only */
+  const testTransactionStateHandler = () => {
+    let nextTransactionStatus = "NOTACK";
+    if (transactionStatus == "NOTACK") {
+      nextTransactionStatus = "EVEACK";
+    } else if (transactionStatus == "EVEACK") {
+      nextTransactionStatus = "ORGPAID";
+    } else if (transactionStatus == "ORGPAID") {
+      nextTransactionStatus = "MUSACC";
+    } else if (transactionStatus == "MUSACC") {
+      nextTransactionStatus = "CANCEL";
+    } else if (transactionStatus == "CANCEL") {
+      nextTransactionStatus = "NOTACK";
+    }
+    setTransactionStatus(nextTransactionStatus);
+    setEventStatus(eventStatus);
+  };
 
   /*
     use in development only
-    user: 63e8d9bf491bf69c080bbeeb63e8d9bf491bf69c080bbeeb
-    eventId: 642301c6628392c8dd8ee4ac
+    user: 6424116116f1a5ce13e30f22
+    eventId: 64242b339ad3da06ec2312b3
   */
   // TODO implement logic to disable and set value in the button
   return (
@@ -236,18 +275,37 @@ export default function page() {
           type="button"
           className="mx-3 mb-4 btn btn-primary"
           onClick={() => transactionStateHandler()}
+          disabled={!isPrimaryButtonEnable}
         >
-          TransactionButton
+          TransactionButton: {primaryButtonText} {isPrimaryButtonEnable}
         </button>
+        {isSecondaryButtonAvailable && (
+          <button
+            type="button"
+            className="mx-3 mb-4 btn btn-danger"
+            onClick={() => secondaryTransactionStateHandler()}
+            disabled={!isSecondaryButtonEnable}
+          >
+            SecondaryTransactionButton: {secondaryButtonText}
+          </button>
+        )}
+        <br />
         <button
           type="button"
-          className="mx-3 mb-4 btn btn-primary"
-          onClick={() => secondaryTransactionStateHandler()}
+          className="mx-3 mb-4 btn btn-info"
+          onClick={() => testTransactionStateHandler()}
         >
-          SecondaryTransactionButton
+          TestTransactionButton
         </button>
         <div className="progress">
-          <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${transactionStatusCount}%` }} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          <div
+            className="progress-bar bg-danger"
+            role="progressbar"
+            style={{ width: `${transactionStatusCount}%` }}
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
         </div>
       </Container>
     </div>
