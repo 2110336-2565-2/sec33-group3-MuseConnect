@@ -22,6 +22,7 @@ export default function page() {
   const [isSecondaryButtonDisable, setSecondaryButtonDisable] = useState(true);
   const [isSecondaryButtonAvailable, setIsSecondaryButtonAvailable] = useState(true);
 
+
   /*
     fetches the event details from the server and sets the event and transaction status
   */
@@ -142,19 +143,46 @@ export default function page() {
 
   const transactionStateHandler = () => {
     // console.log({ eventStatus, transactionStatus });
-
     // TODO implement next state transaction status
+    // if (present_state == 'NOTACK'){
+      
+    // } else if(present_state == 'EVEACK'){
+
+    // } else if(present_state == 'ORGPAID'){
+
+    // } else if(present_state == 'MUSACC'){
+
+    // } else if(present_state == 'CANCEL'){
+
+    // } else if(present_state == 'MUSREF'){
+
+    // } else if(present_state == 'TRNFIN'){
+
+    // } else {
+    //   return false
+    // }
     let nextTransactionStatus;
+    // Only route cancel first
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
     } else if (transactionStatus == "EVEACK") {
+      // if(M/O cancel){
+      //   nextTransactionStatus = "TRNFIN";
+      // } else {}
       nextTransactionStatus = "ORGPAID";
     } else if (transactionStatus == "ORGPAID") {
       nextTransactionStatus = "MUSACC";
     } else if (transactionStatus == "MUSACC") {
+      // if (TILL DATE) {
+      //   nextTransactionStatus = "TRNFIN";
+      // } else {}
       nextTransactionStatus = "CANCEL";
     } else if (transactionStatus == "CANCEL") {
-      nextTransactionStatus = "NOTACK";
+      nextTransactionStatus = "MUSREF";
+    } else if (transactionStatus == "MUSREF") {
+      nextTransactionStatus = "TRNFIN";
+    } else if (transactionStatus == "TRNFIN") {
+      nextTransactionStatus = "TRNFIN";
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(eventStatus)
