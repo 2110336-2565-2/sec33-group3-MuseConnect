@@ -138,66 +138,47 @@ export default function page() {
 
     if (user.role == "ORGANIZER") {
       if (transactionStatus == "NOTACK") {
-        setUiParameters("NOTACK", false, "NOTACK", true, true);
+        setUiParameters("NOTACK", false, "NOTACK", false, false);
       } else if (transactionStatus == "EVEACK") {
-        setUiParameters("EVEACK", true, "EVEACK", false, true);
+        setUiParameters("EVEACK", true, "EVEACK", true, true);
       } else if (transactionStatus == "ORGPAID") {
-        setUiParameters("ORGPAID", true, "ORGPAID", true, false);
+        setUiParameters("ORGPAID", false, "ORGPAID", false, false);
       } else if (transactionStatus == "MUSACC") {
-        setUiParameters("MUSACC", true, "MUSACC", true, true);
+        setUiParameters("MUSACC", true, "MUSACC", false, false);
       } else if (transactionStatus == "CANCEL") {
-        setUiParameters("CANCEL", true, "CANCEL", true, true);
+        setUiParameters("CANCEL", false, "CANCEL", false, false);
       } else if (transactionStatus == "MUSREF") {
-        setUiParameters("MUSREF", true, "MUSREF", true, true);
+        setUiParameters("MUSREF", true, "MUSREF", false, false);
       } else if (transactionStatus == "TRNFIN") {
-        setUiParameters("TRNFIN", true, "TRNFIN", true, true);
+        setUiParameters("TRNFIN", false, "TRNFIN", false, false);
       }
     } else if (user.role == "MUSICIAN") {
       if (transactionStatus == "NOTACK")
-        setUiParameters("NOTACK", false, "NOTACK", true, true);
+        setUiParameters("NOTACK", true, "NOTACK", false, false);
       else if (transactionStatus == "EVEACK") {
-        setUiParameters("EVEACK", true, "EVEACK", false, true);
+        setUiParameters("EVEACK", false, "EVEACK", true, true);
       } else if (transactionStatus == "ORGPAID") {
-        setUiParameters("ORGPAID", true, "ORGPAID", true, false);
+        setUiParameters("ORGPAID", true, "ORGPAID", false, false);
       } else if (transactionStatus == "MUSACC") {
-        setUiParameters("MUSACC", true, "MUSACC", true, true);
+        setUiParameters("MUSACC", true, "MUSACC", false, false);
       } else if (transactionStatus == "CANCEL") {
-        setUiParameters("CANCEL", true, "CANCEL", true, true);
+        setUiParameters("CANCEL", true, "CANCEL", false, false);
       } else if (transactionStatus == "MUSREF") {
-        setUiParameters("MUSREF", true, "MUSREF", true, true);
+        setUiParameters("MUSREF", false, "MUSREF", false, false);
       } else if (transactionStatus == "TRNFIN") {
-        setUiParameters("TRNFIN", true, "TRNFIN", true, true);
+        setUiParameters("TRNFIN", false, "TRNFIN", false, false);
       }
     }
   }, [transactionStatus]);
 
   /* TODO implement next state transaction status */
   const transactionStateHandler = () => {
-    // if (present_state == 'NOTACK'){
-
-    // } else if(present_state == 'EVEACK'){
-
-    // } else if(present_state == 'ORGPAID'){
-
-    // } else if(present_state == 'MUSACC'){
-
-    // } else if(present_state == 'CANCEL'){
-
-    // } else if(present_state == 'MUSREF'){
-
-    // } else if(present_state == 'TRNFIN'){
-
-    // } else {
-    //   return false
-    // }
     let nextTransactionStatus = transactionStatus;
+    let nextEventStatus = eventStatus
     // Only route cancel first
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
     } else if (transactionStatus == "EVEACK") {
-      // if(M/O cancel){
-      //   nextTransactionStatus = "TRNFIN";
-      // } else {}
       nextTransactionStatus = "ORGPAID";
     } else if (transactionStatus == "ORGPAID") {
       nextTransactionStatus = "MUSACC";
@@ -206,6 +187,7 @@ export default function page() {
       //   nextTransactionStatus = "TRNFIN";
       // } else {}
       nextTransactionStatus = "CANCEL";
+      nextEventStatus = "CANCELLED"
     } else if (transactionStatus == "CANCEL") {
       nextTransactionStatus = "MUSREF";
     } else if (transactionStatus == "MUSREF") {
@@ -214,43 +196,44 @@ export default function page() {
       nextTransactionStatus = "TRNFIN";
     }
     setTransactionStatus(nextTransactionStatus);
-    setEventStatus(eventStatus);
+    setEventStatus(nextEventStatus);
   };
 
-  /* TODO implement next state transaction status */
   const secondaryTransactionStateHandler = () => {
     let nextTransactionStatus = transactionStatus;
-    if (transactionStatus == "NOTACK") {
-      nextTransactionStatus = "EVEACK";
-    } else if (transactionStatus == "EVEACK") {
-      nextTransactionStatus = "ORGPAID";
-    } else if (transactionStatus == "ORGPAID") {
-      nextTransactionStatus = "MUSACC";
-    } else if (transactionStatus == "MUSACC") {
-      nextTransactionStatus = "CANCEL";
-    } else if (transactionStatus == "CANCEL") {
-      nextTransactionStatus = "NOTACK";
-    }
+    let nextEventStatus = eventStatus
+    if (transactionStatus == "EVEACK") {
+      nextTransactionStatus = "TRNFIN";
+      nextEventStatus = "CANCELLED"
+    } 
     setTransactionStatus(nextTransactionStatus);
-    setEventStatus(eventStatus);
+    setEventStatus(nextEventStatus);
   };
 
   /* development only */
   const testTransactionStateHandler = () => {
+    let nextEventStatus = eventStatus
     let nextTransactionStatus = "NOTACK";
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
+      nextEventStatus = "ACCEPT";
     } else if (transactionStatus == "EVEACK") {
       nextTransactionStatus = "ORGPAID";
     } else if (transactionStatus == "ORGPAID") {
       nextTransactionStatus = "MUSACC";
     } else if (transactionStatus == "MUSACC") {
       nextTransactionStatus = "CANCEL";
+      nextEventStatus = "CANCELLED";
     } else if (transactionStatus == "CANCEL") {
+      nextTransactionStatus = "MUSREF";
+    } else if (transactionStatus == "MUSREF") {
+      nextTransactionStatus = "TRNFIN";
+    } else if (transactionStatus == "TRNFIN") {
       nextTransactionStatus = "NOTACK";
+      nextEventStatus = "ACCEPT";
     }
     setTransactionStatus(nextTransactionStatus);
-    setEventStatus(eventStatus);
+    setEventStatus(nextEventStatus);
   };
 
   /*
