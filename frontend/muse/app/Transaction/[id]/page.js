@@ -152,14 +152,14 @@ export default function page() {
     } else if (transactionStatus == "EVEACK") {
       // if(M/O cancel){
       //   nextTransactionStatus = "TRNFIN";
-      // }
+      // } else {}
       nextTransactionStatus = "ORGPAID";
     } else if (transactionStatus == "ORGPAID") {
       nextTransactionStatus = "MUSACC";
     } else if (transactionStatus == "MUSACC") {
       // if (TILL DATE) {
       //   nextTransactionStatus = "TRNFIN";
-      // }
+      // } else {}
       nextTransactionStatus = "CANCEL";
     } else if (transactionStatus == "CANCEL") {
       nextTransactionStatus = "MUSREF";
