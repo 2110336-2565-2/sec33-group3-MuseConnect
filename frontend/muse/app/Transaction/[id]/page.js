@@ -16,6 +16,11 @@ export default function page() {
 
   /* UI */
   const [transactionStatusCount, setTransactionStatusCount] = useState(0);
+  const [primaryButtonText, setPrimaryButtonText] = useState("");
+  const [isPrimaryButtonDisable, setIsPrimaryButtonDisable] = useState(true);
+  const [secondaryButtonText, setSecondaryButtonText] = useState("");
+  const [isSecondaryButtonDisable, setSecondaryButtonDisable] = useState(true);
+  const [isSecondaryButtonAvailable, setIsSecondaryButtonAvailable] = useState(true);
 
   /*
     fetches the event details from the server and sets the event and transaction status
@@ -127,6 +132,14 @@ export default function page() {
     setTransactionStatusCount(barCountPercent)
   }, [transactionStatus])
 
+  /* 
+    update transaction button [text, available, disable]
+    TODO implement logic for text, available, disable 
+  */
+ useEffect(() => {
+
+ }, [transactionStatus])
+
   const transactionStateHandler = () => {
     // console.log({ eventStatus, transactionStatus });
 
@@ -163,7 +176,7 @@ export default function page() {
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(eventStatus)
   }
-  
+
   /*
     use in development only
     user: 63e8d9bf491bf69c080bbeeb63e8d9bf491bf69c080bbeeb
