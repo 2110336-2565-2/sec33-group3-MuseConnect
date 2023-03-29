@@ -7,11 +7,14 @@ import React, { useState, useEffect } from "react";
 export default function page() {
   const eventId = usePathname().split("/").at(-1);
 
+  /* data */
   const [mouthCount, setMouthCount] = useState(0);
   const [storedUser, setStoredUser] = useState(""); // user object from local
   const [user, setUser] = useState(""); // user object from database
   const [eventStatus, setEventStatus] = useState("");
   const [transactionStatus, setTransactionStatus] = useState("");
+
+  /* UI */
   const [transactionStatusCount, setTransactionStatusCount] = useState(0);
 
   /*
@@ -141,8 +144,26 @@ export default function page() {
       nextTransactionStatus = "NOTACK";
     }
     setTransactionStatus(nextTransactionStatus);
+    setEventStatus(eventStatus)
   };
 
+  const secondaryTransactionStateHandler = () => {
+    let nextTransactionStatus;
+    if (transactionStatus == "NOTACK") {
+      nextTransactionStatus = "EVEACK";
+    } else if (transactionStatus == "EVEACK") {
+      nextTransactionStatus = "ORGPAID";
+    } else if (transactionStatus == "ORGPAID") {
+      nextTransactionStatus = "MUSACC";
+    } else if (transactionStatus == "MUSACC") {
+      nextTransactionStatus = "CANCEL";
+    } else if (transactionStatus == "CANCEL") {
+      nextTransactionStatus = "NOTACK";
+    }
+    setTransactionStatus(nextTransactionStatus);
+    setEventStatus(eventStatus)
+  }
+  
   /*
     use in development only
     user: 63e8d9bf491bf69c080bbeeb63e8d9bf491bf69c080bbeeb
@@ -176,6 +197,13 @@ export default function page() {
           onClick={() => transactionStateHandler()}
         >
           TransactionButton
+        </button>
+        <button
+          type="button"
+          className="mx-3 mb-4 btn btn-primary"
+          onClick={() => secondaryTransactionStateHandler()}
+        >
+          SecondaryTransactionButton
         </button>
         <div className="progress">
           <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${transactionStatusCount}%` }} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
