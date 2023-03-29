@@ -10,6 +10,7 @@ export default function page() {
   /* data */
   const [storedUser, setStoredUser] = useState(""); // user object from local
   const [user, setUser] = useState(""); // user object from database
+  const [eventDate, setEventDate] = useState("")
   const [eventStatus, setEventStatus] = useState("");
   const [transactionStatus, setTransactionStatus] = useState("");
 
@@ -70,6 +71,7 @@ export default function page() {
           })
           .then((data) => {
             setEventStatus(data.status);
+            setEventDate(data.date);
             setTransactionStatus(data.transaction_state);
           })
           .catch((err) => {
@@ -181,11 +183,15 @@ export default function page() {
     } else if (transactionStatus == "EVEACK") {
       nextTransactionStatus = "ORGPAID";
     } else if (transactionStatus == "ORGPAID") {
-      nextTransactionStatus = "MUSACC";
+      const now_date = new Date();
+      const event_date = new Date(eventDate);
+      const diff = (event_date - now_date) / (1000 * 60 * 60 * 24)
+      if(diff > 0 && diff < 3){
+        nextTransactionStatus = "TRNFIN"
+      } else{
+        nextTransactionStatus = "MUSACC";
+      }
     } else if (transactionStatus == "MUSACC") {
-      // if (TILL DATE) {
-      //   nextTransactionStatus = "TRNFIN";
-      // } else {}
       nextTransactionStatus = "CANCEL";
       nextEventStatus = "CANCELLED"
     } else if (transactionStatus == "CANCEL") {
