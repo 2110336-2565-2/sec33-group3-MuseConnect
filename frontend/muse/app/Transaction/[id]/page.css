@@ -36,7 +36,7 @@
 }
 
 .progress {
-  background-color: var(--primary-color);
+  background-color: #0066ff;
   width: 0%;
   transition: 0.3s;
 }
