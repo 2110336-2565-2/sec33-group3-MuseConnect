@@ -114,15 +114,19 @@ export default function page() {
     if (transactionStatus == "NOTACK") {
       barCountPercent = 0;
     } else if (transactionStatus == "EVEACK") {
-      barCountPercent = 25;
+      barCountPercent = 20;
     } else if (transactionStatus == "ORGPAID") {
-      barCountPercent = 50;
+      barCountPercent = 40;
     } else if (transactionStatus == "MUSACC") {
-      barCountPercent = 75;
-    } else if (transactionStatus == "CANCEL") {
+      barCountPercent = 60;
+    } else if (transactionStatus == "TRNFIN") {
       barCountPercent = 100;
-    }
-
+    } else if (transactionStatus == "CANCEL") {
+      barCountPercent = 80;
+    } else if (transactionStatus == "MUSREF") {
+      barCountPercent = 90;
+    } 
+ 
     setTransactionStatusCount(barCountPercent);
   }, [transactionStatus]);
 
