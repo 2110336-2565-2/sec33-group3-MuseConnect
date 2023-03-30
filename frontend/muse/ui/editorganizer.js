@@ -66,14 +66,6 @@ export default function EditOrganizerForm() {
             }
         }
         console.log(value)
-        // if(user.preference === undefined||null){
-        //     value["preference"] = value.preference;
-        // }
-        // else{
-        //     if(value.preference===[]) value["preference"] = user.preference;
-        //     else value["preference"] = value.preference;
-        // }
-        //------------------------------
         if(user.location === undefined||null){
             value["location"] = value.location;
         }

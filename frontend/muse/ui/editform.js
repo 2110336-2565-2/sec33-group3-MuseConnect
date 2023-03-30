@@ -58,45 +58,63 @@ export default function EditForm() {
     };
 
     const onSubmit = async (value, actions) => {
-        //{profile_picture: base64,...values} 
-        // console.log(value.first_name);
-        console.log(user);
-        if(typeof user.preference === 'undefined'){
-            value["specialization"] = value.specialization;
+        
+        if (user.specialization === undefined) value["specialization"] = specialization;
+        else{
+            if (specialization.length > 0){
+                value["specialization"] = specialization;
+            }
         }
-        if(typeof user.location === 'undefined'){
+        if(user.location === undefined||null){
             value["location"] = value.location;
         }
-        if(typeof user.description === 'undefined'){
+        else{
+            if(value.location==='') value["location"] = user.location;
+            else value["location"] = value.location;
+        }
+        //------------------------------
+        if(user.link === undefined||null){
+            value["link"] = value.link;
+        }
+        else{
+            if(value.link==='') value["link"] = user.link;
+            else value["link"] = value.link;
+        }
+        //------------------------------
+        if(user.price_min === undefined || null){
+            value["price_min"] = value.price_min;
+        }
+        else{
+            if(value.price_min==='') value["price_min"] = user.price_min;
+            else value["price_min"] = value.price_min;
+        }
+        //------------------------------
+        if(user.price_max === undefined || null){
+            value["price_max"] = value.price_max;
+        }
+        else{
+            if(value.price_max==='') value["price_max"] = user.price_max;
+            else value["price_max"] = value.price_max;
+        }
+        //------------------------------
+        if(user.description === undefined||null){
             value["description"] = value.description;
         }
-        if(typeof user.wage === 'undefined'){
-            value["wage"] = value.wage;
+        else{
+            if(value.description==='') value["description"] = user.description;
+            else value["description"] = value.description;
         }
-        if (user.specialization.length>0 && specialization.length==0){ //have in database but update nothing
-            value["specialization"] = user.specialization;
-        }
-        // if (specialization.length > 0){
-        //     value["specialization"] = specialization;
-        // }
-        if (user.location.length>0 && value.location.length==0){ //have in database but update nothing
-            value["location"] = user.location;
-        }
-        if (user.description.length>0 && value.description.length==0){ //have in database but update nothing
-            value["description"] = user.description;
-        }
-        // if (user.link.length>0 && value.link.length==0){ //have in database but update nothing
-        //     value["link"] = user.link;
-        // }
-        if (value.first_name.length==0){
+        //---------------------------------------
+        if (value.first_name===''){
             value["first_name"] = user.first_name;
         }
-        if (value.last_name.length==0){
+        if (value.last_name===''){
             value["last_name"] = user.last_name;
         }
-        if (value.phone_number.length==0){
+        if (value.phone_number===''){
             value["phone_number"] = user.phone_number;
         }
+        //console.log(value)
         
         const user_loc  = localStorage.getItem("user");
         const userToken = await JSON.parse(user_loc).token;
@@ -147,7 +165,7 @@ export default function EditForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', profile_picture:''}}
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'',link:'', price_min:'', price_max:'', profile_picture:''}}
         onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
 
 
@@ -207,16 +225,16 @@ export default function EditForm() {
 
 
                 {/* Link */}
-                {/* <div className="field">
+                <div className="field">
                     <p style={{color: "White"}}>Link</p>
-                    <input className="form-control" type="text" 
+                    <input className="form-control" type="url" 
                     placeholder={user.link}
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
                     value={props.values.link}
                     name="link">    
                     </input>
-                </div> */}
+                </div>
 
 
                 {/* Description */}
@@ -264,12 +282,6 @@ export default function EditForm() {
                     value='Indie'
                     onChange={e => handleChange(e)} />
                     <span style={{color:"white",marginRight:"15px"}}>Indie</span>
-
-                    <input class="form-check-input" style={{marginRight:"5px"}}
-                    type="checkbox"
-                    value='Alternative'
-                    onChange={e => handleChange(e)} />
-                    <span style={{color:"white",marginRight:"15px"}}>Alternative</span>
                 </div>
 
 
@@ -277,6 +289,32 @@ export default function EditForm() {
                     <p style={{color: "White"}}>Profile Picture</p>
                     {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
                     <input class="form-control" type="file" id="formFile" className="picture">
+                    </input>
+                </div>
+
+
+                {/* Min Price */}
+                <div className="field">
+                    <p style={{color: "White"}}>Minimum Price</p>
+                    <input className="form-control" type="number" min="0"
+                    placeholder={"Your Minimum Price"}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.price_min}
+                    name="price_min">    
+                    </input>
+                </div>
+
+
+                {/* Max Price */}
+                <div className="field">
+                    <p style={{color: "White"}}>Maximum Price</p>
+                    <input className="form-control" type="number" min="0"
+                    placeholder={"Your Maximum Price"}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.price_max}
+                    name="price_max">    
                     </input>
                 </div>
 

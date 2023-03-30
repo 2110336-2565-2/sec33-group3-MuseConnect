@@ -7,7 +7,8 @@ import Link from 'next/link'
 import UserPhoto from '../../../ui/UserPhoto';
 import Alert from 'react-bootstrap/Alert';
 // import io from "socket.io-client";
-import { Chip } from 'react-awesome-chip'
+//import { Chip } from 'react-awesome-chip'
+import Chip from '@mui/material/Chip';
 import styles from './page.css'
 // const socket = io.connect("http://localhost:4000");
 import { Montserrat } from '@next/font/google'
@@ -19,6 +20,14 @@ function split(eventarray) {
     return [eventarray.slice(0, 5), eventarray.slice(5)]
   }
   return [eventarray];
+}
+
+function arr(user){
+  if(user.role==='ORGANIZER') {
+    return user.preference;
+  }else{
+    return user.specialization;
+  }
 }
 
 export default function profile() {
@@ -78,7 +87,10 @@ export default function profile() {
     console.log("event: ",userevent)
   },[userevent])
 
+  
+
   return (
+    
     <div className={montserrat.className}>
     <Container className="justify-content-center align-items-center">
       <div className="mt-5">
@@ -88,7 +100,7 @@ export default function profile() {
               <UserPhoto/>
             </Row>
             <Row style={{marginRight:"0px"}}>
-              <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark"
+              <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="light"
               style={{width:"200px",marginLeft:"24px",marginTop:"20px"}}>
                 <a href="/Edit">Edit profile</a>
               </button>
@@ -98,19 +110,20 @@ export default function profile() {
             <h2 className={montserrat.className} style={{marginBottom:"10px"}}>Profile</h2>
             <h1 className={montserrat.className}  style={{fontWeight:"bold"}}>{user.first_name} {user.last_name}</h1>
             <p className={montserrat.className}>{user.location}</p>
-            <p className={montserrat.className}>{user.phone_number}</p>
-            <Chip
+            <p className={montserrat.className} style={{marginBottom:"5px"}}>{user.phone_number}</p>
+            <h5 className={montserrat.className}><span class="badge rounded-pill text-bg-success" style={{fontWeight:"normal"}}>{user.role}</span></h5>
+            {/* <Chip label={user.role} color="success" /> */}
+            {/* <Chip
               title={user.role}
               color='#65D36E'
               type='filledOutlined'
-            />
-            <div style={{marginBottom:"15px"}}></div>
-            <Stack direction='horizontal' gap={1}>
-              {(user.preference)?.map((pref) => (
-                  <Chip
-                  title={pref}
-                  color='#FFEA20'
-                  />
+            /> */}
+            
+            <div style={{marginBottom:"15px"}} className={montserrat.className}></div>
+            <Stack className={montserrat.className} direction='horizontal' gap={1}>
+            
+              {(arr(user))?.map((pref) => (
+                  <h5 className={montserrat.className}><span class="badge rounded-pill text-bg-light" style={{fontWeight:"normal"}}>{pref}</span></h5>
               ))}
             </Stack>
           </Col>
@@ -122,7 +135,7 @@ export default function profile() {
             <div className='description'>{user.description}</div>
           ):(<></>)}
         </Row>
-        <div style={{marginLeft:"20px",marginBottom:"0px"}}><h3 className={montserrat.className} >Past Events</h3></div>
+        <div style={{marginLeft:"31px",marginBottom:"0px"}}><h3 className={montserrat.className} >Past Events</h3></div>
         <Row style={{marginTop:"5px",marginLeft:"20px",marginRight:"20px",marginBottom:"20px"}}>
         
         {console.log(splitevent)}
@@ -132,13 +145,15 @@ export default function profile() {
             {console.log(userevent)} 
             {(srow)?.map((e) => (
                       <div class="card" style={{maxWidth:"18rem",marginTop:"0px"}}>
-                        <div class="card-header">{e.name}</div>
+                        <div class="card-header">Event</div>
                         <div class="card-body text-success">
-                        <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>Success card title</h5>
-                        <p class="card-text" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>{e.name}</h5>
+                        <p class="card-text" style={{color:"white",marginBottom:"0px"}}>Location: {e.location}</p>
+                        <p class="card-text" style={{color:"white",marginBottom:"0px"}}>Detail: {e.detail}</p>
+                        <p class="card-text" style={{color:"white",marginBottom:"0px"}}>Location: {e.detail}</p>
+                        <p class="card-text" style={{color:"white",marginBottom:"0px"}}>Status: {e.status}</p>
                       </div>
                     </div>
-                    
                   ))}
             </Stack>
           ))}
