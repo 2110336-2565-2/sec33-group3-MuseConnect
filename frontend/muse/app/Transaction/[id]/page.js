@@ -207,6 +207,8 @@ export default function page() {
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
+    updateProgressbar(nextTransactionStatus);
+
   };
 
   const secondaryTransactionStateHandler = () => {
@@ -218,6 +220,8 @@ export default function page() {
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
+    updateProgressbar(nextTransactionStatus);
+
   };
 
   /* development only */
@@ -243,6 +247,15 @@ export default function page() {
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
+    updateProgressbar(nextTransactionStatus);
+  };
+  //EVEACK
+  const div_state_EVEACK = () => {
+    if(transactionStatus == "EVEACK"){
+      return <div class="progress-step progress-step-active" data-title="EVEACK"></div>
+    } else {
+      return <div class="progress-step" data-title="EVEACK"></div>
+    }
   };
 
   /*
@@ -261,6 +274,64 @@ export default function page() {
     user: 6424116116f1a5ce13e30f22
     eventId: 64242b339ad3da06ec2312b3
   */
+    const prevBtns = document.querySelectorAll(".btn-prev");
+    const nextBtns = document.querySelectorAll(".btn-next");
+    const progress = document.getElementById("progress");
+    const formSteps = document.querySelectorAll(".form-step");
+    const progressSteps = document.querySelectorAll(".progress-step");
+    
+    let formStepsNum = 0;
+    
+    // nextBtns.forEach((btn) => {
+    //   btn.addEventListener("click", () => {
+    //     formStepsNum++;
+    //     updateFormSteps();
+    //     updateProgressbar();
+    //   });
+    // });
+    
+    // prevBtns.forEach((btn) => {
+    //   btn.addEventListener("click", () => {
+    //     formStepsNum--;
+    //     updateFormSteps();
+    //     updateProgressbar();
+    //   });
+    // });
+    
+    // function updateFormSteps() {
+    //   formSteps.forEach((formStep) => {
+    //     formStep.classList.contains("form-step-active") &&
+    //       formStep.classList.remove("form-step-active");
+    //   });
+    
+    //   formSteps[formStepsNum].classList.add("form-step-active");
+    // }
+    
+    function updateProgressbar(nextTransactionStatus) {
+      const state_list = ["NOTACK","EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
+      let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
+        //console.log("idx = " + idx);
+        // console.log(state_list.indexOf("TRNFIN"));
+        // console.log("state_idx = " + state_idx);
+        // console.log(nextTransactionStatus);
+        // console.log("...................");
+      progressSteps.forEach((progressStep, idx) => {
+
+        //if (state_idx == 1) {
+          //progressStep.classList.remove("progress-step-active");}
+        if (idx < state_idx) {
+          progressStep.classList.add("progress-step-active");
+        } else {
+          progressStep.classList.remove("progress-step-active");
+        }
+      });
+    
+      const progressActive = document.querySelectorAll(".progress-step-active");
+    
+      progress.style.width =
+        ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+    }
+    
   // TODO implement logic to disable and set value in the button
   return (
     <div>
@@ -319,6 +390,26 @@ export default function page() {
             aria-valuemax="100"
           ></div>
         </div>
+
+        <div className="container">
+        <div class="progressbar">
+        <div class="progress" id="progress"></div>
+        
+        <div
+          // class="progress-step progress-step-active"
+          class="progress-step progress-step-active"
+          data-title="NOTACK"
+        ></div>
+        <div class="progress-step" data-title="EVEACK"></div>
+        <div class="progress-step" data-title="ORGPAID"></div>
+        <div class="progress-step" data-title="MUSACC"></div>
+        <div class="progress-step" data-title="CANCEL"></div>
+        <div class="progress-step" data-title="MUSREF"></div>
+        <div class="progress-step" data-title="TRNFIN"></div>
+      </div>
+      </div>
+
+
       </Container>
     </div>
   );
