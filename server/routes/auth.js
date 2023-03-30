@@ -1,10 +1,7 @@
 const router = require("express").Router();
 
 // controller functions
-const {
-  signupUser,
-  loginUser,
-} = require("../controllers/userController");
+const { signupUser, loginUser } = require("../controllers/userController");
 
 /**
 * @swagger
@@ -64,4 +61,4 @@ router.post("/login", loginUser);
 // signup route
 router.post("/signup", signupUser);
 
-module.exports = router
+module.exports = router;

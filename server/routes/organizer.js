@@ -1,11 +1,11 @@
-const router = require('express').Router()
+const router = require("express").Router();
 
 // controller functions
 const {
-    getOrganizers,
-    getOrganizer,
-} = require('../controllers/organizerController')
-const requireAuth = require('../middleware/requireAuth')
+  getOrganizers,
+  getOrganizer,
+} = require("../controllers/organizerController");
+const requireAuth = require("../middleware/requireAuth");
 
 /**
 * @swagger
@@ -60,9 +60,9 @@ const requireAuth = require('../middleware/requireAuth')
 router.use(requireAuth)
 
 // get organizers
-router.get('/', getOrganizers)
+router.get("/", getOrganizers);
 
 // get an organizer
-router.get('/:id', getOrganizer)
+router.get("/:id", getOrganizer);
 
-module.exports = router
+module.exports = router;

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const User = require("../models/userModel")
+const User = require("../models/userModel");
 
 // get organizers
 const getOrganizers = async (req, res) => {
@@ -31,7 +31,7 @@ const getOrganizer = async (req, res) => {
     if (organizer.role !== "ORGANIZER") {
       throw Error("Not organizer account");
     }
-    
+
     res.status(200).json(organizer);
   } catch (error) {
     res.status(400).json({ error: error.message });

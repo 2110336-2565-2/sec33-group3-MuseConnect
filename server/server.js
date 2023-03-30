@@ -1,7 +1,7 @@
 require("dotenv").config();
 
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -17,31 +17,29 @@ const organizerRoutes = require("./routes/organizer");
 const chatRoutes = require("./routes/chat");
 const messageRoutes = require("./routes/message");
 const eventRoutes = require("./routes/event");
-const userModel = require("./models/userModel");
- 
 
 // express app
 const app = express();
 
-const swaggerOptions={
-  swaggerDefinition:{
-    openapi: '3.0.0',
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
     info: {
-      title: 'Library API',
-      version: '1.0.0',
-      description: 'A simple Express MuseConnect API'
+      title: "Library API",
+      version: "1.0.0",
+      description: "A simple Express MuseConnect API",
+    },
+    servers: [
+      {
+        url: "http://localhost:4000/api",
+      },
+    ],
   },
-  servers:[
-    {
-      url: 'http://localhost:4000/api'
-    }
-  ],
-},
-apis:['./routes/*.js'],
+  apis: ["./routes/*.js"],
 };
 
-const swaggerDocs=swaggerJsDoc(swaggerOptions);
-app.use('/api-docs',swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // middleware
 app.use(cors());
@@ -74,7 +72,6 @@ mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-
     // listen for requests
     const server = app.listen(PORT, () => {
       console.log("connected to db & listening on port", PORT);
@@ -89,7 +86,6 @@ mongoose
     io.on("connection", (socket) => {
       // connection check
       console.log(`User Connected: ${socket.id}`);
-
 
       socket.on("send-message", (userData, room) => {
         if (room === "") {
@@ -115,4 +111,3 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-

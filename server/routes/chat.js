@@ -1,12 +1,12 @@
 const router = require("express").Router();
 
 // controller functions
-const { 
+const {
   fetchChats,
   accessChat,
   getChat,
   deleteChat,
-  updateChat
+  updateChat,
   // createChat
 } = require("../controllers/chatConntroller");
 
@@ -177,16 +177,15 @@ router.use(requireAuth)
 router.post("/", accessChat);
 
 // fetch chats
-router.get("/", fetchChats)
+router.get("/", fetchChats);
 
 // get chat
-router.get("/:id", getChat)
+router.get("/:id", getChat);
 
 // delete chat
 router.delete("/:id", deleteChat);
 
-// // put chat
+// update chat
 router.put("/:id", updateChat);
 
-
-module.exports = router
+module.exports = router;

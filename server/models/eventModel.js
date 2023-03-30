@@ -1,17 +1,17 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const eventSchema = mongoose.Schema({
-  name:{
+  name: {
     type: String,
-    require: true
+    require: true,
   },
   date: {
     type: Date,
-    required: true
+    required: true,
   },
   location: {
     type: String,
-    required: true
+    required: true,
   },
   organizer: {
     type: mongoose.ObjectId,
@@ -24,17 +24,22 @@ const eventSchema = mongoose.Schema({
     require: true,
   },
   detail: {
-    type: String
+    type: String,
   },
   status: {
     type: String,
     enum: ["ACCEPT", "DECLINE", "PENDING", "CANCELLED"],
-    default: "PENDING"
+    default: "PENDING",
   },
   wage: {
     type: Number,
     min: 0,
+  }, 
+  transaction_state:{
+    type: String,
+    enum: ['NOTACK','EVEACK', 'ORGPAID', 'MUSACC', 'MUSCAN', 'ORGACC', 'ORGCAN'],
+    default : 'NOTACK'
   }
 })
 
-module.exports = mongoose.model('Event', eventSchema)
+module.exports = mongoose.model("Event", eventSchema);
