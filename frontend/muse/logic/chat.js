@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-const { Button } = require("react-bootstrap");
 
 const pretifyDateFormat = (date) => {
   date = new Date(date)
@@ -92,7 +91,7 @@ const eventFormat = (
             </div>
           )}
           {isShowTransactionButton(isLastestEvent, currentMessageStatus) && (
-            <div className="view-transaction text-center">
+            <div className="view-transaction">
               <button
                 type="button"
                 className="mx-3 mt-2 btn btn-info"
@@ -113,7 +112,7 @@ const haveSide = (user, sender) => {
       side: "end",
       style: {
         borderRadius: "15px",
-        backgroundColor: "rgba(57, 192, 237,.2)",
+        backgroundColor: "white"
       },
     };
   }

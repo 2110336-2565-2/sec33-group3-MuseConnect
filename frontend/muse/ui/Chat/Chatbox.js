@@ -31,9 +31,7 @@ function Chatbox({ chatId }) {
   // update status
   useEffect(() => {
     const userToken = user.token;
-    // console.log("Change status to ", status, userToken);
     if (status !== "") {
-      // do
       fetch(`http://localhost:4000/api/event/${latestMessageEvent}`, {
         method: "PUT",
         headers: {
@@ -48,7 +46,6 @@ function Chatbox({ chatId }) {
           if (!response.ok) {
             throw new Error("Failed to change event status in database");
           }
-          // console.log("Successfully change event status");
           console.log(response);
           return response.json();
         })
@@ -56,7 +53,6 @@ function Chatbox({ chatId }) {
           console.log("Change event status to", data);
         });
       if (status === "CANCELLED") {
-        // console.log("Cancel");
         window.location.reload();
       }
       setStatus("");
@@ -73,31 +69,24 @@ function Chatbox({ chatId }) {
   };
   const handleShowModal = ({ Name, Wage }) => {
     setActive(true);
-    if (typeof Name !== undefined) {
+    if (Name !== undefined) {
       setEventName(Name);
     }
-    if (typeof Wage !== undefined) {
+    if (Wage !== undefined) {
       const value = parseInt(Wage);
       setEventWage(value);
     }
   };
 
-  // TODO handle display event
   const displayMessage = () => {
-    // console.log(messageEventBuffer);
     let texts = [];
-    for (let i = 0; i < messageEventBuffer.length; i++) {
-      let text = "";
-      let sender;
-      let messageId;
-      if ("text" in messageEventBuffer[i].content) {
-        text = messageEventBuffer[i].content.text;
-        sender = messageEventBuffer[i].sender;
-        messageId = messageEventBuffer[i]._id;
-        const data = { text, sender, messageId };
-        texts.push(data);
-      } else if ("event" in messageEventBuffer[i].content) {
-        let eventBuffer = messageEventBuffer[i].content.event;
+    messageEventBuffer.forEach((event) => {
+      const { content, sender, _id: messageId } = event;
+      if (content.text) {
+        const { text } = content;
+        texts.push({ text, sender, messageId });
+      } else if (content.event) {
+        const { event: eventBuffer } = content;
         const value = {
           name: eventBuffer.name,
           location: currentOrganizerDetails.location,
@@ -106,12 +95,9 @@ function Chatbox({ chatId }) {
           wage: eventBuffer.wage,
           currentMessageStatus: eventBuffer.status,
         };
-        sender = messageEventBuffer[i].sender;
-        messageId = messageEventBuffer[i]._id;
-        const data = { value, sender, messageId };
-        texts.push(data);
+        texts.push({ value, sender, messageId });
       }
-    }
+    });
     setMessages([...texts]);
   };
 
@@ -146,7 +132,6 @@ function Chatbox({ chatId }) {
             if (typeof chatroom.organizer === "string") {
               return {
                 id: chatroom._id,
-                // name: `${chatroom.musician.first_name} ${chatroom.musician.last_name}`,
                 name: `${chatroom.musician.first_name}`,
                 picture: chatroom.musician.profile_picture,
               };
@@ -154,7 +139,6 @@ function Chatbox({ chatId }) {
             return {
               id: chatroom._id,
               name: `${chatroom.organizer.first_name}`,
-              // name: `${chatroom.organizer.first_name} ${chatroom.organizer.last_name}`,
               picture: chatroom.organizer.profile_picture,
             };
           })
@@ -211,7 +195,6 @@ function Chatbox({ chatId }) {
         return response.json();
       })
       .then((data) => {
-        // console.log(data)
         setCurrentMusician(data.musician);
         setCurrentOrganizer(data.organizer._id);
         setCurrentOrganizerDetails(data.organizer);
@@ -231,7 +214,6 @@ function Chatbox({ chatId }) {
 
   // receiving message from interlocutor
   socket.on("receive-message", (mess) => {
-    // console.log("on receive message:", mess);
     setMessageEventBuffer([...messageEventBuffer, mess]);
   });
 
@@ -276,74 +258,75 @@ function Chatbox({ chatId }) {
 
   // TODO create event and send to message api
   const sendEventHandler = (e) => {
-    // e.preventDefault(); // prevent form submission
+    e.preventDefault();
 
     const userToken = user.token;
 
-    if (eventName && eventDate && eventWage) {
-      // save event to the database
-      fetch("http://localhost:4000/api/event", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify({
-          name: eventName,
-          location: "test_location",
-          wage: eventWage,
-          musician: currentMusician,
-          organizer: currentOrganizer,
-          date: eventDate,
-          status: "PENDING",
-          detail: "test_detail",
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to save event to database");
-          }
-          console.log("Successfully create event");
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-
-          fetch("http://localhost:4000/api/message", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${userToken}`,
-            },
-            body: JSON.stringify({
-              content: {
-                event: data,
-              },
-              chatId: chatId,
-            }),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Failed to save message to database");
-              }
-              return response.json();
-            })
-            .then((resMessage) => {
-              console.log("Message after create event", resMessage);
-              setMessageEventBuffer([...messageEventBuffer, resMessage]);
-              socket.emit("send-message", resMessage, chatId); // send message to server
-              setEventName("");
-              setEventDate("");
-              setEventWage("");
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        });
-    } else {
-      e.preventDefault();
-      alert("please complete all fields");
+    if (!eventName || !eventDate || !eventWage) {
+      alert("Please complete all fields");
+      return;
     }
+    // console.log(currentOrganizerDetails)
+    // save event to the database
+    fetch("http://localhost:4000/api/event", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify({
+        name: eventName,
+        location: currentOrganizerDetails.location+" location",
+        wage: eventWage,
+        musician: currentMusician,
+        organizer: currentOrganizer,
+        date: eventDate,
+        status: "PENDING",
+        detail: "test_detail",
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to save event to database");
+        }
+        console.log("Successfully create event");
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+
+        // save message to the database
+        return fetch("http://localhost:4000/api/message", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify({
+            content: {
+              event: data,
+            },
+            chatId: chatId,
+          }),
+        });
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to save message to database");
+        }
+        return response.json();
+      })
+      .then((resMessage) => {
+        console.log("Message after create event", resMessage);
+        setMessageEventBuffer([...messageEventBuffer, resMessage]);
+        socket.emit("send-message", resMessage, chatId); // send message to server
+        setEventName("");
+        setEventDate("");
+        setEventWage("");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   //set scroll position
@@ -358,10 +341,7 @@ function Chatbox({ chatId }) {
               height: "83vh",
               overflow: "scroll",
               overflowX: "hidden",
-              objectFit: "cover",
-              paddingLeft: "15px",
-              paddingRight: "15px" 
-              
+              backgroundColor: "#333",
             }}
           >
             <ul className="">
@@ -374,7 +354,7 @@ function Chatbox({ chatId }) {
                     <div
                       className={`d-flex flex-row justify-content-${side} mb-4`}
                     >
-                      <div className="p-3 ms-3" style={style}>
+                      <div className="p-3 ms-3  " style={style}>
                         <p key={`message_${i}`} className="small mb-0">
                           {message.text}
                         </p>
