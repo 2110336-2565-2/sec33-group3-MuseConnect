@@ -3,19 +3,20 @@
 import { Container, Card } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import TransactionNavbar from '../../../ui/transaction/TransactionNavbar';
+import "./page.css"
 
 export default function page() {
   const eventId = usePathname().split("/").at(-1);
 
   /* data */
   const [storedUser, setStoredUser] = useState(""); // user object from local
-  const [user, setUser] = useState(""); // user object from database
+  const [user, setUser] = useState({}); // user object from database
   const [eventDate, setEventDate] = useState("")
   const [eventStatus, setEventStatus] = useState("");
   const [transactionStatus, setTransactionStatus] = useState("");
 
   /* UI */
-  const [mouthCount, setMouthCount] = useState(0);
   const [transactionStatusCount, setTransactionStatusCount] = useState(0);
   const [primaryButtonText, setPrimaryButtonText] = useState("");
   const [isPrimaryButtonEnable, setIsPrimaryButtoEnable] = useState(true);
@@ -137,7 +138,6 @@ export default function page() {
       setSecondaryButtonEnable(sEnable);
       setIsSecondaryButtonAvailable(sAvailable);
     };
-
     if (user.role == "ORGANIZER") {
       if (transactionStatus == "NOTACK") {
         setUiParameters("NOTACK", false, "NOTACK", false, false);
@@ -186,9 +186,9 @@ export default function page() {
       const now_date = new Date();
       const event_date = new Date(eventDate);
       const diff = (event_date - now_date) / (1000 * 60 * 60 * 24)
-      if(diff > 0 && diff < 3){
+      if (diff > 0 && diff < 3) {
         nextTransactionStatus = "TRNFIN"
-      } else{
+      } else {
         nextTransactionStatus = "MUSACC";
       }
     } else if (transactionStatus == "MUSACC") {
@@ -211,7 +211,7 @@ export default function page() {
     if (transactionStatus == "EVEACK") {
       nextTransactionStatus = "TRNFIN";
       nextEventStatus = "CANCELLED"
-    } 
+    }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
   };
@@ -222,7 +222,6 @@ export default function page() {
     let nextTransactionStatus = "NOTACK";
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
-      //nextEventStatus = "ACCEPT";
     } else if (transactionStatus == "EVEACK") {
       nextTransactionStatus = "ORGPAID";
     } else if (transactionStatus == "ORGPAID") {
@@ -241,6 +240,17 @@ export default function page() {
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
   };
+
+  /*
+    used in production
+  */
+  // return (
+  //   <div id="main">
+  //     <div>
+  //       <TransactionNavbar />
+  //     </div>
+  //   </div>
+  // )
 
   /*
     use in development only
