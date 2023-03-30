@@ -1,7 +1,7 @@
 "use client";
 import PeopleCard from "../../../ui/PeopleCard";
 import React, { useEffect, useState } from "react";
-import { Button, Stack,Row,Nav, Form , Card, Container} from 'react-bootstrap' ;
+import { Button, Stack,Row,Nav, Form , Card, Container,Col} from 'react-bootstrap' ;
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import Multiselect from 'multiselect-react-dropdown';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -70,44 +70,57 @@ export default function page() {
 
   return (
     <div>
-    <h1>This is head</h1>
-    <Nav style={{marginBottom:"50px"}}>
-    <Form.Group className="d-flex" onSubmit={filterHandler}>
-            <Form.Control
-              name="name"
-              type="text"
-              placeholder="name"
-              className="me-2"
-              aria-label="Search"
-              value={nameFilter}
-              onChange={(e) => setnameFilter(e.target.value)}
-            />
-        
-      </Form.Group>
-
-      <Button type="submit" onClick={() => {
-        console.log(specialFilter) ;
-        setData({name: nameFilter,specialization: specialFilter}) ;
-        console.log(data) ;
-        setIsFilter(true)}} 
-        variant="outline-success">Filter
-      </Button>
-      <div className="text-dark d-flex" style={{backgroundColor: "white"}}><Multiselect
-        isObject ={false}
-        options ={options}
-        placeholder = {placeholder}
-        showCheckbox
-        displayValue="try"
-        onRemove={e => setspecialFilter([].slice.call(e).map(item => item))}
-        onSelect={e => setspecialFilter([].slice.call(e).map(item => item))}
-      /></div>
-      
-
-    </Nav>
-    <Container fluid style={{}}>
-      <Row><PeopleCard musicians={musicians}/></Row>
-    </Container>
-    
+      <div>
+        <h1 
+          style = {{
+            fontSize: '36px',
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            fontFamily: 'Montserrat, sans-serif',
+            letterSpacing: '2px',
+            marginTop: '20px'
+          }}>This is head</h1>
+      </div>
+      <Nav style={{ marginBottom: "50px" }}>
+        <Form onSubmit={filterHandler}>
+          <Row>
+            <Col sm="6" md="4" lg="3" className="mb-3">
+              <Form.Control
+                name="name"
+                type="text"
+                placeholder="Search by name"
+                value={nameFilter}
+                onChange={(e) => setnameFilter(e.target.value)}
+              />
+            </Col>
+            <Col sm="6" md="4" lg="3" className="mb-3">
+              <Multiselect
+                isObject={false}
+                options={options}
+                placeholder={placeholder}
+                showCheckbox
+                displayValue="try"
+                onRemove={(e) =>
+                  setspecialFilter([].slice.call(e).map((item) => item))
+                }
+                onSelect={(e) =>
+                  setspecialFilter([].slice.call(e).map((item) => item))
+                }
+              />
+            </Col>
+            <Col sm="12" md="4" lg="3" className="mb-3">
+              <Button type="submit" variant="success" block>
+                Filter
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </Nav>
+      <Container fluid>
+        <Row>
+          <PeopleCard musicians={isFilter ? data : musicians} />
+        </Row>
+      </Container>
     </div>
   );
 }
