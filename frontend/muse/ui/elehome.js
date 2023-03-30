@@ -84,5 +84,6 @@ export default function Elehome() {
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+    
   );
 }
