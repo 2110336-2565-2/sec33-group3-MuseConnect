@@ -2,19 +2,17 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
-import { Button, Stack, Navbar } from 'react-bootstrap'
-import { useEffect, React } from 'react'
+import { Navbar } from 'react-bootstrap'
+import { React } from 'react'
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })
 
-export default function TransactionNavbar() {
-  // let user = localStorage.getItem("user");
+export default function TransactionNavbar({chatId}) {
   const goToChatroom = () => {
-    window.location.href = `/Chat`;
-    // console.log("Go to chat room!");
+    window.location.href = `/Chat/${chatId}`;
+    // console.log("Go to chat room ", chatId);
   };
 
-  // if (user != undefined) {
   return (
     <Navbar style={{ backgroundColor: "rgba(16, 16, 16, 1)" }} expand="lg">
       <Container style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -24,7 +22,4 @@ export default function TransactionNavbar() {
       </Container>
     </Navbar>
   );
-  // } else {
-  // window.location.href = `/`;
-  // }
 }

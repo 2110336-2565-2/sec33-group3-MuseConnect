@@ -31,7 +31,6 @@ const accessChat = async (req, res) => {
   try {
     let chat = await Chat.findChatByUser(req.user._id, userId);
     if (chat) {
-      console.log("Access chat");
       res.status(200).json(chat);
       return;
     }

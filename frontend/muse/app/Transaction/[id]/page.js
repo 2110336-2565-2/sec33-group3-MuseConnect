@@ -12,9 +12,11 @@ export default function page() {
   /* data */
   const [storedUser, setStoredUser] = useState(""); // user object from local
   const [user, setUser] = useState({}); // user object from database
+  const [event, setEvent] = useState({});
   const [eventDate, setEventDate] = useState("")
   const [eventStatus, setEventStatus] = useState("");
   const [transactionStatus, setTransactionStatus] = useState("");
+  const [chatId, setChatId] = useState({});
 
   /* UI */
   const [transactionStatusCount, setTransactionStatusCount] = useState(0);
@@ -71,6 +73,7 @@ export default function page() {
             return response.json();
           })
           .then((data) => {
+            setEvent(data);
             setEventStatus(data.status);
             setEventDate(data.date);
             setTransactionStatus(data.transaction_state);
@@ -108,6 +111,46 @@ export default function page() {
     }
   }, [transactionStatus]);
 
+  /* fetch chatId from event */
+  useEffect(() => {
+    let userToken = storedUser.token;
+    let interlocutorUserId;
+    // console.log({user, event});
+    if (user.role == "ORGANIZER") {
+      interlocutorUserId = event.musician
+    } else if (user.role == "MUSICIAN") {
+      interlocutorUserId = event.organizer
+    }
+    // console.log({ interlocutorUserId });
+
+    if (interlocutorUserId != undefined) {
+      fetch(`http://localhost:4000/api/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({
+          userId: interlocutorUserId,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch chat from database");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setChatId(data._id);
+          // console.log({data});
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [user, event]);
+
+
   /* update transcation state progress bar */
   useEffect(() => {
     let barCountPercent = 0;
@@ -125,8 +168,8 @@ export default function page() {
       barCountPercent = 80;
     } else if (transactionStatus == "MUSREF") {
       barCountPercent = 90;
-    } 
- 
+    }
+
     setTransactionStatusCount(barCountPercent);
   }, [transactionStatus]);
 
@@ -175,7 +218,7 @@ export default function page() {
         setUiParameters("TRNFIN", false, "TRNFIN", false, false);
       }
     }
-  }, [transactionStatus]);
+  }, [user, transactionStatus]);
 
   /* TODO implement next state transaction status */
   const transactionStateHandler = () => {
@@ -251,7 +294,7 @@ export default function page() {
   };
   //EVEACK
   const div_state_EVEACK = () => {
-    if(transactionStatus == "EVEACK"){
+    if (transactionStatus == "EVEACK") {
       return <div class="progress-step progress-step-active" data-title="EVEACK"></div>
     } else {
       return <div class="progress-step" data-title="EVEACK"></div>
@@ -261,77 +304,77 @@ export default function page() {
   /*
     used in production
   */
-  // return (
-  //   <div id="main">
-  //     <div>
-  //       <TransactionNavbar />
-  //     </div>
-  //   </div>
-  // )
+  return (
+    <div id="main">
+      <div>
+        <TransactionNavbar chatId={chatId}/>
+      </div>
+    </div>
+  )
 
   /*
     use in development only
     user: 6424116116f1a5ce13e30f22
     eventId: 64242b339ad3da06ec2312b3
   */
-    const prevBtns = document.querySelectorAll(".btn-prev");
-    const nextBtns = document.querySelectorAll(".btn-next");
-    const progress = document.getElementById("progress");
-    const formSteps = document.querySelectorAll(".form-step");
-    const progressSteps = document.querySelectorAll(".progress-step");
-    
-    let formStepsNum = 0;
-    
-    // nextBtns.forEach((btn) => {
-    //   btn.addEventListener("click", () => {
-    //     formStepsNum++;
-    //     updateFormSteps();
-    //     updateProgressbar();
-    //   });
-    // });
-    
-    // prevBtns.forEach((btn) => {
-    //   btn.addEventListener("click", () => {
-    //     formStepsNum--;
-    //     updateFormSteps();
-    //     updateProgressbar();
-    //   });
-    // });
-    
-    // function updateFormSteps() {
-    //   formSteps.forEach((formStep) => {
-    //     formStep.classList.contains("form-step-active") &&
-    //       formStep.classList.remove("form-step-active");
-    //   });
-    
-    //   formSteps[formStepsNum].classList.add("form-step-active");
-    // }
-    
-    function updateProgressbar(nextTransactionStatus) {
-      const state_list = ["NOTACK","EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
-      let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
-        //console.log("idx = " + idx);
-        // console.log(state_list.indexOf("TRNFIN"));
-        // console.log("state_idx = " + state_idx);
-        // console.log(nextTransactionStatus);
-        // console.log("...................");
-      progressSteps.forEach((progressStep, idx) => {
+  const prevBtns = document.querySelectorAll(".btn-prev");
+  const nextBtns = document.querySelectorAll(".btn-next");
+  const progress = document.getElementById("progress");
+  const formSteps = document.querySelectorAll(".form-step");
+  const progressSteps = document.querySelectorAll(".progress-step");
 
-        //if (state_idx == 1) {
-          //progressStep.classList.remove("progress-step-active");}
-        if (idx < state_idx) {
-          progressStep.classList.add("progress-step-active");
-        } else {
-          progressStep.classList.remove("progress-step-active");
-        }
-      });
-    
-      const progressActive = document.querySelectorAll(".progress-step-active");
-    
-      progress.style.width =
-        ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-    }
-    
+  let formStepsNum = 0;
+
+  // nextBtns.forEach((btn) => {
+  //   btn.addEventListener("click", () => {
+  //     formStepsNum++;
+  //     updateFormSteps();
+  //     updateProgressbar();
+  //   });
+  // });
+
+  // prevBtns.forEach((btn) => {
+  //   btn.addEventListener("click", () => {
+  //     formStepsNum--;
+  //     updateFormSteps();
+  //     updateProgressbar();
+  //   });
+  // });
+
+  // function updateFormSteps() {
+  //   formSteps.forEach((formStep) => {
+  //     formStep.classList.contains("form-step-active") &&
+  //       formStep.classList.remove("form-step-active");
+  //   });
+
+  //   formSteps[formStepsNum].classList.add("form-step-active");
+  // }
+
+  function updateProgressbar(nextTransactionStatus) {
+    const state_list = ["NOTACK", "EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
+    let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
+    //console.log("idx = " + idx);
+    // console.log(state_list.indexOf("TRNFIN"));
+    // console.log("state_idx = " + state_idx);
+    // console.log(nextTransactionStatus);
+    // console.log("...................");
+    progressSteps.forEach((progressStep, idx) => {
+
+      //if (state_idx == 1) {
+      //progressStep.classList.remove("progress-step-active");}
+      if (idx < state_idx) {
+        progressStep.classList.add("progress-step-active");
+      } else {
+        progressStep.classList.remove("progress-step-active");
+      }
+    });
+
+    const progressActive = document.querySelectorAll(".progress-step-active");
+
+    progress.style.width =
+      ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+  }
+
   // TODO implement logic to disable and set value in the button
   return (
     <div>
@@ -392,22 +435,22 @@ export default function page() {
         </div>
 
         <div className="container">
-        <div class="progressbar">
-        <div class="progress" id="progress"></div>
-        
-        <div
-          // class="progress-step progress-step-active"
-          class="progress-step progress-step-active"
-          data-title="NOTACK"
-        ></div>
-        <div class="progress-step" data-title="EVEACK"></div>
-        <div class="progress-step" data-title="ORGPAID"></div>
-        <div class="progress-step" data-title="MUSACC"></div>
-        <div class="progress-step" data-title="CANCEL"></div>
-        <div class="progress-step" data-title="MUSREF"></div>
-        <div class="progress-step" data-title="TRNFIN"></div>
-      </div>
-      </div>
+          <div class="progressbar">
+            <div class="progress" id="progress"></div>
+
+            <div
+              // class="progress-step progress-step-active"
+              class="progress-step progress-step-active"
+              data-title="NOTACK"
+            ></div>
+            <div class="progress-step" data-title="EVEACK"></div>
+            <div class="progress-step" data-title="ORGPAID"></div>
+            <div class="progress-step" data-title="MUSACC"></div>
+            <div class="progress-step" data-title="CANCEL"></div>
+            <div class="progress-step" data-title="MUSREF"></div>
+            <div class="progress-step" data-title="TRNFIN"></div>
+          </div>
+        </div>
 
 
       </Container>
