@@ -1,8 +1,10 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import {React,useEffect} from "react";
+import { React, useEffect } from "react";
 import { Montserrat } from "@next/font/google";
+import { BsFillChatRightDotsFill ,BsSearch,BsFillCalendarCheckFill } from "react-icons/bs";
+import { CgProfile } from "react-icons/cg"
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function SideBar({ children }) {
@@ -26,21 +28,28 @@ export default function SideBar({ children }) {
                 Profile
               </a> */}
               {/* use this when need to present the feature */}
-              {user && <a href="/Home/Profile" className={montserrat.className}>Profile</a>}
+              {user && <a href="/Home/Profile" className={montserrat.className}>
+                <CgProfile size={20} style={{marginRight:"8px"}} />
+                Profile
+              </a>}
             </li>
+
             <li>
               <a href="/Chat" className={montserrat.className}>
-                Chat
+                <BsFillChatRightDotsFill size={15} style={{ color: "#34141", marginRight: "12px" }} />
+                Chats
               </a>
             </li>
             <li>
               <a href="/Home/Search" className={montserrat.className}>
+                <BsSearch size={15} style={{ color: "#34141", marginRight: "12px" }} />
                 Search
               </a>
             </li>
 
             <li>
               <a href="/Home/Calendar" className={montserrat.className}>
+                <BsFillCalendarCheckFill size={15} style={{ color: "#34141", marginRight: "12px" }} />
                 Calendar
               </a>
             </li>
