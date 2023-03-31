@@ -2,13 +2,14 @@
   background-color: #1E1E1E;
 } */
 
-/* #main {
-  background: url(../../../public/images/wallpaper.png);
+#main {
+  background-image: url(../../../public/images/wallpaper.png);
+  /* background: url(../../../public/images/wallpaper.png); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
-} */
+}
 
 /* Progressbar */
 .container {

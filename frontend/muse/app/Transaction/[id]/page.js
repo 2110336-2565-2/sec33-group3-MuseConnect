@@ -4,7 +4,8 @@ import { Container, Card } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import TransactionNavbar from '../../../ui/transaction/TransactionNavbar';
-import "./page.css"
+import "./page.css";
+import bg from "../../../public/images/wallpaper.png";
 
 export default function page() {
   const eventId = usePathname().split("/").at(-1);
@@ -306,9 +307,9 @@ export default function page() {
   */
   return (
     <div id="main">
-      <div>
-        <TransactionNavbar chatId={chatId}/>
-      </div>
+        <TransactionNavbar chatId={chatId} />
+      {/* <body id="main"> */}
+      {/* </body> */}
     </div>
   )
 
@@ -317,27 +318,27 @@ export default function page() {
     user: 6424116116f1a5ce13e30f22
     eventId: 64242b339ad3da06ec2312b3
   */
-    const progress = document.getElementById("progress");
-    const progressSteps = document.querySelectorAll(".progress-step");
-    
-    
-    function updateProgressbar(nextTransactionStatus) {
-      const state_list = ["NOTACK","EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
-      let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
-      progressSteps.forEach((progressStep, idx) => {
-        if (idx < state_idx) {
-          progressStep.classList.add("progress-step-active");
-        } else {
-          progressStep.classList.remove("progress-step-active");
-        }
-      });
-    
-      const progressActive = document.querySelectorAll(".progress-step-active");
-    
-      progress.style.width =
-        ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-    }
-    
+  const progress = document.getElementById("progress");
+  const progressSteps = document.querySelectorAll(".progress-step");
+
+
+  function updateProgressbar(nextTransactionStatus) {
+    const state_list = ["NOTACK", "EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
+    let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
+    progressSteps.forEach((progressStep, idx) => {
+      if (idx < state_idx) {
+        progressStep.classList.add("progress-step-active");
+      } else {
+        progressStep.classList.remove("progress-step-active");
+      }
+    });
+
+    const progressActive = document.querySelectorAll(".progress-step-active");
+
+    progress.style.width =
+      ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+  }
+
   // TODO implement logic to disable and set value in the button
   return (
     <div>
