@@ -274,51 +274,14 @@ export default function page() {
     user: 6424116116f1a5ce13e30f22
     eventId: 64242b339ad3da06ec2312b3
   */
-    const prevBtns = document.querySelectorAll(".btn-prev");
-    const nextBtns = document.querySelectorAll(".btn-next");
     const progress = document.getElementById("progress");
-    const formSteps = document.querySelectorAll(".form-step");
     const progressSteps = document.querySelectorAll(".progress-step");
     
-    let formStepsNum = 0;
-    
-    // nextBtns.forEach((btn) => {
-    //   btn.addEventListener("click", () => {
-    //     formStepsNum++;
-    //     updateFormSteps();
-    //     updateProgressbar();
-    //   });
-    // });
-    
-    // prevBtns.forEach((btn) => {
-    //   btn.addEventListener("click", () => {
-    //     formStepsNum--;
-    //     updateFormSteps();
-    //     updateProgressbar();
-    //   });
-    // });
-    
-    // function updateFormSteps() {
-    //   formSteps.forEach((formStep) => {
-    //     formStep.classList.contains("form-step-active") &&
-    //       formStep.classList.remove("form-step-active");
-    //   });
-    
-    //   formSteps[formStepsNum].classList.add("form-step-active");
-    // }
     
     function updateProgressbar(nextTransactionStatus) {
       const state_list = ["NOTACK","EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
       let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
-        //console.log("idx = " + idx);
-        // console.log(state_list.indexOf("TRNFIN"));
-        // console.log("state_idx = " + state_idx);
-        // console.log(nextTransactionStatus);
-        // console.log("...................");
       progressSteps.forEach((progressStep, idx) => {
-
-        //if (state_idx == 1) {
-          //progressStep.classList.remove("progress-step-active");}
         if (idx < state_idx) {
           progressStep.classList.add("progress-step-active");
         } else {
@@ -381,14 +344,14 @@ export default function page() {
           TestTransactionButton
         </button>
         <div className="progress">
-          <div
+          {/* <div
             className="progress-bar bg-danger"
             role="progressbar"
             style={{ width: `${transactionStatusCount}%` }}
             aria-valuenow="100"
             aria-valuemin="0"
             aria-valuemax="100"
-          ></div>
+          ></div> */}
         </div>
 
         <div className="container">
