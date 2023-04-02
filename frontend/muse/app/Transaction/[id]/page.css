@@ -12,8 +12,9 @@
 }
 
 /* Progressbar */
-.container {
+.progress_container {
   padding-left: 50px;
+  background-color: rgb(255, 255, 255);
 }
 
 .progressbar {
@@ -33,13 +34,14 @@
   height: 4px;
   width: 100%;
   background-color: #dcdcdc;
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 .progress {
   background-color: #0066ff;
   width: 0%;
   transition: 0.3s;
+  z-index: 1;
 }
 
 .progress-step {
@@ -50,6 +52,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .progress-step::before {

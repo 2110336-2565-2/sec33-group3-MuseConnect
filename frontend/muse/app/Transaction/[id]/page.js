@@ -3,7 +3,7 @@
 import { Container, Card } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import TransactionNavbar from '../../../ui/transaction/TransactionNavbar';
+import TransactionNavbar from "../../../ui/transaction/TransactionNavbar";
 import "./page.css";
 import bg from "../../../public/images/wallpaper.png";
 
@@ -306,9 +306,16 @@ export default function page() {
   const progress = document.getElementById("progress");
   const progressSteps = document.querySelectorAll(".progress-step");
 
-
   function updateProgressbar(nextTransactionStatus) {
-    const state_list = ["NOTACK", "EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
+    const state_list = [
+      "NOTACK",
+      "EVEACK",
+      "ORGPAID",
+      "MUSACC",
+      "CANCEL",
+      "MUSREF",
+      "TRNFIN",
+    ];
     let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
     progressSteps.forEach((progressStep, idx) => {
       if (idx < state_idx) {
@@ -327,80 +334,74 @@ export default function page() {
   /*
     used in production
   */
- 
+
   return (
     <>
       <TransactionNavbar chatId={chatId} />
       <div className="bg-image">
-      <div>
-      <Container className="m-3 p-4 justify-content-center align-items-center">
-        <Card className="p-4 mb-4">
-          <Card.Title>Variable details</Card.Title>
-          <Card.Body>
-            <Card.Text>
-              eventId: {eventId}
-              <br />
-              user: {user._id}
-              <br />
-              userRole: {user.role}
-              <br />
-              userEmail: {user.email}
-              <br />
-              eventStatus: {eventStatus}
-              <br />
-              transactionStatus: {transactionStatus}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <button
-          type="button"
-          className="mx-3 mb-4 btn btn-primary"
-          onClick={() => transactionStateHandler()}
-          disabled={!isPrimaryButtonEnable}
-        >
-          TransactionButton: {primaryButtonText}
-        </button>
-        {isSecondaryButtonAvailable && (
+        <Container className="p-4 justify-content-center align-items-center">
+          <Card className="p-4 mb-4">
+            <Card.Title>Variable details</Card.Title>
+            <Card.Body>
+              <Card.Text>
+                eventId: {eventId}
+                <br />
+                user: {user._id}
+                <br />
+                userRole: {user.role}
+                <br />
+                userEmail: {user.email}
+                <br />
+                eventStatus: {eventStatus}
+                <br />
+                transactionStatus: {transactionStatus}
+              </Card.Text>
+            </Card.Body>
+          </Card>
           <button
             type="button"
-            className="mx-3 mb-4 btn btn-danger"
-            onClick={() => secondaryTransactionStateHandler()}
-            disabled={!isSecondaryButtonEnable}
+            className="mx-3 mb-4 btn btn-primary"
+            onClick={() => transactionStateHandler()}
+            disabled={!isPrimaryButtonEnable}
           >
-            SecondaryTransactionButton: {secondaryButtonText}
+            TransactionButton: {primaryButtonText}
           </button>
-        )}
-        <br />
-        <div className="progress">
-          {/* <div
-            className="progress-bar bg-danger"
-            role="progressbar"
-            style={{ width: `${transactionStatusCount}%` }}
-            aria-valuenow="100"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div> */}
-        </div>
+          {isSecondaryButtonAvailable && (
+            <button
+              type="button"
+              className="mx-3 mb-4 btn btn-danger"
+              onClick={() => secondaryTransactionStateHandler()}
+              disabled={!isSecondaryButtonEnable}
+            >
+              SecondaryTransactionButton: {secondaryButtonText}
+            </button>
+          )}
+          <button
+            type="button"
+            className="mx-3 mb-4 btn btn-info"
+            onClick={() => testTransactionStateHandler()}
+          >
+            TestTransactionButton
+          </button>
+          <br />
+          <Card className="p-0 px-5 mx-2 progress_container">
+            <div className="progressbar">
+              <div class="progress" id="progress"></div>
 
-        <div className="container">
-          <div class="progressbar">
-            <div class="progress" id="progress"></div>
-
-            <div
-              // class="progress-step progress-step-active"
-              class="progress-step progress-step-active"
-              data-title="NOTACK"
-            ></div>
-            <div class="progress-step" data-title="EVEACK"></div>
-            <div class="progress-step" data-title="ORGPAID"></div>
-            <div class="progress-step" data-title="MUSACC"></div>
-            <div class="progress-step" data-title="CANCEL"></div>
-            <div class="progress-step" data-title="MUSREF"></div>
-            <div class="progress-step" data-title="TRNFIN"></div>
-          </div>
-        </div>
-      </Container>
-    </div>
+              <div
+                // class="progress-step progress-step-active"
+                class="progress-step progress-step-active"
+                data-title="NOTACK"
+              ></div>
+              <div class="progress-step" data-title="EVEACK"></div>
+              <div class="progress-step" data-title="ORGPAID"></div>
+              <div class="progress-step" data-title="MUSACC"></div>
+              <div class="progress-step" data-title="CANCEL"></div>
+              <div class="progress-step" data-title="MUSREF"></div>
+              <div class="progress-step" data-title="TRNFIN"></div>
+            </div>
+          </Card>
+        </Container>
       </div>
     </>
   );
@@ -413,23 +414,30 @@ export default function page() {
   // const progress = document.getElementById("progress");
   // const progressSteps = document.querySelectorAll(".progress-step");
 
+  // function updateProgressbar(nextTransactionStatus) {
+  //   const state_list = [
+  //     "NOTACK",
+  //     "EVEACK",
+  //     "ORGPAID",
+  //     "MUSACC",
+  //     "CANCEL",
+  //     "MUSREF",
+  //     "TRNFIN",
+  //   ];
+  //   let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
+  //   progressSteps.forEach((progressStep, idx) => {
+  //     if (idx < state_idx) {
+  //       progressStep.classList.add("progress-step-active");
+  //     } else {
+  //       progressStep.classList.remove("progress-step-active");
+  //     }
+  //   });
 
-  function updateProgressbar(nextTransactionStatus) {
-    const state_list = ["NOTACK", "EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
-    let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
-    progressSteps.forEach((progressStep, idx) => {
-      if (idx < state_idx) {
-        progressStep.classList.add("progress-step-active");
-      } else {
-        progressStep.classList.remove("progress-step-active");
-      }
-    });
+  //   const progressActive = document.querySelectorAll(".progress-step-active");
 
-    const progressActive = document.querySelectorAll(".progress-step-active");
-
-    progress.style.width =
-      ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-  }
+  //   progress.style.width =
+  //     ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+  // }
 
   // TODO implement logic to disable and set value in the button
   return (
