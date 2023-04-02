@@ -2,13 +2,14 @@
   background-color: #1E1E1E;
 } */
 
-/* #main {
+.bg-image {
   background: url(../../../public/images/wallpaper.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
-} */
+  height: 100vh;
+}
 
 /* Progressbar */
 .container {

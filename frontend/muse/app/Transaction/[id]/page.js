@@ -3,8 +3,8 @@
 import { Container, Card } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import TransactionNavbar from '../../../ui/transaction/TransactionNavbar';
-import "./page.css"
+import TransactionNavbar from "../../../ui/transaction/TransactionNavbar";
+import "./page.css";
 
 export default function page() {
   const eventId = usePathname().split("/").at(-1);
@@ -13,7 +13,7 @@ export default function page() {
   const [storedUser, setStoredUser] = useState(""); // user object from local
   const [user, setUser] = useState({}); // user object from database
   const [event, setEvent] = useState({});
-  const [eventDate, setEventDate] = useState("")
+  const [eventDate, setEventDate] = useState("");
   const [eventStatus, setEventStatus] = useState("");
   const [transactionStatus, setTransactionStatus] = useState("");
   const [chatId, setChatId] = useState({});
@@ -117,9 +117,9 @@ export default function page() {
     let interlocutorUserId;
     // console.log({user, event});
     if (user.role == "ORGANIZER") {
-      interlocutorUserId = event.musician
+      interlocutorUserId = event.musician;
     } else if (user.role == "MUSICIAN") {
-      interlocutorUserId = event.organizer
+      interlocutorUserId = event.organizer;
     }
     // console.log({ interlocutorUserId });
 
@@ -149,7 +149,6 @@ export default function page() {
         });
     }
   }, [user, event]);
-
 
   /* update transcation state progress bar */
   useEffect(() => {
@@ -223,7 +222,7 @@ export default function page() {
   /* TODO implement next state transaction status */
   const transactionStateHandler = () => {
     let nextTransactionStatus = transactionStatus;
-    let nextEventStatus = eventStatus
+    let nextEventStatus = eventStatus;
     // Only route cancel first
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
@@ -232,15 +231,15 @@ export default function page() {
     } else if (transactionStatus == "ORGPAID") {
       const now_date = new Date();
       const event_date = new Date(eventDate);
-      const diff = (event_date - now_date) / (1000 * 60 * 60 * 24)
+      const diff = (event_date - now_date) / (1000 * 60 * 60 * 24);
       if (diff > 0 && diff < 3) {
-        nextTransactionStatus = "TRNFIN"
+        nextTransactionStatus = "TRNFIN";
       } else {
         nextTransactionStatus = "MUSACC";
       }
     } else if (transactionStatus == "MUSACC") {
       nextTransactionStatus = "CANCEL";
-      nextEventStatus = "CANCELLED"
+      nextEventStatus = "CANCELLED";
     } else if (transactionStatus == "CANCEL") {
       nextTransactionStatus = "MUSREF";
     } else if (transactionStatus == "MUSREF") {
@@ -251,25 +250,23 @@ export default function page() {
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
     updateProgressbar(nextTransactionStatus);
-
   };
 
   const secondaryTransactionStateHandler = () => {
     let nextTransactionStatus = transactionStatus;
-    let nextEventStatus = eventStatus
+    let nextEventStatus = eventStatus;
     if (transactionStatus == "EVEACK") {
       nextTransactionStatus = "TRNFIN";
-      nextEventStatus = "CANCELLED"
+      nextEventStatus = "CANCELLED";
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
     updateProgressbar(nextTransactionStatus);
-
   };
 
   /* development only */
   const testTransactionStateHandler = () => {
-    let nextEventStatus = eventStatus
+    let nextEventStatus = eventStatus;
     let nextTransactionStatus = "NOTACK";
     if (transactionStatus == "NOTACK") {
       nextTransactionStatus = "EVEACK";
@@ -295,49 +292,62 @@ export default function page() {
   //EVEACK
   const div_state_EVEACK = () => {
     if (transactionStatus == "EVEACK") {
-      return <div class="progress-step progress-step-active" data-title="EVEACK"></div>
+      return (
+        <div
+          className="progress-step progress-step-active"
+          data-title="EVEACK"
+        ></div>
+      );
     } else {
-      return <div class="progress-step" data-title="EVEACK"></div>
+      return <div className="progress-step" data-title="EVEACK"></div>;
     }
   };
 
   /*
     used in production
   */
+ 
   return (
-    <div id="main">
-      <div>
-        <TransactionNavbar chatId={chatId}/>
+    <>
+      <TransactionNavbar chatId={chatId} />
+      <div className="bg-image">
       </div>
-    </div>
-  )
+    </>
+  );
 
   /*
     use in development only
     user: 6424116116f1a5ce13e30f22
     eventId: 64242b339ad3da06ec2312b3
   */
-    const progress = document.getElementById("progress");
-    const progressSteps = document.querySelectorAll(".progress-step");
-    
-    
-    function updateProgressbar(nextTransactionStatus) {
-      const state_list = ["NOTACK","EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
-      let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
-      progressSteps.forEach((progressStep, idx) => {
-        if (idx < state_idx) {
-          progressStep.classList.add("progress-step-active");
-        } else {
-          progressStep.classList.remove("progress-step-active");
-        }
-      });
-    
-      const progressActive = document.querySelectorAll(".progress-step-active");
-    
-      progress.style.width =
-        ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-    }
-    
+  const progress = document.getElementById("progress");
+  const progressSteps = document.querySelectorAll(".progress-step");
+
+  function updateProgressbar(nextTransactionStatus) {
+    const state_list = [
+      "NOTACK",
+      "EVEACK",
+      "ORGPAID",
+      "MUSACC",
+      "CANCEL",
+      "MUSREF",
+      "TRNFIN",
+    ];
+    let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
+    progressSteps.forEach((progressStep, idx) => {
+      if (idx < state_idx) {
+        progressStep.classList.add("progress-step-active");
+      } else {
+        progressStep.classList.remove("progress-step-active");
+      }
+    });
+
+    const progressActive = document.querySelectorAll(".progress-step-active");
+
+    progress.style.width =
+      ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+  }
+
   // TODO implement logic to disable and set value in the button
   return (
     <div>
@@ -414,8 +424,6 @@ export default function page() {
             <div class="progress-step" data-title="TRNFIN"></div>
           </div>
         </div>
-
-
       </Container>
     </div>
   );
