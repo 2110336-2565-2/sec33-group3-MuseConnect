@@ -3,8 +3,9 @@
 import { Container, Card } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import TransactionNavbar from "../../../ui/transaction/TransactionNavbar";
+import TransactionNavbar from '../../../ui/transaction/TransactionNavbar';
 import "./page.css";
+import bg from "../../../public/images/wallpaper.png";
 
 export default function page() {
   const eventId = usePathname().split("/").at(-1);
@@ -323,16 +324,9 @@ export default function page() {
   const progress = document.getElementById("progress");
   const progressSteps = document.querySelectorAll(".progress-step");
 
+
   function updateProgressbar(nextTransactionStatus) {
-    const state_list = [
-      "NOTACK",
-      "EVEACK",
-      "ORGPAID",
-      "MUSACC",
-      "CANCEL",
-      "MUSREF",
-      "TRNFIN",
-    ];
+    const state_list = ["NOTACK", "EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"];
     let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
     progressSteps.forEach((progressStep, idx) => {
       if (idx < state_idx) {
