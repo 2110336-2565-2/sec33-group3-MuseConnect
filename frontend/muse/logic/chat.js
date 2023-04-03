@@ -51,8 +51,8 @@ const eventFormat = (
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
       <div className="p-3 ms-3" style={style}>
-        <div key={`message_${i}`} className="small mb-0">
-          <p className="mb-0 ">{name}</p>
+        <div key={`message_${i}`} className="small mb-0" style={{color: "black"}}>
+          <p className="mb-0 " style={{fontSize: "3em"}}>{name}</p>
           {location !== undefined && 
           <p className="mb-0">
             <FaMapMarkerAlt className = "me-1" size = {15} style = {{color: "black"}}/>
@@ -122,13 +122,13 @@ const eventFormat = (
           )}
           {isShowTransactionButton(isLastestEvent, currentMessageStatus) && (
             <div className="view-transaction text-center">
-              <button
-                type="button"
-                className="mx-3 mt-2 btn btn-info"
+              <Button
+                variant="secondary"
+                className="mx-3 mt-2"
                 onClick={() => handleTransaction(eventId)}
               >
                 Transaction
-              </button>
+              </Button>
             </div>
           )}
         </div>

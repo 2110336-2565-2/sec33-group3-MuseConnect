@@ -12,7 +12,7 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { eventFormat, haveSide } from "../../logic/chat";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { style1 } from "../../app/Chat/[id]/page.module.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
@@ -364,7 +364,7 @@ function Chatbox({ chatId }) {
                     className={`d-flex flex-row justify-content-${side} mb-4`}
                   >
                     <div className="p-3 ms-3" style={style}>
-                      <p key={`message_${i}`} className="small mb-0">
+                      <p key={`message_${i}`} className="small mb-0" style={{color: "black"}} >
                         {message.text}
                       </p>
                     </div>
