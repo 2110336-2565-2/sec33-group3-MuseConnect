@@ -44,21 +44,10 @@ export default function Home() {
 
   useEffect(() => {
     if (!audioObj) {
-      const newAudioObj = new Audio("/sound/YO_sound.mp3");
+      const newAudioObj = new Audio("/sound/อยากรู้.mp3");
       setAudioObj(newAudioObj);
     }
   }, [audioObj]);
-
-  // useEffect(() => {
-  //   if (!audioObj) {
-  //     const newAudioObj = new Audio("/sound/YO_sound.mp3");
-  //     newAudioObj.oncanplay = () => {
-  //       newAudioObj.play();
-  //       setIsPlaying(true);
-  //     };
-  //     setAudioObj(newAudioObj);
-  //   }
-  // }, [audioObj]);
 
   const handlePlayClick = () => {
     if (audioObj) {
