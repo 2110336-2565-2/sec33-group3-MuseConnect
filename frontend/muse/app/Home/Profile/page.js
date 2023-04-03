@@ -87,11 +87,10 @@ export default function profile() {
 
 
   return (
-
-    <div className={montserrat.className}>
+    <div className={montserrat.className} >
       <Container className="justify-content-center align-items-center">
         <div className="mt-5">
-          <Row className=" text-white" style={{ backgroundColor: "#1E1E1E" }}>
+          <Row className=" text-white">
             <Col style={{ marginLeft: "3rem", marginRight: "3rem" }} xs={3}>
               <Row className='justify-content-center'>
                 <UserPhoto />
@@ -140,9 +139,14 @@ export default function profile() {
           </Row>
           <div style={{ marginLeft: "31px", marginBottom: "0px" }}><h3 className={montserrat.className} >Past Events</h3></div>
           <Row style={{ marginTop: "5px", marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}>
-
-            {console.log(splitevent)}
-            <Stack direction='vertical' gap={1}>
+            {(userevent.length==0)?(
+              <div>
+                <h5 className={montserrat.className} style={{marginTop:"20px", textAlign:"center"}}>♫⋆ No recorded past event ⋆♫</h5>
+                {/* <img src="images/icon.png"/> */}
+              </div>
+            )
+            :(
+              <Stack direction='vertical' gap={1}>
               {(splitevent)?.map((srow) => (
                 <Stack direction='horizontal' gap={1}>
                   {console.log(userevent)}
@@ -161,44 +165,7 @@ export default function profile() {
                 </Stack>
               ))}
             </Stack>
-
-            {/* ข้างล่างไม่ใช้ */}
-            {/* <Stack direction='horizontal' gap={0}>
-        {console.log(userevent)} 
-        {(splitevent[0])?.map((e) => (
-                  <div class="card" style={{maxWidth:"18rem",marginTop:"0px",width:"19.2%"}}>
-                    <div class="card-header">{e.name}</div>
-                    <div class="card-body text-success">
-                    <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>Success card title</h5>
-                    <p class="card-text" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-                
-              ))}
-        </Stack>
-
-        <Stack direction='horizontal' gap={1}>
-        {console.log(typeof splitevent[1][0].name)} 
-        {(splitevent[1])?.map((e) => (
-                typeof e.name == 'string'?
-                  <div class="card" style={{maxWidth:"18rem",marginTop:"0px",minWidth:"19%"}}>
-                    <div class="card-header">{e.name}</div>
-                    <div class="card-body text-success">
-                      <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>Success card title</h5>
-                      <p class="card-text" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-                :
-                  <div class="card" style={{maxWidth:"18rem",marginTop:"0px",minWidth:"19%",height:'100%'}}>
-                    <div class="card-header">{e.name}</div>
-                    <div class="card-body text-success">
-                      <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>Success card title</h5>
-                      <p class="card-text" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-              ))}
-        </Stack> */}
-
+            )}
           </Row>
         </div>
       </Container>
