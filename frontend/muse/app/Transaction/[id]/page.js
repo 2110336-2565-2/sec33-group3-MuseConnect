@@ -78,10 +78,12 @@ export default function page() {
             setEventStatus(data.status);
             setEventDate(data.date);
             setTransactionStatus(data.transaction_state);
+            //updateProgressbar(transactionStatus)
           })
           .catch((err) => {
             console.error(err);
           });
+          //updateProgressbar(transactionStatus)
       })
       .catch(console.error);
   }, []);
@@ -187,35 +189,35 @@ export default function page() {
     };
     if (user.role == "ORGANIZER") {
       if (transactionStatus == "NOTACK") {
-        setUiParameters("NOTACK", false, "NOTACK", false, false);
+        setUiParameters("Confirm Event", false, "NOTACK", false, false);
       } else if (transactionStatus == "EVEACK") {
-        setUiParameters("EVEACK", true, "EVEACK", true, true);
+        setUiParameters("Confirm your payment", true, "Cancel the event", true, true);
       } else if (transactionStatus == "ORGPAID") {
-        setUiParameters("ORGPAID", false, "ORGPAID", false, false);
+        setUiParameters("Waiting for the musician to confirm", false, "ORGPAID", false, false);
       } else if (transactionStatus == "MUSACC") {
-        setUiParameters("MUSACC", true, "MUSACC", false, false);
+        setUiParameters("All done!!, Click here to cancel", true, "MUSACC", false, false);
       } else if (transactionStatus == "CANCEL") {
-        setUiParameters("CANCEL", false, "CANCEL", false, false);
+        setUiParameters("Waiting for the musician to refund", false, "CANCEL", false, false);
       } else if (transactionStatus == "MUSREF") {
-        setUiParameters("MUSREF", true, "MUSREF", false, false);
+        setUiParameters("Confirm received", true, "MUSREF", false, false);
       } else if (transactionStatus == "TRNFIN") {
-        setUiParameters("TRNFIN", false, "TRNFIN", false, false);
+        setUiParameters("All done", false, "TRNFIN", false, false);
       }
     } else if (user.role == "MUSICIAN") {
       if (transactionStatus == "NOTACK")
-        setUiParameters("NOTACK", true, "NOTACK", false, false);
+        setUiParameters("Confirm Event", true, "NOTACK", false, false);
       else if (transactionStatus == "EVEACK") {
-        setUiParameters("EVEACK", false, "EVEACK", true, true);
+        setUiParameters("Waiting for the organizer to pay", false, "Cancel the event", true, true);
       } else if (transactionStatus == "ORGPAID") {
-        setUiParameters("ORGPAID", true, "ORGPAID", false, false);
+        setUiParameters("Confirm received", true, "No received", true, true);
       } else if (transactionStatus == "MUSACC") {
-        setUiParameters("MUSACC", true, "MUSACC", false, false);
+        setUiParameters("All done!!, Click here to cancel", true, "Cancel the event", false, false);
       } else if (transactionStatus == "CANCEL") {
-        setUiParameters("CANCEL", true, "CANCEL", false, false);
+        setUiParameters("Confirm your refund", true, "CANCEL", false, false);
       } else if (transactionStatus == "MUSREF") {
-        setUiParameters("MUSREF", false, "MUSREF", false, false);
+        setUiParameters("Waiting for confirmation", false, "MUSREF", false, false);
       } else if (transactionStatus == "TRNFIN") {
-        setUiParameters("TRNFIN", false, "TRNFIN", false, false);
+        setUiParameters("All done", false, "TRNFIN", false, false);
       }
     }
   }, [user, transactionStatus]);
@@ -258,6 +260,12 @@ export default function page() {
     let nextEventStatus = eventStatus;
     if (transactionStatus == "EVEACK") {
       nextTransactionStatus = "TRNFIN";
+      nextEventStatus = "CANCELLED";
+    } else if (transactionStatus == "ORGPAID") {
+      nextTransactionStatus = "TRNFIN";
+      nextEventStatus = "CANCELLED";
+    } else if (transactionStatus == "MUSACC") {
+      nextTransactionStatus = "CANCEL";
       nextEventStatus = "CANCELLED";
     }
     setTransactionStatus(nextTransactionStatus);
@@ -364,7 +372,8 @@ export default function page() {
             onClick={() => transactionStateHandler()}
             disabled={!isPrimaryButtonEnable}
           >
-            TransactionButton: {primaryButtonText}
+            {/* TransactionButton: {primaryButtonText} */}
+            {primaryButtonText}
           </button>
           {isSecondaryButtonAvailable && (
             <button
@@ -373,7 +382,8 @@ export default function page() {
               onClick={() => secondaryTransactionStateHandler()}
               disabled={!isSecondaryButtonEnable}
             >
-              SecondaryTransactionButton: {secondaryButtonText}
+              {/* SecondaryTransactionButton: {secondaryButtonText} */}
+              {secondaryButtonText}
             </button>
           )}
           <button

@@ -40,7 +40,7 @@
 .progress {
   background-color: #0066ff;
   width: 0%;
-  transition: 0.3s;
+  transition: 0.5s;
   z-index: 1;
 }
 
