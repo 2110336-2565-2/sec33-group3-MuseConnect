@@ -3,12 +3,13 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { MdLocationOn } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { Button, Container, Image, Row, Col } from 'react-bootstrap';
+import { Button, Container, Image, Row, Col, Card } from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack';
 import UserPhoto from '../../../ui/UserPhoto';
 // const socket = io.connect("http://localhost:4000");
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
+import styles from './page.css'
 
 function split(eventarray) {
   if (!Array.isArray(eventarray)) return [[], []];
