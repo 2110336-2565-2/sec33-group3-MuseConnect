@@ -5,13 +5,7 @@ import { MdLocationOn } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { Button, Container, Image, Row, Col } from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack';
-import Link from 'next/link'
 import UserPhoto from '../../../ui/UserPhoto';
-import Alert from 'react-bootstrap/Alert';
-// import io from "socket.io-client";
-//import { Chip } from 'react-awesome-chip'
-import Chip from '@mui/material/Chip';
-import styles from './page.css'
 // const socket = io.connect("http://localhost:4000");
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });

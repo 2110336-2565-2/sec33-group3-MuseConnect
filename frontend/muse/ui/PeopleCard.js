@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, Stack,Row,Nav, Form , Card, Container, Image} from 'react-bootstrap' ;
+import { Button, Stack,Row,Nav, Form , Card, Container} from 'react-bootstrap' ;
 import "bootstrap/dist/css/bootstrap.min.css";
-import style from "./PeopleCard.module.css"
 
 export default function PeopleCard({musicians}) {
     console.log(musicians) ;
@@ -10,12 +9,36 @@ export default function PeopleCard({musicians}) {
     <>
     {musicians?.map((musician) => (
     //<div key={i++} className={"col-xs-6 col-sm-2 col-md-4"}>
-    <div className="col-md-3 col-sm-6">
-      <div className="card card-block">
-        <h4 className={style.card-title}><i className="material-icons">settings</i></h4>
-          <Image src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset"/>
-        <h5 className="card-title mt-3 mb-3">Sierra Web Development • Owner</h5>
-        <p className="card-text">This is a company that builds websites, web apps and e-commerce solutions.</p> 
+    <div key={i++} className="box">
+      <div className={"image-flip"}>
+        <div className={"mainflip"}>
+          <div className={"frontside"}>
+            <Card className={"text-dark d-flex"} style={{ width: '18rem'}}>
+              <Card.Img variant="top" src="https://media.istockphoto.com/id/1300512215/photo/headshot-portrait-of-smiling-ethnic-businessman-in-office.jpg?b=1&s=170667a&w=0&k=20&c=TXCiY7rYEvIBd6ibj2bE-VbJu0rRGy3MlHwxt2LHt9w=" />
+              <Card.Body>
+                <Card.Title className={"text-dark"}>{musician.first_name}</Card.Title>
+                <Card.Text>
+                  this is where detail wil be.
+                </Card.Text>
+              </Card.Body>
+            </Card></div>
+          <div className={"backside"}>
+            <Card className={"text-dark d-flex"} style={{ width: '18rem'}}>
+              <Card.Body>
+                <Card.Title className={"text-dark"}>{musician.first_name}</Card.Title>
+                <Card.Text>
+                  this is where detail wil be.
+                </Card.Text>
+              </Card.Body>
+              <Card.Body>
+                <Button>
+                  <a href={`/Home/Search/${musician._id}`}>press</a>
+                  {/* <a href='/Home/Search'>press</a> */}
+                </Button>
+              </Card.Body>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
     ))}
