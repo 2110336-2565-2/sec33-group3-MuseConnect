@@ -8,6 +8,7 @@ import Stack from 'react-bootstrap/Stack';
 import Link from 'next/link'
 import UserPhoto from '../../../ui/UserPhoto';
 import Alert from 'react-bootstrap/Alert';
+import { useRouter } from "next/navigation";
 // import io from "socket.io-client";
 //import { Chip } from 'react-awesome-chip'
 import Chip from '@mui/material/Chip';
@@ -31,6 +32,30 @@ function arr(user) {
     return user.specialization;
   }
 }
+
+const chatHandler = async (userId) => {
+  const user = await JSON.parse(localStorage.getItem("user")); // {email : ,token : ,_id : }
+  if (user) {
+    const respone = await fetch("http://localhost:4000/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({ userId }),
+    });
+
+    const result = await respone.json();
+
+    if (respone.ok) {
+      router.push(`/Chat/${result._id}`);
+    } else {
+      alert(result.error);
+    }
+  } else {
+    alert("please login");
+  }
+};
 
 export default function profile() {
   const [user, setUser] = useState({});
@@ -105,8 +130,8 @@ export default function profile() {
                 
                 {/* This button is needed to change to a 'Start Chat' Button */}
                 <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="light"
-                  style={{ width: "200px", marginLeft: "24px", marginTop: "20px" }}>
-                  <a href="/Edit">Edit profile</a>
+                  style={{ width: "200px", marginLeft: "24px", marginTop: "20px" }} onClick={() => chatHandler(organizerId)}>
+                  Start a chat
                 </button>
 
               </Row>

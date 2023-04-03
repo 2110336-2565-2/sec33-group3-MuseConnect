@@ -146,7 +146,7 @@ export default function profile() {
           <div style={{ marginLeft: "31px", marginBottom: "0px" }}><h3 className={montserrat.className} >Past Events</h3></div>
           <Row style={{ marginTop: "5px", marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}>
             {(userevent.length==0)?(
-              <p>♫⋆｡♪ There is no event. ₊˚♬ ﾟ</p>
+              <p style={{marginTop:"20px",alignContent:"center"}}>♫⋆｡♪ There is no past event. ₊˚♬ ﾟ</p>
             )
             :(
               <Stack direction='vertical' gap={1}>
