@@ -420,9 +420,9 @@ function Chatbox({ chatId }) {
         </Form>
       </div>
 
-      <Modal show={active} onHide={handleCloseModal} href="chat.css">
+      <Modal show={active} onHide={handleCloseModal} href="chat.css" style={{color: "black"}}>
         <Modal.Header closeButton id="head">
-          <Modal.Title>Event Form</Modal.Title>
+          <Modal.Title style={{color: "black"}}>Event Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div
@@ -431,9 +431,8 @@ function Chatbox({ chatId }) {
             style={{ flex: 1, paddingLeft: "10px" }}
             href="chat.css"
           >
-            <Form onSubmit={sendEventHandler}>
-              <br />
-              <div className="name">
+            <Form onSubmit={sendEventHandler} style={{color: "black"}}>
+              <div className="name" style={{marginBottom:"0.5em"}}>
                 <label htmlFor="name">Name: </label>
                 <input
                   type="text"
@@ -443,7 +442,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className="date">
+              <div className="date" style={{marginBottom:"0.5em"}}>
                 <label htmlFor="date" style={{ paddingRight: "10px" }}>
                   Date:{" "}
                 </label>
@@ -456,7 +455,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className="wage">
+              <div className="wage" style={{marginBottom:"0.5em"}}>
                 <label htmlFor="wage" style={{ paddingRight: "10px" }}>
                   Wage:{" "}
                 </label>

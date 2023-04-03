@@ -48,6 +48,7 @@ const eventFormat = (
   isLastestEvent,
   setStatus
 ) => {
+  console.log(currentMessageStatus)
   return (
     <div className={`d-flex flex-row justify-content-${side} mb-4`}>
       <div className="p-3 ms-3" style={style}>
@@ -104,14 +105,14 @@ const eventFormat = (
             currentMessageStatus
           ) && (
             <div className="edit-cancle">
-              <Button
+              <Button disabled={currentMessageStatus == "ACCEPT"}
                 variant="primary"
                 className="mx-3 mt-2 button-edit-acep"
                 onClick={() => handleShowModal({ name, wage })}
               >
                 Edit
               </Button>
-              <Button
+              <Button disabled={currentMessageStatus == "ACCEPT"} 
                 variant="danger"
                 className="mx-3 mt-2 button-can-dec"
                 onClick={() => setStatus("CANCELLED")}

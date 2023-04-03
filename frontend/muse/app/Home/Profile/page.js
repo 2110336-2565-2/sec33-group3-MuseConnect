@@ -114,12 +114,6 @@ export default function profile() {
                 {user.phone_number}
               </p>
               <h5 className={montserrat.className}><span class="badge rounded-pill text-bg-success" style={{ fontWeight: "normal", marginBottom: "-8px" }}>{user.role}</span></h5>
-              {/* <Chip label={user.role} color="success" /> */}
-              {/* <Chip
-              title={user.role}
-              color='#65D36E'
-              type='filledOutlined'
-            /> */}
 
               <div style={{ marginBottom: "15px" }} className={montserrat.className}></div>
               <Stack className={montserrat.className} direction='horizontal' gap={1}>

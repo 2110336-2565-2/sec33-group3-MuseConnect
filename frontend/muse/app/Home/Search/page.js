@@ -24,7 +24,7 @@ export default function page() {
     const getMusicians = async () => {
       const queryParams = new URLSearchParams({
         p: 0,
-        m: 7,
+        m: 10,
         ...data
       }).toString();
       console.log(queryParams);

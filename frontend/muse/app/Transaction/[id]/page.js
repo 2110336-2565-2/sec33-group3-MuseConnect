@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import TransactionNavbar from "../../../ui/transaction/TransactionNavbar";
 import "./page.css";
+// import Elehome from "../../../ui/elehome";
 // import bg from "../../../public/images/wallpaper.png";
 
 export default function page() {
@@ -404,6 +405,7 @@ export default function page() {
               </Card.Text>
             </Card.Body>
           </Card>
+          {/* <Elehome /> */}
           <button
             type="button"
             className="mx-3 mb-4 btn btn-primary"

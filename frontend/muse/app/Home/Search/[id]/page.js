@@ -10,6 +10,7 @@ import UserPhoto from '../../../../ui/UserPhoto';
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
 import {usePathname} from 'next/navigation'
+import { useRouter } from "next/navigation";
 import styles from '../../Profile/page.css'
   
 function split(eventarray) {
@@ -86,6 +87,34 @@ export default function profile() {
     console.log("event: ", userevent)
   }, [userevent])
 
+  //toChat button
+  const router = useRouter();
+
+  const chatHandler = async (userId) => {
+    const user = await JSON.parse(localStorage.getItem("user")); // {email : ,token : ,_id : }
+    if (user) {
+      const respone = await fetch("http://localhost:4000/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ userId }),
+      });
+
+      const result = await respone.json();
+
+      if (respone.ok) {
+        router.push(`/Chat/${result._id}`);
+        // router.push(`/`)
+        // window.location.href = `/Chat/${result._id}`;
+      } else {
+        alert(result.error);
+      }
+    } else {
+      alert("please login");
+    }
+  };
 
 
   return (
@@ -93,7 +122,7 @@ export default function profile() {
     <div className={montserrat.className}>
       <Container className="justify-content-center align-items-center">
         <div className="mt-5">
-          <Row className=" text-white" style={{ backgroundColor: "#1E1E1E" }}>
+          <Row className=" text-white">
             <Col style={{ marginLeft: "3rem", marginRight: "3rem" }} xs={3}>
               <Row className='justify-content-center'>
                 <UserPhoto />
@@ -101,10 +130,10 @@ export default function profile() {
               <Row style={{ marginRight: "0px" }}>
                 
                 {/* This button is needed to change to a 'Start Chat' Button */}
-                <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="light"
-                  style={{ width: "200px", marginLeft: "24px", marginTop: "20px" }}>
-                  <a href="/Edit">Edit profile</a>
-                </button>
+                <Button variant='outline-light'
+                  style={{ width: "200px", marginLeft: "24px", marginTop: "20px" }} onClick={() => chatHandler(id)}>
+Chat
+                </Button>
 
               </Row>
             </Col>
@@ -120,12 +149,6 @@ export default function profile() {
                 {user.phone_number}
               </p>
               <h5 className={montserrat.className}><span class="badge rounded-pill text-bg-success" style={{ fontWeight: "normal", marginBottom: "-8px" }}>{user.role}</span></h5>
-              {/* <Chip label={user.role} color="success" /> */}
-              {/* <Chip
-              title={user.role}
-              color='#65D36E'
-              type='filledOutlined'
-            /> */}
 
               <div style={{ marginBottom: "15px" }} className={montserrat.className}></div>
               <Stack className={montserrat.className} direction='horizontal' gap={1}>
@@ -166,44 +189,6 @@ export default function profile() {
                 </Stack>
               ))}
             </Stack>
-
-            {/* ข้างล่างไม่ใช้ */}
-            {/* <Stack direction='horizontal' gap={0}>
-        {console.log(userevent)} 
-        {(splitevent[0])?.map((e) => (
-                  <div class="card" style={{maxWidth:"18rem",marginTop:"0px",width:"19.2%"}}>
-                    <div class="card-header">{e.name}</div>
-                    <div class="card-body text-success">
-                    <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>Success card title</h5>
-                    <p class="card-text" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-                
-              ))}
-        </Stack>
-
-        <Stack direction='horizontal' gap={1}>
-        {console.log(typeof splitevent[1][0].name)} 
-        {(splitevent[1])?.map((e) => (
-                typeof e.name == 'string'?
-                  <div class="card" style={{maxWidth:"18rem",marginTop:"0px",minWidth:"19%"}}>
-                    <div class="card-header">{e.name}</div>
-                    <div class="card-body text-success">
-                      <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>Success card title</h5>
-                      <p class="card-text" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-                :
-                  <div class="card" style={{maxWidth:"18rem",marginTop:"0px",minWidth:"19%",height:'100%'}}>
-                    <div class="card-header">{e.name}</div>
-                    <div class="card-body text-success">
-                      <h5 class="card-title" className={montserrat.className} style={{color:"white",fontWeight:"bold"}}>Success card title</h5>
-                      <p class="card-text" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-              ))}
-        </Stack> */}
-
           </Row>
         </div>
       </Container>

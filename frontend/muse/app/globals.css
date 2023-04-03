@@ -359,6 +359,7 @@
       visibility: hidden; }
       #menuButton.active {
         visibility: visible; } }
+
 /* for card */
 
 .cardA{
@@ -408,4 +409,30 @@
 }
 .cardA:hover::before, .cardA:hover::after, .cardA:focus::before, .cardA:focus::after {
   transform: scale3d(1, 1, 1);
+}
+
+/* For music */
+.musicButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: -55px;
+}
+
+.music-button {
+  background-color: #ff5a5f;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  height: 50px;
+  margin: 0 10px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  width: 50px;
+}
+
+.music-button:hover {
+  transform: scale(1.1);
 }
