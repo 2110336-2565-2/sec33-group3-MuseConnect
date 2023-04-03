@@ -76,7 +76,7 @@ export default function Home() {
     <>
       <div className="wrapper d-flex align-items-stretch"
         style={{
-          backgroundImage: `url("images/wallpaper2.png")`, backgroundSize: "cover",
+          backgroundImage: `url("images/wallpaperNoNotes.png")`, backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center center",
           backgroundAttachment: "fixed",
