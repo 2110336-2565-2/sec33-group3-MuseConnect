@@ -345,7 +345,7 @@ function Chatbox({ chatId }) {
       <div
         id=""
         style={{
-          height: "83vh",
+          height: "87vh",
           overflow: "scroll",
           overflowX: "hidden",
           objectFit: "cover",
@@ -393,7 +393,7 @@ function Chatbox({ chatId }) {
             position: "fixed",
             bottom: "0px",
             display: "block",
-            width: "100%",
+            width: "100vi",
           }}
         >
           <InputGroup>

@@ -5,6 +5,7 @@ import { useEffect, useState,React} from "react";
 import Link from "next/link";
 import { Montserrat } from "@next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
+import { BsPersonLinesFill } from "react-icons/bs";
 
 export default function ChatsideBar({ children}) {
   //move from Chatmain
@@ -71,26 +72,25 @@ export default function ChatsideBar({ children}) {
       id="sidebar"
       className={isActive ? null : "active"}
     >
-      <div className="pt-5" style={{paddingLeft:"15px"}}>
+      <div className="pt-5" style={{paddingLeft:"15px",paddingRight:"15px"}}>
         <h3 style={{ color: "white" }} className={montserrat.className}>
           <Link href={""}>Muse Connect</Link>
         </h3>
-        <ul className="list-unstyled components mb-5">
+        <div className="list-unstyled components mb-5">
         {chatRooms &&
             chatRooms.map((chatRoom, index) => (
-              <li key={`chatroom_${index}`} id={index}>
-                {/* <img src={chatRoom.picture} alt="Flowers" /> */}
-                <Link
-                  className="link-light text-decoration-none fw-bold"
-                  href={`/Chat/${chatRoom.id}`}
-                >
+              <>
+              <Link href={`/Chat/${chatRoom.id}`}>
+                <div key={`chatroom_${index}`} id={index} style={{marginTop:"2em", marginLeft:"1em",fontSize:"1.2em"}}>
+                  <BsPersonLinesFill style={{marginRight:"1em"}}/>
                   {chatRoom.name}
-                </Link>
-                <br />
-              </li>
+                </div>
+              </Link>
+              <hr />
+              </>
             ))}
           {!chatRooms && <p className="text-white bg-dark">No Chat Room</p>}
-        </ul>
+        </div>
       </div>
     </nav>
   );

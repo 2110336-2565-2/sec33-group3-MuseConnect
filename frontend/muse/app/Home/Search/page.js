@@ -71,7 +71,7 @@ export default function page() {
 
   return (
     <div>
-    <Nav style={{marginBottom:"50px"}}>
+    <Nav style={{marginTop:"0.5em"}}>
     <Form.Group className="d-flex" onSubmit={filterHandler}>
             <Form.Control
               name="name"
@@ -81,6 +81,7 @@ export default function page() {
               aria-label="Search"
               value={nameFilter}
               onChange={(e) => setnameFilter(e.target.value)}
+              style={{width:"30em"}}
             />
         
       </Form.Group>
@@ -92,7 +93,9 @@ export default function page() {
         setIsFilter(true)}} 
         variant="outline-success">Filter
       </Button>
-      <div className="text-dark d-flex" style={{backgroundColor: "white"}}>
+      </Nav>
+      <Nav style={{marginBottom:"50px",marginTop:"0.2em"}}>
+      <div className="text-dark d-flex" style={{backgroundColor: "white",borderRadius:"7px"}}>
         <Multiselect
         isObject ={false}
         options ={options}
@@ -101,10 +104,8 @@ export default function page() {
         displayValue="try"
         onRemove={e => setspecialFilter([].slice.call(e).map(item => item))}
         onSelect={e => setspecialFilter([].slice.call(e).map(item => item))}
-        />
+         />
       </div>
-      
-
     </Nav>
     <Container className={montserrat.className} fluid>
       <Row md={4}><PeopleCard className={montserrat.className} musicians={musicians}/></Row>
