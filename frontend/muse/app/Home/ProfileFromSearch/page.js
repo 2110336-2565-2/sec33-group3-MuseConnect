@@ -102,10 +102,13 @@ export default function profile() {
                 <UserPhoto />
               </Row>
               <Row style={{ marginRight: "0px" }}>
+                
+                {/* This button is needed to change to a 'Start Chat' Button */}
                 <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="light"
                   style={{ width: "200px", marginLeft: "24px", marginTop: "20px" }}>
                   <a href="/Edit">Edit profile</a>
                 </button>
+
               </Row>
             </Col>
             <Col style={{ marginTop: "0px", width: '100%' }} >

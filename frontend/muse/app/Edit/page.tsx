@@ -37,20 +37,32 @@ const Home: NextPage = () => {
     const [value, setValue] = useState("");
     
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Edit Profile Page</title>
-      </Head>
+    <div>
       <main>
         {(() => {
         if (user && user.role=="MUSICIAN") { //if user is not NULL
           return (
+            <body style={{backgroundImage:`url("images/wallpaper1.png")`,backgroundSize:"cover",
+            backgroundRepeat:"no-repeat",
+            backgroundPosition:"center center",
+            backgroundAttachment:"fixed"
+            }}>
+            <div className={styles.container}>
             <EditForm/>
+            </div>
+            </body>
           )
         } else {
-          //console.log("this is organizer");
           return (
+            <body style={{backgroundImage:`url("images/wallpaper1.png")`,backgroundSize:"cover",
+            backgroundRepeat:"no-repeat",
+            backgroundPosition:"center center",
+            backgroundAttachment:"fixed"
+            }}>
+            <div className={styles.container}>
             <EditOrganizerForm/>
+            </div>
+            </body>
           )
         }
       })()}
