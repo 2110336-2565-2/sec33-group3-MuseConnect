@@ -92,11 +92,10 @@ export default function profile() {
 
 
   return (
-
-    <div className={montserrat.className}>
+    <div className={montserrat.className} >
       <Container className="justify-content-center align-items-center">
         <div className="mt-5">
-          <Row className=" text-white" style={{ backgroundColor: "#1E1E1E" }}>
+          <Row className=" text-white">
             <Col style={{ marginLeft: "3rem", marginRight: "3rem" }} xs={3}>
               <Row className='justify-content-center'>
                 <UserPhoto />
@@ -146,7 +145,10 @@ export default function profile() {
           <div style={{ marginLeft: "31px", marginBottom: "0px" }}><h3 className={montserrat.className} >Past Events</h3></div>
           <Row style={{ marginTop: "5px", marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}>
             {(userevent.length==0)?(
-              <p style={{marginTop:"20px",alignContent:"center"}}>♫⋆｡♪ There is no past event. ₊˚♬ ﾟ</p>
+              <div>
+                <h5 className={montserrat.className} style={{marginTop:"20px", textAlign:"center"}}>♫⋆ No recorded past event ⋆♫</h5>
+                {/* <img src="images/icon.png"/> */}
+              </div>
             )
             :(
               <Stack direction='vertical' gap={1}>

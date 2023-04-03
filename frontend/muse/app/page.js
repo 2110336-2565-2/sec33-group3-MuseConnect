@@ -74,14 +74,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="wrapper d-flex align-items-stretch"
-        style={{
-          backgroundImage: `url("images/wallpaperNoNotes.png")`, backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      <div className="wrapper d-flex align-items-stretch">
         <SideBar children={isActive} />
 
         {/* <!-- Page Content  --> */}
