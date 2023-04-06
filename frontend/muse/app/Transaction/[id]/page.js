@@ -1,9 +1,10 @@
 "use client";
 
-import { Container, Card } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import TransactionNavbar from "../../../ui/transaction/TransactionNavbar";
+import ReviewModal from "../../../ui/transaction/ReviewModal";
 import "./page.css";
 import bg from "../../../public/images/wallpaper.png";
 
@@ -27,6 +28,7 @@ export default function page() {
   const [isSecondaryButtonEnable, setSecondaryButtonEnable] = useState(true);
   const [isSecondaryButtonAvailable, setIsSecondaryButtonAvailable] =
     useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   /* fetches the event details from the server and sets the event and transaction status */
   useEffect(() => {
@@ -339,10 +341,12 @@ export default function page() {
       ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
   }
 
+  const handleShowModal = () => setShowModal(true);
+  const handleHideModal = () => setShowModal(false);
+
   /*
     used in production
   */
-
   return (
     <>
       <TransactionNavbar chatId={chatId} />
@@ -386,6 +390,12 @@ export default function page() {
               {secondaryButtonText}
             </button>
           )}
+          <button
+            type="button"
+            className="mx-3 mb-4 btn btn-light" onClick={handleShowModal}>
+            Review
+          </button>
+          <ReviewModal show={showModal} onHide={handleHideModal} />
           <button
             type="button"
             className="mx-3 mb-4 btn btn-info"
