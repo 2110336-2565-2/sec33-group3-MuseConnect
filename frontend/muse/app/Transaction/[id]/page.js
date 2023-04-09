@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import TransactionNavbar from "../../../ui/transaction/TransactionNavbar";
 import ReviewModal from "../../../ui/transaction/ReviewModal";
 import "./page.css";
-import bg from "../../../public/images/wallpaper.png";
 
 export default function page() {
   const eventId = usePathname().split("/").at(-1);
@@ -22,12 +21,13 @@ export default function page() {
 
   /* UI */
   const [transactionStatusCount, setTransactionStatusCount] = useState(0);
-  const [primaryButtonText, setPrimaryButtonText] = useState("");
-  const [isPrimaryButtonEnable, setIsPrimaryButtoEnable] = useState(true);
-  const [secondaryButtonText, setSecondaryButtonText] = useState("");
-  const [isSecondaryButtonEnable, setSecondaryButtonEnable] = useState(true);
+  const [primaryButtonText, setPrimaryButtonText] = useState("Loading...");
+  const [isPrimaryButtonEnable, setIsPrimaryButtoEnable] = useState(false);
+  const [secondaryButtonText, setSecondaryButtonText] = useState("Loading...");
+  const [isSecondaryButtonEnable, setSecondaryButtonEnable] = useState(false);
   const [isSecondaryButtonAvailable, setIsSecondaryButtonAvailable] =
-    useState(true);
+    useState(false);
+  const [isReviewButtonAvailable, setIsReviewButtonAvailable] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   /* fetches the event details from the server and sets the event and transaction status */
@@ -80,8 +80,6 @@ export default function page() {
             setEventStatus(data.status);
             setEventDate(data.date);
             setTransactionStatus(data.transaction_state);
-            updateProgressbar(data.transaction_state);
-            // setTransactionStatus(data.transaction_state);
           })
           .catch((err) => {
             console.error(err);
@@ -204,6 +202,7 @@ export default function page() {
         setUiParameters("Confirm received", true, "MUSREF", false, false);
       } else if (transactionStatus == "TRNFIN") {
         setUiParameters("All done", false, "TRNFIN", false, false);
+        setIsReviewButtonAvailable(true);
       }
     } else if (user.role == "MUSICIAN") {
       if (transactionStatus == "NOTACK")
@@ -254,7 +253,6 @@ export default function page() {
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
-    updateProgressbar(nextTransactionStatus);
   };
 
   const secondaryTransactionStateHandler = () => {
@@ -272,7 +270,6 @@ export default function page() {
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
-    updateProgressbar(nextTransactionStatus);
   };
 
   /* development only */
@@ -298,25 +295,12 @@ export default function page() {
     }
     setTransactionStatus(nextTransactionStatus);
     setEventStatus(nextEventStatus);
-    updateProgressbar(nextTransactionStatus);
   };
-  //EVEACK
-  const div_state_EVEACK = () => {
-    if (transactionStatus == "EVEACK") {
-      return (
-        <div
-          className="progress-step progress-step-active"
-          data-title="EVEACK"
-        ></div>
-      );
-    } else {
-      return <div className="progress-step" data-title="EVEACK"></div>;
-    }
-  };
-  const progress = document.getElementById("progress");
-  const progressSteps = document.querySelectorAll(".progress-step");
 
-  function updateProgressbar(nextTransactionStatus) {
+  useEffect(() => {
+    const progress = document.getElementById("progress");
+    const progressSteps = document.querySelectorAll(".progress-step");
+
     const state_list = [
       "NOTACK",
       "EVEACK",
@@ -326,7 +310,7 @@ export default function page() {
       "MUSREF",
       "TRNFIN",
     ];
-    let state_idx = state_list.indexOf(nextTransactionStatus) + 1;
+    let state_idx = state_list.indexOf(transactionStatus) + 1;
     progressSteps.forEach((progressStep, idx) => {
       if (idx < state_idx) {
         progressStep.classList.add("progress-step-active");
@@ -339,7 +323,7 @@ export default function page() {
 
     progress.style.width =
       ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
-  }
+  }, [transactionStatus]);
 
   const handleShowModal = () => setShowModal(true);
   const handleHideModal = () => setShowModal(false);
@@ -353,7 +337,7 @@ export default function page() {
       <div className="bg-image">
         <Container className="p-4 justify-content-center align-items-center">
           <Card className="p-4 mb-4">
-            <Card.Title>Variable details</Card.Title>
+            <Card.Title id="infomation-card-title">Variable details</Card.Title>
             <Card.Body>
               <Card.Text>
                 eventId: {eventId}
@@ -390,12 +374,16 @@ export default function page() {
               {secondaryButtonText}
             </button>
           )}
-          <button
-            type="button"
-            className="mx-3 mb-4 btn btn-light" onClick={handleShowModal}>
-            Review
-          </button>
-          <ReviewModal show={showModal} onHide={handleHideModal} />
+          {
+            isReviewButtonAvailable &&
+            <button
+              type="button"
+              className="mx-3 mb-4 btn btn-light" onClick={handleShowModal}>
+              Review
+            </button>
+          }
+          
+          <ReviewModal show={showModal} onHide={handleHideModal} eventId={eventId} storedUser={storedUser}/>
           <button
             type="button"
             className="mx-3 mb-4 btn btn-info"
