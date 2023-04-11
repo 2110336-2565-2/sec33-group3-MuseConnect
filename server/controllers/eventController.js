@@ -103,10 +103,10 @@ const updateEvent = async (req, res) => {
     }
 
     const message = await Message.findById(id);
-    if(message === null) {
+    if(!message) {
       const lastEvent = await Event.findById(id);
       const event = await Event.findByIdAndUpdate(
-        lastEvent,
+        lastEvent._id,
         req.body,
         {
           returnDocument: "after",
