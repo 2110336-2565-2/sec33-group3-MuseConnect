@@ -26,7 +26,7 @@ router.use(requireAuth);
 *         - organizer
 *         - musician
 *       properties:
-*         id:
+*         _id:
 *           type: ObjectId
 *           format: uuid
 *           description: The auto-generated id of event
@@ -70,7 +70,7 @@ router.use(requireAuth);
 *           maximum: 5
 *           description: The review score of event
 *       example:
-*           id: 642414ea16f1a5ce13e30f69
+*           _id: 642414ea16f1a5ce13e30f69
 *           name: test_event
 *           date: 2023-03-30T00:00:00.000+00:00
 *           location: test_location
@@ -97,13 +97,13 @@ router.use(requireAuth);
 *       tags: [Events]
 *       responses:
 *           200:
-*               description: The list of all events
-*               content:
-*                   application/json:
-*                       schema:
-*                           type: array
-*                           items:
-*                               $ref: '#/components/schemas/Event'
+*             description: The list of all events
+*             content:
+*               application/json:
+*                 schema:
+*                   type: array
+*                   items:
+*                     $ref: '#/components/schemas/Event'
 *           400:
 *               description: Some error
 */
@@ -129,8 +129,6 @@ router.use(requireAuth);
 *                 $ref: '#/components/schemas/Event'
 *       400:
 *         description: Some error
-*       404:
-*         description: The event was not found
 */
 /**
 * @swagger
@@ -143,7 +141,35 @@ router.use(requireAuth);
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/Event'
+*             type: object
+*             properties:
+*               name:
+*                 type: String
+*                 example: test_event
+*               date:
+*                 type: Date
+*                 example: 2023-03-30T00:00:00.000+00:00
+*               location:
+*                 type: String
+*                 example: test_location
+*               organizer:
+*                 type: String
+*                 example: 6424116116f1a5ce13e30f22
+*               musician:
+*                 type: String
+*                 example: 6424112616f1a5ce13e30f1f
+*               detail:
+*                 type: String
+*                 example: test_detail
+*               status:
+*                 type: String
+*                 example: PENDING
+*               wage:
+*                 type: Number
+*                 example: 123
+*               transaction_state:
+*                 type: String
+*                 example: NOTACK
 *     responses:
 *       201:
 *         description: Create successfull
@@ -158,7 +184,7 @@ router.use(requireAuth);
 * @swagger
 * /event/{id}:
 *   put:
-*     summary: Update the event by id
+*     summary: Update the event by eventId or messageId
 *     tags: [Events]
 *     parameters:
 *       - in: path
@@ -166,7 +192,7 @@ router.use(requireAuth);
 *         schema:
 *           type: string
 *         required: true
-*         description: The event id
+*         description: The event id or message id
 *     requestBody:
 *       required: true
 *       content:
@@ -182,8 +208,6 @@ router.use(requireAuth);
 *               $ref: '#/components/schemas/Event'
 *       400:
 *         description: Some error
-*       404:
-*         description: The event was not found 
 */
 /**
 * @swagger
@@ -198,14 +222,15 @@ router.use(requireAuth);
 *           type: string
 *         required: true
 *         description: The event id
-*
 *     responses:
 *       200:
 *         description: The event was deleted
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/Event'
 *       400:
 *         description: Some error
-*       404:
-*         description: The event was not found
 */
 
 // fetech event

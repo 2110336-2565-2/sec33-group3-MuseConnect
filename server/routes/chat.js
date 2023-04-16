@@ -145,7 +145,20 @@ const requireAuth = require('../middleware/requireAuth')
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/Chat'
+*             type: object
+*             properties:
+*               organizer:
+*                 type: String
+*                 example: 63e8da0e491bf69c080bbef6
+*               musician:
+*                 type: String
+*                 example: 63e8da0e491bf69c080bbef5
+*               latestMessage:
+*                 type: String
+*                 example: 12e8da0e491bf69c080bbef1
+*               latestMessageEvent:
+*                 type: String
+*                 example: 63e8da01111bf69c080bbef1
 *     responses:
 *       200:
 *         description: The chat was updated
@@ -171,7 +184,7 @@ const requireAuth = require('../middleware/requireAuth')
 *         description: The chat id
 *     responses:
 *       200:
-*         description: The chat was deleted and return deleted chat
+*         description: The chat was deleted
 *         content:
 *           application/json:
 *             schema:

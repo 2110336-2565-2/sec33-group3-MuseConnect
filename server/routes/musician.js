@@ -17,9 +17,35 @@ const requireAuth = require('../middleware/requireAuth')
 * @swagger
 * /musician:
 *   get:
-*       summary: Returns the list of all the musicians
-*       tags: [Musicians]
-*       responses:
+*     summary: Returns the list of all the musicians
+*     tags: [Musicians]
+*     parameters:
+*       - in: query
+*         name: p
+*         schema:
+*           type: Number
+*           required: false
+*           description: The page number of musician list
+*       - in: query
+*         name: m
+*         schema:
+*           type: Number
+*           required: false
+*           description: The max number of musician in page 
+*       - in: query
+*         name: name
+*         schema:
+*           type: String
+*           required: false
+*           description: The search name
+*       - in: query
+*         name: specialization
+*         schema:
+*           type: String
+*           required: false
+*           description: The specialization of musician to search on
+*           example: pop,jazz
+*     responses:
 *           200:
 *               description: The list of the musicians
 *               content:
@@ -53,8 +79,6 @@ const requireAuth = require('../middleware/requireAuth')
 *                 $ref: '#/components/schemas/User'
 *       400:
 *         description: Some error
-*       404:
-*         description: The musician was not found
 */
 
 // get musicians

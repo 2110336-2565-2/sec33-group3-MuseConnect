@@ -19,6 +19,19 @@ const requireAuth = require("../middleware/requireAuth");
 *   get:
 *       summary: Returns the list of all the organizers
 *       tags: [Organizers]
+*       parameters:
+*         - in: query
+*           name: p
+*           schema:
+*             type: Number
+*             required: false
+*             description: The page number of organizer list
+*         - in: query
+*           name: m
+*           schema:
+*             type: Number
+*             required: false
+*             description: The max number of organizer in page
 *       responses:
 *           200:
 *               description: The list of the organizers
@@ -53,8 +66,6 @@ const requireAuth = require("../middleware/requireAuth");
 *                 $ref: '#/components/schemas/User'
 *       400:
 *         description: Some error
-*       404:
-*         description: The organizer was not found
 */
 
 router.use(requireAuth)

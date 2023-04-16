@@ -19,7 +19,7 @@ router.use(requireAuth);
 *         - sender
 *         - chat
 *       properties:
-*         id:
+*         _id:
 *           type: ObjectId
 *           format: uuid
 *           description: The auto-generated id of message
@@ -39,17 +39,15 @@ router.use(requireAuth);
 *           type: ObjectId
 *           description: The chat where this message is
 *       example:
-*           - id: 63fa509243b30b769e2ba35
+*           - _id: 63fa509243b30b769e2ba35
 *             sender: 63de6589f2a20731c8d6a879
 *             content: 
-*               properties:
-*                 text: hello
+*               text: hello
 *             chat: 642412f14c1bdfa91d8cb65a
-*           - id: 63fa509243b30b769e2ba39
+*           - _id: 63fa509243b30b769e2ba39
 *             sender: 63de6589f2a20731c8d6a879
 *             content: 
-*               properties:
-*                 event: 642414ea16f1a5ce13e30f69
+*               event: 642414ea16f1a5ce13e30f69
 *             chat: 642412f14c1bdfa91d8cb65a
 */
 /**
@@ -80,8 +78,6 @@ router.use(requireAuth);
 *                 $ref: '#/components/schemas/Message'
 *       400:
 *         description: Some error
-*       404:
-*         description: The chat was not found
 */
 /**
 * @swagger
@@ -94,14 +90,33 @@ router.use(requireAuth);
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/Message'
+*             type: object
+*             properties:
+*               content:
+*                 type: Object
+*                 example: {text : "test_message"}
+*               chatId:
+*                 type: String
+*                 example: 642412f14c1bdfa91d8cb65a
 *     responses:
 *       201:
 *         description: Access successfull
 *         content:
 *           application/json:
 *             schema:
-*               $ref: '#/components/schemas/Message'
+*               type: object
+*               properties:
+*                 _id:
+*                   type: ObjectId
+*                   example: 64350c6b8b6aff4bc8c0f8b6
+*                 sender:
+*                   type: ObjectId
+*                 content:
+*                   type: Object
+*                   example: {text : "test_message"}
+*                 chat:
+*                   type: ObjectId
+*                   example: 642412f14c1bdfa91d8cb65a
 *       400:
 *         description: Some error
 */

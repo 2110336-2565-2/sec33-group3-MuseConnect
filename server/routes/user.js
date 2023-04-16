@@ -137,8 +137,6 @@ const requireAuth = require('../middleware/requireAuth')
 *                 $ref: '#/components/schemas/User'
 *       400:
 *         description: Some error
-*       404:
-*         description: The user was not found
 */
 /**
 * @swagger
@@ -170,8 +168,6 @@ const requireAuth = require('../middleware/requireAuth')
 *         description: |
 *             - The user was invalid
 *             - Some error
-*       404:
-*         description: The user was not found 
 */
 /**
 * @swagger
@@ -190,10 +186,12 @@ const requireAuth = require('../middleware/requireAuth')
 *     responses:
 *       200:
 *         description: The user was deleted
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
 *       400:
 *         description: Some error
-*       404:
-*         description: The user was not found
 */
 
 router.use(requireAuth)
