@@ -25,72 +25,89 @@ const requireAuth = require('../middleware/requireAuth')
 *         - role
 *       properties:
 *         id:
-*           type: string
+*           type: String
 *           format: uuid
 *           description: The auto-generated id of user
-*           example: d290f1ee-6c54-4b01-90e6-d701748f0851
-*         ลําดับ:
-*           type: string
-*           description: Ordinal number
+*           example: 64350c6b8b6aff4bc8c0f8b6
 *         email:
-*           type: string
+*           type: String
 *           description: User email
 *         password:
-*           type: string
+*           type: String
 *           description: User password
 *         first_name:
-*           type: string
+*           type: String
 *           description: User first name
 *         last_name:
-*           type: string
+*           type: String
 *           description: User last name
 *         phone_number:
-*           type: string
+*           type: String
 *           description: User phone number
 *         role:
-*           type: string
+*           type: String
+*           enum: ["ADMIN", "MUSICIAN", "ORGANIZER"]
 *           description: User role
+*         profile_picture:
+*           properties:
+*             data:
+*               type: Buffer
+*               description: picture string convert to bindata
+*             contentType:
+*               type: String
+*               description: type of picture
+*           description: User profile picture
 *         specialization:
-*           type: string
-*           description: User specialization
+*           type: [String]
+*           description: Musician specialization
 *         price_min:
-*           type: number
-*           description: User minimum price
+*           type: Number
+*           minimum: 0
+*           description: User minimum wanted price
 *         price_max:
-*           type: number
-*           description: User maximum price
+*           type: Number
+*           minimum: 0
+*           description: User maximum wanted price
 *         status:
-*           type: string
+*           type: String
+*           enum: ["BUSY", "AVAILABLE"]
 *           description: User status
 *         location:
-*           type: string
+*           type: String
 *           description: User location
+*         preference:
+*           type: [String]
+*           description: Organizer preference
 *         wage:
-*           type: number
+*           type: Number
+*           minimum: 0
 *           description: User wage
 *         description:
-*           type: string
+*           type: String
 *           description: User description
 *         link:
-*           type: string
+*           type: String
 *           description: User link
 *       example:
 *           id: 609bda561452242d88d36e37
-*           ลําดับ: 123
 *           email: user1@test.com
 *           password: Tester123!
 *           first_name: ผู้ใช้
 *           last_name: ทดสอบ
-*           phone_number: 0234567891
-*           role: musician
-*           specialization: metal
+*           phone_number: "+66111111111"
+*           role: MUSICIAN
+*           profile_picture:
+*             data: BinData(0, 'ZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvMndCREFBWUVCQVVFQkFZRkJRVUdCZ1lI…')
+*             contentType: "image/png"
+*           specialization: ["metal"]
 *           price_min: 0
 *           price_max: 100000
 *           status: AVAILABLE
 *           location: กรุงเทพฯ
+*           preference: ["pop"]
 *           wage: 20000
-*           description: none
-*           link: none
+*           description: test description
+*           link: https://www.youtube.com/
 */
 /**
 * @swagger

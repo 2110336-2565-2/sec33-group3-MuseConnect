@@ -11,7 +11,7 @@ const { signupUser, loginUser } = require("../controllers/userController");
 */
 /**
 * @swagger
-* /auth/signup:
+* /signup:
 *   post:
 *     summary: Sign up a user
 *     tags: [Auth]
@@ -20,20 +20,49 @@ const { signupUser, loginUser } = require("../controllers/userController");
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/User'
+*             type: object
+*             properties:
+*               email:
+*                 type: String
+*                 example : user1@test.com
+*               password:
+*                 type: String
+*                 example : Password@1
+*               first_name:
+*                 type: String
+*                 example : first_name
+*               last_name:
+*                 type: String
+*                 example : last_name
+*               phone_number:
+*                 type: String
+*                 example : "+66111111111"
+*               role:
+*                 type: String
+*                 example : MUSICIAN
 *     responses:
 *       201:
 *         description: The user was successfully created
 *         content:
 *           application/json:
 *             schema:
-*               $ref: '#/components/schemas/User'
+*               type: object
+*               properties:
+*                 _id:
+*                   type: String
+*                   example : 643bccbdaf9e285cf555b4fk
+*                 email:
+*                   type: String
+*                   example : user1@test.com
+*                 token:
+*                   type: String
+*                   example : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2JjY2JkYWY5ZTI4NWNmNTU1YjRmZSIsImlhdCI6MTY4MTY0MDYzNywiZXhwIjoxNjg0MjMyNjM3fQ.bvh_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 *       400:
 *         description: Some error
 */
 /**
 * @swagger
-* /auth/login:
+* /login:
 *   post:
 *     summary: Log in a user
 *     tags: [Auth]
@@ -42,14 +71,31 @@ const { signupUser, loginUser } = require("../controllers/userController");
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/User'
+*             type: object
+*             properties:
+*               email:
+*                 type: String
+*                 example : musician1@hotmail.com
+*               password:
+*                 type: String
+*                 example : Password@1
 *     responses:
 *       201:
 *         description: The user successfully logged in
 *         content:
 *           application/json:
 *             schema:
-*               $ref: '#/components/schemas/User'
+*               type: object
+*               properties:
+*                 _id:
+*                   type: String
+*                   example : 643bccbdaf9e285cf555b4fk
+*                 email:
+*                   type: String
+*                   example : user1@test.com
+*                 token:
+*                   type: String
+*                   example : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2JjY2JkYWY5ZTI4NWNmNTU1YjRmZSIsImlhdCI6MTY4MTY0MDYzNywiZXhwIjoxNjg0MjMyNjM3fQ.bvh_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 *       400:
 *         description: Some error
 */

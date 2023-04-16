@@ -30,34 +30,48 @@ router.use(requireAuth);
 *           type: ObjectId
 *           format: uuid
 *           description: The auto-generated id of event
-*           example: d290f1ee-6c54-4b01-90e6-d701748f0851
+*           example: 64350c6b8b6aff4bc8c0f8b6
 *         name:
-*           type: string
+*           type: String
 *           description: The name of event
 *         date:
-*           type: date
+*           type: Date
 *           description: The date of event
 *         location:
-*           type: string
+*           type: String
 *           description: The location of event
 *         organizer:
 *           type: ObjectId
-*           description: The id of organizer
+*           description: The id of organizer in this event
 *         musician:
 *           type: ObjectId
-*           description: The id of musician
+*           description: The id of musician in this event
 *         detail:
 *           type: ObjectId
 *           description: The detail of event
 *         status:
-*           type: string
+*           type: String
+*           enum: ["ACCEPT", "DECLINE", "PENDING", "CANCELLED"]
 *           description: The status of event
 *         wage:
-*           type: number
-*           description: The wage of musician
+*           type: Number
+*           minimum: 0
+*           description: The wage musician will get
+*         transaction_state:
+*           type: String
+*           enum: ["NOTACK", "EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"]
+*           description: The status of event transaction
+*         review_description:
+*           type: String
+*           description:  The review description of event
+*         review_score:
+*           type: Number
+*           minimum: 0
+*           maximum: 5
+*           description: The review score of event
 *       example:
 *           id: 642414ea16f1a5ce13e30f69
-*           name: test event
+*           name: test_event
 *           date: 2023-03-30T00:00:00.000+00:00
 *           location: test_location
 *           organizer: 6424116116f1a5ce13e30f22
@@ -65,6 +79,9 @@ router.use(requireAuth);
 *           detail: test_detail
 *           status: ACCEPT
 *           wage: 123
+*           transaction_state: TRNFIN
+*           review_description: test_review
+*           review_score: 5
 */
 /**
 * @swagger

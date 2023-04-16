@@ -51,7 +51,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // routes
 app.get("/", (req, res) => {
   res.json({ mess: "Welcome to muse-connect server!" });

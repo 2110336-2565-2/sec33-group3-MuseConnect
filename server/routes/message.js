@@ -23,7 +23,7 @@ router.use(requireAuth);
 *           type: ObjectId
 *           format: uuid
 *           description: The auto-generated id of message
-*           example: d290f1ee-6c54-4b01-90e6-d701748f0851
+*           example: 64350c6b8b6aff4bc8c0f8b6
 *         sender:
 *           type: ObjectId
 *           description: The id of sender
@@ -34,18 +34,23 @@ router.use(requireAuth);
 *               description: The text of message
 *             event:
 *               type: ObjectId
-*               description: The event in message
+*               description: The id of event in message
 *         chat:
 *           type: ObjectId
-*           description: The chat where this message in
+*           description: The chat where this message is
 *       example:
-*           id: 63fa509243b30b769e2ba35
-*           sender: 63de6589f2a20731c8d6a879
-*           content: 
-*             properties:
-*               text: hello
-*               event: 642414ea16f1a5ce13e30f69
-*           chat: 642412f14c1bdfa91d8cb65a
+*           - id: 63fa509243b30b769e2ba35
+*             sender: 63de6589f2a20731c8d6a879
+*             content: 
+*               properties:
+*                 text: hello
+*             chat: 642412f14c1bdfa91d8cb65a
+*           - id: 63fa509243b30b769e2ba39
+*             sender: 63de6589f2a20731c8d6a879
+*             content: 
+*               properties:
+*                 event: 642414ea16f1a5ce13e30f69
+*             chat: 642412f14c1bdfa91d8cb65a
 */
 /**
 * @swagger

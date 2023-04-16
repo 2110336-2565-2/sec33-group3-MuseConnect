@@ -33,8 +33,6 @@ const auth = require("../middleware/auth");
  *                 $ref: '#/components/schemas/User'
  *       400:
  *         description: Some error
- *       404:
- *         description: The admin was not found
  */
 
 router.use(requireAuth);
