@@ -10,7 +10,7 @@ const {
 } = require("../controllers/portfolioController");
 const requireAuth = require("../middleware/requireAuth");
 
-router.use(requireAuth);
+router.use(requireAuth)
 
 // get portfolios
 router.get("/", getPortfolios);
