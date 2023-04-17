@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+// import StarRating from './StarRating';
 import "./ReviewModal.css";
 
 export default function ReviewModal(props) {
@@ -34,10 +35,12 @@ export default function ReviewModal(props) {
     }
   }, [props.storedUser, props.eventId]);
 
-  /* TODO implement review submit logic */
+  const handleRatingChange = (ratingValue) => {
+    setScore(ratingValue);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("Submit", { score, description });
     let userToken = props.storedUser.token;
 
     fetch(`http://localhost:4000/api/event/${props.eventId}`, {
@@ -75,6 +78,10 @@ export default function ReviewModal(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="score">
             <Form.Label id="modal-score">Score [0 - 5]</Form.Label>
+            {/* <StarRating onRatingChange={handleRatingChange} />
+            <Form.Text className="text-muted">
+              Score: {score}
+            </Form.Text> */}
             <Form.Control
               type="number"
               min={0}
@@ -82,6 +89,10 @@ export default function ReviewModal(props) {
               value={score}
               onChange={(e) => setScore(e.target.value)}
             />
+            {/* <Form.Control
+              as={StarRating}
+              onRatingChange={handleScoreChange}
+            /> */}
           </Form.Group>
           <Form.Group className="mt-2" controlId="description">
             <Form.Label id="modal-description">Description</Form.Label>
