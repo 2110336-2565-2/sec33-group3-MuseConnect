@@ -5,6 +5,7 @@ import { Button, Stack,Row,Nav, Form , Card, Container} from 'react-bootstrap' ;
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import Multiselect from 'multiselect-react-dropdown';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../globals.css"
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -23,7 +24,7 @@ export default function page() {
     const getMusicians = async () => {
       const queryParams = new URLSearchParams({
         p: 0,
-        m: 7,
+        m: 10,
         ...data
       }).toString();
       console.log(queryParams);
@@ -70,8 +71,7 @@ export default function page() {
 
   return (
     <div>
-    <h1>This is head</h1>
-    <Nav style={{marginBottom:"50px"}}>
+    <Nav style={{marginTop:"0.5em"}}>
     <Form.Group className="d-flex" onSubmit={filterHandler}>
             <Form.Control
               name="name"
@@ -81,6 +81,7 @@ export default function page() {
               aria-label="Search"
               value={nameFilter}
               onChange={(e) => setnameFilter(e.target.value)}
+              style={{width:"30em"}}
             />
         
       </Form.Group>
@@ -92,7 +93,10 @@ export default function page() {
         setIsFilter(true)}} 
         variant="outline-success">Filter
       </Button>
-      <div className="text-dark d-flex" style={{backgroundColor: "white"}}><Multiselect
+      </Nav>
+      <Nav style={{marginBottom:"50px",marginTop:"0.2em"}}>
+      <div className="text-dark d-flex" style={{backgroundColor: "white",borderRadius:"7px"}}>
+        <Multiselect
         isObject ={false}
         options ={options}
         placeholder = {placeholder}
@@ -100,12 +104,11 @@ export default function page() {
         displayValue="try"
         onRemove={e => setspecialFilter([].slice.call(e).map(item => item))}
         onSelect={e => setspecialFilter([].slice.call(e).map(item => item))}
-      /></div>
-      
-
+         />
+      </div>
     </Nav>
-    <Container fluid style={{}}>
-      <Row><PeopleCard musicians={musicians}/></Row>
+    <Container className={montserrat.className} fluid>
+      <Row md={4}><PeopleCard className={montserrat.className} musicians={musicians}/></Row>
     </Container>
     
     </div>

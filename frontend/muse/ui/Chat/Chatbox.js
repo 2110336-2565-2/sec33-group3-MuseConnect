@@ -1,14 +1,24 @@
 "use client";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
-import { Image,Col,Row,Container,Button, Modal,Form,InputGroup } from "react-bootstrap";
+import {
+  Image,
+  Col,
+  Row,
+  Container,
+  Button,
+  Modal,
+  Form,
+  InputGroup,
+} from "react-bootstrap";
 import { eventFormat, haveSide } from "../../logic/chat";
-import "bootstrap/dist/css/bootstrap.min.css";  
+import { style1 } from "../../app/Chat/[id]/page.module.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 
 function Chatbox({ chatId }) {
-  // chatId = '63fa509243b30b769e2ba355';
+  // chatId = '642412f14c1bdfa91d8cb65a';
+
   // status update
   const [status, setStatus] = useState("");
   // chatrooms variable
@@ -89,11 +99,12 @@ function Chatbox({ chatId }) {
         const { event: eventBuffer } = content;
         const value = {
           name: eventBuffer.name,
-          location: currentOrganizerDetails.location,
-          phone: currentOrganizerDetails.phone_number,
+          location: currentOrganizerDetails.location || "unknown location",
+          phone: currentOrganizerDetails.phone_number || "unknown phone number",
           date: eventBuffer.date,
           wage: eventBuffer.wage,
           currentMessageStatus: eventBuffer.status,
+          eventId: eventBuffer._id,
         };
         texts.push({ value, sender, messageId });
       }
@@ -208,10 +219,6 @@ function Chatbox({ chatId }) {
     displayMessage();
   }, [messageEventBuffer]);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-  },[messages]);
-
   // receiving message from interlocutor
   socket.on("receive-message", (mess) => {
     setMessageEventBuffer([...messageEventBuffer, mess]);
@@ -276,7 +283,7 @@ function Chatbox({ chatId }) {
       },
       body: JSON.stringify({
         name: eventName,
-        location: currentOrganizerDetails.location+" location",
+        location: currentOrganizerDetails.location + " location",
         wage: eventWage,
         musician: currentMusician,
         organizer: currentOrganizer,
@@ -330,79 +337,92 @@ function Chatbox({ chatId }) {
   };
 
   //set scroll position
-
   const bottomRef = useRef(null);
-  bottomRef.current?.scrollIntoView({behavior: 'auto'});
+  bottomRef.current?.scrollIntoView({ behavior: "auto" });
 
   return (
     <div>
-          <div id=""
-            style={{
-              height: "83vh",
-              overflow: "scroll",
-              overflowX: "hidden",
-              backgroundColor: "#333",
-            }}
-          >
-            <ul className="">
-              {messages.map((message, i) => {
-                const { side, style } = haveSide(user, message.sender);
-                if (typeof message.text === "string") {
-                  return (
-                    <>
-                    {/* <div><Image src="https://img.lovepik.com/element/45001/3052.png_860.png" roundedCircle style={{borderRadius:"50%"}}></Image></div> */}
-                    <div
-                      className={`d-flex flex-row justify-content-${side} mb-4`}
-                    >
-                      <div className="p-3 ms-3  " style={style}>
-                        <p key={`message_${i}`} className="small mb-0">
-                          {message.text}
-                        </p>
-                      </div>
-                    </div></>
-                  );
-                }
-                return eventFormat(
-                  message.value,
-                  { side, style, i },
-                  currentMusician === user._id,
-                  handleShowModal,
-                  message.messageId === latestMessageEvent,
-                  setStatus
-                );
-              })}
-            </ul>
-            <div ref={bottomRef} />
-          </div>
-          <div style={{display: "block"}}>
-              <Form onSubmit={sendMessageHandler} xs="auto" className="form" style={{position: "fixed",bottom:"0px",display: "block",width:"100%"}}>
-                <InputGroup>
-                  {user._id === currentOrganizer && (
-                <Button
-                  variant="primary"
-                  onClick={() => handleShowModal({})}
-                  className=""
-                >
-                  make request
-                </Button>
-              )}
-                  
-                  <Form.Control
-                    type="text"
-                    value={messageInput}
-                    onChange={(e) => setMessageInput(e.target.value)}
-                    placeholder="Enter your message here"
-                    className="input"
-                  />
-                  
-                  <Button type="submit">{">"} </Button> 
-                </InputGroup>
-              </Form>
-          </div>
+      <div
+        id=""
+        style={{
+          height: "87vh",
+          overflow: "scroll",
+          overflowX: "hidden",
+          objectFit: "cover",
+          paddingLeft: "15px",
+          paddingRight: "15px",
+        }}
+      >
+        <ul className="">
+          {messages.map((message, i) => {
+            const { side, style } = haveSide(user, message.sender);
+            if (typeof message.text === "string") {
+              return (
+                <>
+                  {/* <div><Image src="https://img.lovepik.com/element/45001/3052.png_860.png" roundedCircle style={{borderRadius:"50%"}}></Image></div> */}
+                  <div
+                    className={`d-flex flex-row justify-content-${side} mb-4`}
+                  >
+                    <div className="p-3 ms-3" style={style}>
+                      <p key={`message_${i}`} className="small mb-0" style={{color: "black"}} >
+                        {message.text}
+                      </p>
+                    </div>
+                  </div>
+                </>
+              );
+            }
+            return eventFormat(
+              message.value,
+              { side, style, i },
+              currentMusician === user._id,
+              handleShowModal,
+              message.messageId === latestMessageEvent,
+              setStatus
+            );
+          })}
+        </ul>
+        <div ref={bottomRef} />
+      </div>
+      <div style={{ display: "block" }}>
+        <Form
+          onSubmit={sendMessageHandler}
+          xs="auto"
+          className="form"
+          style={{
+            position: "fixed",
+            bottom: "0px",
+            display: "block",
+            width: "100vi",
+          }}
+        >
+          <InputGroup>
+            {user._id === currentOrganizer && (
+              <Button
+                variant="primary"
+                onClick={() => handleShowModal({})}
+                className=""
+              >
+                make request
+              </Button>
+            )}
 
-      <Modal show={active} onHide={handleCloseModal} href="chat.css">
+            <Form.Control
+              type="text"
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
+              placeholder="Enter your message here"
+              className="input"
+            />
+
+            <Button type="submit">{">"} </Button>
+          </InputGroup>
+        </Form>
+      </div>
+
+      <Modal show={active} onHide={handleCloseModal} href="chat.css" style={{color: "black"}}>
         <Modal.Header closeButton id="head">
-          <Modal.Title>Event Form</Modal.Title>
+          <Modal.Title style={{color: "black"}}>Event Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div
@@ -411,9 +431,8 @@ function Chatbox({ chatId }) {
             style={{ flex: 1, paddingLeft: "10px" }}
             href="chat.css"
           >
-            <Form onSubmit={sendEventHandler}>
-              <br />
-              <div className="name">
+            <Form onSubmit={sendEventHandler} style={{color: "black"}}>
+              <div className="name" style={{marginBottom:"0.5em"}}>
                 <label htmlFor="name">Name: </label>
                 <input
                   type="text"
@@ -423,7 +442,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className="date">
+              <div className="date" style={{marginBottom:"0.5em"}}>
                 <label htmlFor="date" style={{ paddingRight: "10px" }}>
                   Date:{" "}
                 </label>
@@ -436,7 +455,7 @@ function Chatbox({ chatId }) {
                 />
               </div>
 
-              <div className="wage">
+              <div className="wage" style={{marginBottom:"0.5em"}}>
                 <label htmlFor="wage" style={{ paddingRight: "10px" }}>
                   Wage:{" "}
                 </label>

@@ -14,8 +14,11 @@ const {
 const requireAuth = require("../middleware/requireAuth");
 router.use(requireAuth);
 
-// fetech event
+// fetch event
 router.get("/", getAllEvents);
+
+// get all the events of a musician
+router.get("/user/:id", getUserEvents);
 
 // get single event
 router.get("/:id", getEvent);

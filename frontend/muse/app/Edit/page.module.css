@@ -1,7 +1,18 @@
 .container {
     position: absolute;
-    left: 50%;
     transform: translate(-50%, 0);
-    max-width: 100%;
+    left: 50%;
     min-width: 40%;
+
+    background: rgba(171, 236, 201, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(171, 236, 201, 0.3);
+    margin-top: 50px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-bottom: 15px;
+    margin-bottom: 50px;
 }

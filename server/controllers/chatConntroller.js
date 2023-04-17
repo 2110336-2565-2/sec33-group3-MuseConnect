@@ -31,7 +31,6 @@ const accessChat = async (req, res) => {
   try {
     let chat = await Chat.findChatByUser(req.user._id, userId);
     if (chat) {
-      console.log("Access chat");
       res.status(200).json(chat);
       return;
     }
@@ -76,7 +75,7 @@ const getChat = async (req, res) => {
 
 const deleteChat = async (req, res) => {
   const id = req.params.id;
-  const user_id = req.body.user_id;
+  const user_id = req.user._id;
   try {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");
@@ -97,7 +96,7 @@ const deleteChat = async (req, res) => {
 
 const updateChat = async (req, res) => {
   const id = req.params.id;
-  const user_id = req.body.user_id;
+  const user_id = req.user._id;
   try {
     if (!mongoose.isValidObjectId(id)) {
       throw Error("Invalid Id");

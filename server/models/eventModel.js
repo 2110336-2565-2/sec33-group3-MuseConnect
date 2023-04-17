@@ -34,11 +34,19 @@ const eventSchema = mongoose.Schema({
   wage: {
     type: Number,
     min: 0,
-  }, 
-  transaction_state:{
+  },
+  transaction_state: {
     type: String,
-    enum: ['NOTACK','EVEACK', 'ORGPAID', 'MUSACC', 'MUSCAN', 'ORGACC', 'ORGCAN'],
-    default : 'NOTACK'
+    enum: ["NOTACK", "EVEACK", "ORGPAID", "MUSACC", "CANCEL", "MUSREF", "TRNFIN"],
+    default: "NOTACK"
+  },
+  review_description: {
+    type: String,
+  },
+  review_score: {
+    type: Number,
+    min: 0,
+    max: 5,
   }
 })
 
