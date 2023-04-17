@@ -153,6 +153,8 @@ export default function profile() {
                         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Detail: {e.detail}</p>
                         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Location: {e.detail}</p>
                         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Status: {e.status}</p>
+                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Review: {e.review_description}</p>
+                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Review score: {e.review_score}</p>
                       </div>
                     </div>
                   ))}

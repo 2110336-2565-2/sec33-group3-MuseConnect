@@ -8,6 +8,8 @@ import Elehome from '../ui/elehome';
 import {AiFillPlayCircle, AiFillPauseCircle} from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import { Montserrat } from '@next/font/google';
+import {Row, Col} from 'react-bootstrap';
+import Stack from 'react-bootstrap/Stack';
 
 const montserratBold = Montserrat({ 
   weight: '700',
@@ -69,8 +71,17 @@ export default function Home() {
         <div id="content">
           <NavBar show={handleClick} />
           <div className="p-4 p-md-5">
-            <h1 style={{ marginTop: "10px", marginBottom: "0px" }} className={montserratBold.className}>Welcome to Muse Connect ♫</h1>
-            <h2 style={{ marginBottom: "60px", color: "#26A74C" }} className={montserrat.className}>Music connects us.</h2>
+            <Stack direction="horizontal" gap={3}>
+              <h1 style={{ marginTop: "10px", marginBottom: "0px" }} className={montserratBold.className}>Welcome to Muse Connect</h1>
+              <button onClick={handlePlayClick} className="music-button">
+              {isPlaying ? (
+                <AiFillPauseCircle size={30} style={{ color: "#FFF" }} />
+              ) : (
+                <AiFillPlayCircle size={30} style={{ color: "#FFF" }} />
+              )}
+            </button>
+            </Stack>
+            <h2 style={{ marginBottom: "30px", color: "#26A74C" }} className={montserrat.className}>Music connects us.</h2>
             {/* textDecorationLine:"underline", textDecorationColor:"#26A74C"} */}
             <Elehome />
             <div></div>
@@ -88,7 +99,7 @@ export default function Home() {
             {isHovering}
             {/* <h3 style={{marginBottom:"20px",marginTop:"10px",textDecoration:"underline", color:"white"}} className={montserrat.className}>Contact us.</h3> */}
           </div>
-          <div className="musicButtonContainer">
+          {/* <div className="musicButtonContainer">
             <button onClick={handlePlayClick} className="music-button">
               {isPlaying ? (
                 <AiFillPauseCircle size={30} style={{ color: "#FFF" }} />
@@ -96,7 +107,7 @@ export default function Home() {
                 <AiFillPlayCircle size={30} style={{ color: "#FFF" }} />
               )}
             </button>
-          </div>
+          </div> */}
 
 
         </div>

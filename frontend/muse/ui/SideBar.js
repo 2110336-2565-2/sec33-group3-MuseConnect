@@ -47,12 +47,12 @@ export default function SideBar({ children }) {
               </a>
             </li>
 
-            <li>
+            {/* <li>
               <a href="/Home/Calendar" className={montserrat.className}>
                 <BsFillCalendarCheckFill size={15} style={{ color: "#34141", marginRight: "12px" }} />
                 Calendar
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
