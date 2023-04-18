@@ -11,6 +11,11 @@ import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
 import styles from './page.css'
 
+function toArray(userevent) {
+  if (Array.isArray(userevent)) return userevent
+  return []
+}
+
 function split(eventarray) {
   if (!Array.isArray(eventarray)) return [[], []];
   if (eventarray.length > 5) {
@@ -140,27 +145,43 @@ export default function profile() {
               </div>
             )
             :(
-              <Stack direction='vertical' gap={1}>
-              {(splitevent)?.map((srow) => (
-                <Stack direction='horizontal' gap={1}>
-                  {console.log(userevent)}
-                  {(srow)?.map((e) => (
-                    <div class="card" style={{ maxWidth: "18rem", marginTop: "0px" }}>
-                      <div class="card-header">Event</div>
-                      <div class="card-body text-success">
-                        <h5 class="card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Location: {e.location}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Detail: {e.detail}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Location: {e.detail}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Status: {e.status}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Review: {e.review_description}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Review score: {e.review_score}</p>
-                      </div>
-                    </div>
-                  ))}
-                </Stack>
+              // <Stack direction='vertical' gap={1}>
+              // {(splitevent)?.map((srow) => (
+                // <Stack direction='horizontal' gap={1}>
+                //   {console.log(userevent)}
+                //   {(srow)?.map((e) => (
+                //     <div class="card" style={{ maxWidth: "18rem", marginTop: "0px" }}>
+                //       <div class="card-header">Event</div>
+                //       <div class="card-body text-success">
+                //         <h5 class="card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
+                //         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Location: {e.location}</p>
+                //         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Detail: {e.detail}</p>
+                //         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Location: {e.detail}</p>
+                //         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Status: {e.status}</p>
+                //         {/* <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Review: {e.review_description}</p>
+                //         <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Review score: {e.review_score}</p> */}
+                //       </div>
+                //     </div>
+                //   ))}
+                // </Stack>
+            //   ))}
+            // </Stack>
+            <div style={{height: 240}}>
+              {(toArray(userevent))?.map((e) => (
+                <div class="card" style={{marginTop: "0px", overflow: 'auto', display: 'inline-block', height: '100%', width: 'auto'}}>
+                  <div class="card-header">Event</div>
+                  <div class="card-body text-success">
+                    <h5 class="card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.location}</p>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Detail: {e.detail}</p>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.detail}</p>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Status: {e.status}</p>
+                    {/* <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review: {e.review_description}</p> */}
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review score: {(e.review_score!=null)?e.review_score:'-'}</p>
+                  </div>
+                </div>
               ))}
-            </Stack>
+            </div>
             )}
           </Row>
         </div>
