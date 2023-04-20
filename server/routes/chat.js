@@ -65,6 +65,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /chat:
 *   post:
 *     summary: if existed get chat, else create new chat
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Chats]
 *     requestBody:
 *       required: true
@@ -91,6 +93,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /chat:
 *   get:
 *       summary: Get all chats related to user
+*       security:              
+*         - bearerAuth: [] 
 *       tags: [Chats]
 *       responses:
 *           200:
@@ -109,6 +113,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /chat/{id}:
 *   get:
 *     summary: Get the chat by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Chats]
 *     parameters:
 *       - in: path
@@ -132,6 +138,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /chat/{id}:
 *   put:
 *     summary: Update the chat by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Chats]
 *     parameters:
 *       - in: path
@@ -174,6 +182,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /chat/{id}:
 *   delete:
 *     summary: Remove the chat by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Chats]
 *     parameters:
 *       - in: path

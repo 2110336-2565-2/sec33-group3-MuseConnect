@@ -29,6 +29,15 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "A simple Express MuseConnect API",
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        }
+      }
+    },
     servers: [
       {
         url: "http://localhost:4000/api",

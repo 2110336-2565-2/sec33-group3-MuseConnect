@@ -18,6 +18,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /musician:
 *   get:
 *     summary: Returns the list of all the musicians
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Musicians]
 *     parameters:
 *       - in: query
@@ -62,6 +64,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /musician/{id}:
 *   get:
 *     summary: Get the musician by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Musicians]
 *     parameters:
 *       - in: path

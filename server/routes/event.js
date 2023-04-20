@@ -95,6 +95,8 @@ router.use(requireAuth);
 * /event:
 *   get:
 *       summary: Get all events
+*       security:              
+*         - bearerAuth: []     
 *       tags: [Events]
 *       responses:
 *           200:
@@ -113,6 +115,8 @@ router.use(requireAuth);
 * /event/{id}:
 *   get:
 *     summary: Get the event by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Events]
 *     parameters:
 *       - in: path
@@ -136,6 +140,8 @@ router.use(requireAuth);
 * /event:
 *   post:
 *     summary: Create an event
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Events]
 *     requestBody:
 *       required: true
@@ -172,7 +178,7 @@ router.use(requireAuth);
 *                 type: String
 *                 example: NOTACK
 *     responses:
-*       201:
+*       200:
 *         description: Create successfull
 *         content:
 *           application/json:
@@ -186,6 +192,8 @@ router.use(requireAuth);
 * /event/{id}:
 *   put:
 *     summary: Update the event by eventId or messageId
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Events]
 *     parameters:
 *       - in: path
@@ -215,6 +223,8 @@ router.use(requireAuth);
 * /event/{id}:
 *   delete:
 *     summary: Remove the event by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Events]
 *     parameters:
 *       - in: path

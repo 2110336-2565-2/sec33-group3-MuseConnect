@@ -120,6 +120,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /user/{id}:
 *   get:
 *     summary: Get the user by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Users]
 *     parameters:
 *       - in: path
@@ -143,6 +145,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /user/{id}:
 *   put:
 *     summary: Update the user by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Users]
 *     parameters:
 *       - in: path
@@ -174,6 +178,8 @@ const requireAuth = require('../middleware/requireAuth')
 * /user/{id}:
 *   delete:
 *     summary: Remove the user by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Users]
 *     parameters:
 *       - in: path

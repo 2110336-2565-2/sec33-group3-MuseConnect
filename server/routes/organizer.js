@@ -18,6 +18,8 @@ const requireAuth = require("../middleware/requireAuth");
 * /organizer:
 *   get:
 *       summary: Returns the list of all the organizers
+*       security:              
+*         - bearerAuth: [] 
 *       tags: [Organizers]
 *       parameters:
 *         - in: query
@@ -49,6 +51,8 @@ const requireAuth = require("../middleware/requireAuth");
 * /organizer/{id}:
 *   get:
 *     summary: Get the organizer by id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Organizers]
 *     parameters:
 *       - in: path

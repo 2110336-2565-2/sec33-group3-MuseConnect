@@ -61,6 +61,8 @@ router.use(requireAuth);
 * /message/{ChatId}:
 *   get:
 *     summary: Get all messages by chat id
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Messages]
 *     parameters:
 *       - in: path
@@ -84,6 +86,8 @@ router.use(requireAuth);
 * /message:
 *   post:
 *     summary: Send a message
+*     security:              
+*       - bearerAuth: [] 
 *     tags: [Messages]
 *     requestBody:
 *       required: true
@@ -99,7 +103,7 @@ router.use(requireAuth);
 *                 type: String
 *                 example: 642412f14c1bdfa91d8cb65a
 *     responses:
-*       201:
+*       200:
 *         description: Access successfull
 *         content:
 *           application/json:

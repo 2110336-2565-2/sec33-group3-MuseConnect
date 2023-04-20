@@ -16,6 +16,8 @@ const auth = require("../middleware/auth");
  * /admin/{id}:
  *   get:
  *     summary: Get the admin by id
+ *     security:              
+ *       - bearerAuth: [] 
  *     tags: [Admins]
  *     parameters:
  *       - in: path
