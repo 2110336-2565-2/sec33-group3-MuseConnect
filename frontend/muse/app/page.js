@@ -90,7 +90,7 @@ export default function Home() {
               style={{ marginTop: "25px", width: "fit-content", fontSize: "15px" }}
               className={montserrat.className}
             >
-              ₊˚♬ Contact us{isHovering ? " : Muse Connect - Chula Engineering | ♫⋆｡♪ ₊˚♬ ﾟWe are based in Bangkok, Thailand" : ""}</h4>
+              ₊˚♬ Contact us{isHovering ? " : Muse Connect - Chula Engineering | ♫⋆｡♪ ₊˚♬ ﾟWe are based in Bangkok, Thailand." : ""}</h4>
             {/* {isHovering && (
             <h4 
             style={{fontSize:"15px"}}
