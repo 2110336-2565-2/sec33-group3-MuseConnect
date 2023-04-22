@@ -58,7 +58,7 @@ export default function page() {
     // get all musician with filter condition
     if(specialFilter.length == 0){
       console.log("blank") ;
-      setPlaceholder("specialization")
+      setPlaceholder("Specialization")
     } else {
       setPlaceholder("")
     }
@@ -70,48 +70,53 @@ export default function page() {
   }
 
   return (
-    <div>
-    <Nav style={{marginTop:"0.5em"}}>
-    <Form.Group className="d-flex" onSubmit={filterHandler}>
-            <Form.Control
-              name="name"
-              type="text"
-              placeholder="name"
-              className="me-2"
-              aria-label="Search"
-              value={nameFilter}
-              onChange={(e) => setnameFilter(e.target.value)}
-              style={{width:"30em"}}
-            />
-        
-      </Form.Group>
+    <div className={montserrat.className}>
+    <div><h1 style={{marginLeft:"2em", marginTop:"1em"}}>Search your favorite musicians.</h1></div>
+    <div><h6 style={{marginLeft:"5em", marginButt:"0em"}}>Please choose at least one specialization.</h6></div>
+    <div style={{marginLeft:"5.5em"}}>
+      <Nav style={{marginTop:"0.5em"}}>
+      <Form.Group className="d-flex" onSubmit={filterHandler}>
+              <Form.Control
+                name="name"
+                type="text"
+                placeholder="Name"
+                className="me-2"
+                aria-label="Search"
+                value={nameFilter}
+                onChange={(e) => setnameFilter(e.target.value)}
+                style={{width:"30em"}}
+              />
+          
+        </Form.Group>
 
-      <Button type="submit" onClick={() => {
-        console.log(specialFilter) ;
-        setData({name: nameFilter,specialization: specialFilter}) ;
-        console.log(data) ;
-        setIsFilter(true)}} 
-        variant="outline-success">Filter
-      </Button>
-      </Nav>
-      <Nav style={{marginBottom:"50px",marginTop:"0.2em"}}>
-      <div className="text-dark d-flex" style={{backgroundColor: "white",borderRadius:"7px"}}>
-        <Multiselect
-        isObject ={false}
-        options ={options}
-        placeholder = {placeholder}
-        showCheckbox
-        displayValue="try"
-        onRemove={e => setspecialFilter([].slice.call(e).map(item => item))}
-        onSelect={e => setspecialFilter([].slice.call(e).map(item => item))}
-        />
+        <Button type="submit" onClick={() => {
+          console.log(specialFilter) ;
+          setData({name: nameFilter,specialization: specialFilter}) ;
+          console.log(data) ;
+          setIsFilter(true)}} 
+          variant="outline-success">Filter
+        </Button>
+        </Nav>
+
+        <Nav style={{marginTop:"12px",marginBottom:"50px"}}>
+        <div className="text-dark d-flex" style={{backgroundColor: "white",borderRadius:"7px"}}>
+          <Multiselect
+          isObject ={false}
+          options ={options}
+          placeholder = {placeholder}
+          showCheckbox
+          displayValue="try"
+          onRemove={e => setspecialFilter([].slice.call(e).map(item => item))}
+          onSelect={e => setspecialFilter([].slice.call(e).map(item => item))}
+          />
+        </div>
+        </Nav>
       </div>
-      </Nav>
         {(musicians!=null && musicians.length==0)?(
-              <div><h4>Sorry, no results found.</h4></div>
+              <div><h4 style={{marginLeft:"3.2em"}}>Sorry, no results found.</h4></div>
             )
             :(
-      <Container className={montserrat.className} fluid>
+      <Container className={montserrat.className} style={{marginLeft:"4.5em"}} fluid>
         <Row md={4}><PeopleCard className={montserrat.className} musicians={musicians}/></Row>
       </Container>
             )}

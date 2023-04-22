@@ -6,7 +6,6 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { Button, Container, Image, Row, Col, Card, Modal } from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack';
 import UserPhoto from '../../../ui/UserPhoto';
-// const socket = io.connect("http://localhost:4000");
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
 import styles from './page.css'
@@ -97,7 +96,7 @@ export default function profile() {
                 <UserPhoto />
               </Row>
               <Row style={{ marginRight: "0px" }}>
-                <button type="button" className="btn btn-outline-dark" 
+                <button type="button" className="btn btn-outline-secondary" 
                   style={{ width: "200px", marginLeft: "24px", marginTop: "20px" }}>
                   <a href="/Edit">Edit profile</a>
                 </button>

@@ -84,7 +84,7 @@ export default function UserPhoto() {
 
   return (
     <div>
-      {<Image src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}/>}
+      <Image class="userimage" src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}/>
     </div>
   );
 

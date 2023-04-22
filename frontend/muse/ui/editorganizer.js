@@ -141,7 +141,8 @@ export default function EditOrganizerForm() {
     },[preference]);
 
 
-    return (
+    return(
+        <>
         <div className={montserrat.className}>
         <p className='top'>
             <a className='topic' href="/Home/Profile">Edit profile</a>
@@ -149,9 +150,9 @@ export default function EditOrganizerForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', wage:'', profile_picture:''}}
-        onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
-
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'', wage:''}}
+        onSubmit={(values, actions) => onSubmit(values,actions)}>
+        {/* {profile_picture: base64,...values} */}
 
         {props => (
             <form onSubmit={props.handleSubmit}>
@@ -207,12 +208,12 @@ export default function EditOrganizerForm() {
                     </input>
                 </div>
 
-                <div className="field">
-                    <p style={{color: "White"}}>Profile Picture</p>
+                {/* <div className="field">
+                    <p style={{color: "White"}}>Profile Picture</p> */}
                     {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
-                    <input class="form-control" type="file" id="formFile" className="picture">
-                    </input>
-                </div>
+                    {/* <input class="form-control" type="file" id="formFile" className="picture">
+                    </input> */}
+                {/* </div> */}
 
 
                 {/* Description */}
@@ -276,17 +277,23 @@ export default function EditOrganizerForm() {
                     </input>
                 </div>
 
+                <div style={{textAlign: "left",marginBottom: "35px"}}>
+                    <button className="btn btn-light">
+                        <a href="/test" style={{textDecoration:"none",color:"black"}} className={montserrat.className}>Change Profile Picture</a>
+                    </button>
+                </div>
 
                 <div style={{textAlign: "left",marginBottom: "35px"}}>
-                <button className="btn btn-outline-dark">
-                    <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
-                </button>
+                    <button className="btn btn-outline-dark">
+                        <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
+                    </button>
+                    {/* <button type="submit" className="btn btn-success" style={{marginLeft:"15px"}}>Change Profile Picture</button> */}
                     <button type="submit" className="btn btn-success" style={{marginLeft:"15px"}}>Save Changes</button>
                 </div>
             </form>
         )}
         </Formik>
     </div>
+    </>
     )
 }
-//edit
