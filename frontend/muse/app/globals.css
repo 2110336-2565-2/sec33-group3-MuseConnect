@@ -336,7 +336,7 @@
     -o-transition: all 0.3s;
     transition: all 0.3s; 
 
-    background-image: url('../public/images/new.png');
+    background-image: url('../public/images/bg.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

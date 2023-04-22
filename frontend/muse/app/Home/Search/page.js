@@ -104,13 +104,17 @@ export default function page() {
         displayValue="try"
         onRemove={e => setspecialFilter([].slice.call(e).map(item => item))}
         onSelect={e => setspecialFilter([].slice.call(e).map(item => item))}
-         />
+        />
       </div>
-    </Nav>
-    <Container className={montserrat.className} fluid>
-      <Row md={4}><PeopleCard className={montserrat.className} musicians={musicians}/></Row>
-    </Container>
-    
+      </Nav>
+        {(musicians!=null && musicians.length==0)?(
+              <div><h4>Sorry, no results found.</h4></div>
+            )
+            :(
+      <Container className={montserrat.className} fluid>
+        <Row md={4}><PeopleCard className={montserrat.className} musicians={musicians}/></Row>
+      </Container>
+            )}
     </div>
   );
 }
