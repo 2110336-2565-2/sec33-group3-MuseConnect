@@ -84,7 +84,22 @@ export default function profile() {
     console.log("event: ", userevent)
   }, [userevent])
 
-
+  const [active, setActive] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState("");
+  const [currentDes, setCurrentDes] = useState("");
+  const [currentScore, setCurrentScore] = useState("");
+  const handleCloseModal = () => {
+    setCurrentEvent("");
+    setCurrentDes("");
+    setCurrentScore("");
+    setActive(false);
+  };
+  const handleShowModal = ({e}) => {
+    if(user.role=="MUSICIAN" && e.review_score!=null) setActive(true);
+    setCurrentEvent(e.name);
+    setCurrentDes(e.review_description);
+    setCurrentScore(e.review_score);
+  };
 
   return (
     <div className={montserrat.className} >
@@ -139,19 +154,30 @@ export default function profile() {
               </div>
             )
             :(
-            <div style={{height: 240}}>
+              <div style={{height: 240}}>
               {(toArray(userevent))?.map((e) => (
                 <div class="card" style={{marginTop: "0px", overflow: 'auto', display: 'inline-block', height: '100%', width: 'auto', marginRight:"15px"}}>
                   <div class="card-header">Event</div>
-                  <div class="card-body text-success">
+                  <div class="card-body text-success" onClick={() => handleShowModal({e})}>
                     <h5 class="card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
                     <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.location}</p>
                     <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Detail: {e.detail}</p>
                     <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.detail}</p>
                     <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Status: {e.status}</p>
                     {/* <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review: {e.review_description}</p> */}
-                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block', fontWeight: "bold"}}>Review score: {(e.review_score!=null)?e.review_score:'-'}</p>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block', fontWeight: "bold"}}>{(user.role=="MUSICIAN" && e.review_score!=null)?(
+                      <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review Score: {e.review_score}</p>
+                      ):('No review yet')}</p>
                   </div>
+                  <Modal show={active} onHide={handleCloseModal} style={{color: "black"}}>
+                      <Modal.Header closeButton id="head">
+                        <Modal.Title  className={montserrat.className} style={{color: "black", fontWeight:"bold"}}>{currentEvent}</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body className={montserrat.className}>
+                        <p style={{marginBottom:"0px"}}>Review Score: {currentScore} out of 5</p>
+                        <p>Review: {currentDes}</p>
+                      </Modal.Body>
+                    </Modal>
                 </div>
               ))}
             </div>

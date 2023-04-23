@@ -469,14 +469,8 @@ function Chatbox({ chatId }) {
                   onChange={(e) => setEventWage(e.target.value)}
                 />
               </div>
-
               <br />
-              {/* <button className="btn btn-light">
-                        <a href="/test" style={{textDecoration:"none",color:"black"}} className={montserrat.className}>Change Profile Picture</a>
-                    </button> */}
-              <Button type="submit">Save & Send
-                {/* <a href="">Save & Send</a> */}
-                </Button>
+              <Button type="submit">Save & Send</Button>
             </Form>
           </div>
         </Modal.Body>
