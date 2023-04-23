@@ -82,13 +82,16 @@ export default function ChatsideBar({ children}) {
         <h3 style={{ color: "white" }} className={montserrat.className}>
           <Link href={""}>Muse Connect</Link>
         </h3>
-        <p className={montserrat.className}>{countchat()} available chatroom(s)</p>
+        <button className="btn btn-outline-dark" style={{ marginTop: "0em", marginBottom:"2em"}}>
+          <a href="/" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Back to home page</a>
+        </button>
+        <p className={montserrat.className} style={{marginBottom:"0px"}}>{countchat()} available chat room(s)</p>
         <div className="list-unstyled components mb-5">
         {chatRooms &&
             chatRooms.map((chatRoom, index) => (
               <>
               <Link href={`/Chat/${chatRoom.id}`}>
-                <div className={montserrat.className} key={`chatroom_${index}`} id={index} style={{marginTop:"2em", marginLeft:"1em",fontSize:"1.2em"}}>
+                <div className={montserrat.className} key={`chatroom_${index}`} id={index} style={{marginTop:"1em", marginLeft:"1em",fontSize:"1.2em"}}>
                   <BsPersonLinesFill style={{marginRight:"1em"}}/>
                   {chatRoom.name}
                 </div>

@@ -104,7 +104,7 @@ const eventFormat = (
             isMusician,
             currentMessageStatus
           ) && (
-            <div className="edit-cancle">
+            <div className="edit-cancle text-center">
               <Button disabled={currentMessageStatus == "ACCEPT"}
                 variant="primary"
                 className="mx-3 mt-2 button-edit-acep"

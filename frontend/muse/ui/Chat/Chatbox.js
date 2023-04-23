@@ -344,7 +344,7 @@ function Chatbox({ chatId }) {
   bottomRef.current?.scrollIntoView({ behavior: "auto" });
 
   return (
-    <div>
+    <div className={montserrat.className}>
       <div
         id=""
         style={{
@@ -387,7 +387,7 @@ function Chatbox({ chatId }) {
         </ul>
         <div ref={bottomRef} />
       </div>
-      <div style={{ display: "block" }}> 
+      <div className={montserrat.className} style={{ display: "block" }}> 
         <Form
           onSubmit={sendMessageHandler}
           xs="auto"
@@ -423,7 +423,7 @@ function Chatbox({ chatId }) {
         </Form>
       </div>
 
-      <Modal show={active} onHide={handleCloseModal} href="chat.css" style={{color: "black"}}>
+      <Modal className={montserrat.className} show={active} onHide={handleCloseModal} href="chat.css" style={{color: "black"}}>
         <Modal.Header closeButton id="head">
           <Modal.Title style={{color: "black"}}>Event Form</Modal.Title>
         </Modal.Header>
@@ -434,9 +434,9 @@ function Chatbox({ chatId }) {
             style={{ flex: 1, paddingLeft: "10px" }}
             href="chat.css"
           >
-            <Form onSubmit={sendEventHandler} style={{color: "black"}}>
+            <Form className={montserrat.className} onSubmit={sendEventHandler} style={{color: "black"}}>
               <div className="name" style={{marginBottom:"0.5em"}}>
-                <label htmlFor="name">Name: </label>
+                <label htmlFor="name" style={{ paddingRight: "10px" }}>Name:{" "}</label>
                 <input
                   type="text"
                   id="name"
@@ -450,7 +450,6 @@ function Chatbox({ chatId }) {
                   Date:{" "}
                 </label>
                 <input
-                  // type="date"
                   type="date"
                   id="date"
                   value={eventDate}

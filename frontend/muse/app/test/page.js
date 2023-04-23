@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 const user = localStorage.getItem("user");
+import Form from 'react-bootstrap/Form';
+import { Montserrat } from '@next/font/google';
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 // test upload picture api
 const sendData = async (base64) => {
@@ -23,7 +26,8 @@ const sendData = async (base64) => {
   if (!respone.ok) {
     alert(result.error);
   } else {
-    alert("picture save");
+    alert("Your change has been saved");
+    window.location.href="/Home/Profile";
   }
 };
 
@@ -38,8 +42,9 @@ const test = async () => {
       const base64String = reader.result;
       sendData(base64String);
     };
+
   } else {
-    alert("no picture");
+    alert("No attached picture");
   }
 };
 
@@ -71,11 +76,11 @@ export default function page() {
 
   useEffect(() => {
     display();
-    //console.log("Hi");
+    console.log("Hi");
   }, []);
 
-  // const musicianId = "63f8ddb2f1b76a92b35cb13d";
-  // const organizerId = "63f8ddfdf1b76a92b35cb143";
+  const musicianId = "63f8ddb2f1b76a92b35cb13d";
+  const organizerId = "63f8ddfdf1b76a92b35cb143";
   const router = useRouter();
 
   const chatHandler = async (userId) => {
@@ -108,15 +113,29 @@ export default function page() {
             backgroundRepeat:"no-repeat",
             backgroundPosition:"center center",
             backgroundAttachment:"fixed"
-            }}>
-      <div>
-        <input type="file" className="picture" />
-        <button onClick={() => test()}>Save picture</button>
-        {/* <button onClick={() => display()}>Display picture</button> */}
-        <div>
-          {picture && <img src={picture} alt="hello" />}
-        </div>
+            }}
+            >
+      <div className={montserrat.className} style={{width:"40%", marginLeft:"5em", marginTop:"5em"}}>
+      <h1 style={{ marginTop: "10px", marginBottom: "0.5em", fontSize:"3em"}} className={montserrat.className}>Upload your profile picture</h1>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>This profile picture will be shown at profile page.</Form.Label>
+          <Form.Control type="file" className="picture" />
+        </Form.Group>
+        {/* <input type="file" className="picture" /> */}
+        {/* <button onClick={() => test()}>Save picture</button> */}
       </div>
+      <div className={montserrat.className} style={{width:"40%", marginLeft:"5em", marginTop:"0.5em"}}>
+        <button className="btn btn-outline-dark" style={{marginRight:"0.5em"}}>
+          <a href="/" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
+        </button>
+        <button onClick={() => test()} className="btn btn-success">Save Picture</button>
+      </div>
+        {/* <div className={montserrat.className} style={{width:"30%"}}>
+          <button onClick={() => test()} className="btn btn-success">Save Picture</button>
+        </div> */}
+        {/* <button onClick={() => display()}>Display picture</button> */}
+        {/* {picture && <img src={picture} alt="hello" />} */}
+      
       {/* <Button onClick={() => chatHandler(organizerId)}>
         Chat with random people
       </Button>

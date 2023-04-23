@@ -101,6 +101,11 @@ export default function profile() {
     setCurrentScore(e.review_score);
   };
 
+  // function reviewText(){
+  //   if(user.role=="ORGANIZER") return (<p></p>);
+  //   if(user.role=="MUSICIAN") return (<p>No review yet</p>);
+  // }
+
   return (
     <div className={montserrat.className} >
       <Container className="justify-content-center align-items-center">
@@ -167,7 +172,7 @@ export default function profile() {
                     {/* <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review: {e.review_description}</p> */}
                     <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block', fontWeight: "bold"}}>{(user.role=="MUSICIAN" && e.review_score!=null)?(
                       <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review Score: {e.review_score}</p>
-                      ):('No review yet')}</p>
+                      ):("")}</p>
                   </div>
                   <Modal show={active} onHide={handleCloseModal} style={{color: "black"}}>
                       <Modal.Header closeButton id="head">

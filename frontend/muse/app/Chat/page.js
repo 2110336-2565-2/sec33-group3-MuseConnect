@@ -30,10 +30,8 @@ export default function Chat() {
         <div id="content">
           <NavBar show={handleClick} />
           <div>
-          <button className="btn btn-outline-dark" style={{ marginTop: "2em", marginLeft:"3em", marginBottom:"0px"}}>
-              <a href="/" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Back to home page</a>
-            </button>
-            <h1 style={{ marginTop: "0.2em", marginBottom: "0px", marginLeft:"1em", fontSize:"3.5em"}} className={montserrat.className}>Chat room</h1>
+            <h1 style={{ marginTop: "1em", marginBottom: "0em", marginLeft:"1em", fontSize:"3.5em"}} className={montserrat.className}>Chat room</h1>
+            <h4 style={{ marginTop: "0em", marginLeft:"2em", color: "#26A74C" }} className={montserrat.className}>Start chatting to make event request.</h4>
           </div>
         </div>
       </div>

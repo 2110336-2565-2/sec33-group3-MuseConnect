@@ -82,9 +82,32 @@ export default function UserPhoto() {
     console.log(picture) ;
   },[])
 
+  const [hover, setHover] = useState(false); // initial false
+  const HoverData = "Click to change profile picture";
+
+  const onHover = (e) => {
+    e.preventDefault();
+    setHover(true); // turn true
+    console.log("hovered");
+  };
+
+  const onHoverOver = (e) => {
+    e.preventDefault(); // turn false
+    setHover(false);
+  };
+
+  const goToPic = () => {
+    window.location.href = `/test`;
+  };
+
   return (
     <div>
-      <Image class="userimage" src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem"}}/>
+      {hover && <p className={hover} style={{marginLeft:"1.4em", alignItems:"center"}}>{HoverData}</p>}
+      <Image 
+      onMouseEnter={(e) => onHover(e)}
+      onMouseLeave={(e) => onHoverOver(e)}
+      onClick={goToPic}
+      class="userimage" src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem", cursor:"pointer"}}/>
     </div>
   );
 

@@ -278,12 +278,6 @@ export default function EditOrganizerForm() {
                 </div>
 
                 <div style={{textAlign: "left",marginBottom: "35px"}}>
-                    <button className="btn btn-light">
-                        <a href="/test" style={{textDecoration:"none",color:"black"}} className={montserrat.className}>Change Profile Picture</a>
-                    </button>
-                </div>
-
-                <div style={{textAlign: "left",marginBottom: "35px"}}>
                     <button className="btn btn-outline-dark">
                         <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
                     </button>
