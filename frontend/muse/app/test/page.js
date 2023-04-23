@@ -71,11 +71,11 @@ export default function page() {
 
   useEffect(() => {
     display();
-    console.log("Hi");
+    //console.log("Hi");
   }, []);
 
-  const musicianId = "63f8ddb2f1b76a92b35cb13d";
-  const organizerId = "63f8ddfdf1b76a92b35cb143";
+  // const musicianId = "63f8ddb2f1b76a92b35cb13d";
+  // const organizerId = "63f8ddfdf1b76a92b35cb143";
   const router = useRouter();
 
   const chatHandler = async (userId) => {
@@ -112,10 +112,12 @@ export default function page() {
       <div>
         <input type="file" className="picture" />
         <button onClick={() => test()}>Save picture</button>
-        <button onClick={() => display()}>Display picture</button>
-        {picture && <img src={picture} alt="hello" />}
+        {/* <button onClick={() => display()}>Display picture</button> */}
+        <div>
+          {picture && <img src={picture} alt="hello" />}
+        </div>
       </div>
-      <Button onClick={() => chatHandler(organizerId)}>
+      {/* <Button onClick={() => chatHandler(organizerId)}>
         Chat with random people
       </Button>
       <Button
@@ -124,7 +126,7 @@ export default function page() {
         }}
       >
         check redirect
-      </Button>
+      </Button> */}
       </body>
   );
 }

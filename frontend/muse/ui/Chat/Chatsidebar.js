@@ -66,6 +66,12 @@ export default function ChatsideBar({ children}) {
   }, [user]);
   //old sidebar
   const isActive = children;
+
+  function countchat(){
+    if(!chatRooms) return 0;
+    else return chatRooms.length;
+  }
+
   return (
     <nav
       style={{ backgroundColor: "#000000" }}
@@ -76,6 +82,7 @@ export default function ChatsideBar({ children}) {
         <h3 style={{ color: "white" }} className={montserrat.className}>
           <Link href={""}>Muse Connect</Link>
         </h3>
+        <p className={montserrat.className}>{countchat()} available chatroom(s)</p>
         <div className="list-unstyled components mb-5">
         {chatRooms &&
             chatRooms.map((chatRoom, index) => (
@@ -89,7 +96,7 @@ export default function ChatsideBar({ children}) {
               <hr />
               </>
             ))}
-          {!chatRooms && <p className="text-white bg-dark">No Chat Room</p>}
+          {!chatRooms && <p className={montserrat.className}>No Chat Room</p>}
         </div>
       </div>
     </nav>
