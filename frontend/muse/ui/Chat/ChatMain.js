@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import ChatsideBar from "./Chatsidebar";
 import "./chat2.css";
+import { Montserrat } from "@next/font/google";
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 const ChatMain = () => {
   const [chatRooms, setChatRooms] = useState(null);
@@ -65,7 +67,7 @@ const ChatMain = () => {
   return (
     <div className="wrapper d-flex align-items-stretch">
       <ChatsideBar chatRooms={chatRooms} />
-      <div id="chat-room">
+      <div className={montserrat.className} id="chat-room">
         <NavBar show={true} />
         <div className="p-4 p-md-5">
           <h2>Chat Room</h2>

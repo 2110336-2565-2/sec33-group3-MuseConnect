@@ -104,7 +104,11 @@ export default function page() {
     }
   };
   return (
-    <>
+    <body style={{backgroundImage:`url("images/bg.png")`,backgroundSize:"cover",
+            backgroundRepeat:"no-repeat",
+            backgroundPosition:"center center",
+            backgroundAttachment:"fixed"
+            }}>
       <div>
         <input type="file" className="picture" />
         <button onClick={() => test()}>Save picture</button>
@@ -121,6 +125,6 @@ export default function page() {
       >
         check redirect
       </Button>
-    </>
+      </body>
   );
 }

@@ -15,6 +15,8 @@ import { eventFormat, haveSide } from "../../logic/chat";
 import { style1 } from "../../app/Chat/[id]/page.module.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
+import { Montserrat } from "@next/font/google";
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 function Chatbox({ chatId }) {
   // chatId = '642412f14c1bdfa91d8cb65a';
@@ -301,6 +303,7 @@ function Chatbox({ chatId }) {
       })
       .then((data) => {
         console.log(data);
+        window.location.reload();
 
         // save message to the database
         return fetch("http://localhost:4000/api/message", {
@@ -384,7 +387,7 @@ function Chatbox({ chatId }) {
         </ul>
         <div ref={bottomRef} />
       </div>
-      <div style={{ display: "block" }}>
+      <div style={{ display: "block" }}> 
         <Form
           onSubmit={sendMessageHandler}
           xs="auto"
@@ -468,7 +471,12 @@ function Chatbox({ chatId }) {
               </div>
 
               <br />
-              <Button type="submit">save & send</Button>
+              {/* <button className="btn btn-light">
+                        <a href="/test" style={{textDecoration:"none",color:"black"}} className={montserrat.className}>Change Profile Picture</a>
+                    </button> */}
+              <Button type="submit">Save & Send
+                {/* <a href="">Save & Send</a> */}
+                </Button>
             </Form>
           </div>
         </Modal.Body>

@@ -81,7 +81,7 @@ export default function ChatsideBar({ children}) {
             chatRooms.map((chatRoom, index) => (
               <>
               <Link href={`/Chat/${chatRoom.id}`}>
-                <div key={`chatroom_${index}`} id={index} style={{marginTop:"2em", marginLeft:"1em",fontSize:"1.2em"}}>
+                <div className={montserrat.className} key={`chatroom_${index}`} id={index} style={{marginTop:"2em", marginLeft:"1em",fontSize:"1.2em"}}>
                   <BsPersonLinesFill style={{marginRight:"1em"}}/>
                   {chatRoom.name}
                 </div>

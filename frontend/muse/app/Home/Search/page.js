@@ -98,7 +98,7 @@ export default function page() {
         </Button>
         </Nav>
 
-        <Nav style={{marginTop:"12px",marginBottom:"50px"}}>
+        <Nav style={{marginTop:"0.5em",marginBottom:"3em"}}>
         <div className="text-dark d-flex" style={{backgroundColor: "white",borderRadius:"7px"}}>
           <Multiselect
           isObject ={false}
