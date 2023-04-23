@@ -16,13 +16,7 @@ export default function RootLayout({ children }) {
     <>
       <div className="wrapper d-flex align-items-stretch">
         <SideBar children={isActive}/>
-
-    {/* <!-- Page Content  --> */}
         <div id="content" style={{
-          // backgroundImage:`url("images/wallpaperNoNotes.png")`,backgroundSize:"cover",
-          // backgroundRepeat:"no-repeat",
-          // backgroundPosition:"center center",
-          // backgroundAttachment:"fixed"
         }}>
           <NavBar show={handleClick} />
             {children}

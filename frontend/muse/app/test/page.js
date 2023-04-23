@@ -130,11 +130,8 @@ export default function page() {
         </button>
         <button onClick={() => test()} className="btn btn-success">Save Picture</button>
       </div>
-        {/* <div className={montserrat.className} style={{width:"30%"}}>
-          <button onClick={() => test()} className="btn btn-success">Save Picture</button>
-        </div> */}
-        {/* <button onClick={() => display()}>Display picture</button> */}
-        {/* {picture && <img src={picture} alt="hello" />} */}
+        
+      {/* {picture && <img src={picture} alt="hello" />} */}
       
       {/* <Button onClick={() => chatHandler(organizerId)}>
         Chat with random people

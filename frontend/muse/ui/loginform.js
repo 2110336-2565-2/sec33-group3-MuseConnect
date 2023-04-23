@@ -61,13 +61,7 @@ export default function LoginForm() {
                     onBlur={props.handleBlur}
                     value={props.values.email}
                     name="email"></input>
-                    {/* <input
-                        type="text"
-                        onChange={props.handleChange}
-                        onBlur={props.handleBlur}
-                        value={props.values.email}
-                        name="email"
-                    /> */}
+    
                 </div>
                 {/* Password */}
                 <div className="field">
