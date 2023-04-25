@@ -165,8 +165,8 @@ export default function EditForm() {
         <p className='subheading'>♫⋆｡♪ 01:01 ━━━━⬤───────────── 05:05 ♫⋆｡♪</p>
         
         <Formik
-        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'',link:'', price_min:'', price_max:'', profile_picture:''}}
-        onSubmit={({profile_picture: base64,...values}, actions) => onSubmit({profile_picture: base64,...values},actions)}>
+        initialValues={{first_name:'', last_name:'', phone_number:value, location:'', description:'',link:'', price_min:'', price_max:''}}
+        onSubmit={(values, actions) => onSubmit(values,actions)}>
 
 
         {props => (
@@ -285,14 +285,6 @@ export default function EditForm() {
                 </div>
 
 
-                <div className="field">
-                    <p style={{color: "White"}}>Profile Picture</p>
-                    {/* <input type="file" className="picture" style={{color:"white",borderRadius:"8px"}}> */}
-                    <input class="form-control" type="file" id="formFile" className="picture">
-                    </input>
-                </div>
-
-
                 {/* Min Price */}
                 <div className="field">
                     <p style={{color: "White"}}>Minimum Price</p>
@@ -320,9 +312,10 @@ export default function EditForm() {
 
 
                 <div style={{textAlign: "left",marginBottom: "35px"}}>
-                <button className="btn btn-outline-dark">
-                    <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
-                </button>
+                    <button className="btn btn-outline-dark">
+                        <a href="/Home/Profile" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
+                    </button>
+                    <button type="submit" className="btn btn-success" style={{marginLeft:"15px"}}>Change Profile Picture</button>
                     <button type="submit" className="btn btn-success" style={{marginLeft:"15px"}}>Save Changes</button>
                 </div>
             </form>

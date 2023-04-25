@@ -328,6 +328,7 @@
       display: none; } }
   
   #content {
+    background-image: url('../public/images/bg.png');
     width: 100%;
     height: 100%;
     padding: 0;
@@ -336,7 +337,7 @@
     -o-transition: all 0.3s;
     transition: all 0.3s; 
 
-    background-image: url('../public/images/new.png');
+    
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -427,7 +428,7 @@
   cursor: pointer;
   display: inline-block;
   height: 50px;
-  margin: 0 10px;
+  margin: 0px;
   outline: none;
   transition: all 0.2s ease-in-out;
   width: 50px;

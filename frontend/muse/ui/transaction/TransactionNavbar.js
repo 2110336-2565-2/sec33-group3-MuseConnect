@@ -22,7 +22,7 @@ export default function TransactionNavbar({chatId}) {
           Back to Chat
         </button>
         <button className="btn btn-success mx-2" onClick={goToHome}>
-          Back to Home
+          Back to home page
         </button>
       </Container>
     </Navbar>

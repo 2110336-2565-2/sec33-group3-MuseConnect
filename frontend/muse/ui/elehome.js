@@ -14,7 +14,7 @@ const montserrat = Montserrat({
 export default function Elehome() {
   return (
     <Carousel>
-      <Carousel.Item interval={7000}>
+      <Carousel.Item interval={4000}>
         <img
           className="d-block"
           src="images/plastic.png"
@@ -28,21 +28,7 @@ export default function Elehome() {
         </Carousel.Caption>
       </Carousel.Item>
 
-      {/* <Carousel.Item interval={7000}>
-        <img
-          className="d-block w-100"
-          src="images/gaze.png"
-          alt="Second slide"
-          height="auto"
-          width="100%"
-        />
-        <Carousel.Caption>
-          <h3 className={montserratBold.className} style={{marginBottom: "0px"}}>Gaze Gutter</h3>
-          <p className={montserrat.className} style={{marginBottom: "0px"}}>Pop rock | Engineering Student</p>
-        </Carousel.Caption>
-      </Carousel.Item> */}
-
-      <Carousel.Item interval={7000}>
+      <Carousel.Item interval={4000}>
         <img
           className="d-block w-100"
           src="images/serious.png"
@@ -56,7 +42,7 @@ export default function Elehome() {
         </Carousel.Caption>
       </Carousel.Item>
 
-      <Carousel.Item interval={7000}>
+      <Carousel.Item interval={4000}>
         <img
           className="d-block w-100"
           src="images/whal.png"
@@ -70,7 +56,7 @@ export default function Elehome() {
         </Carousel.Caption>
       </Carousel.Item>
 
-      <Carousel.Item interval={7000}>
+      <Carousel.Item interval={4000}>
         <img
           className="d-block w-100"
           src="images/earth.png"

@@ -3,16 +3,16 @@
 body {
   margin: 0;
   padding: 0;
-  font: "Montserrat";
+  /* font: "Montserrat"; */
 }
 
-.model -body {
+/* .model -body {
   font: "Montserrat";
-}
-
+} */
+/* 
 #name {
   font: "Montserrat";
-}
+} */
 
 .name label,
 .date label,
@@ -40,9 +40,9 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-.modal-content {
+/* .modal-content {
   font-family: "Montserrat";
-}
+} */
 
 .modal-header {
   background-color: #86898b80;
@@ -68,7 +68,7 @@ input[type="text"] {
 }
 
 button > a {
-  font-family: "Montserrat";
+  /* font-family: "Montserrat"; */
   text-decoration: none;
   color: white;
 }
@@ -196,7 +196,7 @@ button > a {
   /* width: 170px; */
   margin: 20;
   padding: 20;
-  font-family: "Montserrat";
+  /* font-family: "Montserrat"; */
   font-size: 16px ;
   z-index: 1000;
   
@@ -208,7 +208,7 @@ button > a {
   width: 170px;
   margin: 0;
   padding: 0;
-  font-family: "Montserrat";
+  /* font-family: "Montserrat"; */
   font-size: 24px;
   margin-bottom: 20px;
   
@@ -218,7 +218,7 @@ button > a {
 .muse-link {
   color: white;
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
   font-weight: 600;
 }
 

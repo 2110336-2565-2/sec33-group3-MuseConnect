@@ -15,6 +15,8 @@ import { eventFormat, haveSide } from "../../logic/chat";
 import { style1 } from "../../app/Chat/[id]/page.module.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
+import { Montserrat } from "@next/font/google";
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 function Chatbox({ chatId }) {
   // chatId = '642412f14c1bdfa91d8cb65a';
@@ -301,6 +303,7 @@ function Chatbox({ chatId }) {
       })
       .then((data) => {
         console.log(data);
+        window.location.reload();
 
         // save message to the database
         return fetch("http://localhost:4000/api/message", {
@@ -341,7 +344,7 @@ function Chatbox({ chatId }) {
   bottomRef.current?.scrollIntoView({ behavior: "auto" });
 
   return (
-    <div>
+    <div className={montserrat.className}>
       <div
         id=""
         style={{
@@ -384,7 +387,7 @@ function Chatbox({ chatId }) {
         </ul>
         <div ref={bottomRef} />
       </div>
-      <div style={{ display: "block" }}>
+      <div className={montserrat.className} style={{ display: "block" }}> 
         <Form
           onSubmit={sendMessageHandler}
           xs="auto"
@@ -420,7 +423,7 @@ function Chatbox({ chatId }) {
         </Form>
       </div>
 
-      <Modal show={active} onHide={handleCloseModal} href="chat.css" style={{color: "black"}}>
+      <Modal className={montserrat.className} show={active} onHide={handleCloseModal} href="chat.css" style={{color: "black"}}>
         <Modal.Header closeButton id="head">
           <Modal.Title style={{color: "black"}}>Event Form</Modal.Title>
         </Modal.Header>
@@ -431,9 +434,9 @@ function Chatbox({ chatId }) {
             style={{ flex: 1, paddingLeft: "10px" }}
             href="chat.css"
           >
-            <Form onSubmit={sendEventHandler} style={{color: "black"}}>
+            <Form className={montserrat.className} onSubmit={sendEventHandler} style={{color: "black"}}>
               <div className="name" style={{marginBottom:"0.5em"}}>
-                <label htmlFor="name">Name: </label>
+                <label htmlFor="name" style={{ paddingRight: "10px" }}>Name:{" "}</label>
                 <input
                   type="text"
                   id="name"
@@ -447,7 +450,6 @@ function Chatbox({ chatId }) {
                   Date:{" "}
                 </label>
                 <input
-                  // type="date"
                   type="date"
                   id="date"
                   value={eventDate}
@@ -466,9 +468,8 @@ function Chatbox({ chatId }) {
                   onChange={(e) => setEventWage(e.target.value)}
                 />
               </div>
-
               <br />
-              <Button type="submit">save & send</Button>
+              <Button type="submit">Save & Send</Button>
             </Form>
           </div>
         </Modal.Body>

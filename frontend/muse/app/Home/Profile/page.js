@@ -3,13 +3,17 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { MdLocationOn } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { Button, Container, Image, Row, Col, Card } from 'react-bootstrap';
+import { Button, Container, Image, Row, Col, Card, Modal } from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack';
 import UserPhoto from '../../../ui/UserPhoto';
-// const socket = io.connect("http://localhost:4000");
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
 import styles from './page.css'
+
+function toArray(userevent) {
+  if (Array.isArray(userevent)) return userevent
+  return []
+}
 
 function split(eventarray) {
   if (!Array.isArray(eventarray)) return [[], []];
@@ -52,10 +56,6 @@ export default function profile() {
     getUser();
 
   }, []);
-  // const arr = user.preference;
-  // arr.forEach((pref) => {
-  //   console.log(pref)
-  // })
 
   useEffect(() => {
     const getEvent = async () => {
@@ -84,7 +84,27 @@ export default function profile() {
     console.log("event: ", userevent)
   }, [userevent])
 
+  const [active, setActive] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState("");
+  const [currentDes, setCurrentDes] = useState("");
+  const [currentScore, setCurrentScore] = useState("");
+  const handleCloseModal = () => {
+    setCurrentEvent("");
+    setCurrentDes("");
+    setCurrentScore("");
+    setActive(false);
+  };
+  const handleShowModal = ({e}) => {
+    if(user.role=="MUSICIAN" && e.review_score!=null) setActive(true);
+    setCurrentEvent(e.name);
+    setCurrentDes(e.review_description);
+    setCurrentScore(e.review_score);
+  };
 
+  // function reviewText(){
+  //   if(user.role=="ORGANIZER") return (<p></p>);
+  //   if(user.role=="MUSICIAN") return (<p>No review yet</p>);
+  // }
 
   return (
     <div className={montserrat.className} >
@@ -96,7 +116,7 @@ export default function profile() {
                 <UserPhoto />
               </Row>
               <Row style={{ marginRight: "0px" }}>
-                <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="light"
+                <button type="button" className="btn btn-outline-secondary" 
                   style={{ width: "200px", marginLeft: "24px", marginTop: "20px" }}>
                   <a href="/Edit">Edit profile</a>
                 </button>
@@ -136,29 +156,36 @@ export default function profile() {
             {(userevent.length==0)?(
               <div>
                 <h5 className={montserrat.className} style={{marginTop:"20px", textAlign:"center"}}>♫⋆ No recorded past event ⋆♫</h5>
-                {/* <img src="images/icon.png"/> */}
               </div>
             )
             :(
-              <Stack direction='vertical' gap={1}>
-              {(splitevent)?.map((srow) => (
-                <Stack direction='horizontal' gap={1}>
-                  {console.log(userevent)}
-                  {(srow)?.map((e) => (
-                    <div class="card" style={{ maxWidth: "18rem", marginTop: "0px" }}>
-                      <div class="card-header">Event</div>
-                      <div class="card-body text-success">
-                        <h5 class="card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Location: {e.location}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Detail: {e.detail}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Location: {e.detail}</p>
-                        <p class="card-text" style={{ color: "white", marginBottom: "0px" }}>Status: {e.status}</p>
-                      </div>
-                    </div>
-                  ))}
-                </Stack>
+              <div style={{height: 240}}>
+              {(toArray(userevent))?.map((e) => (
+                <div class="card" style={{marginTop: "0px", overflow: 'auto', display: 'inline-block', height: '100%', width: 'auto', marginRight:"15px"}}>
+                  <div class="card-header">Event</div>
+                  <div class="card-body text-success" onClick={() => handleShowModal({e})}>
+                    <h5 class="card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.location}</p>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Detail: {e.detail}</p>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.detail}</p>
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Status: {e.status}</p>
+                    {/* <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review: {e.review_description}</p> */}
+                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block', fontWeight: "bold"}}>{(user.role=="MUSICIAN" && e.review_score!=null)?(
+                      <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review Score: {e.review_score}</p>
+                      ):("")}</p>
+                  </div>
+                  <Modal show={active} onHide={handleCloseModal} style={{color: "black"}}>
+                      <Modal.Header closeButton id="head">
+                        <Modal.Title  className={montserrat.className} style={{color: "black", fontWeight:"bold"}}>{currentEvent}</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body className={montserrat.className}>
+                        <p style={{marginBottom:"0px"}}>Review Score: {currentScore} out of 5</p>
+                        <p>Review: {currentDes}</p>
+                      </Modal.Body>
+                    </Modal>
+                </div>
               ))}
-            </Stack>
+            </div>
             )}
           </Row>
         </div>
