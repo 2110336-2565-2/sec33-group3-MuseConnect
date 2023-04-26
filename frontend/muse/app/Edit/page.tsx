@@ -1,12 +1,11 @@
 'use client'
 import EditForm from "../../ui/editform";
 import EditOrganizerForm from "../../ui/editorganizer";
-import type { NextPage } from "next";
 import Head from "next/head";
 import Link from 'next/link'
 import styles from "./page.module.css";
 import React, { useEffect, useState } from 'react'
-const Home: NextPage = () => {
+const Edit = () => {
     const [user, setUser] = useState(null);
     //Get user's info from database
     useEffect(() => {
@@ -72,4 +71,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home;
+export default Edit;

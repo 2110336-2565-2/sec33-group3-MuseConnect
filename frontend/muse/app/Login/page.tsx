@@ -1,8 +1,7 @@
-import type { NextPage } from 'next';
 import LoginForm from '../../ui/loginform'
 import styles from './page.module.css'
 
-const Home: NextPage = () => {
+const Login = () => {
   return (
     <body style={{backgroundImage:`url("images/wallpaper1.png")`,backgroundSize:"cover",
     backgroundRepeat:"no-repeat",
@@ -16,4 +15,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Login

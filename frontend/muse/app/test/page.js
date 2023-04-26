@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
-const user = localStorage.getItem("user");
 import Form from 'react-bootstrap/Form';
 import { Montserrat } from '@next/font/google';
+const user = localStorage.getItem("user");
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 // test upload picture api

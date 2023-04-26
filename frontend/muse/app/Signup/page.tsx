@@ -1,8 +1,7 @@
 import SignupForm from "../../ui/signupform";
-import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "./page.module.css";
-const Home: NextPage = () => {
+const Signup = () => {
   return (
     <body style={{backgroundImage:`url("images/wallpaper.png")`,backgroundSize:"cover",
     backgroundRepeat:"no-repeat",
@@ -16,4 +15,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home;
+export default Signup;
