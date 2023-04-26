@@ -4,11 +4,10 @@ import { Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import Form from 'react-bootstrap/Form';
 import { Montserrat } from '@next/font/google';
-const user = localStorage.getItem("user");
 const montserrat = Montserrat({ subsets: ['latin'] });
 
 // test upload picture api
-const sendData = async (base64) => {
+const sendData = async (base64,user) => {
   const userToken = await JSON.parse(user).token;
   const userId = await JSON.parse(user)._id;
   const respone = await fetch(
@@ -32,7 +31,7 @@ const sendData = async (base64) => {
 };
 
 // convert file in input to base64
-const test = async () => {
+const test = async (user) => {
   const files = document.getElementsByClassName("picture")[0].files;
   if (files.length !== 0) {
     let f = files[0];
@@ -40,7 +39,7 @@ const test = async () => {
     reader.readAsDataURL(f);
     reader.onloadend = () => {
       const base64String = reader.result;
-      sendData(base64String);
+      sendData(base64String,user);
     };
 
   } else {
@@ -49,6 +48,11 @@ const test = async () => {
 };
 
 export default function page() {
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
   // img src
   const [picture, setPicture] = useState(null);
 
@@ -128,7 +132,7 @@ export default function page() {
         <button className="btn btn-outline-dark" style={{marginRight:"0.5em"}}>
           <a href="/" style={{textDecoration:"none",color:"white"}} className={montserrat.className}>Cancel</a>
         </button>
-        <button onClick={() => test()} className="btn btn-success">Save Picture</button>
+        <button onClick={() => test(user)} className="btn btn-success">Save Picture</button>
       </div>
         
       {/* {picture && <img src={picture} alt="hello" />} */}

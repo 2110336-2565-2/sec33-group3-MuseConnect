@@ -1,25 +1,30 @@
 "use client";
 
-import {FaBars} from 'react-icons/fa'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import { Button, Stack,Navbar } from 'react-bootstrap'
-import {useEffect,React} from 'react'
-import { Montserrat } from '@next/font/google'
-const montserrat = Montserrat({ subsets: ['latin'] })
+import { FaBars } from "react-icons/fa";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Container from "react-bootstrap/Container";
+import { Button, Stack, Navbar } from "react-bootstrap";
+import { useEffect, React, useState } from "react";
+import { Montserrat } from "@next/font/google";
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function NavBar({ show }) {
-  let user = localStorage.getItem("user");
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
+
   const logOut = () => {
     localStorage.removeItem("user");
+    setUser(null);
   };
 
   if (user == null) {
     return (
       <Navbar style={{ backgroundColor: "rgba(16, 16, 16, 1)" }} expand="lg">
         <Container>
-          <Button id = "menuButton" onClick={show} >
-            <FaBars/>
+          <Button id="menuButton" onClick={show}>
+            <FaBars />
           </Button>
           <Stack direction="horizontal" gap={3}>
             <button className="btn btn-outline-dark">

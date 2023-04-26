@@ -2,7 +2,7 @@
 import PeopleCard from "../../../ui/PeopleCard";
 import React, { useEffect, useState } from "react";
 import { Button, Stack,Row,Nav, Form , Card, Container} from 'react-bootstrap' ;
-import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
+// import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import Multiselect from 'multiselect-react-dropdown';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../globals.css"

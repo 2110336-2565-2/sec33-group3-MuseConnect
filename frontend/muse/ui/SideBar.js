@@ -1,15 +1,23 @@
 "use client";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { Montserrat } from "@next/font/google";
-import { BsFillChatRightDotsFill ,BsSearch,BsFillCalendarCheckFill } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg"
+import {
+  BsFillChatRightDotsFill,
+  BsSearch,
+  BsFillCalendarCheckFill,
+} from "react-icons/bs";
+import { CgProfile } from "react-icons/cg";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function SideBar({ children }) {
   const isActive = children;
-  const user = localStorage.getItem("user");
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
 
   return (
     <nav
@@ -28,25 +36,32 @@ export default function SideBar({ children }) {
                 Profile
               </a> */}
               {/* use this when need to present the feature */}
-              {user && <a href="/Home/Profile" className={montserrat.className}>
-                <CgProfile size={20} style={{marginRight:"8px"}} />
-                Profile
-              </a>}
+              {user && (
+                <a href="/Home/Profile" className={montserrat.className}>
+                  <CgProfile size={20} style={{ marginRight: "8px" }} />
+                  Profile
+                </a>
+              )}
             </li>
 
             <li>
               <a href="/Chat" className={montserrat.className}>
-                <BsFillChatRightDotsFill size={15} style={{ color: "#34141", marginRight: "12px" }} />
+                <BsFillChatRightDotsFill
+                  size={15}
+                  style={{ color: "#34141", marginRight: "12px" }}
+                />
                 Chats
               </a>
             </li>
             <li>
               <a href="/Home/Search" className={montserrat.className}>
-                <BsSearch size={15} style={{ color: "#34141", marginRight: "12px" }} />
+                <BsSearch
+                  size={15}
+                  style={{ color: "#34141", marginRight: "12px" }}
+                />
                 Search
               </a>
             </li>
-
           </ul>
         </div>
       </div>

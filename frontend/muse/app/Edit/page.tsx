@@ -5,6 +5,8 @@ import Head from "next/head";
 import Link from 'next/link'
 import styles from "./page.module.css";
 import React, { useEffect, useState } from 'react'
+const API_HOST = require("../../config/index")
+
 const Edit = () => {
     const [user, setUser] = useState(null);
     //Get user's info from database
@@ -13,7 +15,8 @@ const Edit = () => {
             const user_loc  = localStorage.getItem("user");
             const userToken = await JSON.parse(user_loc).token;
             const userID = await JSON.parse(user_loc)._id;
-            const respone = await fetch(`http://localhost:4000/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
+            
+            const respone = await fetch(`${API_HOST}/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
                 method: "GET",
                 headers: {
                 authorization: `Bearer ${userToken}`,

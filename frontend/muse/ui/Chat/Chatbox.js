@@ -12,7 +12,6 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { eventFormat, haveSide } from "../../logic/chat";
-import { style1 } from "../../app/Chat/[id]/page.module.css";
 // connect socket with server
 const socket = io.connect("http://localhost:4000");
 import { Montserrat } from "@next/font/google";
