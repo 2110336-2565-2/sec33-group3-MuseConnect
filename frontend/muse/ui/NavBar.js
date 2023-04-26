@@ -33,7 +33,7 @@ export default function NavBar({ show }) {
               </a>
             </button>
             <button className="btn btn-success ">
-              <a href="/Login" className={montserrat.className}>
+              <a href="/Login" id='loginbutton' className={montserrat.className}>
                 Log in
               </a>
             </button>

@@ -40,7 +40,7 @@ export default function LoginForm() {
     return (
         <div className={montserrat.className}>
         <p className='top'>
-            <a className='topic' href="/">Muse Connect</a>
+            <a className='topic' id='login_header' href="/">Muse Connect</a>
         </p>
         {/* className='topic'  */}
         <p className='subheading'>Nice to see you again! :-)</p>
@@ -78,7 +78,7 @@ export default function LoginForm() {
 
 
             <div style={{textAlign: "center",marginBottom: "10px"}}>
-            <button type="submit" className="btn btn-success" style={{marginTop: "25px"}}>Log in</button>
+            <button type="submit" id='loginbutton' className="btn btn-success" style={{marginTop: "25px"}}>Log in</button>
             </div>
             <div>
                 <p style={{color: "White",textAlign: "center"}}>Don't have an account? <a href="/Signup" style={{color: "#188756"}}>Sign up</a></p>
