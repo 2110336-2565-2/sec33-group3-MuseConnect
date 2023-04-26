@@ -10,7 +10,8 @@ import { createContext } from 'react'
 
 import { redirect } from 'next/dist/server/api-utils'
 const Context = createContext()
-const SignUp_Api_Path = "http://localhost:4000/api/signup";
+const {API_HOST} = require("../config/index")
+const SignUp_Api_Path = `${API_HOST}/api/signup`;
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] })
 

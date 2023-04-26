@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import Form from 'react-bootstrap/Form';
 import { Montserrat } from '@next/font/google';
 const montserrat = Montserrat({ subsets: ['latin'] });
+const {API_HOST}= require("../../config/index")
 
 // test upload picture api
 const sendData = async (base64,user) => {
   const userToken = await JSON.parse(user).token;
   const userId = await JSON.parse(user)._id;
   const respone = await fetch(
-    `http://localhost:4000/api/user/upload/${userId}`,
+    `${API_HOST}/api/user/upload/${userId}`,
     {
       method: "PUT",
       headers: {
@@ -60,7 +61,7 @@ export default function page() {
   const display = async () => {
     const userToken = await JSON.parse(user).token;
     const userId = await JSON.parse(user)._id;
-    const respone = await fetch(`http://localhost:4000/api/user/${userId}`, {
+    const respone = await fetch(`${API_HOST}/api/user/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +91,7 @@ export default function page() {
   const chatHandler = async (userId) => {
     const user = await JSON.parse(localStorage.getItem("user")); // {email : ,token : ,_id : }
     if (user) {
-      const respone = await fetch("http://localhost:4000/api/chat", {
+      const respone = await fetch(`${API_HOST}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

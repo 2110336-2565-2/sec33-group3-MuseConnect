@@ -12,6 +12,7 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 import {usePathname} from 'next/navigation'
 import { useRouter } from "next/navigation";
 import styles from '../../Profile/page.css'
+const {API_HOST} = require("../../../../config/index")
   
 function split(eventarray) {
   if (!Array.isArray(eventarray)) return [[], []];
@@ -39,7 +40,7 @@ export default function profile() {
       const user_loc = localStorage.getItem("user");
       const userToken = await JSON.parse(user_loc).token;
       const userID = id;
-      const respone = await fetch(`http://localhost:4000/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
+      const respone = await fetch(`${API_HOST}/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
         method: "GET",
         headers: {
           authorization: `Bearer ${userToken}`,
@@ -65,7 +66,7 @@ export default function profile() {
       const user_loc = localStorage.getItem("user");
       const userToken = await JSON.parse(user_loc).token;
       const userID = id;
-      const respone = await fetch(`http://localhost:4000/api/event/user/${userID}`, {
+      const respone = await fetch(`${API_HOST}/api/event/user/${userID}`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${userToken}`,
@@ -93,7 +94,7 @@ export default function profile() {
   const chatHandler = async (userId) => {
     const user = await JSON.parse(localStorage.getItem("user")); // {email : ,token : ,_id : }
     if (user) {
-      const respone = await fetch("http://localhost:4000/api/chat", {
+      const respone = await fetch(`${API_HOST}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

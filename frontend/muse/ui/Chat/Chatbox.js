@@ -11,9 +11,10 @@ import {
   Form,
   InputGroup,
 } from "react-bootstrap";
+const {API_HOST} = require("../../config/index")
 import { eventFormat, haveSide } from "../../logic/chat";
 // connect socket with server
-const socket = io.connect("http://localhost:4000");
+const socket = io.connect(API_HOST);
 import { Montserrat } from "@next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -43,7 +44,7 @@ function Chatbox({ chatId }) {
   useEffect(() => {
     const userToken = user.token;
     if (status !== "") {
-      fetch(`http://localhost:4000/api/event/${latestMessageEvent}`, {
+      fetch(`${API_HOST}/api/event/${latestMessageEvent}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -127,7 +128,7 @@ function Chatbox({ chatId }) {
   // set chatRooms to all related to current user when current user change
   useEffect(() => {
     const fetchChats = async () => {
-      const respone = await fetch("http://localhost:4000/api/chat", {
+      const respone = await fetch(`${API_HOST}/api/chat`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${user.token}`,
@@ -171,7 +172,7 @@ function Chatbox({ chatId }) {
     const userToken = user.token;
     if (!userToken) return;
     // fetch all messages for the chat room
-    fetch(`http://localhost:4000/api/message/${chatId}`, {
+    fetch(`${API_HOST}/api/message/${chatId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -193,7 +194,7 @@ function Chatbox({ chatId }) {
       });
 
     // get musician and organizer
-    fetch(`http://localhost:4000/api/chat/${chatId}`, {
+    fetch(`${API_HOST}/api/chat/${chatId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -233,7 +234,7 @@ function Chatbox({ chatId }) {
 
     if (messageInput) {
       // save message to the database
-      fetch("http://localhost:4000/api/message", {
+      fetch(`${API_HOST}/api/message`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -276,7 +277,7 @@ function Chatbox({ chatId }) {
     }
     // console.log(currentOrganizerDetails)
     // save event to the database
-    fetch("http://localhost:4000/api/event", {
+    fetch(`${API_HOST}/api/event`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -305,7 +306,7 @@ function Chatbox({ chatId }) {
         window.location.reload();
 
         // save message to the database
-        return fetch("http://localhost:4000/api/message", {
+        return fetch(`${API_HOST}/api/message`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

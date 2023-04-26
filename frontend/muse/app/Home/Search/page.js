@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../globals.css"
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
+const {API_HOST} = require("../../../config/index")
 
 export default function page() {
   const [musicians, setMusicians] = useState(null);
@@ -29,7 +30,7 @@ export default function page() {
       }).toString();
       console.log(queryParams);
       const respone = await fetch(
-        "http://localhost:4000/api/musician?" + queryParams,
+        `${API_HOST}/api/musician?` + queryParams,
         {
           method: "GET",
           headers: {

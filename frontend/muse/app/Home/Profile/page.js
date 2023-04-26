@@ -9,6 +9,7 @@ import UserPhoto from '../../../ui/UserPhoto';
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
 import styles from './page.css'
+const {API_HOST} = require("../../../config/index")
 
 function toArray(userevent) {
   if (Array.isArray(userevent)) return userevent
@@ -40,7 +41,7 @@ export default function profile() {
       const user_loc = localStorage.getItem("user");
       const userToken = await JSON.parse(user_loc).token;
       const userID = await JSON.parse(user_loc)._id;
-      const respone = await fetch(`http://localhost:4000/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
+      const respone = await fetch(`${API_HOST}/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
         method: "GET",
         headers: {
           authorization: `Bearer ${userToken}`,
@@ -62,7 +63,7 @@ export default function profile() {
       const user_loc = localStorage.getItem("user");
       const userToken = await JSON.parse(user_loc).token;
       const userID = await JSON.parse(user_loc)._id;
-      const respone = await fetch(`http://localhost:4000/api/event/user/${userID}`, {
+      const respone = await fetch(`${API_HOST}/api/event/user/${userID}`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${userToken}`,
@@ -133,13 +134,13 @@ export default function profile() {
                 < BsFillTelephoneFill size={20} style={{ marginRight: "8px" }} />
                 {user.phone_number}
               </p>
-              <h5 className={montserrat.className}><span class="badge rounded-pill text-bg-success" style={{ fontWeight: "normal", marginBottom: "-8px" }}>{user.role}</span></h5>
+              <h5 className={montserrat.className}><span className="badge rounded-pill text-bg-success" style={{ fontWeight: "normal", marginBottom: "-8px" }}>{user.role}</span></h5>
 
               <div style={{ marginBottom: "15px" }} className={montserrat.className}></div>
               <Stack className={montserrat.className} direction='horizontal' gap={1}>
 
                 {(arr(user))?.map((pref) => (
-                  <h5 className={montserrat.className}><span class="badge rounded-pill text-bg-light" style={{ fontWeight: "normal" }}>{pref}</span></h5>
+                  <h5 className={montserrat.className}><span className="badge rounded-pill text-bg-light" style={{ fontWeight: "normal" }}>{pref}</span></h5>
                 ))}
               </Stack>
             </Col>
@@ -161,17 +162,17 @@ export default function profile() {
             :(
               <div style={{height: 240}}>
               {(toArray(userevent))?.map((e) => (
-                <div class="card" style={{marginTop: "0px", overflow: 'auto', display: 'inline-block', height: '100%', width: 'auto', marginRight:"15px"}}>
-                  <div class="card-header">Event</div>
-                  <div class="card-body text-success" onClick={() => handleShowModal({e})}>
-                    <h5 class="card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
-                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.location}</p>
-                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Detail: {e.detail}</p>
-                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.detail}</p>
-                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Status: {e.status}</p>
+                <div className="card" style={{marginTop: "0px", overflow: 'auto', display: 'inline-block', height: '100%', width: 'auto', marginRight:"15px"}}>
+                  <div className="card-header">Event</div>
+                  <div className="card-body text-success" onClick={() => handleShowModal({e})}>
+                    <h5 class = "card-title" className={montserrat.className} style={{ color: "white", fontWeight: "bold" }}>{e.name}</h5>
+                    <p className="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.location}</p>
+                    <p className="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Detail: {e.detail}</p>
+                    <p className="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Location: {e.detail}</p>
+                    <p className="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Status: {e.status}</p>
                     {/* <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review: {e.review_description}</p> */}
-                    <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block', fontWeight: "bold"}}>{(user.role=="MUSICIAN" && e.review_score!=null)?(
-                      <p class="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review Score: {e.review_score}</p>
+                    <p className="card-text" style={{ color: "white", marginBottom: "0px", display: 'block', fontWeight: "bold"}}>{(user.role=="MUSICIAN" && e.review_score!=null)?(
+                      <p className="card-text" style={{ color: "white", marginBottom: "0px", display: 'block'}}>Review Score: {e.review_score}</p>
                       ):("")}</p>
                   </div>
                   <Modal show={active} onHide={handleCloseModal} style={{color: "black"}}>

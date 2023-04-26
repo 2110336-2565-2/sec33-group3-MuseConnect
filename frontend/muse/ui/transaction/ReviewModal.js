@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 // import StarRating from './StarRating';
 import "./ReviewModal.css";
+const {API_HOST} = require("../../config/index")
 
 export default function ReviewModal(props) {
   const [description, setDescription] = useState("");
@@ -12,7 +13,7 @@ export default function ReviewModal(props) {
   useEffect(() => {
     let userToken = props.storedUser.token;
     if (userToken != null) {
-      fetch(`http://localhost:4000/api/event/${props.eventId}`, {
+      fetch(`${API_HOST}/api/event/${props.eventId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export default function ReviewModal(props) {
     e.preventDefault();
     let userToken = props.storedUser.token;
 
-    fetch(`http://localhost:4000/api/event/${props.eventId}`, {
+    fetch(`${API_HOST}/api/event/${props.eventId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

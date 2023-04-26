@@ -11,6 +11,7 @@ import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
 //import {redirect} from 'next/navigation';
 import { useRouter } from 'next/navigation';
+const {API_HOST} = require("../config/index")
 
 export default function EditOrganizerForm() {
     const router = useRouter();
@@ -23,7 +24,7 @@ export default function EditOrganizerForm() {
             const user_loc  = localStorage.getItem("user");
             const userToken = await JSON.parse(user_loc).token;
             const userID = await JSON.parse(user_loc)._id;
-            const respone = await fetch(`http://localhost:4000/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
+            const respone = await fetch(`${API_HOST}/api/user/${userID}`, { //ส่งไอดีมาแปะแทนด้วย
                 method: "GET",
                 headers: {
                 authorization: `Bearer ${userToken}`,
@@ -103,7 +104,7 @@ export default function EditOrganizerForm() {
         const user_loc  = localStorage.getItem("user");
         const userToken = await JSON.parse(user_loc).token;
         const userID = await JSON.parse(user_loc)._id;
-        const respone = await fetch(`http://localhost:4000/api/user/${userID}`,{
+        const respone = await fetch(`${API_HOST}/api/user/${userID}`,{
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

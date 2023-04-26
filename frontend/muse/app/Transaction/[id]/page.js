@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import TransactionNavbar from "../../../ui/transaction/TransactionNavbar";
 import ReviewModal from "../../../ui/transaction/ReviewModal";
 import "./page.css";
+const {API_HOST} = require("../../../config/index")
 
 export default function page() {
   const eventId = usePathname().split("/").at(-1);
@@ -41,7 +42,7 @@ export default function page() {
         setStoredUser(tmpUser);
 
         // fetch user details
-        fetch(`http://localhost:4000/api/user/${tmpUser._id}`, {
+        fetch(`${API_HOST}/api/user/${tmpUser._id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -62,7 +63,7 @@ export default function page() {
           });
 
         // fetch event details
-        fetch(`http://localhost:4000/api/event/${eventId}`, {
+        fetch(`${API_HOST}/api/event/${eventId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -93,7 +94,7 @@ export default function page() {
     if (transactionStatus !== "") {
       let userToken = storedUser.token;
 
-      fetch(`http://localhost:4000/api/event/${eventId}`, {
+      fetch(`${API_HOST}/api/event/${eventId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -127,7 +128,7 @@ export default function page() {
     // console.log({ interlocutorUserId });
 
     if (interlocutorUserId != undefined) {
-      fetch(`http://localhost:4000/api/chat`, {
+      fetch(`${API_HOST}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

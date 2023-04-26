@@ -1,7 +1,7 @@
 "use client";
 import { React,useEffect,useState} from "react";
 import { Image } from "react-bootstrap";
-
+const {API_HOST} = require("../config/index")
 let user = null ;
 
 // test upload picture api
@@ -9,7 +9,7 @@ const sendData = async (base64) => {
   const userToken = await JSON.parse(user).token;
   const userId = await JSON.parse(user)._id;
   const respone = await fetch(
-    `http://localhost:4000/api/user/upload/${userId}`,
+    `${API_HOST}/api/user/upload/${userId}`,
     {
       method: "PUT",
       headers: {
@@ -60,7 +60,7 @@ export default function UserPhoto() {
   const display = async () => {
     const userToken = await JSON.parse(user).token;
     const userId = await JSON.parse(user)._id;
-    const respone = await fetch(`http://localhost:4000/api/user/${userId}`, {
+    const respone = await fetch(`${API_HOST}/api/user/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ export default function UserPhoto() {
       onMouseEnter={(e) => onHover(e)}
       onMouseLeave={(e) => onHoverOver(e)}
       onClick={goToPic}
-      class="userimage" src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem", cursor:"pointer"}}/>
+      className="userimage" src={picture} style={{borderRadius: "8rem",width: "14rem",height: "14rem", cursor:"pointer"}}/>
     </div>
   );
 

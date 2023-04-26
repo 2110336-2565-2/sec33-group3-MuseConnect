@@ -5,7 +5,7 @@ import Head from "next/head";
 import Link from 'next/link'
 import styles from "./page.module.css";
 import React, { useEffect, useState } from 'react'
-const API_HOST = require("../../config/index")
+const {API_HOST} = require("../../config/index")
 
 const Edit = () => {
     const [user, setUser] = useState(null);

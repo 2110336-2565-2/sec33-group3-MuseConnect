@@ -6,7 +6,7 @@ import NavBar from '../ui/NavBar'
 import '../app/globals.css'
 import Elehome from '../ui/elehome';
 import {AiFillPlayCircle, AiFillPauseCircle} from "react-icons/ai";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { Montserrat } from '@next/font/google';
 import {Row, Col} from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack';
@@ -21,6 +21,7 @@ const montserrat = Montserrat({
 })
 
 export default function Home() {
+  
   const [isActive, setActive] = useState("false");
   const handleClick = () => {
     setActive(!isActive);
@@ -35,10 +36,6 @@ export default function Home() {
   const handleMouseOut = () => {
     setIsHovering(false);
   };
-  var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
-  var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
-    return new bootstrap.Offcanvas(offcanvasEl)
-  })
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioObj, setAudioObj] = useState(null);

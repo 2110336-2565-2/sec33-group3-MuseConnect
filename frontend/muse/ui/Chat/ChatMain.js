@@ -6,6 +6,7 @@ import ChatsideBar from "./Chatsidebar";
 import "./chat2.css";
 import { Montserrat } from "@next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
+const {API_HOST} = require("../../config/index")
 
 const ChatMain = () => {
   const [chatRooms, setChatRooms] = useState(null);
@@ -24,7 +25,7 @@ const ChatMain = () => {
   // set chatRooms to all related to current user when current user change
   useEffect(() => {
     const fetchChats = async () => {
-      const respone = await fetch("http://localhost:4000/api/chat", {
+      const respone = await fetch(`${API_HOST}/api/chat`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${user.token}`,

@@ -9,7 +9,7 @@ import { createContext } from 'react'
 const Context = createContext()
 import { Montserrat } from '@next/font/google'
 const montserrat = Montserrat({ subsets: ['latin'] });
-const Login_Api_Path = "http://localhost:4000/api/login"
+const { API_HOST } = require("../config/index")
 
 export default function LoginForm() {
     const [passwordShown, setPasswordShown] = useState(false);
@@ -17,7 +17,7 @@ export default function LoginForm() {
         setPasswordShown(!passwordShown);
     };
     const onSubmit = async (values, actions) => {
-        const respone = await fetch(Login_Api_Path,{
+        const respone = await fetch(`${API_HOST}/api/login`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

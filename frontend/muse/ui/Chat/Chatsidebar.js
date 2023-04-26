@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Montserrat } from "@next/font/google";
 const montserrat = Montserrat({ subsets: ["latin"] });
 import { BsPersonLinesFill } from "react-icons/bs";
+const {API_HOST} = require("../../config/index")
 
 export default function ChatsideBar({ children}) {
   //move from Chatmain
@@ -25,7 +26,7 @@ export default function ChatsideBar({ children}) {
   // set chatRooms to all related to current user when current user change
   useEffect(() => {
     const fetchChats = async () => {
-      const respone = await fetch("http://localhost:4000/api/chat", {
+      const respone = await fetch(`${API_HOST}/api/chat`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${user.token}`,
