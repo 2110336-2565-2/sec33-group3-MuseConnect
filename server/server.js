@@ -88,7 +88,8 @@ mongoose
       pingTimeout: 60000,
       cors: {
         //origin: "http://localhost:3000",
-        origin : "https://sec33-group3-muse-connect-5kdwszn2t-pacharawin.vercel.app"
+        //origin : "https://sec33-group3-muse-connect-5kdwszn2t-pacharawin.vercel.app"
+        origin : '*'
       },
     });
 
