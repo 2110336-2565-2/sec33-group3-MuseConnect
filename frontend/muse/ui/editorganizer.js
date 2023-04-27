@@ -229,31 +229,31 @@ export default function EditOrganizerForm() {
                     
                     <input class="form-check-input" style={{marginRight:"5px"}}
                     type="checkbox"
-                    value='Pop'
+                    value='pop'
                     onChange={e => handleChange(e)} />
                     <span style={{color:"white",marginRight:"15px"}}>Pop</span>
 
                     <input class="form-check-input" style={{marginRight:"5px"}}
                     type="checkbox"
-                    value='Rock'
+                    value='rock'
                     onChange={e => handleChange(e)} />
                     <span style={{color:"white",marginRight:"15px"}}>Rock</span>
 
                     <input class="form-check-input" style={{marginRight:"5px"}}
                     type="checkbox"
-                    value='Jazz'
+                    value='jazz'
                     onChange={e => handleChange(e)} />
                     <span style={{color:"white",marginRight:"15px"}}>Jazz</span>
 
                     <input class="form-check-input" style={{marginRight:"5px"}}
                     type="checkbox"
-                    value='Country'
+                    value='country'
                     onChange={e => handleChange(e)} />
                     <span style={{color:"white",marginRight:"15px"}}>Country</span>
 
                     <input class="form-check-input" style={{marginRight:"5px"}}
                     type="checkbox"
-                    value='Indie'
+                    value='indie'
                     onChange={e => handleChange(e)} />
                     <span style={{color:"white",marginRight:"15px"}}>Indie</span>
                 </div>

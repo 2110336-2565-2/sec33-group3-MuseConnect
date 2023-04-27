@@ -121,9 +121,9 @@ export default function page() {
             }}
             >
       <div className={montserrat.className} style={{width:"40%", marginLeft:"5em", marginTop:"5em"}}>
-      <h1 style={{ marginTop: "10px", marginBottom: "0.5em", fontSize:"3em"}} className={montserrat.className}>Upload your profile picture</h1>
+      <h1 style={{ marginTop: "10px", marginBottom: "0.5em", fontSize:"3em", color:"white"}} className={montserrat.className}>Upload your profile picture</h1>
         <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>This profile picture will be shown at profile page.</Form.Label>
+          <Form.Label style={{color:"white"}}>This profile picture will be shown at profile page.</Form.Label>
           <Form.Control type="file" className="picture" />
         </Form.Group>
         {/* <input type="file" className="picture" /> */}
